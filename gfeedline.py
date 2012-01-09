@@ -37,21 +37,20 @@ class MainWindow(object):
     def stop(self, *args):
         reactor.stop()
 
-class FeedWebKit(object):
+class FeedWebView(WebKit.WebView):
 
     def __init__(self, parent):
+        super(FeedWebView, self).__init__()
+        self.load_uri("file://%s" % os.path.abspath('base.html')) 
 
-        self.w = w = WebKit.WebView()
-        w.load_uri("file://%s" % os.path.abspath('base.html')) 
-
-        parent.sw.add(self.w)
-        self.w.show_all()
+        parent.sw.add(self)
+        self.show_all()
 
     def update(self, text=None):
         text = text.replace('\n', '<br>')
         js = 'append("%s")' % text
         print js
-        self.w.execute_script(js)
+        self.execute_script(js)
 
 class TwitterTime(object):
 
@@ -65,10 +64,10 @@ class TwitterTime(object):
 
 class HomeTimeline(object):
 
-    def __init__(self, win=None):
+    def __init__(self, view=None):
         self.all_entries = []
         self.last_id = 0
-        self.win = win
+        self.view = view
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -86,7 +85,7 @@ class HomeTimeline(object):
                                   entry.user.screen_name, self.conv(entry.text))
             #print text
             self.last_id = entry.id
-            self.win.update(text)
+            self.view.update(text)
 
         self.all_entries = []
 
@@ -103,8 +102,8 @@ class HomeTimeline(object):
         GLib.timeout_add_seconds(30, self.start)
 
 main = MainWindow()
-w = FeedWebKit(main)
-home = HomeTimeline(w)
+view = FeedWebView(main)
+home = HomeTimeline(view)
 home.start()
 
 reactor.run()
