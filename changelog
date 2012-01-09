@@ -1,0 +1,8 @@
+2012-01-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.glade: Added Notebook UI.
+
+2012-01-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.py: New project
+

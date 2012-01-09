@@ -17,33 +17,41 @@ from oauth import oauth
 consumer = oauth.OAuthConsumer(sys.argv[1], sys.argv[2])
 token = oauth.OAuthToken(sys.argv[3], sys.argv[4])
 
-
-class FeedWebKit(Gtk.Window):
+class MainWindow(object):
 
     def __init__(self):
 
-        GObject.GObject.__init__(self)
-        self.connect("delete-event", self.stop)
-        self.resize(640, 480)
+        gui = Gtk.Builder()
+        gui.add_from_file(os.path.abspath('gfeedline.glade'))
+
+        self.window = window = gui.get_object('window1')
+        notebook = gui.get_object('notebook1')
+        menubar = gui.get_object('menubar1')
+        self.sw = gui.get_object('scrolledwindow1')
+
+        window.resize(480, 600)
+        window.connect("delete-event", self.stop)
+        window.show_all()
+        menubar.hide()
+
+    def stop(self, *args):
+        reactor.stop()
+
+class FeedWebKit(object):
+
+    def __init__(self, parent):
 
         self.w = w = WebKit.WebView()
         w.load_uri("file://%s" % os.path.abspath('base.html')) 
 
-        self.sw = sw = Gtk.ScrolledWindow()
-        sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-
-        sw.add(w)
-        self.add(sw)
-        self.show_all()
+        parent.sw.add(self.w)
+        self.w.show_all()
 
     def update(self, text=None):
         text = text.replace('\n', '<br>')
         js = 'append("%s")' % text
         print js
         self.w.execute_script(js)
-
-    def stop(self, *args):
-        reactor.stop()
 
 class TwitterTime(object):
 
@@ -94,7 +102,8 @@ class HomeTimeline(object):
 
         GLib.timeout_add_seconds(30, self.start)
 
-w = FeedWebKit()
+main = MainWindow()
+w = FeedWebKit(main)
 home = HomeTimeline(w)
 home.start()
 
