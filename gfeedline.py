@@ -21,6 +21,7 @@ from oauth import oauth
 
 consumer = oauth.OAuthConsumer(sys.argv[1], sys.argv[2])
 token = oauth.OAuthToken(sys.argv[3], sys.argv[4])
+TwitterOauth = twitter.Twitter(consumer=consumer, token=token)
 
 class MainWindow(object):
 
@@ -80,12 +81,14 @@ class TwitterTime(object):
     def get_local_time(self):
         return self.datetime.strftime('%H:%M:%S')
 
-class HomeTimeline(object):
 
-    def __init__(self, view=None):
+class TwitterAPI(object):
+
+    def __init__(self, api, view=None):
         self.all_entries = []
         self.last_id = 0
         self.view = view
+        self.api = api
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -112,23 +115,12 @@ class HomeTimeline(object):
 
     def start(self):
         params = {'since_id': str(self.last_id)} if self.last_id else {}
-        twitter.Twitter(consumer=consumer, token=token).\
-            home_timeline(self.got_entry, params).\
+        self.api(self.got_entry, params).\
             addErrback(self.error).\
             addBoth(lambda x: self.print_entry())
 
         GLib.timeout_add_seconds(30, self.start)
 
-class Replies(HomeTimeline):
-
-    def start(self):
-        params = {'since_id': str(self.last_id)} if self.last_id else {}
-        twitter.Twitter(consumer=consumer, token=token).\
-            mentions(self.got_entry, params).\
-            addErrback(self.error).\
-            addBoth(lambda x: self.print_entry())
-
-        GLib.timeout_add_seconds(30, self.start)
 
 if __name__ == '__main__':
     main = MainWindow()
@@ -136,13 +128,13 @@ if __name__ == '__main__':
     sw1 = FeedScrolledWindow()
     main.notebook.append_page(sw1, None)
     view1 = FeedWebView(sw1)
-    home = HomeTimeline(view1)
+    home = TwitterAPI(TwitterOauth.home_timeline, view1)
     home.start()
 
     sw2 = FeedScrolledWindow()
     main.notebook.append_page(sw2, None)
     view2 = FeedWebView(sw2)
-    replies = Replies(view2)
-    replies.start()
+    mentions = TwitterAPI(TwitterOauth.mentions, view2)
+    mentions.start()
 
     reactor.run()
