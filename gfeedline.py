@@ -1,4 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/python
+#
+# gfeedline - Gnome Social Feed Reader
+#
+# Copyright (c) 2012, Yoshizumi Endo.
+# Licence: GPL3
 
 from lib import gtk3reactor
 gtk3reactor.install()
@@ -25,7 +30,7 @@ class MainWindow(object):
         gui.add_from_file(os.path.abspath('gfeedline.glade'))
 
         self.window = window = gui.get_object('window1')
-        notebook = gui.get_object('notebook1')
+        self.notebook = gui.get_object('notebook1')
         menubar = gui.get_object('menubar1')
         self.sw = gui.get_object('scrolledwindow1')
 
@@ -37,13 +42,26 @@ class MainWindow(object):
     def stop(self, *args):
         reactor.stop()
 
+class FeedScrolledWindow(Gtk.ScrolledWindow):
+
+    def __init__(self):
+        super(FeedScrolledWindow, self).__init__()
+
+        self.set_margin_top(4)
+        self.set_margin_bottom(4)
+        self.set_margin_right(4)
+        self.set_margin_bottom(4)
+
+        self.set_shadow_type(Gtk.ShadowType.IN)
+        self.show()
+
 class FeedWebView(WebKit.WebView):
 
-    def __init__(self, parent):
+    def __init__(self, scrolled_window):
         super(FeedWebView, self).__init__()
         self.load_uri("file://%s" % os.path.abspath('base.html')) 
 
-        parent.sw.add(self)
+        scrolled_window.add(self)
         self.show_all()
 
     def update(self, text=None):
@@ -101,9 +119,30 @@ class HomeTimeline(object):
 
         GLib.timeout_add_seconds(30, self.start)
 
-main = MainWindow()
-view = FeedWebView(main)
-home = HomeTimeline(view)
-home.start()
+class Replies(HomeTimeline):
 
-reactor.run()
+    def start(self):
+        params = {'since_id': str(self.last_id)} if self.last_id else {}
+        twitter.Twitter(consumer=consumer, token=token).\
+            mentions(self.got_entry, params).\
+            addErrback(self.error).\
+            addBoth(lambda x: self.print_entry())
+
+        GLib.timeout_add_seconds(30, self.start)
+
+if __name__ == '__main__':
+    main = MainWindow()
+
+    sw1 = FeedScrolledWindow()
+    main.notebook.append_page(sw1, None)
+    view1 = FeedWebView(sw1)
+    home = HomeTimeline(view1)
+    home.start()
+
+    sw2 = FeedScrolledWindow()
+    main.notebook.append_page(sw2, None)
+    view2 = FeedWebView(sw2)
+    replies = Replies(view2)
+    replies.start()
+
+    reactor.run()
