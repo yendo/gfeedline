@@ -40,6 +40,12 @@ class MainWindow(object):
         window.show_all()
         menubar.hide()
 
+    def append_page(self):
+        sw1 = FeedScrolledWindow()
+        main.notebook.append_page(sw1, None)
+        view1 = FeedWebView(sw1)
+        
+
     def stop(self, *args):
         reactor.stop()
 
@@ -128,12 +134,14 @@ if __name__ == '__main__':
     sw1 = FeedScrolledWindow()
     main.notebook.append_page(sw1, None)
     view1 = FeedWebView(sw1)
+
     home = TwitterAPI(TwitterOauth.home_timeline, view1)
     home.start()
 
     sw2 = FeedScrolledWindow()
     main.notebook.append_page(sw2, None)
     view2 = FeedWebView(sw2)
+
     mentions = TwitterAPI(TwitterOauth.mentions, view2)
     mentions.start()
 
