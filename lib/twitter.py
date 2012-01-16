@@ -75,12 +75,14 @@ class TwitterAPI(object):
         time = TwitterTime(entry.created_at)
 
         text = ("<div style='line-height: 1.4;'>"
-                "<span style='color: gray'>%s</span> "
+                "<span style='color: gray'>(%s)</span> "
+                "<img src=%s> "
                 "<span style='color: #%s; font-weight: bold;'>%s</span> " 
                 "%s"
                 "</div>"
                 ) % (
             time.get_local_time(), 
+            entry.user.profile_image_url.replace('_normal.', '_mini.'),
             user_color.get(entry.user.id), entry.user.screen_name,  
             self.conv(entry.text))
 
