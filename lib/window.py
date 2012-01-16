@@ -66,7 +66,7 @@ class FeedWebView(WebKit.WebView):
 
 class FeedView(object):
 
-    def __init__(self, window):
+    def __init__(self, window, name=''):
         sw = FeedScrolledWindow()
-        window.notebook.append_page(sw, None)
+        window.notebook.append_page(sw, Gtk.Label.new_with_mnemonic(name))
         self.webview = FeedWebView(sw)
