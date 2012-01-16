@@ -24,28 +24,25 @@ class FeedListStore(Gtk.ListStore):
     def __init__(self):
         super(FeedListStore, self).__init__(object, object, object)
         self.window = MainWindow()
+        self.api_token = TwitterAPIToken().api
 
         target = [
-#            {'api': TwitterOauth.home_timeline, 'argument': {}},
-#            {'api': TwitterOauth.mentions, 'argument': {}},
-#            {'api': TwitterOauth.list_timeline, 'argument': 
-#             {'slug':'friends', 'owner_screen_name': 'yendo0206'}},
-            {'api': TwitterFeedOauth.userstream, 'argument': []},
-            {'api': TwitterFeedOauth.track, 'argument': ['Debian', 'Ubuntu']},
+#            {'api': 'Home TimeLine', 'argument': {}},
+            {'api': 'Mentions', 'argument': {}},
+            {'api': 'List TimeLine', 'argument': 
+             {'slug':'friends', 'owner_screen_name': 'yendo0206'}},
+            {'api': 'User Stream', 'argument': []},
+            {'api': 'Track', 'argument': ['Debian', 'Ubuntu']},
             ]
         
         for i in target:
             self.append(i)
 
     def append(self, source, iter=None):
-        view = FeedView(self.window)
 
-        if source['api'] == TwitterFeedOauth.track or \
-                source['api'] == TwitterFeedOauth.userstream : # FIXME
-            print source['api']
-            obj = TwitterFeedAPI(source['api'], view, source['argument'])
-        else:
-            obj = TwitterAPI(source['api'], view, source['argument'])
+        api = self.api_token[source['api']]()
+        view = FeedView(self.window, api.api_name)
+        obj = api.create_obj(view, source['argument'])
 
         list = [source['api'], source['argument'], obj]
         new_iter = self.insert_before(iter, list)

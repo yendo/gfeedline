@@ -23,6 +23,59 @@ token = oauth.OAuthToken(sys.argv[3], sys.argv[4])
 
 user_color = UserColor()
 
+class TwitterAPIToken(object):
+
+    def __init__(self):
+        self.api =  {
+            'Home TimeLine':  TwitterAPIHomeTimeLine,
+            'List TimeLine':  TwitterAPIListTimeLine,
+            'Mentions': TwitterAPIMentions,
+    
+            'User Stream': TwitterAPIUserStream,
+            'Track':  TwitterAPITrack,
+            }
+
+class TwitterAPIBase(object):
+
+    def create_obj(self, view, params):
+        obj = self.output(self.api, view, params)
+        return obj
+
+class TwitterAPIHomeTimeLine(TwitterAPIBase):
+
+    def __init__(self):
+        self.api = TwitterOauth.home_timeline
+        self.output = TwitterAPI
+        self.api_name = 'Home TimeLine'
+
+class TwitterAPIListTimeLine(TwitterAPIBase):
+
+    def __init__(self):
+        self.api = TwitterOauth.list_timeline
+        self.output = TwitterAPI
+        self.api_name = 'List TimeLine'
+
+class TwitterAPIMentions(TwitterAPIBase):
+
+    def __init__(self):
+        self.api = TwitterOauth.mentions
+        self.output = TwitterAPI
+        self.api_name = 'Mentions'
+
+class TwitterAPIUserStream(TwitterAPIBase):
+
+    def __init__(self):
+        self.api = TwitterFeedOauth.userstream
+        self.output = TwitterFeedAPI
+        self.api_name = 'User Stream'
+
+class TwitterAPITrack(TwitterAPIBase):
+
+    def __init__(self):
+        self.api = TwitterFeedOauth.track
+        self.output = TwitterFeedAPI
+        self.api_name = 'Track'
+    
 
 class Twitter(twitter.Twitter):
 
