@@ -31,7 +31,10 @@ class Twitter(twitter.Twitter):
                 delegate, params, txml.Statuses, extra_args=extra_args)
 
 class TwitterFeed(twitter.TwitterFeed):
-    pass
+
+    def userstream(self, delegate, args=None):
+        return self._rtfeed('https://userstream.twitter.com/2/user.json',
+                            delegate, args)
 
 TwitterOauth = Twitter(consumer=consumer, token=token)
 TwitterFeedOauth = TwitterFeed(consumer=consumer, token=token)
