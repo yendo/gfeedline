@@ -96,7 +96,7 @@ class TwitterAPI(object):
     def __init__(self, api, view=None):
         self.all_entries = []
         self.last_id = 0
-        self.view = view
+        self.view = view.webview
         self.api = api
 
     def got_entry(self, msg, *args):
@@ -157,28 +157,26 @@ class TwitterFeedAPI(TwitterAPI):
 #            addBoth(lambda x: self.print_entry())
 
 
+class FeedView(object):
+
+    def __init__(self):
+        sw = FeedScrolledWindow()
+        main.notebook.append_page(sw, None)
+        self.webview = FeedWebView(sw)
+
 if __name__ == '__main__':
     user_color = UserColor()
     main = MainWindow()
 
-    sw1 = FeedScrolledWindow()
-    main.notebook.append_page(sw1, None)
-    view1 = FeedWebView(sw1)
-
+    view1 = FeedView()
     home = TwitterAPI(TwitterOauth.home_timeline, view1)
     home.start()
 
-#    sw2 = FeedScrolledWindow()
-#    main.notebook.append_page(sw2, None)
-#    view2 = FeedWebView(sw2)
-#
-#    mentions = TwitterAPI(TwitterOauth.mentions, view2)
-#    mentions.start()
+    view2 = FeedView()
+    mentions = TwitterAPI(TwitterOauth.mentions, view2)
+    mentions.start()
 
-    sw3 = FeedScrolledWindow()
-    main.notebook.append_page(sw3, None)
-    view3 = FeedWebView(sw3)
-
+    view3 = FeedView()
     track = TwitterFeedAPI(TwitterFeedOauth.track, view3)
     track.start()
 
