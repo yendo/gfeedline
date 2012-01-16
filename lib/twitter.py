@@ -16,13 +16,25 @@ from gi.repository import GLib
 from twittytwister import twitter
 from oauth import oauth
 
+from twittytwister import streaming, txml
+
 consumer = oauth.OAuthConsumer(sys.argv[1], sys.argv[2])
 token = oauth.OAuthToken(sys.argv[3], sys.argv[4])
 
-TwitterOauth = twitter.Twitter(consumer=consumer, token=token)
-TwitterFeedOauth = twitter.TwitterFeed(consumer=consumer, token=token)
-
 user_color = UserColor()
+
+
+class Twitter(twitter.Twitter):
+
+    def list_timeline(self, delegate, params={}, extra_args=None):
+        return self.__get('/1/lists/statuses.xml',
+                delegate, params, txml.Statuses, extra_args=extra_args)
+
+class TwitterFeed(twitter.TwitterFeed):
+    pass
+
+TwitterOauth = Twitter(consumer=consumer, token=token)
+TwitterFeedOauth = TwitterFeed(consumer=consumer, token=token)
 
 
 class TwitterTime(object):
@@ -37,11 +49,12 @@ class TwitterTime(object):
 
 class TwitterAPI(object):
 
-    def __init__(self, api, view=None):
+    def __init__(self, api, view=None, params={}):
         self.all_entries = []
         self.last_id = 0
         self.view = view.webview
         self.api = api
+        self.params = params
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -76,10 +89,12 @@ class TwitterAPI(object):
         print e
 
     def start(self, interval=180):
-        params = {'since_id': str(self.last_id)} if self.last_id else {}
-        self.api(self.got_entry, params).\
-            addErrback(self.error).\
-            addBoth(lambda x: self.print_all_entries())
+
+        if self.last_id:
+            self.params['since_id'] = str(self.last_id)
+
+        api = self.api(self.got_entry, params=self.params)
+        api.addErrback(self.error).addBoth(lambda x: self.print_all_entries())
 
         print TwitterOauth.rate_limit_remaining
         # print TwitterOauth.rate_limit_limit
