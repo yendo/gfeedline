@@ -37,10 +37,13 @@ class FeedListStore(Gtk.ListStore):
 
         list = [source['api'], '', obj]
         new_iter = self.insert_before(iter, list)
-        obj.start()
+
+        interval = 40 if source['api'] == TwitterOauth.home_timeline else 180
+        obj.start(interval)
 
         return new_iter
 
 if __name__ == '__main__':
+
     liststore = FeedListStore()
     reactor.run()

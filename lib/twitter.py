@@ -75,7 +75,7 @@ class TwitterAPI(object):
     def error(self, e):
         print e
 
-    def start(self):
+    def start(self, interval=180):
         params = {'since_id': str(self.last_id)} if self.last_id else {}
         self.api(self.got_entry, params).\
             addErrback(self.error).\
@@ -85,7 +85,7 @@ class TwitterAPI(object):
         # print TwitterOauth.rate_limit_limit
         # print TwitterOauth.rate_limit_reset
 
-        GLib.timeout_add_seconds(30, self.start)
+        GLib.timeout_add_seconds(interval, self.start)
 
 class TwitterFeedAPI(TwitterAPI):
 
