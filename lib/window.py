@@ -7,6 +7,7 @@
 
 import os
 
+from twisted.internet import reactor
 from gi.repository import Gtk, WebKit, GLib, GObject
 
 class MainWindow(object):
@@ -18,6 +19,7 @@ class MainWindow(object):
 
         self.window = window = gui.get_object('window1')
         self.notebook = gui.get_object('notebook1')
+        self.notebook.remove_page(0)
         menubar = gui.get_object('menubar1')
         self.sw = gui.get_object('scrolledwindow1')
 
@@ -31,7 +33,6 @@ class MainWindow(object):
         main.notebook.append_page(sw1, None)
         view1 = FeedWebView(sw1)
         
-
     def stop(self, *args):
         reactor.stop()
 
