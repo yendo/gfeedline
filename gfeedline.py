@@ -12,6 +12,7 @@ from twisted.internet import reactor
 import os
 import sys
 from BeautifulSoup import BeautifulStoneSoup
+from lib.usercolor import UserColor
 
 from gi.repository import Gtk, WebKit, GLib, GObject
 
@@ -108,8 +109,16 @@ class TwitterAPI(object):
         for entry in reversed(self.all_entries):
             time = TwitterTime(entry.created_at)
 
-            text = "%s %s %s " % (time.get_local_time(), 
-                                  entry.user.screen_name, self.conv(entry.text))
+            text = ("<div style='line-height: 1.4;'>"
+                    "<span style='color: gray'>%s</span> "
+                    "<span style='color: #%s; font-weight: bold;'>%s</span> " 
+                    "%s"
+                    "</div>"
+                    ) % (
+                time.get_local_time(), 
+                user_color.get(entry.user.id), entry.user.screen_name,  
+                self.conv(entry.text))
+
             #print text
             self.last_id = entry.id
             self.view.update(text)
@@ -125,10 +134,15 @@ class TwitterAPI(object):
             addErrback(self.error).\
             addBoth(lambda x: self.print_entry())
 
+        print TwitterOauth.rate_limit_remaining
+        # print TwitterOauth.rate_limit_limit
+        # print TwitterOauth.rate_limit_reset
+
         GLib.timeout_add_seconds(30, self.start)
 
 
 if __name__ == '__main__':
+    user_color = UserColor()
     main = MainWindow()
 
     sw1 = FeedScrolledWindow()
@@ -136,6 +150,7 @@ if __name__ == '__main__':
     view1 = FeedWebView(sw1)
 
     home = TwitterAPI(TwitterOauth.home_timeline, view1)
+
     home.start()
 
     sw2 = FeedScrolledWindow()
