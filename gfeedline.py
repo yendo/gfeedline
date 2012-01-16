@@ -164,20 +164,37 @@ class FeedView(object):
         main.notebook.append_page(sw, None)
         self.webview = FeedWebView(sw)
 
+class FeedListStore(Gtk.ListStore):
+
+    """ListStore for Feed Sources.
+
+    0,      1,        2,
+    target, argument, api_object
+    """
+
+    def __init__(self):
+        super(FeedListStore, self).__init__(object, str, object)
+
+        target = [{'api': TwitterOauth.home_timeline, 'argument': ''},
+                  {'api': TwitterOauth.mentions, 'argument': ''}]
+        
+        for i in target:
+            self.append(i)
+
+
+    def append(self, source, iter=None):
+        view = FeedView()
+        obj = TwitterAPI(source['api'], view)
+
+        list = [source['api'], '', obj]
+        new_iter = self.insert_before(iter, list)
+        obj.start()
+
+        return new_iter
+
 if __name__ == '__main__':
     user_color = UserColor()
     main = MainWindow()
 
-    view1 = FeedView()
-    home = TwitterAPI(TwitterOauth.home_timeline, view1)
-    home.start()
-
-    view2 = FeedView()
-    mentions = TwitterAPI(TwitterOauth.mentions, view2)
-    mentions.start()
-
-    view3 = FeedView()
-    track = TwitterFeedAPI(TwitterFeedOauth.track, view3)
-    track.start()
-
+    liststore = FeedListStore()
     reactor.run()

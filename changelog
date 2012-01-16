@@ -1,6 +1,7 @@
 2012-01-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* gfeedline.py (TwitterFeedAPI): Added support for Streaming.
+	* gfeedline.py: Added support for Streaming.  Added ListStore for
+	  Feed Sources.
 	* usercolor.py: Added support for user colors.
 
 2012-01-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
