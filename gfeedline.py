@@ -29,7 +29,8 @@ class FeedListStore(Gtk.ListStore):
             {'api': TwitterOauth.home_timeline, 'argument': {}},
             {'api': TwitterOauth.mentions, 'argument': {}},
             {'api': TwitterOauth.list_timeline, 'argument': 
-             {'slug':'friends', 'owner_screen_name': 'yendo0206'}}
+             {'slug':'friends', 'owner_screen_name': 'yendo0206'}},
+            {'api': TwitterFeedOauth.track, 'argument': ['Debian', 'Ubuntu']},
             ]
         
         for i in target:
@@ -37,7 +38,11 @@ class FeedListStore(Gtk.ListStore):
 
     def append(self, source, iter=None):
         view = FeedView(self.window)
-        obj = TwitterAPI(source['api'], view, source['argument'])
+
+        if source['api'] == TwitterFeedOauth.track: # FIXME
+            obj = TwitterFeedAPI(source['api'], view, source['argument'])
+        else:
+            obj = TwitterAPI(source['api'], view, source['argument'])
 
         list = [source['api'], source['argument'], obj]
         new_iter = self.insert_before(iter, list)

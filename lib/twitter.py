@@ -110,8 +110,7 @@ class TwitterFeedAPI(TwitterAPI):
     def conv(self, text):
         return text
 
-    def start(self):
-        self.api(self.got_entry, ['linux']).\
+    def start(self, interval=False):
+        self.api(self.got_entry, self.params).\
             addErrback(self.error)#.\
 #            addBoth(lambda x: self.print_entry())
-
