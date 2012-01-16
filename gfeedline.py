@@ -22,7 +22,10 @@ from oauth import oauth
 
 consumer = oauth.OAuthConsumer(sys.argv[1], sys.argv[2])
 token = oauth.OAuthToken(sys.argv[3], sys.argv[4])
+
 TwitterOauth = twitter.Twitter(consumer=consumer, token=token)
+TwitterFeedOauth = twitter.TwitterFeed(consumer=consumer, token=token)
+
 
 class MainWindow(object):
 
@@ -75,7 +78,7 @@ class FeedWebView(WebKit.WebView):
     def update(self, text=None):
         text = text.replace('\n', '<br>')
         js = 'append("%s")' % text
-        print js
+        # print js
         self.execute_script(js)
 
 class TwitterTime(object):
@@ -87,7 +90,6 @@ class TwitterTime(object):
 
     def get_local_time(self):
         return self.datetime.strftime('%H:%M:%S')
-
 
 class TwitterAPI(object):
 
@@ -101,29 +103,30 @@ class TwitterAPI(object):
         self.all_entries.append(msg)
 
     def conv(self, text):
-        #return text
         return BeautifulStoneSoup(
             text, convertEntities=BeautifulStoneSoup.HTML_ENTITIES)
 
-    def print_entry(self):
+    def print_all_entries(self):
         for entry in reversed(self.all_entries):
-            time = TwitterTime(entry.created_at)
-
-            text = ("<div style='line-height: 1.4;'>"
-                    "<span style='color: gray'>%s</span> "
-                    "<span style='color: #%s; font-weight: bold;'>%s</span> " 
-                    "%s"
-                    "</div>"
-                    ) % (
-                time.get_local_time(), 
-                user_color.get(entry.user.id), entry.user.screen_name,  
-                self.conv(entry.text))
-
-            #print text
-            self.last_id = entry.id
-            self.view.update(text)
-
+            self.print_entry(entry)
         self.all_entries = []
+
+    def print_entry(self, entry):
+        time = TwitterTime(entry.created_at)
+
+        text = ("<div style='line-height: 1.4;'>"
+                "<span style='color: gray'>%s</span> "
+                "<span style='color: #%s; font-weight: bold;'>%s</span> " 
+                "%s"
+                "</div>"
+                ) % (
+            time.get_local_time(), 
+            user_color.get(entry.user.id), entry.user.screen_name,  
+            self.conv(entry.text))
+
+        #print text
+        self.last_id = entry.id
+        self.view.update(text)
 
     def error(self, e):
         print e
@@ -132,13 +135,26 @@ class TwitterAPI(object):
         params = {'since_id': str(self.last_id)} if self.last_id else {}
         self.api(self.got_entry, params).\
             addErrback(self.error).\
-            addBoth(lambda x: self.print_entry())
+            addBoth(lambda x: self.print_all_entries())
 
         print TwitterOauth.rate_limit_remaining
         # print TwitterOauth.rate_limit_limit
         # print TwitterOauth.rate_limit_reset
 
         GLib.timeout_add_seconds(30, self.start)
+
+class TwitterFeedAPI(TwitterAPI):
+
+    def got_entry(self, msg, *args):
+        self.print_entry(msg)
+
+    def conv(self, text):
+        return text
+
+    def start(self):
+        self.api(self.got_entry, ['linux']).\
+            addErrback(self.error)#.\
+#            addBoth(lambda x: self.print_entry())
 
 
 if __name__ == '__main__':
@@ -150,14 +166,20 @@ if __name__ == '__main__':
     view1 = FeedWebView(sw1)
 
     home = TwitterAPI(TwitterOauth.home_timeline, view1)
-
     home.start()
 
-    sw2 = FeedScrolledWindow()
-    main.notebook.append_page(sw2, None)
-    view2 = FeedWebView(sw2)
+#    sw2 = FeedScrolledWindow()
+#    main.notebook.append_page(sw2, None)
+#    view2 = FeedWebView(sw2)
+#
+#    mentions = TwitterAPI(TwitterOauth.mentions, view2)
+#    mentions.start()
 
-    mentions = TwitterAPI(TwitterOauth.mentions, view2)
-    mentions.start()
+    sw3 = FeedScrolledWindow()
+    main.notebook.append_page(sw3, None)
+    view3 = FeedWebView(sw3)
+
+    track = TwitterFeedAPI(TwitterFeedOauth.track, view3)
+    track.start()
 
     reactor.run()
