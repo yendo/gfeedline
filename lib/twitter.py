@@ -85,7 +85,7 @@ class TwitterAPI(object):
         # print TwitterOauth.rate_limit_limit
         # print TwitterOauth.rate_limit_reset
 
-        GLib.timeout_add_seconds(interval, self.start)
+        GLib.timeout_add_seconds(interval, self.start, interval)
 
 class TwitterFeedAPI(TwitterAPI):
 
