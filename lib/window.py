@@ -54,7 +54,7 @@ class FeedWebView(WebKit.WebView):
 
     def __init__(self, scrolled_window):
         super(FeedWebView, self).__init__()
-        self.load_uri("file://%s" % os.path.abspath('base.html')) 
+        self.load_uri("file://%s" % os.path.abspath('html/base.html')) 
 
         self.connect("navigation-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup)
