@@ -148,7 +148,6 @@ class TwitterOutput(object):
         self.view.update(text)
 
     def _add_links_to_body(object, text):
-        text = str(text).decode('utf-8')
 
         link_pattern = re.compile(r"(^|[\n ])(([\w]+?://[\w\#$%&~.\-;:=,?@\[\]+]*)(/[\w\#$%&~/.\-;:=,?@\[\]+]*)?)", re.IGNORECASE | re.DOTALL)
         nick_pattern = re.compile("\B(@([A-Za-z0-9_]+|@[A-Za-z0-9_]$))")
