@@ -151,11 +151,11 @@ class TwitterOutput(object):
 
         link_pattern = re.compile(r"(^|[\n ])(([\w]+?://[\w\#$%&~.\-;:=,?@\[\]+]*)(/[\w\#$%&~/.\-;:=,?@\[\]+]*)?)", re.IGNORECASE | re.DOTALL)
         nick_pattern = re.compile("\B(@([A-Za-z0-9_]+|@[A-Za-z0-9_]$))")
-        hash_pattern = re.compile("\B[^&](#([A-Za-z0-9_\-]+|@[A-Za-z0-9_\-]$))")
+        hash_pattern = re.compile(r'(\A|\s|\b)#(\w+)')
 
         text = link_pattern.sub(r"\1<a href='\2'>\2</a>", text)
         text = nick_pattern.sub(r"<a href='https://twitter.com/\2'>\1</a>", text)
-        text = hash_pattern.sub(r"<a href='https://twitter.com/search?q=%23\2'>\1</a>", text)
+        text = hash_pattern.sub(r"\1<a href='https://twitter.com/search?q=%23\2'>#\2</a>", text)
 
         return text
 
