@@ -41,13 +41,13 @@ class FeedListStore(Gtk.ListStore):
     def append(self, source, iter=None):
 
         api = self.api_token[source['api']]()
-        view = FeedView(self.window, api.api_name)
+        view = FeedView(self.window, api.name)
         obj = api.create_obj(view, source['argument'])
 
         list = [source['api'], source['argument'], obj]
         new_iter = self.insert_before(iter, list)
 
-        interval = 40 if source['api'] == TwitterOauth.home_timeline else 180
+        interval = 40 if api.name == 'Home TimeLine' else 180
         obj.start(interval)
 
         return new_iter
