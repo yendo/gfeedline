@@ -27,8 +27,8 @@ class FeedListStore(Gtk.ListStore):
         self.api_token = TwitterAPIToken().api
 
         target = [
-#            {'api': 'Home TimeLine', 'argument': {}},
-            {'api': 'Mentions', 'argument': {}},
+            {'api': 'Home TimeLine', 'argument': {}},
+#            {'api': 'Mentions', 'argument': {}},
             {'api': 'List TimeLine', 'argument': 
              {'slug':'friends', 'owner_screen_name': 'yendo0206'}},
             {'api': 'User Stream', 'argument': []},
