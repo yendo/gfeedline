@@ -130,12 +130,13 @@ class TwitterOutput(object):
         text = ("<div style='line-height: 1.4;'>"
                 "<span style='color: gray'>(%s)</span> "
                 "<img src=%s> "
-                "<span style='color: #%s; font-weight: bold;'>%s</span> " 
+                "<a href='https://twitter.com/%s/' style='color: #%s; font-weight: bold; text-decoration: none;'>%s</a> " 
                 "%s"
                 "</div>"
                 ) % (
             time.get_local_time(), 
             entry.user.profile_image_url.replace('_normal.', '_mini.'),
+            entry.user.screen_name,
             user_color.get(entry.user.id), entry.user.screen_name,  
             self.conv(entry.text))
 

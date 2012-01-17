@@ -6,6 +6,7 @@
 # Licence: GPL3
 
 import os
+import webbrowser
 
 from twisted.internet import reactor
 from gi.repository import Gtk, WebKit, GLib, GObject
@@ -55,6 +56,9 @@ class FeedWebView(WebKit.WebView):
         super(FeedWebView, self).__init__()
         self.load_uri("file://%s" % os.path.abspath('base.html')) 
 
+        self.connect("navigation-requested", self.on_click_link)
+        self.connect("populate-popup", self.on_popup)
+
         scrolled_window.add(self)
         self.show_all()
 
@@ -63,6 +67,14 @@ class FeedWebView(WebKit.WebView):
         js = 'append("%s")' % text
         # print js
         self.execute_script(js)
+
+    def on_popup(self, view, menu):
+        menu.destroy()
+
+    def on_click_link(self, view, frame, req):
+        uri = req.get_uri()
+        webbrowser.open(uri)
+        return True
 
 class FeedView(object):
 
