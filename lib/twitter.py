@@ -140,6 +140,7 @@ class TwitterOutput(object):
             datetime=time.get_local_time(),
             image_uri=entry.user.profile_image_url.replace('_normal.', '_mini.'),
             user_name=entry.user.screen_name,
+            user_color=user_color.get(entry.user.id),
             status_body=body)
 
         #print text
