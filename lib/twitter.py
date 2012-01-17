@@ -5,12 +5,13 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-
+import os
 import sys
 import re
 
 from BeautifulSoup import BeautifulStoneSoup
 from usercolor import UserColor
+from string import Template
 
 import dateutil.parser
 from gi.repository import GLib
@@ -127,21 +128,19 @@ class TwitterOutput(object):
 
     def print_entry(self, entry):
         time = TwitterTime(entry.created_at)
+
         body = self._add_links_to_body(entry.text)
         body = body.replace('"', '&quot;')
+        body = body.replace('\n', '<br>')
 
-        text = ("<div style='line-height: 1.4;'>"
-                "<span style='color: gray'>(%s)</span> "
-                "<img src=%s> "
-                "<a href='https://twitter.com/%s/' style='color: #%s; font-weight: bold; text-decoration: none;'>%s</a> " 
-                "%s"
-                "</div>"
-                ) % (
-            time.get_local_time(), 
-            entry.user.profile_image_url.replace('_normal.', '_mini.'),
-            entry.user.screen_name,
-            user_color.get(entry.user.id), entry.user.screen_name,  
-            body)
+        template_file = os.path.abspath('html/status.html')
+        file = open(template_file).read()
+        temp = Template(unicode(file, 'utf-8', 'ignore'))
+        text = temp.substitute(
+            datetime=time.get_local_time(),
+            image_uri=entry.user.profile_image_url.replace('_normal.', '_mini.'),
+            user_name=entry.user.screen_name,
+            status_body=body)
 
         #print text
         self.last_id = entry.id

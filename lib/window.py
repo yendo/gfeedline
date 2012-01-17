@@ -63,7 +63,7 @@ class FeedWebView(WebKit.WebView):
         self.show_all()
 
     def update(self, text=None):
-        text = text.replace('\n', '<br>')
+        text = text.replace('\n', '')
         js = 'append("%s")' % text
         # print js
         self.execute_script(js)
