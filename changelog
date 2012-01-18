@@ -1,3 +1,7 @@
+2012-01-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* scrollsmoothly.js: Added support for smooth scrolling.
+
 2012-01-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* gfeedline.py: Added support for Streaming.  Added ListStore for

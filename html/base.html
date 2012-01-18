@@ -2,6 +2,7 @@
 
 <head>
    <title>Timeline</title>
+   <script type="text/javascript" src="scrollsmoothly.js"></script>
    <script type="text/javascript">
    <!--
 
@@ -14,8 +15,9 @@
        div_msg.appendChild(entry);
    }
 
-   function scroll() {
-       window.scrollTo(0, document.height+100);
+   function scrollToBottom() {
+       //window.scrollTo(0, document.height+100);
+       scrollsmoothly.setScroll('#end');
    }
 
    // -->

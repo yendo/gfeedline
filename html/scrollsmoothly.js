@@ -7,12 +7,16 @@
  * http://www.opensource.org/licenses/mit-license.php
  * 
  * 更新履歴
+ * 2012/01/18
+ * Added a name space (by y-endo@ceres.dti.ne.jp).
  * 2009/02/12
  * スクロール先が画面左上にならない場合の挙動を修正
  * 2008/04/18
  * 公開
  *
 */
+
+var scrollsmoothly = {}; // Added by yendo
 
 (function(){
    var easing = 0.25;
@@ -171,5 +175,7 @@
      var windowSize = getWindowSize();
      return {x:documentSize.width - windowSize.width, y:documentSize.height - windowSize.height};
    }
-   
+
+ scrollsmoothly.setScroll = setScroll;  // Added by yendo
+
  }());
