@@ -125,7 +125,7 @@ var scrollsmoothly = {}; // Added by yendo
        // 目標座標付近に到達していたら終了
        scrollTo(targetX, targetY);
        scrolling = false;
-       location.hash = targetHash;
+       // location.hash = targetHash; // Modified by yendo 
        prevX = prevY = null;
        return;
      }else{
