@@ -11,6 +11,8 @@ import webbrowser
 from twisted.internet import reactor
 from gi.repository import Gtk, WebKit, GLib, GObject
 
+from preferences import Preferences
+
 class MainWindow(object):
 
     def __init__(self):
@@ -27,7 +29,8 @@ class MainWindow(object):
         window.resize(480, 600)
         window.connect("delete-event", self.stop)
         window.show_all()
-        # menubar.hide()
+
+        gui.connect_signals(self)
 
     def append_page(self):
         sw1 = FeedScrolledWindow()
@@ -36,6 +39,10 @@ class MainWindow(object):
         
     def stop(self, *args):
         reactor.stop()
+
+    def on_menuitem_prefs_activate(self, menuitem):
+        print menuitem
+        prefs = Preferences()
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
