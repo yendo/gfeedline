@@ -16,7 +16,7 @@ class MainWindow(object):
     def __init__(self):
 
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.abspath('gfeedline.glade'))
+        gui.add_from_file(os.path.abspath('share/gfeedline.glade'))
 
         self.window = window = gui.get_object('window1')
         self.notebook = gui.get_object('notebook1')
@@ -27,7 +27,7 @@ class MainWindow(object):
         window.resize(480, 600)
         window.connect("delete-event", self.stop)
         window.show_all()
-        menubar.hide()
+        # menubar.hide()
 
     def append_page(self):
         sw1 = FeedScrolledWindow()
