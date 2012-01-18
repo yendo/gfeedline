@@ -68,6 +68,8 @@ class FeedWebView(WebKit.WebView):
         # print js
         self.execute_script(js)
 
+        GLib.timeout_add(100, self.execute_script, 'scroll()')
+
     def on_popup(self, view, menu):
         menu.destroy()
 

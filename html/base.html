@@ -11,9 +11,11 @@
 
        var entry = document.createElement("div");
        entry.innerHTML = text;
-
        div_msg.appendChild(entry);
-       window.scrollTo(0, document.height+100)
+   }
+
+   function scroll() {
+       window.scrollTo(0, document.height+100);
    }
 
    // -->
@@ -24,6 +26,7 @@
 <body>
   <!-- <input type="button" value="ADD" onclick="append('yes');"> -->
   <div id="messages"></div>
+  <div id="end"></div>
 </body>
 
 </html> 
