@@ -91,7 +91,7 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label6">
+                                  <object class="GtkLabel" id="label_confirm_username">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">none</property>
@@ -222,12 +222,12 @@
                                 <property name="label" translatable="yes">Always on _Visible Workspace</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
+                                <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="use_underline">True</property>
                                 <property name="xalign">0</property>
-                                <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_always_toggled_cb" swapped="no"/>
                               </object>
@@ -242,12 +242,12 @@
                                 <property name="label" translatable="yes">_Auto Start</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
+                                <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="use_underline">True</property>
                                 <property name="xalign">0</property>
-                                <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_auto_toggled_cb" swapped="no"/>
                               </object>
@@ -698,6 +698,7 @@
                 <property name="label">gtk-help</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>

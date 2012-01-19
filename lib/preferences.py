@@ -7,7 +7,9 @@
 import os
 
 from gi.repository import Gtk
+
 from lib.plugins.twitter.assistant import TwitterAuthAssistant
+from utils.settings import SETTINGS_TWITTER
 
 class Preferences(object):
 
@@ -23,7 +25,16 @@ class Preferences(object):
         frame = gui.get_object('frame5')
         frame.hide()
 
+        self.label_username = gui.get_object('label_confirm_username')
+        self.on_setting_username_changed()
+        SETTINGS_TWITTER.connect("changed::user-name", 
+                                 self.on_setting_username_changed)
+
         gui.connect_signals(self)
+
+    def on_setting_username_changed(self, *args):
+        user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'
+        self.label_username.set_text(user_name)
 
     def on_button_twitter_auth_clicked(self, button):
         assistant = TwitterAuthAssistant() 
