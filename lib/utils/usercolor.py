@@ -6,7 +6,7 @@ class UserColor(object):
         self.user_color = {}
 
     def get(self, user_id):
-        return self.user_color.setdefault(user_id, self._get_color())
+        return self.user_color.setdefault(int(user_id), self._get_color())
 
     def _get_color(self):
 
