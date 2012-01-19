@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # gfeedline - Gnome Social Feed Reader
 #
@@ -9,7 +8,7 @@ import os
 
 from gi.repository import Gtk, WebKit, GLib, GObject
 
-from twitterauthorize import TwitterAuthorization
+from authorize import TwitterAuthorization
 from ...utils.settings import SETTINGS_TWITTER
 
 

@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from oauth import oauth
 import webbrowser
 import urllib

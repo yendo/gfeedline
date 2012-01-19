@@ -11,7 +11,7 @@ from twisted.internet import reactor
 
 from gi.repository import Gtk
 from lib.window import MainWindow, FeedView
-from lib.plugins.twitter.twitter import *
+from lib.plugins.twitter.api import *
 
 class FeedListStore(Gtk.ListStore):
 
