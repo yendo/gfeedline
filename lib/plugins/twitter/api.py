@@ -14,7 +14,8 @@ from BeautifulSoup import BeautifulStoneSoup
 from gi.repository import GLib
 
 from ...utils.usercolor import UserColor
-from authtoken import TwitterOauth, TwitterFeedOauth
+from ...utils.settings import SETTINGS_TWITTER
+from authtoken import TwitterOauth, TwitterFeedOauth, set_auth
 
 user_color = UserColor()
 
@@ -91,6 +92,8 @@ class TwitterOutput(object):
         self.api = api
         self.params = params
 
+        SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
+
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
 
@@ -141,6 +144,7 @@ class TwitterOutput(object):
 
     def start(self, interval=180):
         if not TwitterOauth.use_oauth:
+            print "not authorized"
             return
 
         if self.last_id:
@@ -155,6 +159,11 @@ class TwitterOutput(object):
 
         GLib.timeout_add_seconds(interval, self.start, interval)
 
+    def _restart(self, *args):
+        print "restart!"
+        set_auth()
+        self.start()
+
 class TwitterFeedOutput(TwitterOutput):
 
     def got_entry(self, msg, *args):
@@ -164,7 +173,7 @@ class TwitterFeedOutput(TwitterOutput):
         return text
 
     def start(self, interval=False):
-        if not TwitterOauth.use_oauth:
+        if not TwitterFeedOauth.use_oauth:
             return
 
         self.api(self.got_entry, self.params).\
