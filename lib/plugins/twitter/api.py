@@ -15,7 +15,7 @@ from gi.repository import GLib
 
 from ...utils.usercolor import UserColor
 from ...utils.settings import SETTINGS_TWITTER
-from authtoken import TwitterOauth, TwitterFeedOauth, set_auth
+from authtoken import AuthedTwitterAPI, AuthedTwitterFeedAPI, set_auth
 
 user_color = UserColor()
 
@@ -40,35 +40,36 @@ class TwitterAPIBase(object):
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     def __init__(self):
-        self.api = TwitterOauth.home_timeline
+        self.auth = AuthedTwitterAPI
+        self.api = self.auth.home_timeline
         self.output = TwitterOutput
         self.name = 'Home TimeLine'
 
 class TwitterAPIListTimeLine(TwitterAPIBase):
 
     def __init__(self):
-        self.api = TwitterOauth.list_timeline
+        self.api = AuthedTwitterAPI.list_timeline
         self.output = TwitterOutput
         self.name = 'List TimeLine'
 
 class TwitterAPIMentions(TwitterAPIBase):
 
     def __init__(self):
-        self.api = TwitterOauth.mentions
+        self.api = AuthedTwitterAPI.mentions
         self.output = TwitterOutput
         self.name = 'Mentions'
 
 class TwitterAPIUserStream(TwitterAPIBase):
 
     def __init__(self):
-        self.api = TwitterFeedOauth.userstream
+        self.api = AuthedTwitterFeedAPI.userstream
         self.output = TwitterFeedOutput
         self.name = 'User Stream'
 
 class TwitterAPITrack(TwitterAPIBase):
 
     def __init__(self):
-        self.api = TwitterFeedOauth.track
+        self.api = AuthedTwitterFeedAPI.track
         self.output = TwitterFeedOutput
         self.name = 'Track'
     
@@ -144,7 +145,7 @@ class TwitterOutput(object):
         print e
 
     def start(self, interval=180):
-        if not TwitterOauth.use_oauth:
+        if not AuthedTwitterAPI.use_oauth:
             print "not authorized"
             return
 
@@ -154,9 +155,9 @@ class TwitterOutput(object):
         api = self.api(self.got_entry, params=self.params)
         api.addErrback(self.error).addBoth(lambda x: self.print_all_entries())
 
-        print TwitterOauth.rate_limit_remaining
-        # print TwitterOauth.rate_limit_limit
-        # print TwitterOauth.rate_limit_reset
+        print AuthedTwitterAPI.rate_limit_remaining
+        # print AuthedTwitterAPI.rate_limit_limit
+        # print AuthedTwitterAPI.rate_limit_reset
 
         GLib.timeout_add_seconds(interval, self.start, interval)
 
@@ -174,7 +175,7 @@ class TwitterFeedOutput(TwitterOutput):
         return text
 
     def start(self, interval=False):
-        if not TwitterFeedOauth.use_oauth:
+        if not AuthedTwitterFeedAPI.use_oauth:
             return
 
         self.api(self.got_entry, self.params).\
