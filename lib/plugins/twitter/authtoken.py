@@ -11,7 +11,6 @@ class Twitter(twitter.Twitter):
         return self.__get('/1/lists/statuses.xml',
                 delegate, params, txml.Statuses, extra_args=extra_args)
 
-
     def update_token(self, token):
         self.use_auth = True
         self.use_oauth = True
@@ -45,20 +44,3 @@ class AuthorizedTwitterAPI(object):
         secret = SETTINGS_TWITTER.get_string('access-secret')
         token = oauth.OAuthToken(key, secret) if key and secret else None
         return token
-        
-# 
-# key = SETTINGS_TWITTER.get_string('access-token')
-# secret = SETTINGS_TWITTER.get_string('access-secret')
-# token = oauth.OAuthToken(key, secret) if key and secret else None
-# 
-# AuthedTwitterRestAPI = Twitter(consumer=consumer, token=token)
-# AuthedTwitterFeedAPI = TwitterFeed(consumer=consumer, token=token)
-# 
-# 
-# def set_auth():
-#     key = SETTINGS_TWITTER.get_string('access-token')
-#     secret = SETTINGS_TWITTER.get_string('access-secret')
-#     token = oauth.OAuthToken(key, secret) if key and secret else None
-# 
-#     AuthedTwitterRestAPI.update_token(token)
-#     AuthedTwitterFeedAPI.update_token(token)

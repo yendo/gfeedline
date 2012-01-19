@@ -32,48 +32,48 @@ class TwitterAPIToken(object):
 
 class TwitterAPIBase(object):
 
+    def __init__(self, authed):
+        self.authed = authed
+        self._setup()
+
     def create_obj(self, view, params):
-        obj = self.output(self.api, self.authed, view, params)
+        obj = TwitterOutput(self.api, self.authed, view, params)
+        return obj
+
+class TwitterFeedAPIBase(TwitterAPIBase):
+
+    def create_obj(self, view, params):
+        obj = TwitterFeedOutput(self.api, self.authed, view, params)
         return obj
 
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
-    def __init__(self, authed):
-        self.authed = authed
-        self.api = authed.rest.home_timeline
-        self.output = TwitterOutput
+    def _setup(self):
+        self.api = self.authed.rest.home_timeline
         self.name = 'Home TimeLine'
 
 class TwitterAPIListTimeLine(TwitterAPIBase):
 
-    def __init__(self, authed):
-        self.authed = authed
-        self.api = authed.rest.list_timeline
-        self.output = TwitterOutput
+    def _setup(self):
+        self.api = self.authed.rest.list_timeline
         self.name = 'List TimeLine'
 
 class TwitterAPIMentions(TwitterAPIBase):
 
-    def __init__(self, authed):
-        self.authed = authed
-        self.api = authed.rest.mentions
-        self.output = TwitterOutput
+    def _setup(self):
+        self.api = self.authed.rest.mentions
         self.name = 'Mentions'
 
-class TwitterAPIUserStream(TwitterAPIBase):
+class TwitterAPIUserStream(TwitterFeedAPIBase):
 
-    def __init__(self, authed):
-        self.authed = authed
-        self.api = authed.feed.userstream
-        self.output = TwitterFeedOutput
+    def _setup(self):
+        self.api = self.authed.feed.userstream
         self.name = 'User Stream'
 
-class TwitterAPITrack(TwitterAPIBase):
+class TwitterAPITrack(TwitterFeedAPIBase):
 
-    def __init__(self, authed):
-        self.authed = authed
-        self.api = authed.feed.track
-        self.output = TwitterFeedOutput
+    def _setup(self):
+        self.api = self.authed.feed.track
         self.name = 'Track'
     
 
@@ -160,6 +160,7 @@ class TwitterOutput(object):
         api.addErrback(self.error).addBoth(lambda x: self.print_all_entries())
 
         print self.authed.rest.rate_limit_remaining
+        print self.authed.rest
         # print self.authed.rest.rate_limit_limit
         # print self.authed.rest.rate_limit_reset
 
