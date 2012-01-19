@@ -8,7 +8,7 @@
 import os
 
 from gi.repository import Gtk
-from assistant_twitter import TwitterAuthAssistant
+from lib.plugins.twitter.assistant_twitter import TwitterAuthAssistant
 
 class Preferences(object):
 

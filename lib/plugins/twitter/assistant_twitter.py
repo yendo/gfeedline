@@ -10,7 +10,7 @@ import os
 from gi.repository import Gtk, WebKit, GLib, GObject
 
 from twitterauthorize import TwitterAuthorization
-from utils.settings import SETTINGS_TWITTER
+from ...utils.settings import SETTINGS_TWITTER
 
 
 class TwitterAuthAssistant(Gtk.Assistant):
