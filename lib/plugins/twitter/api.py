@@ -118,6 +118,7 @@ class TwitterOutput(object):
         temp = Template(unicode(file, 'utf-8', 'ignore'))
         text = temp.substitute(
             datetime=time.get_local_time(),
+            id=entry.id,
             image_uri=entry.user.profile_image_url.replace('_normal.', '_mini.'),
             user_name=entry.user.screen_name,
             user_color=user_color.get(entry.user.id),

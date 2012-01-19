@@ -1,8 +1,8 @@
 body {font-size: 10pt}
 
 div.status { line-height: 1.4; }
-span.datetime { color: gray }
 
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.username { font-weight: bold; }
+a.datetime { color: gray }
