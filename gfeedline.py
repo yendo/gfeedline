@@ -32,7 +32,7 @@ class FeedListStore(Gtk.ListStore):
 #            {'api': 'Mentions', 'argument': {}},
             {'api': 'List TimeLine', 'argument': 
              {'slug':'friends', 'owner_screen_name': 'yendo0206'}},
-            {'api': 'Track', 'argument': ['Debian', 'Ubuntu']},
+#            {'api': 'Track', 'argument': ['Debian', 'Ubuntu']},
             ]
         
         for i in target:

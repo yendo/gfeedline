@@ -12,17 +12,9 @@ from string import Template
 import dateutil.parser
 from BeautifulSoup import BeautifulStoneSoup
 from gi.repository import GLib
-from twittytwister import twitter, streaming, txml
-from oauth import oauth
 
 from ...utils.usercolor import UserColor
-from ...utils.settings import SETTINGS_TWITTER
-
-from authorize import consumer
-
-token = SETTINGS_TWITTER.get_string('access-token')
-secret = SETTINGS_TWITTER.get_string('access-secret')
-token = oauth.OAuthToken(token, secret)
+from authtoken import TwitterOauth, TwitterFeedOauth
 
 user_color = UserColor()
 
@@ -79,22 +71,6 @@ class TwitterAPITrack(TwitterAPIBase):
         self.output = TwitterFeedOutput
         self.name = 'Track'
     
-
-class Twitter(twitter.Twitter):
-
-    def list_timeline(self, delegate, params={}, extra_args=None):
-        return self.__get('/1/lists/statuses.xml',
-                delegate, params, txml.Statuses, extra_args=extra_args)
-
-class TwitterFeed(twitter.TwitterFeed):
-
-    def userstream(self, delegate, args=None):
-        return self._rtfeed('https://userstream.twitter.com/2/user.json',
-                            delegate, args)
-
-TwitterOauth = Twitter(consumer=consumer, token=token)
-TwitterFeedOauth = TwitterFeed(consumer=consumer, token=token)
-
 
 class TwitterTime(object):
 
@@ -164,6 +140,8 @@ class TwitterOutput(object):
         print e
 
     def start(self, interval=180):
+        if not TwitterOauth.use_oauth:
+            return
 
         if self.last_id:
             self.params['since_id'] = str(self.last_id)
@@ -186,6 +164,9 @@ class TwitterFeedOutput(TwitterOutput):
         return text
 
     def start(self, interval=False):
+        if not TwitterOauth.use_oauth:
+            return
+
         self.api(self.got_entry, self.params).\
             addErrback(self.error)#.\
 #            addBoth(lambda x: self.print_entry())
