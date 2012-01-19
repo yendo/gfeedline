@@ -10,7 +10,7 @@ import sys
 import re
 
 from BeautifulSoup import BeautifulStoneSoup
-from usercolor import UserColor
+from utils.usercolor import UserColor
 from string import Template
 
 import dateutil.parser
