@@ -1,6 +1,7 @@
 2012-01-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* preferences.py, /preferences.glade: Added preferences.
+	* settings.py, com.googlecode.gfeedline.gschema.xml.in: Added GSettings.
+	* preferences.py, preferences.glade: Added preferences.
 
 2012-01-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 

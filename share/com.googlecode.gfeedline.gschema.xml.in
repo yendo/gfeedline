@@ -1,0 +1,39 @@
+<schemalist>
+
+  <schema id="com.googlecode.gfeedline" path="/apps/gfeedline/">
+    <key name="color" type="s">
+      <default>''</default>
+      <summary>color</summary>
+      <description>color</description>
+    </key>
+    <child name="plugins" schema="com.googlecode.gfeedline.plugins"/>
+  </schema>
+
+  <schema id="com.googlecode.gfeedline.plugins" path="/apps/gfeedline/plugins/">
+    <key name="disabled" type="as">
+      <default>[]</default>
+      <summary>Disabled plugins list</summary>
+      <description>Disabled plugins list</description>
+    </key>
+    <child name="twitter" schema="com.googlecode.gfeedline.plugins.twitter"/>
+  </schema>
+
+  <schema id="com.googlecode.gfeedline.plugins.twitter" path="/apps/gfeedline/plugins/twitter/">
+    <key name="access-token" type="s">
+      <default>''</default>
+      <summary>Auth token</summary>
+      <description>Auth token</description>
+    </key>
+    <key name="access-secret" type="s">
+      <default>''</default>
+      <summary>Auth secret</summary>
+      <description>Auth secret</description>
+    </key>
+    <key name="user-name" type="s">
+      <default>''</default>
+      <summary>Screen name</summary>
+      <description>Screen name</description>
+    </key>
+  </schema>
+
+</schemalist>
