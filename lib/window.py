@@ -27,7 +27,7 @@ class MainWindow(object):
         self.sw = gui.get_object('scrolledwindow1')
 
         window.resize(480, 600)
-        window.connect("delete-event", self.stop)
+        window.connect("delete-event", self.on_stop)
         window.show_all()
 
         gui.connect_signals(self)
@@ -37,7 +37,7 @@ class MainWindow(object):
         main.notebook.append_page(sw1, None)
         view1 = FeedWebView(sw1)
         
-    def stop(self, *args):
+    def on_stop(self, *args):
         reactor.stop()
 
     def on_menuitem_prefs_activate(self, menuitem):
@@ -52,7 +52,7 @@ class FeedScrolledWindow(Gtk.ScrolledWindow):
         self.set_margin_top(4)
         self.set_margin_bottom(4)
         self.set_margin_right(4)
-        self.set_margin_bottom(4)
+        self.set_margin_left(4)
 
         self.set_shadow_type(Gtk.ShadowType.IN)
         self.show()
