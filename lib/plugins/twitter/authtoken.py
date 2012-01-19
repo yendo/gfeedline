@@ -31,25 +31,34 @@ class AuthorizedTwitterAPI(object):
     feed = None
 
     def __init__(self):
-        key = SETTINGS_TWITTER.get_string('access-token')
-        secret = SETTINGS_TWITTER.get_string('access-secret')
-        token = oauth.OAuthToken(key, secret) if key and secret else None
-
+        token = self._get_token()
         self.rest = Twitter(consumer=consumer, token=token)
         self.feed = TwitterFeed(consumer=consumer, token=token)
 
-key = SETTINGS_TWITTER.get_string('access-token')
-secret = SETTINGS_TWITTER.get_string('access-secret')
-token = oauth.OAuthToken(key, secret) if key and secret else None
+    def update_credential(self):
+        token = self._get_token()
+        self.rest.update_token(token)
+        self.feed.update_token(token)
 
-AuthedTwitterRestAPI = Twitter(consumer=consumer, token=token)
-AuthedTwitterFeedAPI = TwitterFeed(consumer=consumer, token=token)
-
-
-def set_auth():
-    key = SETTINGS_TWITTER.get_string('access-token')
-    secret = SETTINGS_TWITTER.get_string('access-secret')
-    token = oauth.OAuthToken(key, secret) if key and secret else None
-
-    AuthedTwitterRestAPI.update_token(token)
-    AuthedTwitterFeedAPI.update_token(token)
+    def _get_token(self):
+        key = SETTINGS_TWITTER.get_string('access-token')
+        secret = SETTINGS_TWITTER.get_string('access-secret')
+        token = oauth.OAuthToken(key, secret) if key and secret else None
+        return token
+        
+# 
+# key = SETTINGS_TWITTER.get_string('access-token')
+# secret = SETTINGS_TWITTER.get_string('access-secret')
+# token = oauth.OAuthToken(key, secret) if key and secret else None
+# 
+# AuthedTwitterRestAPI = Twitter(consumer=consumer, token=token)
+# AuthedTwitterFeedAPI = TwitterFeed(consumer=consumer, token=token)
+# 
+# 
+# def set_auth():
+#     key = SETTINGS_TWITTER.get_string('access-token')
+#     secret = SETTINGS_TWITTER.get_string('access-secret')
+#     token = oauth.OAuthToken(key, secret) if key and secret else None
+# 
+#     AuthedTwitterRestAPI.update_token(token)
+#     AuthedTwitterFeedAPI.update_token(token)

@@ -15,7 +15,6 @@ from gi.repository import GLib
 
 from ...utils.usercolor import UserColor
 from ...utils.settings import SETTINGS_TWITTER
-from authtoken import AuthedTwitterRestAPI, AuthedTwitterFeedAPI, set_auth
 
 user_color = UserColor()
 
@@ -34,12 +33,13 @@ class TwitterAPIToken(object):
 class TwitterAPIBase(object):
 
     def create_obj(self, view, params):
-        obj = self.output(self.api, view, params)
+        obj = self.output(self.api, self.authed, view, params)
         return obj
 
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     def __init__(self, authed):
+        self.authed = authed
         self.api = authed.rest.home_timeline
         self.output = TwitterOutput
         self.name = 'Home TimeLine'
@@ -47,6 +47,7 @@ class TwitterAPIHomeTimeLine(TwitterAPIBase):
 class TwitterAPIListTimeLine(TwitterAPIBase):
 
     def __init__(self, authed):
+        self.authed = authed
         self.api = authed.rest.list_timeline
         self.output = TwitterOutput
         self.name = 'List TimeLine'
@@ -54,6 +55,7 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
 class TwitterAPIMentions(TwitterAPIBase):
 
     def __init__(self, authed):
+        self.authed = authed
         self.api = authed.rest.mentions
         self.output = TwitterOutput
         self.name = 'Mentions'
@@ -61,6 +63,7 @@ class TwitterAPIMentions(TwitterAPIBase):
 class TwitterAPIUserStream(TwitterAPIBase):
 
     def __init__(self, authed):
+        self.authed = authed
         self.api = authed.feed.userstream
         self.output = TwitterFeedOutput
         self.name = 'User Stream'
@@ -68,6 +71,7 @@ class TwitterAPIUserStream(TwitterAPIBase):
 class TwitterAPITrack(TwitterAPIBase):
 
     def __init__(self, authed):
+        self.authed = authed
         self.api = authed.feed.track
         self.output = TwitterFeedOutput
         self.name = 'Track'
@@ -85,11 +89,12 @@ class TwitterTime(object):
 
 class TwitterOutput(object):
 
-    def __init__(self, api, view=None, params={}):
+    def __init__(self, api, authed, view=None, params={}):
         self.all_entries = []
         self.last_id = 0
         self.view = view.webview
         self.api = api
+        self.authed = authed
         self.params = params
 
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
@@ -144,7 +149,7 @@ class TwitterOutput(object):
         print e
 
     def start(self, interval=180):
-        if not AuthedTwitterRestAPI.use_oauth:
+        if not self.authed.rest.use_oauth:
             print "not authorized"
             return
 
@@ -154,15 +159,15 @@ class TwitterOutput(object):
         api = self.api(self.got_entry, params=self.params)
         api.addErrback(self.error).addBoth(lambda x: self.print_all_entries())
 
-        print AuthedTwitterRestAPI.rate_limit_remaining
-        # print AuthedTwitterRestAPI.rate_limit_limit
-        # print AuthedTwitterRestAPI.rate_limit_reset
+        print self.authed.rest.rate_limit_remaining
+        # print self.authed.rest.rate_limit_limit
+        # print self.authed.rest.rate_limit_reset
 
         GLib.timeout_add_seconds(interval, self.start, interval)
 
     def _restart(self, *args):
         print "restart!"
-        set_auth()
+        self.authed.update_credential()
         self.start()
 
 class TwitterFeedOutput(TwitterOutput):
@@ -174,7 +179,7 @@ class TwitterFeedOutput(TwitterOutput):
         return text
 
     def start(self, interval=False):
-        if not AuthedTwitterFeedAPI.use_oauth:
+        if not self.authed.feed.use_oauth:
             return
 
         self.api(self.got_entry, self.params).\
