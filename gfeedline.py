@@ -11,7 +11,9 @@ from twisted.internet import reactor
 
 from gi.repository import Gtk
 from lib.window import MainWindow, FeedView
-from lib.plugins.twitter.api import *
+from lib.plugins.twitter.api import TwitterAPIToken
+from lib.plugins.twitter.authtoken import AuthorizedTwitterAPI
+
 
 class FeedListStore(Gtk.ListStore):
 
@@ -34,13 +36,15 @@ class FeedListStore(Gtk.ListStore):
              {'slug':'friends', 'owner_screen_name': 'yendo0206'}},
             {'api': 'Track', 'argument': ['Debian', 'Ubuntu']},
             ]
-        
+
+        self.authed_twitter = AuthorizedTwitterAPI()
+
         for i in target:
             self.append(i)
 
     def append(self, source, iter=None):
 
-        api = self.api_token[source['api']]()
+        api = self.api_token[source['api']](self.authed_twitter)
         view = FeedView(self.window, api.name)
         obj = api.create_obj(view, source['argument'])
 

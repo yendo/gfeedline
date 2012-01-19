@@ -25,11 +25,24 @@ class TwitterFeed(Twitter, twitter.TwitterFeed):
         return self._rtfeed('https://userstream.twitter.com/2/user.json',
                             delegate, args)
 
+class AuthorizedTwitterAPI(object):
+
+    rest = None
+    feed = None
+
+    def __init__(self):
+        key = SETTINGS_TWITTER.get_string('access-token')
+        secret = SETTINGS_TWITTER.get_string('access-secret')
+        token = oauth.OAuthToken(key, secret) if key and secret else None
+
+        self.rest = Twitter(consumer=consumer, token=token)
+        self.feed = TwitterFeed(consumer=consumer, token=token)
+
 key = SETTINGS_TWITTER.get_string('access-token')
 secret = SETTINGS_TWITTER.get_string('access-secret')
 token = oauth.OAuthToken(key, secret) if key and secret else None
 
-AuthedTwitterAPI = Twitter(consumer=consumer, token=token)
+AuthedTwitterRestAPI = Twitter(consumer=consumer, token=token)
 AuthedTwitterFeedAPI = TwitterFeed(consumer=consumer, token=token)
 
 
@@ -38,5 +51,5 @@ def set_auth():
     secret = SETTINGS_TWITTER.get_string('access-secret')
     token = oauth.OAuthToken(key, secret) if key and secret else None
 
-    AuthedTwitterAPI.update_token(token)
+    AuthedTwitterRestAPI.update_token(token)
     AuthedTwitterFeedAPI.update_token(token)
