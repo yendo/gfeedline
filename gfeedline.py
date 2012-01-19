@@ -5,7 +5,7 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-from lib import gtk3reactor
+from lib.utils import gtk3reactor
 gtk3reactor.install()
 from twisted.internet import reactor
 
@@ -28,10 +28,10 @@ class FeedListStore(Gtk.ListStore):
 
         target = [
             {'api': 'Home TimeLine', 'argument': {}},
+            {'api': 'User Stream', 'argument': []},
 #            {'api': 'Mentions', 'argument': {}},
             {'api': 'List TimeLine', 'argument': 
              {'slug':'friends', 'owner_screen_name': 'yendo0206'}},
-            {'api': 'User Stream', 'argument': []},
             {'api': 'Track', 'argument': ['Debian', 'Ubuntu']},
             ]
         
