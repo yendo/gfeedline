@@ -7,20 +7,22 @@
 import os
 import sys
 import re
-
-from BeautifulSoup import BeautifulStoneSoup
-from ...utils.usercolor import UserColor
 from string import Template
 
 import dateutil.parser
+from BeautifulSoup import BeautifulStoneSoup
 from gi.repository import GLib
-from twittytwister import twitter
+from twittytwister import twitter, streaming, txml
 from oauth import oauth
 
-from twittytwister import streaming, txml
+from ...utils.usercolor import UserColor
+from ...utils.settings import SETTINGS_TWITTER
 
-consumer = oauth.OAuthConsumer(sys.argv[1], sys.argv[2])
-token = oauth.OAuthToken(sys.argv[3], sys.argv[4])
+from authorize import consumer
+
+token = SETTINGS_TWITTER.get_string('access-token')
+secret = SETTINGS_TWITTER.get_string('access-secret')
+token = oauth.OAuthToken(token, secret)
 
 user_color = UserColor()
 

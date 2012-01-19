@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # gfeedline - Gnome Social Feed Reader
 #
