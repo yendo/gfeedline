@@ -1,3 +1,8 @@
+2012-01-20  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/api.py: Added support for reconnecting lost feed
+	  streaming.
+
 2012-01-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* assistant_twitter.py, twitterauthorize.py, assistant_twitter.glade:

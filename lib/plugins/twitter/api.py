@@ -145,9 +145,6 @@ class TwitterOutput(object):
 
         return text
 
-    def error(self, e):
-        print "error!", e
-
     def start(self, interval=180):
         if not self.authed.api.use_oauth:
             print "not authorized"
@@ -157,7 +154,7 @@ class TwitterOutput(object):
             self.params['since_id'] = str(self.last_id)
 
         api = self.api(self.got_entry, params=self.params)
-        api.addErrback(self.error).addBoth(lambda x: self.print_all_entries())
+        api.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
 
         print self.authed.api.rate_limit_remaining
         # print self.authed.api.rate_limit_limit
@@ -169,6 +166,9 @@ class TwitterOutput(object):
         print "restart!"
         self.authed.update_credential()
         self.start()
+
+    def _on_error(self, e):
+        print "error!", e
 
 class TwitterFeedOutput(TwitterOutput):
 
@@ -183,5 +183,13 @@ class TwitterFeedOutput(TwitterOutput):
             return
 
         self.api(self.got_entry, self.params).\
-            addErrback(self.error)#.\
-#            addBoth(lambda x: self.print_entry())
+            addErrback(self._on_error).\
+            addBoth(self._on_connect)
+
+    def _on_connect(self, stream):
+        if stream:
+            stream.deferred.addCallback(self._on_error, 'Lost connection.')
+
+    def _on_error(self, *e):
+        print "Error:", e
+        GLib.timeout_add_seconds(10, self._restart)
