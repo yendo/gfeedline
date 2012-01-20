@@ -49,31 +49,31 @@ class TwitterFeedAPIBase(TwitterAPIBase):
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     def _setup(self):
-        self.api = self.authed.rest.home_timeline
+        self.api = self.authed.api.home_timeline
         self.name = 'Home TimeLine'
 
 class TwitterAPIListTimeLine(TwitterAPIBase):
 
     def _setup(self):
-        self.api = self.authed.rest.list_timeline
+        self.api = self.authed.api.list_timeline
         self.name = 'List TimeLine'
 
 class TwitterAPIMentions(TwitterAPIBase):
 
     def _setup(self):
-        self.api = self.authed.rest.mentions
+        self.api = self.authed.api.mentions
         self.name = 'Mentions'
 
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 
     def _setup(self):
-        self.api = self.authed.feed.userstream
+        self.api = self.authed.api.userstream
         self.name = 'User Stream'
 
 class TwitterAPITrack(TwitterFeedAPIBase):
 
     def _setup(self):
-        self.api = self.authed.feed.track
+        self.api = self.authed.api.track
         self.name = 'Track'
     
 
@@ -146,10 +146,10 @@ class TwitterOutput(object):
         return text
 
     def error(self, e):
-        print e
+        print "error!", e
 
     def start(self, interval=180):
-        if not self.authed.rest.use_oauth:
+        if not self.authed.api.use_oauth:
             print "not authorized"
             return
 
@@ -159,10 +159,9 @@ class TwitterOutput(object):
         api = self.api(self.got_entry, params=self.params)
         api.addErrback(self.error).addBoth(lambda x: self.print_all_entries())
 
-        print self.authed.rest.rate_limit_remaining
-        print self.authed.rest
-        # print self.authed.rest.rate_limit_limit
-        # print self.authed.rest.rate_limit_reset
+        print self.authed.api.rate_limit_remaining
+        # print self.authed.api.rate_limit_limit
+        # print self.authed.api.rate_limit_reset
 
         GLib.timeout_add_seconds(interval, self.start, interval)
 
@@ -180,7 +179,7 @@ class TwitterFeedOutput(TwitterOutput):
         return text
 
     def start(self, interval=False):
-        if not self.authed.feed.use_oauth:
+        if not self.authed.api.use_oauth:
             return
 
         self.api(self.got_entry, self.params).\

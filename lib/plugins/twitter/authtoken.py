@@ -26,18 +26,13 @@ class TwitterFeed(Twitter, twitter.TwitterFeed):
 
 class AuthorizedTwitterAPI(object):
 
-    rest = None
-    feed = None
-
     def __init__(self):
         token = self._get_token()
-        self.rest = Twitter(consumer=consumer, token=token)
-        self.feed = TwitterFeed(consumer=consumer, token=token)
+        self.api = TwitterFeed(consumer=consumer, token=token)
 
     def update_credential(self):
         token = self._get_token()
-        self.rest.update_token(token)
-        self.feed.update_token(token)
+        self.api.update_token(token)
 
     def _get_token(self):
         key = SETTINGS_TWITTER.get_string('access-token')
