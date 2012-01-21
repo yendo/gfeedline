@@ -2,7 +2,7 @@ from twittytwister import twitter, txml
 #from ...twittytwister2 import twitter, txml
 from oauth import oauth
 
-from authorize import consumer
+from getauthtoken import consumer
 from ...utils.settings import SETTINGS_TWITTER
 
 class Twitter(twitter.Twitter):

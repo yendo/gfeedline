@@ -34,19 +34,22 @@ class TwitterAPIBase(object):
 
     def __init__(self, authed):
         self.authed = authed
+
+        self._get_output_class()
         self._setup()
 
     def create_obj(self, view, argument, params):
         options = params.get('params') if params else None
-        obj = TwitterOutput(self.api, self.authed, view, argument, options)
+        obj = self.output(self.api, self.authed, view, argument, options)
         return obj
+
+    def _get_output_class(self):
+        self.output= TwitterOutput
 
 class TwitterFeedAPIBase(TwitterAPIBase):
 
-    def create_obj(self, view, argument, params):
-        options = params.get('params') if params else None
-        obj = TwitterFeedOutput(self.api, self.authed, view, argument, options)
-        return obj
+    def _get_output_class(self):
+        self.output = TwitterFeedOutput
 
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 

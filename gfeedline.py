@@ -12,7 +12,7 @@ from twisted.internet import reactor
 from gi.repository import Gtk, GdkPixbuf
 from lib.window import MainWindow, FeedView
 from lib.plugins.twitter.api import TwitterAPIToken
-from lib.plugins.twitter.authtoken import AuthorizedTwitterAPI
+from lib.plugins.twitter.account import AuthorizedTwitterAPI
 
 
 class FeedListStore(Gtk.ListStore):
@@ -26,7 +26,7 @@ class FeedListStore(Gtk.ListStore):
     def __init__(self):
         super(FeedListStore, self).__init__(
             GdkPixbuf.Pixbuf, str, str, str, object, object, object)
-        self.window = MainWindow()
+        self.window = MainWindow(self)
         self.api_token = TwitterAPIToken().api
 
         target = [
