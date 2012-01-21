@@ -15,24 +15,30 @@ from gi.repository import GLib
 
 from ...utils.usercolor import UserColor
 from ...utils.settings import SETTINGS_TWITTER
+from ...utils.nullobject import Null
 
 user_color = UserColor()
 
-class TwitterAPIToken(object):
+
+class TwitterAPIDict(dict):
 
     def __init__(self):
-        self.api =  {
-            'Home TimeLine':  TwitterAPIHomeTimeLine,
-            'List TimeLine':  TwitterAPIListTimeLine,
-            'Mentions': TwitterAPIMentions,
+        all_api = [
+             TwitterAPIHomeTimeLine,
+             TwitterAPIListTimeLine,
+             TwitterAPIMentions,
     
-            'User Stream': TwitterAPIUserStream,
-            'Track':  TwitterAPITrack,
-            }
+             TwitterAPIUserStream,
+             TwitterAPITrack,
+             ]
+
+        null = Null()
+        for api in all_api:
+            self[api(null).name] = api
 
 class TwitterAPIBase(object):
 
-    def __init__(self, authed):
+    def __init__(self, authed=None):
         self.authed = authed
 
         self._get_output_class()

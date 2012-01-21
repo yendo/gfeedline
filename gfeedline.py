@@ -11,7 +11,7 @@ from twisted.internet import reactor
 
 from gi.repository import Gtk, GdkPixbuf
 from lib.window import MainWindow, FeedView
-from lib.plugins.twitter.api import TwitterAPIToken
+from lib.plugins.twitter.api import TwitterAPIDict
 from lib.plugins.twitter.account import AuthorizedTwitterAPI
 
 
@@ -27,7 +27,7 @@ class FeedListStore(Gtk.ListStore):
         super(FeedListStore, self).__init__(
             GdkPixbuf.Pixbuf, str, str, str, object, object, object)
         self.window = MainWindow(self)
-        self.api_token = TwitterAPIToken().api
+        self.api_dict = TwitterAPIDict()
 
         target = [
 #            {'source': 'Twitter', 'api': 'Home TimeLine', 'argument': ''},
@@ -46,7 +46,7 @@ class FeedListStore(Gtk.ListStore):
 
     def append(self, source, iter=None):
 
-        api = self.api_token[source['api']](self.authed_twitter)
+        api = self.api_dict[source['api']](self.authed_twitter)
         view = FeedView(self.window, api.name)
         options_obj = source.get('option')
         api_obj = api.create_obj(view, source.get('argument'), options_obj)
