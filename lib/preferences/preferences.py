@@ -60,26 +60,26 @@ class Preferences(object):
 
         if response_id == Gtk.ResponseType.OK:
             new_iter = self.liststore.append(v)
-#            self._set_coursor_to(new_iter)
+            self._set_coursor_to(new_iter)
 
     def on_button_feed_prefs_clicked(self, button):
         treeselection = self.feedsource_treeview.get_selection()
         (model, iter) = treeselection.get_selected()
 
         dialog = FeedSourceDialog(self.preferences, model[iter])
-        (response_id, v) = dialog.run(self.plugin_liststore)
+        (response_id, v) = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:
             new_iter = self.liststore.append(v, iter)
 
-#            self.liststore.remove(iter)
-#            self._set_coursor_to(new_iter)
+            self.liststore.remove(iter)
+            self._set_coursor_to(new_iter)
 
     def on_button_feed_del_clicked(self, button):
         treeselection = self.feedsource_treeview.get_selection()
         (model, iter) = treeselection.get_selected()
 
-        #self.liststore.remove(iter)
+        self.liststore.remove(iter)
         #self._set_button_sensitive(False)
 
     def on_treeview1_query_tooltip(self, w, *args):
@@ -93,3 +93,8 @@ class Preferences(object):
 
     def on_treeview2_cursor_changed(self, w):
         pass
+
+    def _set_coursor_to(self, iter):
+        model = self.feedsource_treeview.get_model()
+        row = model.get_path(iter)
+        self.feedsource_treeview.set_cursor(row, None, False)

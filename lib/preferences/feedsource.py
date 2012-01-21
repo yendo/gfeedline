@@ -1,6 +1,7 @@
 import os
 
 from gi.repository import Gtk
+from ..plugins.twitter.api import TwitterAPIDict
 
 class FeedSourceDialog(object):
     """Feed Source Dialog"""
@@ -16,8 +17,6 @@ class FeedSourceDialog(object):
         dialog = self.gui.get_object('feed_source')
         dialog.set_transient_for(self.parent)
 
-        #source_list = plugin_liststore.available_list()
-
 
         combobox_target = TargetCombobox(self.gui, self.liststore_row)
         
@@ -30,18 +29,18 @@ class FeedSourceDialog(object):
         # run
         response_id = dialog.run()
 
-        v = {}
-#        v = { 'source'  : source_widget.get_active_text(),
-#              'target'  : source_widget.get_target(),
-#              'argument': argument_widget.get_text(),
-#              'weight'  : weight_widget.get_value(),
-#              'options' : source_widget.ui.get_options() }
+        v = { 
+#            'source'  : source_widget.get_active_text(),
+            'target'  : combobox_target.get_active_text(),
+#            'argument': argument_widget.get_text(),
+#            'options' : source_widget.ui.get_options() 
+        }
 
+#        print v
         dialog.destroy()
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
         return response_id , v
-
 
 class TargetCombobox(object):
 
@@ -49,6 +48,14 @@ class TargetCombobox(object):
         self.feedliststore = feedliststore
         self.widget = gui.get_object('comboboxtext_target')
 
-        label_list = ['a','b','c']
-        for text in label_list:
+        self.label_list = sorted([x for x in TwitterAPIDict().keys()])
+
+        for text in self.label_list:
             self.widget.append_text(text)
+
+        num = self.label_list.index(feedliststore[2]) if feedliststore else 0
+        self.widget.set_active(num)
+
+    def get_active_text(self):
+        label = self.label_list[self.widget.get_active()]
+        return label

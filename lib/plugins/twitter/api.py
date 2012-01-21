@@ -103,7 +103,7 @@ class TwitterOutput(object):
     def __init__(self, api, authed, view=None, argument='', params={}):
         self.all_entries = []
         self.last_id = 0
-        self.view = view.webview
+        self.view = view
         self.api = api
         self.authed = authed
         self.params = params
@@ -142,7 +142,7 @@ class TwitterOutput(object):
 
         #print text
         self.last_id = entry.id
-        self.view.update(text)
+        self.view.webview.update(text)
 
     def _add_links_to_body(object, text):
 
@@ -157,6 +157,7 @@ class TwitterOutput(object):
         return text
 
     def start(self, interval=180):
+        print "start!"
         if not self.authed.api.use_oauth:
             print "not authorized"
             return
@@ -164,14 +165,19 @@ class TwitterOutput(object):
         if self.last_id:
             self.params['since_id'] = str(self.last_id)
 
-        api = self.api(self.got_entry, params=self.params)
-        api.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
+        self.d = self.api(self.got_entry, params=self.params)
+        self.d.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
 
         print self.authed.api.rate_limit_remaining
         # print self.authed.api.rate_limit_limit
         # print self.authed.api.rate_limit_reset
 
-        GLib.timeout_add_seconds(interval, self.start, interval)
+        self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
+
+    def exit(self):
+        print "exit!"
+        print self.d.cancel()
+        self.view.remove()
 
     def _restart(self, *args):
         print "restart!"
@@ -193,14 +199,25 @@ class TwitterFeedOutput(TwitterOutput):
         if not self.authed.api.use_oauth:
             return
 
-        self.api(self.got_entry, self.params).\
+        self.d = self.api(self.got_entry, self.params).\
             addErrback(self._on_error).\
             addBoth(self._on_connect)
+        self.is_connecting = True
+
+    def exit(self):
+        print "exit!"
+        print self.d.cancel()
+        #print self.timeout
+        self.stream.transport.stopProducing()
+        self.is_connecting = False
+        self.view.remove()
 
     def _on_connect(self, stream):
+        self.stream = stream
         if stream:
             stream.deferred.addCallback(self._on_error, 'Lost connection.')
 
     def _on_error(self, *e):
         print "Error:", e
-        GLib.timeout_add_seconds(10, self._restart)
+        if self.is_connecting:
+            GLib.timeout_add_seconds(10, self._restart)

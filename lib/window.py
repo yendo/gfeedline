@@ -89,5 +89,11 @@ class FeedView(object):
 
     def __init__(self, window, name=''):
         sw = FeedScrolledWindow()
-        window.notebook.append_page(sw, Gtk.Label.new_with_mnemonic(name))
+        self.notebook = window.notebook
+        self.page = self.notebook.append_page(
+            sw, Gtk.Label.new_with_mnemonic(name))
         self.webview = FeedWebView(sw)
+
+    def remove(self):
+        print "removed %s page!" % self.page
+        self.notebook.remove_page(self.page)

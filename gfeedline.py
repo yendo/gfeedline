@@ -30,13 +30,13 @@ class FeedListStore(Gtk.ListStore):
         self.api_dict = TwitterAPIDict()
 
         target = [
-#            {'source': 'Twitter', 'api': 'Home TimeLine', 'argument': ''},
-            {'api': 'User Stream', 'argument': ''},
-#            {'api': 'Mentions', 'argument': ''},
-            {'api': 'List TimeLine', 'option': 
+#            {'source': 'Twitter', 'target': 'Home TimeLine', 'argument': ''},
+            {'target': 'User Stream', 'argument': ''},
+#            {'target': 'Mentions', 'argument': ''},
+            {'target': 'List TimeLine', 'option': 
              {'params':
                   {'slug':'friends', 'owner_screen_name': 'yendo0206'}}},
-            {'api': 'Track', 'option': {'params': ['Debian', 'Ubuntu', 'Gnome']} },
+            {'target': 'Track', 'option': {'params': ['Debian', 'Ubuntu', 'Gnome']} },
             ]
 
         self.authed_twitter = AuthorizedTwitterAPI()
@@ -46,14 +46,14 @@ class FeedListStore(Gtk.ListStore):
 
     def append(self, source, iter=None):
 
-        api = self.api_dict[source['api']](self.authed_twitter)
+        api = self.api_dict[source['target']](self.authed_twitter)
         view = FeedView(self.window, api.name)
         options_obj = source.get('option')
         api_obj = api.create_obj(view, source.get('argument'), options_obj)
 
         list = [GdkPixbuf.Pixbuf(),
                 source.get('source'),
-                source['api'], 
+                source['target'], # API 
                 source.get('argument'), 
                 options_obj,
                 self.authed_twitter, # account_obj
@@ -65,6 +65,12 @@ class FeedListStore(Gtk.ListStore):
         api_obj.start(interval)
 
         return new_iter
+
+    def remove(self, iter):
+        obj = self.get_value(iter, 6) # stop object, liststore object
+        obj.exit()
+        del obj
+        super(FeedListStore, self).remove(iter)
 
 if __name__ == '__main__':
 
