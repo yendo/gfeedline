@@ -9,7 +9,7 @@ from lib.utils import gtk3reactor
 gtk3reactor.install()
 from twisted.internet import reactor
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GdkPixbuf
 from lib.window import MainWindow, FeedView
 from lib.plugins.twitter.api import TwitterAPIToken
 from lib.plugins.twitter.authtoken import AuthorizedTwitterAPI
@@ -19,22 +19,24 @@ class FeedListStore(Gtk.ListStore):
 
     """ListStore for Feed Sources.
 
-    0,      1,        2,
-    target, argument, api_object
+    0,    1,      2,        3,      4,           5,           6
+    icon, source, target, argument, options_obj, account_obj, api_obj
     """
 
     def __init__(self):
-        super(FeedListStore, self).__init__(object, object, object)
+        super(FeedListStore, self).__init__(
+            GdkPixbuf.Pixbuf, str, str, str, object, object, object)
         self.window = MainWindow()
         self.api_token = TwitterAPIToken().api
 
         target = [
-            {'api': 'Home TimeLine', 'argument': {}},
-            {'api': 'User Stream', 'argument': []},
-#            {'api': 'Mentions', 'argument': {}},
-            {'api': 'List TimeLine', 'argument': 
-             {'slug':'friends', 'owner_screen_name': 'yendo0206'}},
-            {'api': 'Track', 'argument': ['Debian', 'Ubuntu']},
+#            {'source': 'Twitter', 'api': 'Home TimeLine', 'argument': ''},
+            {'api': 'User Stream', 'argument': ''},
+#            {'api': 'Mentions', 'argument': ''},
+            {'api': 'List TimeLine', 'option': 
+             {'params':
+                  {'slug':'friends', 'owner_screen_name': 'yendo0206'}}},
+            {'api': 'Track', 'option': {'params': ['Debian', 'Ubuntu', 'Gnome']} },
             ]
 
         self.authed_twitter = AuthorizedTwitterAPI()
@@ -46,13 +48,21 @@ class FeedListStore(Gtk.ListStore):
 
         api = self.api_token[source['api']](self.authed_twitter)
         view = FeedView(self.window, api.name)
-        obj = api.create_obj(view, source['argument'])
+        options_obj = source.get('option')
+        api_obj = api.create_obj(view, source.get('argument'), options_obj)
 
-        list = [source['api'], source['argument'], obj]
+        list = [GdkPixbuf.Pixbuf(),
+                source.get('source'),
+                source['api'], 
+                source.get('argument'), 
+                options_obj,
+                self.authed_twitter, # account_obj
+                api_obj]
+
         new_iter = self.insert_before(iter, list)
 
         interval = 40 if api.name == 'Home TimeLine' else 180
-        obj.start(interval)
+        api_obj.start(interval)
 
         return new_iter
 

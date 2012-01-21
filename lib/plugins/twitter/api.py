@@ -36,14 +36,16 @@ class TwitterAPIBase(object):
         self.authed = authed
         self._setup()
 
-    def create_obj(self, view, params):
-        obj = TwitterOutput(self.api, self.authed, view, params)
+    def create_obj(self, view, argument, params):
+        options = params.get('params') if params else None
+        obj = TwitterOutput(self.api, self.authed, view, argument, options)
         return obj
 
 class TwitterFeedAPIBase(TwitterAPIBase):
 
-    def create_obj(self, view, params):
-        obj = TwitterFeedOutput(self.api, self.authed, view, params)
+    def create_obj(self, view, argument, params):
+        options = params.get('params') if params else None
+        obj = TwitterFeedOutput(self.api, self.authed, view, argument, options)
         return obj
 
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
@@ -89,7 +91,7 @@ class TwitterTime(object):
 
 class TwitterOutput(object):
 
-    def __init__(self, api, authed, view=None, params={}):
+    def __init__(self, api, authed, view=None, argument='', params={}):
         self.all_entries = []
         self.last_id = 0
         self.view = view.webview
