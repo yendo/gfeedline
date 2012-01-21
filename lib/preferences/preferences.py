@@ -8,12 +8,14 @@ import os
 
 from gi.repository import Gtk
 
-from lib.plugins.twitter.assistant import TwitterAuthAssistant
-from utils.settings import SETTINGS_TWITTER
+from ..plugins.twitter.assistant import TwitterAuthAssistant
+from ..utils.settings import SETTINGS_TWITTER
+from feedsource import FeedSourceDialog
 
 class Preferences(object):
 
-    def __init__(self):
+    def __init__(self, liststore):
+        self.liststore = liststore
 
         gui = Gtk.Builder()
         gui.add_from_file(os.path.abspath('share/preferences.glade'))
@@ -30,6 +32,10 @@ class Preferences(object):
         SETTINGS_TWITTER.connect("changed::user-name", 
                                  self.on_setting_username_changed)
 
+        self.feedsource_treeview = gui.get_object('feedsourcetreeview')
+        self.feedsource_treeview.set_model(liststore)
+        
+        
         gui.connect_signals(self)
 
     def on_setting_username_changed(self, *args):
@@ -49,13 +55,32 @@ class Preferences(object):
         pass
 
     def on_button_feed_new_clicked(self, button):
-        pass
+        dialog = FeedSourceDialog(self.preferences)
+        (response_id, v) = dialog.run()
+
+        if response_id == Gtk.ResponseType.OK:
+            new_iter = self.liststore.append(v)
+#            self._set_coursor_to(new_iter)
 
     def on_button_feed_prefs_clicked(self, button):
-        pass
+        treeselection = self.feedsource_treeview.get_selection()
+        (model, iter) = treeselection.get_selected()
+
+        dialog = FeedSourceDialog(self.preferences, model[iter])
+        (response_id, v) = dialog.run(self.plugin_liststore)
+
+        if response_id == Gtk.ResponseType.OK:
+            new_iter = self.liststore.append(v, iter)
+
+#            self.liststore.remove(iter)
+#            self._set_coursor_to(new_iter)
 
     def on_button_feed_del_clicked(self, button):
-        pass
+        treeselection = self.feedsource_treeview.get_selection()
+        (model, iter) = treeselection.get_selected()
+
+        #self.liststore.remove(iter)
+        #self._set_button_sensitive(False)
 
     def on_treeview1_query_tooltip(self, w, *args):
         pass

@@ -11,11 +11,12 @@ import webbrowser
 from twisted.internet import reactor
 from gi.repository import Gtk, WebKit, GLib, GObject
 
-from preferences import Preferences
+from preferences.preferences import Preferences
 
 class MainWindow(object):
 
-    def __init__(self):
+    def __init__(self, liststore):
+        self.liststore = liststore
 
         gui = Gtk.Builder()
         gui.add_from_file(os.path.abspath('share/gfeedline.glade'))
@@ -41,8 +42,7 @@ class MainWindow(object):
         reactor.stop()
 
     def on_menuitem_prefs_activate(self, menuitem):
-        print menuitem
-        prefs = Preferences()
+        prefs = Preferences(self.liststore)
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
