@@ -177,6 +177,8 @@ class TwitterOutput(object):
     def exit(self):
         print "exit!"
         print self.d.cancel()
+        if hasattr(self, 'timeout'):
+            GLib.source_remove(self.timeout)
         self.view.remove()
 
     def _restart(self, *args):
@@ -205,12 +207,9 @@ class TwitterFeedOutput(TwitterOutput):
         self.is_connecting = True
 
     def exit(self):
-        print "exit!"
-        print self.d.cancel()
-        #print self.timeout
         self.stream.transport.stopProducing()
         self.is_connecting = False
-        self.view.remove()
+        super(TwitterFeedOutput, self).exit()
 
     def _on_connect(self, stream):
         self.stream = stream
