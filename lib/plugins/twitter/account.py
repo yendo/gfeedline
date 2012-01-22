@@ -11,6 +11,12 @@ class Twitter(twitter.Twitter):
         return self.__get('/1/lists/statuses.xml',
                 delegate, params, txml.Statuses, extra_args=extra_args)
 
+    def search(self, delegate, params=None, extra_args=None):
+        if params is None: 
+            params = {}
+        return self.__doDownloadPage(self.search_url + '?' + self._urlencode(params),
+            txml.Feed(delegate, extra_args), agent=self.agent)
+
     def update_token(self, token):
         self.use_auth = True
         self.use_oauth = True

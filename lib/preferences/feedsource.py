@@ -31,7 +31,7 @@ class FeedSourceDialog(object):
         v = { 
 #            'source'  : source_widget.get_active_text(),
             'target'  : combobox_target.get_active_text(),
-            'argument': entry_argument.get_text(),
+            'argument': entry_argument.get_text().decode('utf-8'),
 #            'options' : source_widget.ui.get_options() 
         }
 

@@ -112,6 +112,8 @@ class TwitterSearchAPI(TwitterAPIBase):
     def _get_output_class(self):
         self.output= TwitterSearchOutput
 
+    def get_options(self, argument):
+        return {'q': argument}
 
 class TwitterTime(object):
 
@@ -134,6 +136,11 @@ class TwitterOutput(object):
         self.params = params
         self.argument = argument
 
+        template_file = os.path.abspath('html/status.html')
+        with open(template_file, 'r') as fh:
+            file = fh.read()
+        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
+
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
     def got_entry(self, msg, *args):
@@ -154,12 +161,9 @@ class TwitterOutput(object):
         body = self._add_links_to_body(entry.text)
         body = body.replace('"', '&quot;')
         body = body.replace('\n', '<br>')
+        body = body.replace("'", '&apos;')
 
-        template_file = os.path.abspath('html/status.html')
-        with open(template_file, 'r') as fh:
-            file = fh.read()
-        temp = Template(unicode(file, 'utf-8', 'ignore'))
-        text = temp.substitute(
+        text = self.temp.substitute(
             datetime=time.get_local_time(),
             id=entry.id,
             image_uri=entry.user.profile_image_url.replace('_normal.', '_mini.'),
@@ -227,26 +231,16 @@ class TwitterSearchOutput(TwitterOutput):
 
         #body = self._add_links_to_body(entry.content)
         body = self._add_links_to_body(entry.title)
-        #body = entry.title
         body = body.replace('"', '&quot;')
-        body = body.replace("'", '')
+        body = body.replace("'", '&apos;')
         body = body.replace('\n', '<br>')
 
-#        print "-"*80
-
-        template_file = os.path.abspath('html/status.html')
-        with open(template_file, 'r') as fh:
-            file = fh.read()
-        temp = Template(unicode(file, 'utf-8', 'ignore'))
-
         name = entry.author.name.split(' ')[0]
-        id =entry.id.split(':')[2]
-        user_id = entry.image.split('/')[4]
 
         try:
-            text = temp.substitute(
+            text = self.temp.substitute(
                 datetime=time.get_local_time(),
-                id=id,
+                id=entry.id.split(':')[2],
                 image_uri=entry.image,
                 user_name=name,
                 user_color=user_color.get(123),
@@ -257,29 +251,6 @@ class TwitterSearchOutput(TwitterOutput):
 
         self.last_id = entry.id
         self.view.webview.update(text)
-
-    def start(self, interval=180):
-        print "start!"
-        if not self.authed.api.use_oauth:
-            print "not authorized"
-            return
-
-        if self.last_id:
-            self.params['since_id'] = str(self.last_id)
-
-        params = self.api.get_options(self.argument)
-        self.params.update(params)
-
-#        self.d = self.api.api(self.argument, self.got_entry, params=self.params)
-
-        self.d = self.api.api(self.argument, self.got_entry)
-        self.d.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
-
-        print self.authed.api.rate_limit_remaining
-        # print self.authed.api.rate_limit_limit
-        # print self.authed.api.rate_limit_reset
-
-        self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
 
 class TwitterFeedOutput(TwitterOutput):
 
