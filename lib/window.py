@@ -24,6 +24,7 @@ class MainWindow(object):
         self.window = window = gui.get_object('window1')
         self.notebook = gui.get_object('notebook1')
         self.notebook.remove_page(0)
+        # self.notebook.connect('page-reordered', self.on_page_reordered)
         menubar = gui.get_object('menubar1')
         self.sw = gui.get_object('scrolledwindow1')
 
@@ -33,11 +34,6 @@ class MainWindow(object):
 
         gui.connect_signals(self)
 
-    def append_page(self):
-        sw1 = FeedScrolledWindow()
-        main.notebook.append_page(sw1, None)
-        view1 = FeedWebView(sw1)
-        
     def on_stop(self, *args):
         reactor.stop()
 
@@ -91,6 +87,7 @@ class FeedView(object):
         self.sw = FeedScrolledWindow()
         self.notebook = window.notebook
         self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(name))
+        # self.notebook.set_tab_reorderable(self.sw, True)
         self.webview = FeedWebView(self.sw)
 
     def remove(self):
