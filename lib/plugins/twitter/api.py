@@ -45,7 +45,7 @@ class TwitterAPIBase(object):
         self._setup()
 
     def create_obj(self, view, argument, params):
-        options = params.get('params') if params else None
+        options = params.get('params') if params else {} # FIXME
         obj = self.output(self.api, self.authed, view, argument, options)
         return obj
 
@@ -107,6 +107,7 @@ class TwitterOutput(object):
         self.api = api
         self.authed = authed
         self.params = params
+        self.argument = argument
 
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
@@ -130,7 +131,8 @@ class TwitterOutput(object):
         body = body.replace('\n', '<br>')
 
         template_file = os.path.abspath('html/status.html')
-        file = open(template_file).read()
+        with open(template_file, 'r') as fh:
+            file = fh.read()
         temp = Template(unicode(file, 'utf-8', 'ignore'))
         text = temp.substitute(
             datetime=time.get_local_time(),
@@ -164,6 +166,11 @@ class TwitterOutput(object):
 
         if self.last_id:
             self.params['since_id'] = str(self.last_id)
+
+        if self.argument:
+            list_name = self.argument.split('/')
+            self.params['owner_screen_name'] = list_name[0]
+            self.params['slug'] = list_name[1]
 
         self.d = self.api(self.got_entry, params=self.params)
         self.d.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
@@ -201,7 +208,13 @@ class TwitterFeedOutput(TwitterOutput):
         if not self.authed.api.use_oauth:
             return
 
-        self.d = self.api(self.got_entry, self.params).\
+        if self.argument:
+            argument = self.argument.split(',') 
+        else:
+            argument = None
+
+        print argument
+        self.d = self.api(self.got_entry, argument).\
             addErrback(self._on_error).\
             addBoth(self._on_connect)
         self.is_connecting = True

@@ -33,10 +33,9 @@ class FeedListStore(Gtk.ListStore):
 #            {'source': 'Twitter', 'target': 'Home TimeLine', 'argument': ''},
             {'target': 'User Stream', 'argument': ''},
 #            {'target': 'Mentions', 'argument': ''},
-            {'target': 'List TimeLine', 'option': 
-             {'params':
-                  {'slug':'friends', 'owner_screen_name': 'yendo0206'}}},
-            {'target': 'Track', 'option': {'params': ['Debian', 'Ubuntu', 'Gnome']} },
+            {'target': 'List TimeLine', 'argument': 'yendo0206/friends'},
+#            {'target': 'Track', 'option': {'params': ['Debian', 'Ubuntu', 'Gnome']} },
+            {'target': 'Track', 'argument': 'Debian, Ubuntu, Gnome'},
             ]
 
         self.authed_twitter = AuthorizedTwitterAPI()

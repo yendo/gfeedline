@@ -19,11 +19,10 @@ class FeedSourceDialog(object):
 
 
         combobox_target = TargetCombobox(self.gui, self.liststore_row)
-        
-
 
         #source_widget = SourceComboBox(self.gui, source_list, self.data)
-        #argument_widget = ArgumentEntry(self.gui, self.data)
+        entry_argument = self.gui.get_object('entry_argument')
+        entry_argument.set_text(self.liststore_row[3])
         #weight_widget = WeightEntry(self.gui, self.data)
 
         # run
@@ -32,11 +31,11 @@ class FeedSourceDialog(object):
         v = { 
 #            'source'  : source_widget.get_active_text(),
             'target'  : combobox_target.get_active_text(),
-#            'argument': argument_widget.get_text(),
+            'argument': entry_argument.get_text(),
 #            'options' : source_widget.ui.get_options() 
         }
 
-#        print v
+        print v
         dialog.destroy()
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
