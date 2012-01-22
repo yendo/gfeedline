@@ -27,7 +27,8 @@ class TwitterAPIDict(dict):
              TwitterAPIHomeTimeLine,
              TwitterAPIListTimeLine,
              TwitterAPIMentions,
-    
+             TwitterSearchAPI,
+
              TwitterAPIUserStream,
              TwitterAPITrack,
              ]
@@ -100,6 +101,16 @@ class TwitterAPITrack(TwitterFeedAPIBase):
     
     def get_options(self, argument):
         return [ x.strip() for x in argument.split(',') ]
+
+
+class TwitterSearchAPI(TwitterAPIBase):
+
+    def _setup(self):
+        self.api = self.authed.api.search
+        self.name = 'Search'
+
+    def _get_output_class(self):
+        self.output= TwitterSearchOutput
 
 
 class TwitterTime(object):
@@ -208,6 +219,67 @@ class TwitterOutput(object):
 
     def _on_error(self, e):
         print "error!", e
+
+class TwitterSearchOutput(TwitterOutput):
+
+    def print_entry(self, entry):
+        time = TwitterTime(entry.published)
+
+        #body = self._add_links_to_body(entry.content)
+        body = self._add_links_to_body(entry.title)
+        #body = entry.title
+        body = body.replace('"', '&quot;')
+        body = body.replace("'", '')
+        body = body.replace('\n', '<br>')
+
+#        print "-"*80
+
+        template_file = os.path.abspath('html/status.html')
+        with open(template_file, 'r') as fh:
+            file = fh.read()
+        temp = Template(unicode(file, 'utf-8', 'ignore'))
+
+        name = entry.author.name.split(' ')[0]
+        id =entry.id.split(':')[2]
+        user_id = entry.image.split('/')[4]
+
+        try:
+            text = temp.substitute(
+                datetime=time.get_local_time(),
+                id=id,
+                image_uri=entry.image,
+                user_name=name,
+                user_color=user_color.get(123),
+                status_body=body)
+        except:
+            print body
+            print "bad!"
+
+        self.last_id = entry.id
+        self.view.webview.update(text)
+
+    def start(self, interval=180):
+        print "start!"
+        if not self.authed.api.use_oauth:
+            print "not authorized"
+            return
+
+        if self.last_id:
+            self.params['since_id'] = str(self.last_id)
+
+        params = self.api.get_options(self.argument)
+        self.params.update(params)
+
+#        self.d = self.api.api(self.argument, self.got_entry, params=self.params)
+
+        self.d = self.api.api(self.argument, self.got_entry)
+        self.d.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
+
+        print self.authed.api.rate_limit_remaining
+        # print self.authed.api.rate_limit_limit
+        # print self.authed.api.rate_limit_reset
+
+        self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
 
 class TwitterFeedOutput(TwitterOutput):
 
