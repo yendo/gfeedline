@@ -5,11 +5,10 @@ class UserColor(object):
     def __init__(self):
         self.user_color = {}
 
-    def get(self, user_id):
-        return self.user_color.setdefault(int(user_id), self._get_color())
+    def get(self, screen_name):
+        return self.user_color.setdefault(screen_name, self._get_color())
 
     def _get_color(self):
-
         darkest, lightest = 0, 150
 
         while True:

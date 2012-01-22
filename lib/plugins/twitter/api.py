@@ -161,14 +161,14 @@ class TwitterOutput(object):
         body = self._add_links_to_body(entry.text)
         body = body.replace('"', '&quot;')
         body = body.replace('\n', '<br>')
-        body = body.replace("'", '&apos;')
+#        body = body.replace("'", '&apos;')
 
         text = self.temp.substitute(
             datetime=time.get_local_time(),
             id=entry.id,
             image_uri=entry.user.profile_image_url.replace('_normal.', '_mini.'),
             user_name=entry.user.screen_name,
-            user_color=user_color.get(entry.user.id),
+            user_color=user_color.get(entry.user.screen_name),
             status_body=body)
 
         #print text
@@ -229,27 +229,27 @@ class TwitterSearchOutput(TwitterOutput):
     def print_entry(self, entry):
         time = TwitterTime(entry.published)
 
-        #body = self._add_links_to_body(entry.content)
-        body = self._add_links_to_body(entry.title)
+        body = self._add_links_to_body(entry.title) # entry.content
         body = body.replace('"', '&quot;')
-        body = body.replace("'", '&apos;')
+#        body = body.replace("'", '&apos;')
         body = body.replace('\n', '<br>')
 
         name = entry.author.name.split(' ')[0]
+        id = entry.id.split(':')[2]
 
         try:
             text = self.temp.substitute(
                 datetime=time.get_local_time(),
-                id=entry.id.split(':')[2],
+                id=id,
                 image_uri=entry.image,
                 user_name=name,
-                user_color=user_color.get(123),
+                user_color=user_color.get(name),
                 status_body=body)
         except:
             print body
             print "bad!"
 
-        self.last_id = entry.id
+        self.last_id = id
         self.view.webview.update(text)
 
 class TwitterFeedOutput(TwitterOutput):
