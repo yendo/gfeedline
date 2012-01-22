@@ -46,8 +46,11 @@ class TwitterAPIBase(object):
 
     def create_obj(self, view, argument, params):
         options = params.get('params') if params else {} # FIXME
-        obj = self.output(self.api, self.authed, view, argument, options)
+        obj = self.output(self, self.authed, view, argument, options)
         return obj
+
+    def get_options(self, argument):
+        return {}
 
     def _get_output_class(self):
         self.output= TwitterOutput
@@ -56,6 +59,9 @@ class TwitterFeedAPIBase(TwitterAPIBase):
 
     def _get_output_class(self):
         self.output = TwitterFeedOutput
+
+    def get_options(self, argument):
+        return None
 
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
@@ -68,6 +74,11 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
     def _setup(self):
         self.api = self.authed.api.list_timeline
         self.name = 'List TimeLine'
+
+    def get_options(self, argument):
+        list_name = argument.split('/')
+        params = {'owner_screen_name': list_name[0], 'slug': list_name[1]}
+        return params
 
 class TwitterAPIMentions(TwitterAPIBase):
 
@@ -87,6 +98,9 @@ class TwitterAPITrack(TwitterFeedAPIBase):
         self.api = self.authed.api.track
         self.name = 'Track'
     
+    def get_options(self, argument):
+        return [ x.strip() for x in argument.split(',') ]
+
 
 class TwitterTime(object):
 
@@ -167,12 +181,10 @@ class TwitterOutput(object):
         if self.last_id:
             self.params['since_id'] = str(self.last_id)
 
-        if self.argument:
-            list_name = self.argument.split('/')
-            self.params['owner_screen_name'] = list_name[0]
-            self.params['slug'] = list_name[1]
+        params = self.api.get_options(self.argument)
+        self.params.update(params)
 
-        self.d = self.api(self.got_entry, params=self.params)
+        self.d = self.api.api(self.got_entry, params=self.params)
         self.d.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
 
         print self.authed.api.rate_limit_remaining
@@ -209,13 +221,10 @@ class TwitterFeedOutput(TwitterOutput):
         if not self.authed.api.use_oauth:
             return
 
-        if self.argument:
-            argument = self.argument.split(',') 
-        else:
-            argument = None
+        argument = self.api.get_options(self.argument)
+        # print argument
 
-        print argument
-        self.d = self.api(self.got_entry, argument).\
+        self.d = self.api.api(self.got_entry, argument).\
             addErrback(self._on_error).\
             addBoth(self._on_connect)
         self.is_connecting = True
