@@ -22,8 +22,8 @@ class FeedSourceDialog(object):
 
         #source_widget = SourceComboBox(self.gui, source_list, self.data)
         entry_argument = self.gui.get_object('entry_argument')
-        entry_argument.set_text(self.liststore_row[3])
-        #weight_widget = WeightEntry(self.gui, self.data)
+        if self.liststore_row:
+            entry_argument.set_text(self.liststore_row[3])
 
         # run
         response_id = dialog.run()

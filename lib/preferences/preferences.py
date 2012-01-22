@@ -46,6 +46,7 @@ class Preferences(object):
         assistant = TwitterAuthAssistant() 
 
     def on_button_close_clicked(self, button):
+        self.liststore.save_settings()
         self.preferences.destroy()
 
     def on_checkbutton_always_toggled_cb(self, button):
