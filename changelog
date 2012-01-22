@@ -1,3 +1,7 @@
+2012-01-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences.py: Added support for feedlist store drag & drop.
+
 2012-01-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* preferences/*, share/feedsource.glade: Added feed source

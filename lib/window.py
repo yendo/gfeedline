@@ -42,7 +42,7 @@ class MainWindow(object):
         reactor.stop()
 
     def on_menuitem_prefs_activate(self, menuitem):
-        prefs = Preferences(self.liststore)
+        prefs = Preferences(self)
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 

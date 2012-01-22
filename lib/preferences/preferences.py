@@ -6,7 +6,7 @@
 
 import os
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..utils.settings import SETTINGS_TWITTER
@@ -14,8 +14,8 @@ from feedsource import FeedSourceDialog
 
 class Preferences(object):
 
-    def __init__(self, liststore):
-        self.liststore = liststore
+    def __init__(self, mainwindow):
+        self.liststore = mainwindow.liststore
 
         gui = Gtk.Builder()
         gui.add_from_file(os.path.abspath('share/preferences.glade'))
@@ -33,10 +33,24 @@ class Preferences(object):
                                  self.on_setting_username_changed)
 
         self.feedsource_treeview = gui.get_object('feedsourcetreeview')
-        self.feedsource_treeview.set_model(liststore)
-        
-        
+        self.feedsource_treeview.set_model(self.liststore)
+        treeview = self.feedsource_treeview
+        treeview.connect("drag-begin", self.on_drag_begin)
+        treeview.connect("drag-end", self.on_drag_end, mainwindow.notebook)
+
         gui.connect_signals(self)
+
+    def on_drag_begin(self, treeview, dragcontext):
+        treeselection = treeview.get_selection()
+        model, iter = treeselection.get_selected()
+        self.api_obj = model.get_value(iter, 6)
+
+    def on_drag_end(self, treeview, dragcontext, notebook):
+        model = treeview.get_model()
+        all_obj = [x[6] for x in model]
+        page = all_obj.index(self.api_obj)
+
+        notebook.reorder_child(self.api_obj.view.sw, page)
 
     def on_setting_username_changed(self, *args):
         user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'
