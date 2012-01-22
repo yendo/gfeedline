@@ -88,12 +88,12 @@ class FeedWebView(WebKit.WebView):
 class FeedView(object):
 
     def __init__(self, window, name=''):
-        sw = FeedScrolledWindow()
+        self.sw = FeedScrolledWindow()
         self.notebook = window.notebook
-        self.page = self.notebook.append_page(
-            sw, Gtk.Label.new_with_mnemonic(name))
-        self.webview = FeedWebView(sw)
+        self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(name))
+        self.webview = FeedWebView(self.sw)
 
     def remove(self):
-        print "removed %s page!" % self.page
-        self.notebook.remove_page(self.page)
+        page = self.notebook.page_num(self.sw)
+        print "removed %s page!" % page
+        self.notebook.remove_page(page)
