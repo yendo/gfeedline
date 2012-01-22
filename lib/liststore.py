@@ -50,7 +50,10 @@ class FeedListStore(Gtk.ListStore):
     def append(self, source, iter=None):
 
         api = self.api_dict[source['target']](self.authed_twitter)
-        view = FeedView(self.window, api.name)
+
+        page = int(str(self.get_path(iter))) if iter else -1
+        view = FeedView(self.window, api.name, page)
+
         options_obj = source.get('option')
         api_obj = api.create_obj(view, source.get('argument'), options_obj)
 

@@ -83,10 +83,11 @@ class FeedWebView(WebKit.WebView):
 
 class FeedView(object):
 
-    def __init__(self, window, name=''):
+    def __init__(self, window, name='', page=-1):
         self.sw = FeedScrolledWindow()
         self.notebook = window.notebook
         self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(name))
+        self.notebook.reorder_child(self.sw, page)
         # self.notebook.set_tab_reorderable(self.sw, True)
         self.webview = FeedWebView(self.sw)
 
