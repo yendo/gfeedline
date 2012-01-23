@@ -12,6 +12,7 @@ from twisted.internet import reactor
 from gi.repository import Gtk, WebKit, GLib, GObject
 
 from preferences.preferences import Preferences
+from utils.notification import Notification
 
 class MainWindow(object):
 
@@ -27,6 +28,8 @@ class MainWindow(object):
         # self.notebook.connect('page-reordered', self.on_page_reordered)
         menubar = gui.get_object('menubar1')
         self.sw = gui.get_object('scrolledwindow1')
+
+        self.notification = Notification('Gnome Feed Line')
 
         window.resize(480, 600)
         window.connect("delete-event", self.on_stop)
@@ -90,6 +93,8 @@ class FeedView(object):
         self.notebook.reorder_child(self.sw, page)
         # self.notebook.set_tab_reorderable(self.sw, True)
         self.webview = FeedWebView(self.sw)
+
+        self.notification = window.notification
 
     def remove(self):
         page = self.notebook.page_num(self.sw)

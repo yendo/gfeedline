@@ -147,8 +147,9 @@ class TwitterOutput(object):
         self.all_entries.append(msg)
 
     def conv(self, text):
-        return BeautifulStoneSoup(
+        soup = BeautifulStoneSoup(
             text, convertEntities=BeautifulStoneSoup.HTML_ENTITIES)
+        return unicode(soup)
 
     def print_all_entries(self):
         for entry in reversed(self.all_entries):
@@ -173,6 +174,8 @@ class TwitterOutput(object):
 
         #print text
         self.last_id = entry.id
+        self.view.notification.notify('', #entry.user.profile_image_url, 
+                                      entry.user.screen_name, self.conv(entry.text))
         self.view.webview.update(text)
 
     def _add_links_to_body(object, text):

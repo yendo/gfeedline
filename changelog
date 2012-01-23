@@ -1,6 +1,7 @@
 2012-01-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* constants.py: Added constans class.
+	* notification.py: Added support for Desktop Notification.
+	* constants.py: Added constants class.
 	* nullobject.py: Added null object class.
 	* twitter/api.py: Added support for Search API.
 
