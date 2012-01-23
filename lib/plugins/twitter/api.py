@@ -7,9 +7,10 @@
 import os
 import sys
 import re
+import copy
 
 import dateutil.parser
-from BeautifulSoup import BeautifulStoneSoup
+from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup
 from gi.repository import GLib
 
 from ...utils.usercolor import UserColor
@@ -18,6 +19,10 @@ from ...utils.nullobject import Null
 
 user_color = UserColor()
 
+# replace hexadecimal character reference by decimal one
+hexentityMassage = copy.copy(BeautifulSoup.MARKUP_MASSAGE)
+hexentityMassage += [(re.compile('&#x([^;]+);'), 
+                      lambda m: '&#%d;' % int(m.group(1), 16))]
 
 class TwitterAPIDict(dict):
 
@@ -142,7 +147,8 @@ class TwitterOutput(object):
 
     def conv(self, text):
         soup = BeautifulStoneSoup(
-            text, convertEntities=BeautifulStoneSoup.HTML_ENTITIES)
+            text, convertEntities=BeautifulStoneSoup.HTML_ENTITIES,
+             markupMassage=hexentityMassage)
         return unicode(soup)
 
     def print_all_entries(self):
@@ -241,7 +247,7 @@ class TwitterSearchOutput(TwitterOutput):
                 user_name=name,
                 user_color=user_color.get(name),
                 status_body=body,
-                popup_body=body)
+                popup_body=self.conv(entry.title))
         except:
             print body
             print "bad!"
