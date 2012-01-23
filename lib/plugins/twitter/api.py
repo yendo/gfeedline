@@ -7,7 +7,6 @@
 import os
 import sys
 import re
-from string import Template
 
 import dateutil.parser
 from BeautifulSoup import BeautifulStoneSoup
@@ -136,11 +135,6 @@ class TwitterOutput(object):
         self.params = params
         self.argument = argument
 
-        template_file = os.path.abspath('html/status.html')
-        with open(template_file, 'r') as fh:
-            file = fh.read()
-        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
-
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
     def got_entry(self, msg, *args):
@@ -164,19 +158,18 @@ class TwitterOutput(object):
         body = body.replace('\n', '<br>')
 #        body = body.replace("'", '&apos;')
 
-        text = self.temp.substitute(
+        text = dict(
             datetime=time.get_local_time(),
             id=entry.id,
             image_uri=entry.user.profile_image_url.replace('_normal.', '_mini.'),
             user_name=entry.user.screen_name,
             user_color=user_color.get(entry.user.screen_name),
-            status_body=body)
+            status_body=body,
+            popup_body=self.conv(entry.text)
+            )
 
-        #print text
         self.last_id = entry.id
-        self.view.notification.notify('', #entry.user.profile_image_url, 
-                                      entry.user.screen_name, self.conv(entry.text))
-        self.view.webview.update(text)
+        self.view.update(text)
 
     def _add_links_to_body(object, text):
 
@@ -241,19 +234,20 @@ class TwitterSearchOutput(TwitterOutput):
         id = entry.id.split(':')[2]
 
         try:
-            text = self.temp.substitute(
+            text = dict(
                 datetime=time.get_local_time(),
                 id=id,
                 image_uri=entry.image,
                 user_name=name,
                 user_color=user_color.get(name),
-                status_body=body)
+                status_body=body,
+                popup_body=body)
         except:
             print body
             print "bad!"
 
         self.last_id = id
-        self.view.webview.update(text)
+        self.webview.update(text)
 
 class TwitterFeedOutput(TwitterOutput):
 

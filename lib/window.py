@@ -7,6 +7,7 @@
 
 import os
 import webbrowser
+from string import Template
 
 from twisted.internet import reactor
 from gi.repository import Gtk, WebKit, GLib, GObject
@@ -96,7 +97,25 @@ class FeedView(object):
 
         self.notification = window.notification
 
+        template_file = os.path.abspath('html/status.html')
+        with open(template_file, 'r') as fh:
+            file = fh.read()
+        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
+
     def remove(self):
         page = self.notebook.page_num(self.sw)
         print "removed %s page!" % page
         self.notebook.remove_page(page)
+
+    def update(self, entry):
+        text = self.temp.substitute(
+            datetime=entry['datetime'],
+            id=entry['id'],
+            image_uri=entry['image_uri'],
+            user_name=entry['user_name'],
+            user_color=entry['user_color'],
+            status_body=entry['status_body'])
+
+        self.notification.notify('', #entry.user.profile_image_url, 
+                                      entry['user_name'], entry['popup_body'])
+        self.webview.update(text)
