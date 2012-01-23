@@ -8,6 +8,7 @@ import os
 import sys
 import re
 import copy
+import time
 
 import dateutil.parser
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup
@@ -130,6 +131,8 @@ class TwitterTime(object):
 
 class TwitterOutput(object):
 
+    api_connections = 0
+
     def __init__(self, api, authed, view=None, argument='', options={}):
         self.all_entries = []
         self.last_id = 0
@@ -141,6 +144,8 @@ class TwitterOutput(object):
         self.options = options
 
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
+
+        TwitterOutput.api_connections += 1
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -189,7 +194,7 @@ class TwitterOutput(object):
 
         return text
 
-    def start(self, interval=180):
+    def start(self, interval=60):
         print "start!"
         if not self.authed.api.use_oauth:
             print "not authorized"
@@ -204,9 +209,20 @@ class TwitterOutput(object):
         self.d = self.api.api(self.got_entry, params=self.params)
         self.d.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
 
-        print self.authed.api.rate_limit_remaining
-        # print self.authed.api.rate_limit_limit
-        # print self.authed.api.rate_limit_reset
+        print "connections:", TwitterOutput.api_connections
+
+        rate_limit_remaining = self.authed.api.rate_limit_remaining
+        rate_limit_limit = self.authed.api.rate_limit_limit
+        rate_limit_reset = self.authed.api.rate_limit_reset
+
+        diff = 0
+        if rate_limit_reset:
+            diff = rate_limit_reset - int(time.time())
+            interval = diff/rate_limit_remaining * TwitterOutput.api_connections
+        else:
+            interval = 60
+
+        print diff, rate_limit_remaining, interval
 
         self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
 
@@ -217,6 +233,8 @@ class TwitterOutput(object):
         if hasattr(self, 'timeout'):
             GLib.source_remove(self.timeout)
         self.view.remove()
+
+        TwitterOutput.api_connections -= 1
 
     def _restart(self, *args):
         print "restart!"
