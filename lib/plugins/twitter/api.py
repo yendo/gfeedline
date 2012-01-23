@@ -13,6 +13,7 @@ import time
 import dateutil.parser
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup
 from gi.repository import GLib
+from twisted.internet import reactor
 
 from ...utils.usercolor import UserColor
 from ...utils.settings import SETTINGS_TWITTER
@@ -146,6 +147,7 @@ class TwitterOutput(object):
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
         TwitterOutput.api_connections += 1
+        self.delayed = []
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -157,8 +159,10 @@ class TwitterOutput(object):
         return unicode(soup)
 
     def print_all_entries(self):
-        for entry in reversed(self.all_entries):
-            self.print_entry(entry)
+        for i, entry in enumerate(reversed(self.all_entries)):
+            #self.print_entry(entry)
+            self.delayed.append(reactor.callLater(i*3, self.print_entry, entry))
+
         self.all_entries = []
 
     def print_entry(self, entry):
@@ -224,15 +228,21 @@ class TwitterOutput(object):
 
         print diff, rate_limit_remaining, interval
 
-        self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
+        # self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
+        self.timeout = reactor.callLater(interval, self.start, interval)
 
     def exit(self):
         print "exit!"
         if hasattr(self, 'd'):
             self.d.cancel()
         if hasattr(self, 'timeout'):
-            GLib.source_remove(self.timeout)
+            #GLib.source_remove(self.timeout)
+            self.timeout.cancel()
         self.view.remove()
+        if hasattr(self, 'delayed') and self.delayed:
+            for i in self.delayed:
+                if not i.called:
+                    i.cancel()
 
         TwitterOutput.api_connections -= 1
 
@@ -307,4 +317,5 @@ class TwitterFeedOutput(TwitterOutput):
     def _on_error(self, *e):
         print "Error:", e
         if self.is_connecting:
-            GLib.timeout_add_seconds(10, self._restart)
+            # GLib.timeout_add_seconds(10, self._restart)
+            reactor.callLater(10, self._restart)
