@@ -1,5 +1,7 @@
 2012-01-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* constants.py: Added constans class.
+	* nullobject.py: Added null object class.
 	* twitter/api.py: Added support for Search API.
 
 2012-01-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
