@@ -29,20 +29,6 @@ class FeedListStore(Gtk.ListStore):
         self.api_dict = TwitterAPIDict()
         self.authed_twitter = AuthorizedTwitterAPI()
 
-#        target = [
-##            {'source': 'Twitter', 'target': 'Home TimeLine', 'argument': ''},
-#            {'target': 'User Stream', 'argument': ''},
-##            {'target': 'Mentions', 'argument': ''},
-#            {'target': 'List TimeLine', 'argument': 'yendo0206/friends'},
-##            {'target': 'Track', 'option': {'params': ['Debian', 'Ubuntu', 'Gnome']} },
-#            {'target': 'Track', 'argument': 'Debian, Ubuntu, Gnome'},
-#            ]
-#
-#
-#        for i in target:
-#            self.append(i)
-#
-
         self.save = SaveListStore()
         for entry in self.save.load():
             self.append(entry)
@@ -54,7 +40,7 @@ class FeedListStore(Gtk.ListStore):
         page = int(str(self.get_path(iter))) if iter else -1
         view = FeedView(self.window, api.name, page)
 
-        options_obj = source.get('option')
+        options_obj = source.get('options')
         api_obj = api.create_obj(view, source.get('argument'), options_obj)
 
         list = [GdkPixbuf.Pixbuf(),

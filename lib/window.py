@@ -107,7 +107,7 @@ class FeedView(object):
         print "removed %s page!" % page
         self.notebook.remove_page(page)
 
-    def update(self, entry):
+    def update(self, entry, has_notify=False):
         text = self.temp.substitute(
             datetime=entry['datetime'],
             id=entry['id'],
@@ -116,6 +116,7 @@ class FeedView(object):
             user_color=entry['user_color'],
             status_body=entry['status_body'])
 
-        self.notification.notify('', #entry.user.profile_image_url, 
-                                      entry['user_name'], entry['popup_body'])
+        if has_notify:
+            self.notification.notify('', #entry.user.profile_image_url, 
+                                     entry['user_name'], entry['popup_body'])
         self.webview.update(text)

@@ -17,13 +17,18 @@ class FeedSourceDialog(object):
         dialog = self.gui.get_object('feed_source')
         dialog.set_transient_for(self.parent)
 
+        #source_widget = SourceComboBox(self.gui, source_list, self.data)
 
         combobox_target = TargetCombobox(self.gui, self.liststore_row)
 
-        #source_widget = SourceComboBox(self.gui, source_list, self.data)
         entry_argument = self.gui.get_object('entry_argument')
         if self.liststore_row:
             entry_argument.set_text(self.liststore_row[3])
+
+        checkbutton_notification = self.gui.get_object('checkbutton_notification')
+        if self.liststore_row and self.liststore_row[4]:
+            status = bool(self.liststore_row[4].get('notification'))
+            checkbutton_notification.set_active(status)
 
         # run
         response_id = dialog.run()
@@ -32,7 +37,8 @@ class FeedSourceDialog(object):
 #            'source'  : source_widget.get_active_text(),
             'target'  : combobox_target.get_active_text(),
             'argument': entry_argument.get_text().decode('utf-8'),
-#            'options' : source_widget.ui.get_options() 
+            'options' : 
+            {'notification': checkbutton_notification.get_active()},
         }
 
         print v

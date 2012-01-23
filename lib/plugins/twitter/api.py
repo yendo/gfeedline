@@ -44,8 +44,7 @@ class TwitterAPIBase(object):
         self._get_output_class()
         self._setup()
 
-    def create_obj(self, view, argument, params):
-        options = params.get('params') if params else {} # FIXME
+    def create_obj(self, view, argument, options):
         obj = self.output(self, self.authed, view, argument, options)
         return obj
 
@@ -126,14 +125,15 @@ class TwitterTime(object):
 
 class TwitterOutput(object):
 
-    def __init__(self, api, authed, view=None, argument='', params={}):
+    def __init__(self, api, authed, view=None, argument='', options={}):
         self.all_entries = []
         self.last_id = 0
         self.view = view
         self.api = api
         self.authed = authed
-        self.params = params
+        self.params = {}
         self.argument = argument
+        self.options = options
 
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
@@ -169,7 +169,7 @@ class TwitterOutput(object):
             )
 
         self.last_id = entry.id
-        self.view.update(text)
+        self.view.update(text, self.options.get('notification'))
 
     def _add_links_to_body(object, text):
 
@@ -247,7 +247,7 @@ class TwitterSearchOutput(TwitterOutput):
             print "bad!"
 
         self.last_id = id
-        self.webview.update(text)
+        self.view.update(text, self.options.get('notification'))
 
 class TwitterFeedOutput(TwitterOutput):
 
