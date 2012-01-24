@@ -52,7 +52,7 @@ class TwitterOutput(object):
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
         TwitterOutput.api_connections += 1
-        self.delayed = []
+        self.delayed = DelayedPool()
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -63,10 +63,15 @@ class TwitterOutput(object):
              markupMassage=hexentityMassage)
         return unicode(soup)
 
-    def print_all_entries(self):
+    def print_all_entries(self, a):
+        self.delayed.delete_called()
+
+        interval = self.interval / len(self.all_entries)
+        print "!", interval, self.interval, len(self.all_entries)
         for i, entry in enumerate(reversed(self.all_entries)):
             #self.print_entry(entry)
-            self.delayed.append(reactor.callLater(i*3, self.print_entry, entry))
+            self.delayed.append(reactor.callLater(interval*i, 
+                                                  self.print_entry, entry))
 
         self.all_entries = []
 
@@ -116,8 +121,10 @@ class TwitterOutput(object):
         self.params.update(params)
 
         self.d = self.api.api(self.got_entry, params=self.params)
-        self.d.addErrback(self._on_error).addBoth(lambda x: self.print_all_entries())
+        self.d.addErrback(self._on_error).addBoth(lambda x: 
+                                                  self.print_all_entries('yendo'))
 
+        ############
         print "connections:", TwitterOutput.api_connections
 
         rate_limit_remaining = self.authed.api.rate_limit_remaining
@@ -131,7 +138,10 @@ class TwitterOutput(object):
         else:
             interval = 60
 
-        print diff, rate_limit_remaining, interval
+        print diff, rate_limit_remaining, rate_limit_limit, interval
+
+        self.interval = interval
+        ############
 
         # self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
         self.timeout = reactor.callLater(interval, self.start, interval)
@@ -144,11 +154,7 @@ class TwitterOutput(object):
             #GLib.source_remove(self.timeout)
             self.timeout.cancel()
         self.view.remove()
-        if hasattr(self, 'delayed') and self.delayed:
-            for i in self.delayed:
-                if not i.called:
-                    i.cancel()
-
+        self.delayed.clear()
         TwitterOutput.api_connections -= 1
 
     def _restart(self, *args):
@@ -158,6 +164,18 @@ class TwitterOutput(object):
 
     def _on_error(self, e):
         print "error!", e
+
+class DelayedPool(list):
+
+    def delete_called(self):
+        for i in self:
+            if i.called:
+                self.remove(i)
+
+    def clear(self):
+        for i in self:
+            if not i.called:
+                i.cancel()
 
 class TwitterSearchOutput(TwitterOutput):
 
