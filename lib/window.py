@@ -6,6 +6,7 @@
 # Licence: GPL3
 
 import os
+import urllib
 import webbrowser
 from string import Template
 
@@ -14,6 +15,7 @@ from gi.repository import Gtk, WebKit, GLib, GObject
 
 from preferences.preferences import Preferences
 from utils.notification import Notification
+from utils.htmlentities import decode_html_entities
 
 class MainWindow(object):
 
@@ -82,6 +84,8 @@ class FeedWebView(WebKit.WebView):
 
     def on_click_link(self, view, frame, req):
         uri = req.get_uri()
+        uri = decode_html_entities(urllib.unquote(uri))
+        uri = uri.replace('#', '%23') # for Twitter hash tags
         webbrowser.open(uri)
         return True
 

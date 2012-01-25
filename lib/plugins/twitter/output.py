@@ -83,7 +83,8 @@ class TwitterOutput(object):
 
     def print_entry(self, entry, is_first_call=False):
         time = TwitterTime(entry.created_at)
-        body = self.add_markup.convert(entry.text)
+        body_string = self.conv(entry.text)
+        body = self.add_markup.convert(body_string)
 
         text = dict(
             datetime=time.get_local_time(),
@@ -92,7 +93,7 @@ class TwitterOutput(object):
             user_name=entry.user.screen_name,
             user_color=user_color.get(entry.user.screen_name),
             status_body=body,
-            popup_body=self.conv(entry.text)
+            popup_body=body_string,
             )
 
         self.last_id = entry.id
@@ -174,7 +175,7 @@ class AddedHtmlMarkup(object):
             re.IGNORECASE | re.DOTALL)
         self.nick_pattern = re.compile("\B@([A-Za-z0-9_]+|@[A-Za-z0-9_]$)")
         self.hash_pattern = re.compile(
-            r'(\A|\s|\b)(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
+            u'(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
 
     def convert(self, text):
         text = text.replace("'", '&apos;')
@@ -183,7 +184,7 @@ class AddedHtmlMarkup(object):
         text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 
                                      text)
         text = self.hash_pattern.sub(
-            r"\1<a href='https://twitter.com/search?q=%23\2'>#\2</a>", text)
+            r"<a href='https://twitter.com/search?q=%23\1'>#\1</a>", text)
         text = text.replace('"', '&quot;')
         text = text.replace('\n', '<br>')
 
@@ -193,7 +194,8 @@ class TwitterSearchOutput(TwitterOutput):
 
     def print_entry(self, entry, is_first_call=False):
         time = TwitterTime(entry.published)
-        body = self.add_markup.convert(entry.title)
+        body_string = self.conv(entry.title)
+        body = self.add_markup.convert(body_string)
 
         name = entry.author.name.split(' ')[0]
         id = entry.id.split(':')[2]
@@ -206,7 +208,7 @@ class TwitterSearchOutput(TwitterOutput):
                 user_name=name,
                 user_color=user_color.get(name),
                 status_body=body,
-                popup_body=self.conv(entry.title))
+                popup_body=body_string)
         except:
             print body
             print "bad!"
