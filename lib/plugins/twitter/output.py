@@ -45,6 +45,8 @@ class TwitterOutput(object):
         self.params = {}
         self.argument = argument
         self.options = options
+        self.add_markup = AddedHtmlMarkup()
+        self.counter = 0
 
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
@@ -69,18 +71,18 @@ class TwitterOutput(object):
         interval = api_interval / len(self.all_entries)
         print "!", interval, api_interval, len(self.all_entries)
         for i, entry in enumerate(reversed(self.all_entries)):
-            #self.print_entry(entry)
-            self.delayed.append(reactor.callLater(interval*i, 
-                                                  self.print_entry, entry))
+            if self.counter:
+                self.delayed.append(
+                    reactor.callLater(interval*i, self.print_entry, entry))
+            else:
+                self.print_entry(entry, is_first_call=True)
+
+        self.counter += 1
         self.all_entries = []
 
-    def print_entry(self, entry):
+    def print_entry(self, entry, is_first_call=False):
         time = TwitterTime(entry.created_at)
-
-        body = self._add_links_to_body(entry.text)
-        body = body.replace('"', '&quot;')
-        body = body.replace('\n', '<br>')
-#        body = body.replace("'", '&apos;')
+        body = self.add_markup.convert(entry.text)
 
         text = dict(
             datetime=time.get_local_time(),
@@ -93,7 +95,7 @@ class TwitterOutput(object):
             )
 
         self.last_id = entry.id
-        self.view.update(text, self.options.get('notification'))
+        self.view.update(text, self.options.get('notification'), is_first_call)
 
     def _add_links_to_body(object, text):
 
@@ -145,7 +147,6 @@ class TwitterOutput(object):
 
         return interval
 
-
     def exit(self):
         print "exit!"
         if hasattr(self, 'd'):
@@ -176,15 +177,34 @@ class DelayedPool(list):
             if not i.called:
                 i.cancel()
 
+class AddedHtmlMarkup(object):
+
+    def __init__(self):
+        self.link_pattern = re.compile(
+            r"(s?https?://[-_.!~*'a-zA-Z0-9;/?:@&=+$,%#]+)", 
+            re.IGNORECASE | re.DOTALL)
+        self.nick_pattern = re.compile("\B@([A-Za-z0-9_]+|@[A-Za-z0-9_]$)")
+        self.hash_pattern = re.compile(
+            r'(\A|\s|\b)(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
+
+    def convert(self, text):
+        text = text.replace("'", '&apos;')
+
+        text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
+        text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 
+                                     text)
+        text = self.hash_pattern.sub(
+            r"\1<a href='https://twitter.com/search?q=%23\2'>#\2</a>", text)
+        text = text.replace('"', '&quot;')
+        text = text.replace('\n', '<br>')
+
+        return text
+
 class TwitterSearchOutput(TwitterOutput):
 
-    def print_entry(self, entry):
+    def print_entry(self, entry, is_first_call=False):
         time = TwitterTime(entry.published)
-
-        body = self._add_links_to_body(entry.title) # entry.content
-        body = body.replace('"', '&quot;')
-#        body = body.replace("'", '&apos;')
-        body = body.replace('\n', '<br>')
+        body = self.add_markup.convert(entry.title)
 
         name = entry.author.name.split(' ')[0]
         id = entry.id.split(':')[2]
@@ -203,7 +223,7 @@ class TwitterSearchOutput(TwitterOutput):
             print "bad!"
 
         self.last_id = id
-        self.view.update(text, self.options.get('notification'))
+        self.view.update(text, self.options.get('notification'), is_first_call)
 
 class TwitterFeedOutput(TwitterOutput):
 
