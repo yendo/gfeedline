@@ -5,22 +5,16 @@
 # Licence: GPL3
 
 import re
-import copy
 import time
 
 import dateutil.parser
-from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup
 from twisted.internet import reactor
 
 from ...utils.usercolor import UserColor
 from ...utils.settings import SETTINGS_TWITTER
+from ...utils.htmlentities import decode_html_entities
 
 user_color = UserColor()
-
-# replace hexadecimal character reference by decimal one
-hexentityMassage = copy.copy(BeautifulSoup.MARKUP_MASSAGE)
-hexentityMassage += [(re.compile('&#x([^;]+);'), 
-                      lambda m: '&#%d;' % int(m.group(1), 16))]
 
 class TwitterTime(object):
 
@@ -57,12 +51,6 @@ class TwitterOutput(object):
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
 
-    def conv(self, text):
-        soup = BeautifulStoneSoup(
-            text, convertEntities=BeautifulStoneSoup.HTML_ENTITIES,
-             markupMassage=hexentityMassage)
-        return unicode(soup)
-
     def print_all_entries(self, api_interval):
         self.delayed.delete_called()
 
@@ -83,7 +71,7 @@ class TwitterOutput(object):
 
     def print_entry(self, entry, is_first_call=False):
         time = TwitterTime(entry.created_at)
-        body_string = self.conv(entry.text)
+        body_string = decode_html_entities(entry.text)
         body = self.add_markup.convert(body_string)
 
         text = dict(
@@ -194,7 +182,7 @@ class TwitterSearchOutput(TwitterOutput):
 
     def print_entry(self, entry, is_first_call=False):
         time = TwitterTime(entry.published)
-        body_string = self.conv(entry.title)
+        body_string = decode_html_entities(entry.title)
         body = self.add_markup.convert(body_string)
 
         name = entry.author.name.split(' ')[0]
@@ -220,9 +208,6 @@ class TwitterFeedOutput(TwitterOutput):
 
     def got_entry(self, msg, *args):
         self.print_entry(msg)
-
-    def conv(self, text):
-        return text
 
     def start(self, interval=False):
         if not self.authed.api.use_oauth:
