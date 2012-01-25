@@ -1,5 +1,6 @@
 2012-01-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* updatewindow.py, update.glade: Added support for updating statuses.
 	* twitter/api.py: Added support for recieving Direct Messages.
 	* utils/htmlentities.py: Code refactoring.
 

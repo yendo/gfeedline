@@ -14,6 +14,7 @@ from twisted.internet import reactor
 from gi.repository import Gtk, WebKit, GLib, GObject
 
 from preferences.preferences import Preferences
+from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.htmlentities import decode_html_entities
 
@@ -42,6 +43,9 @@ class MainWindow(object):
 
     def on_stop(self, *args):
         reactor.stop()
+
+    def on_menuitem_update_activate(self, menuitem):
+        prefs = UpdateWindow(self)
 
     def on_menuitem_prefs_activate(self, menuitem):
         prefs = Preferences(self)
