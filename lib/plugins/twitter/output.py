@@ -66,6 +66,9 @@ class TwitterOutput(object):
     def print_all_entries(self, a):
         self.delayed.delete_called()
 
+        if not self.all_entries:
+            return
+
         interval = self.interval / len(self.all_entries)
         print "!", interval, self.interval, len(self.all_entries)
         for i, entry in enumerate(reversed(self.all_entries)):
@@ -134,13 +137,14 @@ class TwitterOutput(object):
         diff = 0
         if rate_limit_reset:
             diff = rate_limit_reset - int(time.time())
-            interval = diff/rate_limit_remaining * TwitterOutput.api_connections
+            interval = diff*1.0/rate_limit_remaining * TwitterOutput.api_connections
         else:
-            interval = 60
+            interval = 60.0*60/150*TwitterOutput.api_connections
 
+        interval = 10 if interval < 10 else int(interval)
+        self.interval = interval
         print diff, rate_limit_remaining, rate_limit_limit, interval
 
-        self.interval = interval
         ############
 
         # self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
