@@ -80,13 +80,14 @@ class TwitterOutput(object):
         time = TwitterTime(entry.created_at)
         body_string = decode_html_entities(entry.text)
         body = self.add_markup.convert(body_string)
+        user = entry.sender if self.api.name == 'Direct Messages' else entry.user
 
         text = dict(
             datetime=time.get_local_time(),
             id=entry.id,
-            image_uri=entry.user.profile_image_url.replace('_normal.', '_mini.'),
-            user_name=entry.user.screen_name,
-            user_color=user_color.get(entry.user.screen_name),
+            image_uri=user.profile_image_url.replace('_normal.', '_mini.'),
+            user_name=user.screen_name,
+            user_color=user_color.get(user.screen_name),
             status_body=body,
             popup_body=body_string,
             )

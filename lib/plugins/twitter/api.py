@@ -15,6 +15,7 @@ class TwitterAPIDict(dict):
              TwitterAPIHomeTimeLine,
              TwitterAPIListTimeLine,
              TwitterAPIMentions,
+             TwitterAPIDirectMessages,
              TwitterSearchAPI,
 
              TwitterAPIUserStream,
@@ -75,6 +76,12 @@ class TwitterAPIMentions(TwitterAPIBase):
     def _setup(self):
         self.api = self.authed.api.mentions
         self.name = 'Mentions'
+
+class TwitterAPIDirectMessages(TwitterAPIBase):
+
+    def _setup(self):
+        self.api = self.authed.api.direct_messages
+        self.name = 'Direct Messages'
 
 
 class TwitterAPIUserStream(TwitterFeedAPIBase):
