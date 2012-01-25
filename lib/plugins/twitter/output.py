@@ -4,15 +4,12 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-#import os
-#import sys
 import re
 import copy
 import time
 
 import dateutil.parser
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup
-#from gi.repository import GLib
 from twisted.internet import reactor
 
 from ...utils.usercolor import UserColor
@@ -63,19 +60,18 @@ class TwitterOutput(object):
              markupMassage=hexentityMassage)
         return unicode(soup)
 
-    def print_all_entries(self, a):
+    def print_all_entries(self, api_interval):
         self.delayed.delete_called()
 
         if not self.all_entries:
             return
 
-        interval = self.interval / len(self.all_entries)
-        print "!", interval, self.interval, len(self.all_entries)
+        interval = api_interval / len(self.all_entries)
+        print "!", interval, api_interval, len(self.all_entries)
         for i, entry in enumerate(reversed(self.all_entries)):
             #self.print_entry(entry)
             self.delayed.append(reactor.callLater(interval*i, 
                                                   self.print_entry, entry))
-
         self.all_entries = []
 
     def print_entry(self, entry):
@@ -125,9 +121,12 @@ class TwitterOutput(object):
 
         self.d = self.api.api(self.got_entry, params=self.params)
         self.d.addErrback(self._on_error).addBoth(lambda x: 
-                                                  self.print_all_entries('yendo'))
+                                                  self.print_all_entries(interval))
 
-        ############
+        interval = self._get_interval_seconds()
+        self.timeout = reactor.callLater(interval, self.start, interval)
+
+    def _get_interval_seconds(self):
         print "connections:", TwitterOutput.api_connections
 
         rate_limit_remaining = self.authed.api.rate_limit_remaining
@@ -142,20 +141,16 @@ class TwitterOutput(object):
             interval = 60.0*60/150*TwitterOutput.api_connections
 
         interval = 10 if interval < 10 else int(interval)
-        self.interval = interval
         print diff, rate_limit_remaining, rate_limit_limit, interval
 
-        ############
+        return interval
 
-        # self.timeout = GLib.timeout_add_seconds(interval, self.start, interval)
-        self.timeout = reactor.callLater(interval, self.start, interval)
 
     def exit(self):
         print "exit!"
         if hasattr(self, 'd'):
             self.d.cancel()
         if hasattr(self, 'timeout'):
-            #GLib.source_remove(self.timeout)
             self.timeout.cancel()
         self.view.remove()
         self.delayed.clear()
@@ -244,5 +239,4 @@ class TwitterFeedOutput(TwitterOutput):
     def _on_error(self, *e):
         print "Error:", e
         if self.is_connecting:
-            # GLib.timeout_add_seconds(10, self._restart)
             reactor.callLater(10, self._restart)
