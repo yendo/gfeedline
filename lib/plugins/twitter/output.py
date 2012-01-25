@@ -48,6 +48,13 @@ class TwitterOutput(object):
         self.delayed = DelayedPool()
         self.add_markup = AddedHtmlMarkup()
 
+    def check_entry(self, msg, *args):
+        msg.text = decode_html_entities(msg.text)
+        if msg.text.startswith('RT @') and not self.api.include_rt:
+            print "rt!"
+        else:
+            self.got_entry(msg, args)
+
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
 
@@ -99,7 +106,7 @@ class TwitterOutput(object):
         params = self.api.get_options(self.argument)
         self.params.update(params)
 
-        self.d = self.api.api(self.got_entry, params=self.params)
+        self.d = self.api.api(self.check_entry, params=self.params)
         self.d.addErrback(self._on_error).addBoth(lambda x: 
                                                   self.print_all_entries(interval))
 
@@ -180,6 +187,13 @@ class AddedHtmlMarkup(object):
 
 class TwitterSearchOutput(TwitterOutput):
 
+    def check_entry(self, msg, *args):
+        msg.title = decode_html_entities(msg.title)
+        if msg.title.startswith('RT @') and not self.api.include_rt:
+            print "rt!"
+        else:
+            self.got_entry(msg, args)
+
     def print_entry(self, entry, is_first_call=False):
         time = TwitterTime(entry.published)
         body_string = decode_html_entities(entry.title)
@@ -216,7 +230,7 @@ class TwitterFeedOutput(TwitterOutput):
         argument = self.api.get_options(self.argument)
         # print argument
 
-        self.d = self.api.api(self.got_entry, argument).\
+        self.d = self.api.api(self.check_entry, argument).\
             addErrback(self._on_error).\
             addBoth(self._on_connect)
         self.is_connecting = True

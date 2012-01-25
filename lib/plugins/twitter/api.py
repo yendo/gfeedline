@@ -29,6 +29,7 @@ class TwitterAPIBase(object):
 
     def __init__(self, authed=None):
         self.authed = authed
+        self.include_rt = True
 
         self._get_output_class()
         self._setup()
@@ -87,7 +88,8 @@ class TwitterAPITrack(TwitterFeedAPIBase):
     def _setup(self):
         self.api = self.authed.api.track
         self.name = 'Track'
-    
+        self.include_rt = False
+
     def get_options(self, argument):
         return [ x.strip() for x in argument.split(',') ]
 
@@ -97,6 +99,7 @@ class TwitterSearchAPI(TwitterAPIBase):
     def _setup(self):
         self.api = self.authed.api.search
         self.name = 'Search'
+        self.include_rt = False
 
     def _get_output_class(self):
         self.output= TwitterSearchOutput

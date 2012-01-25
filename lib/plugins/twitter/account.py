@@ -14,6 +14,7 @@ class Twitter(twitter.Twitter):
     def search(self, delegate, params=None, extra_args=None):
         if params is None: 
             params = {}
+        params['result_type'] = 'recent'
         return self.__doDownloadPage(self.search_url + '?' + self._urlencode(params),
             txml.Feed(delegate, extra_args), agent=self.agent)
 
