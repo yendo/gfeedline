@@ -37,21 +37,22 @@ class TwitterOutput(object):
     api_connections = 0
 
     def __init__(self, api, authed, view=None, argument='', options={}):
-        self.all_entries = []
-        self.last_id = 0
-        self.view = view
         self.api = api
         self.authed = authed
-        self.params = {}
+        self.view = view
         self.argument = argument
         self.options = options
-        self.add_markup = AddedHtmlMarkup()
+
+        self.all_entries = []
+        self.last_id = 0
+        self.params = {}
         self.counter = 0
 
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
         TwitterOutput.api_connections += 1
         self.delayed = DelayedPool()
+        self.add_markup = AddedHtmlMarkup()
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -96,18 +97,6 @@ class TwitterOutput(object):
 
         self.last_id = entry.id
         self.view.update(text, self.options.get('notification'), is_first_call)
-
-    def _add_links_to_body(object, text):
-
-        link_pattern = re.compile(r"(s?https?://[-_.!~*'a-zA-Z0-9;/?:@&=+$,%#]+)", re.IGNORECASE | re.DOTALL)
-        nick_pattern = re.compile("\B@([A-Za-z0-9_]+|@[A-Za-z0-9_]$)")
-        hash_pattern = re.compile(r'(\A|\s|\b)(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
-
-        text = link_pattern.sub(r"<a href='\1'>\1</a>", text)
-        text = nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", text)
-        text = hash_pattern.sub(r"\1<a href='https://twitter.com/search?q=%23\2'>#\2</a>", text)
-
-        return text
 
     def start(self, interval=60):
         print "start!"
