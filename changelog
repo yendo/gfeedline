@@ -1,3 +1,7 @@
+2012-01-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* *utils/htmlentities.py: Code refactoring.
+
 2012-01-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* notification.py: Added support for Desktop Notification.
