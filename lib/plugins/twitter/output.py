@@ -4,6 +4,15 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
+"""
+TwitterOutputBase --- TwitterRestOutput --- TwitterSearchOutput
+                   |
+                   \- TwitterFeedOutput
+
+Rest: check_entry -> got_entry : print_all_entries -> print_entry
+Feed: check_entry -> got_entry                     -> print_entry
+"""
+
 import re
 import time
 
@@ -16,15 +25,6 @@ from ...utils.htmlentities import decode_html_entities
 
 user_color = UserColor()
 
-class TwitterTime(object):
-
-    def __init__(self, utc_str):
-        dt = dateutil.parser.parse(utc_str)
-        self.datetime = dt.replace(tzinfo=dateutil.tz.tzutc()
-                                   ).astimezone(dateutil.tz.tzlocal())
-
-    def get_local_time(self):
-        return self.datetime.strftime('%H:%M:%S')
 
 class TwitterOutputBase(object):
 
@@ -42,7 +42,6 @@ class TwitterOutputBase(object):
 
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
-        self.delayed = DelayedPool()
         self.add_markup = AddedHtmlMarkup()
 
     def check_entry(self, msg, *args):
@@ -52,6 +51,25 @@ class TwitterOutputBase(object):
         else:
             self.got_entry(msg, args)
 
+    def print_entry(self, entry, is_first_call=False):
+        time = TwitterTime(entry.created_at)
+        body_string = decode_html_entities(entry.text)
+        body = self.add_markup.convert(body_string)
+        user = entry.sender if self.api.name == 'Direct Messages' else entry.user
+
+        text = dict(
+            datetime=time.get_local_time(),
+            id=entry.id,
+            image_uri=user.profile_image_url.replace('_normal.', '_mini.'),
+            user_name=user.screen_name,
+            user_color=user_color.get(user.screen_name),
+            status_body=body,
+            popup_body=body_string,
+            )
+
+        self.last_id = entry.id
+        self.view.update(text, self.options.get('notification'), is_first_call)
+
     def exit(self):
         print "exit!"
         if hasattr(self, 'd'):
@@ -59,13 +77,11 @@ class TwitterOutputBase(object):
         if hasattr(self, 'timeout'):
             self.timeout.cancel()
         self.view.remove()
-        self.delayed.clear()
 
     def _restart(self, *args):
         print "restart!"
         self.authed.update_credential()
         self.start()
-
 
 class TwitterRestOutput(TwitterOutputBase):
 
@@ -74,6 +90,7 @@ class TwitterRestOutput(TwitterOutputBase):
     def __init__(self, api, authed, view=None, argument='', options={}):
         super(TwitterRestOutput, self).__init__(api, authed, view, argument, options)
         TwitterRestOutput.api_connections += 1
+        self.delayed = DelayedPool()
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -95,25 +112,6 @@ class TwitterRestOutput(TwitterOutputBase):
 
         self.counter += 1
         self.all_entries = []
-
-    def print_entry(self, entry, is_first_call=False):
-        time = TwitterTime(entry.created_at)
-        body_string = decode_html_entities(entry.text)
-        body = self.add_markup.convert(body_string)
-        user = entry.sender if self.api.name == 'Direct Messages' else entry.user
-
-        text = dict(
-            datetime=time.get_local_time(),
-            id=entry.id,
-            image_uri=user.profile_image_url.replace('_normal.', '_mini.'),
-            user_name=user.screen_name,
-            user_color=user_color.get(user.screen_name),
-            status_body=body,
-            popup_body=body_string,
-            )
-
-        self.last_id = entry.id
-        self.view.update(text, self.options.get('notification'), is_first_call)
 
     def start(self, interval=60):
         print "start!"
@@ -156,44 +154,10 @@ class TwitterRestOutput(TwitterOutputBase):
     def exit(self):
         super(TwitterRestOutput, self).exit()
         TwitterRestOutput.api_connections -= 1
+        self.delayed.clear()
 
     def _on_error(self, e):
         print "error!", e
-
-class DelayedPool(list):
-
-    def delete_called(self):
-        for i in self:
-            if i.called:
-                self.remove(i)
-
-    def clear(self):
-        for i in self:
-            if not i.called:
-                i.cancel()
-
-class AddedHtmlMarkup(object):
-
-    def __init__(self):
-        self.link_pattern = re.compile(
-            r"(s?https?://[-_.!~*'a-zA-Z0-9;/?:@&=+$,%#]+)", 
-            re.IGNORECASE | re.DOTALL)
-        self.nick_pattern = re.compile("\B@([A-Za-z0-9_]+|@[A-Za-z0-9_]$)")
-        self.hash_pattern = re.compile(
-            u'(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
-
-    def convert(self, text):
-        text = text.replace("'", '&apos;')
-
-        text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
-        text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 
-                                     text)
-        text = self.hash_pattern.sub(
-            r"<a href='https://twitter.com/search?q=%23\1'>#\1</a>", text)
-        text = text.replace('"', '&quot;')
-        text = text.replace('\n', '<br>')
-
-        return text
 
 class TwitterSearchOutput(TwitterRestOutput):
 
@@ -260,3 +224,48 @@ class TwitterFeedOutput(TwitterOutputBase):
         print "Error:", e
         if self.is_connecting:
             reactor.callLater(20, self._restart)
+
+class TwitterTime(object):
+
+    def __init__(self, utc_str):
+        dt = dateutil.parser.parse(utc_str)
+        self.datetime = dt.replace(tzinfo=dateutil.tz.tzutc()
+                                   ).astimezone(dateutil.tz.tzlocal())
+
+    def get_local_time(self):
+        return self.datetime.strftime('%H:%M:%S')
+
+class AddedHtmlMarkup(object):
+
+    def __init__(self):
+        self.link_pattern = re.compile(
+            r"(s?https?://[-_.!~*'a-zA-Z0-9;/?:@&=+$,%#]+)", 
+            re.IGNORECASE | re.DOTALL)
+        self.nick_pattern = re.compile("\B@([A-Za-z0-9_]+|@[A-Za-z0-9_]$)")
+        self.hash_pattern = re.compile(
+            u'(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
+
+    def convert(self, text):
+        text = text.replace("'", '&apos;')
+
+        text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
+        text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 
+                                     text)
+        text = self.hash_pattern.sub(
+            r"<a href='https://twitter.com/search?q=%23\1'>#\1</a>", text)
+        text = text.replace('"', '&quot;')
+        text = text.replace('\n', '<br>')
+
+        return text
+
+class DelayedPool(list):
+
+    def delete_called(self):
+        for i in self:
+            if i.called:
+                self.remove(i)
+
+    def clear(self):
+        for i in self:
+            if not i.called:
+                i.cancel()
