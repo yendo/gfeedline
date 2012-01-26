@@ -14,15 +14,16 @@ class UpdateWindow(object):
         gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'update.glade'))
 
         self.update_window = gui.get_object('window1')
-        self.text_view =  gui.get_object('textview')
-        self.label_num =  gui.get_object('label_num')
+        self.text_view = gui.get_object('textview')
+        self.label_num = gui.get_object('label_num')
+        self.button_tweet = gui.get_object('button_tweet')
+        text_buffer = self.text_view.get_buffer()
 
         if self.user and self.id:
             self.update_window.set_title('Reply to %s' % user)
-            text_buffer = self.text_view.get_buffer()
             text_buffer.set_text('@%s '% user)
-            self.on_textbuffer_changed(text_buffer)
 
+        self.on_textbuffer_changed(text_buffer)
         self.update_window.show_all()
         gui.connect_signals(self)
 
@@ -43,3 +44,6 @@ class UpdateWindow(object):
     def on_textbuffer_changed(self, text_buffer):
         num = 140 - text_buffer.get_char_count()
         self.label_num.set_text(str(num))
+
+        status = bool(num != 140)
+        self.button_tweet.set_sensitive(status)
