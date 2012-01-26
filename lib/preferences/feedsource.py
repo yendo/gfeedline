@@ -42,7 +42,7 @@ class FeedSourceDialog(object):
             {'notification': checkbutton_notification.get_active()},
         }
 
-        print v
+        # print v
         dialog.destroy()
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])

@@ -16,6 +16,7 @@ GNOME Feed Line is a social feed reader.  It supports Twitter.
 - python-beautifulsoup
 - python-oauth
 - python-dateutil
+- python-xdg
 
 ** Installation
 
