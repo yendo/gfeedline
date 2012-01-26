@@ -9,7 +9,7 @@ Twitter Streaming API.
 @see: U{http://dev.twitter.com/pages/streaming_api}.
 """
 
-import simplejson as json
+import json
 
 from twisted.internet import defer
 from twisted.protocols.basic import LineReceiver
