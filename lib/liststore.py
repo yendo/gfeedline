@@ -18,8 +18,8 @@ class FeedListStore(Gtk.ListStore):
 
     """ListStore for Feed Sources.
 
-    0,    1,      2,        3,      4,           5,           6
-    icon, source, target, argument, options_obj, account_obj, api_obj
+    0,    1,      2,        3,      4,            5,           6
+    icon, source, target, argument, options_dict, account_obj, api_obj
     """
 
     def __init__(self):
@@ -40,14 +40,14 @@ class FeedListStore(Gtk.ListStore):
         page = int(str(self.get_path(iter))) if iter else -1
         view = FeedView(self.window, api.name, page)
 
-        options_obj = source.get('options')
-        api_obj = api.create_obj(view, source.get('argument'), options_obj)
+        options_dict = source.get('options')
+        api_obj = api.create_obj(view, source.get('argument'), options_dict)
 
         list = [GdkPixbuf.Pixbuf(),
                 source.get('source'),
                 source['target'], # API 
                 source.get('argument'), 
-                options_obj,
+                options_dict,
                 self.authed_twitter, # account_obj
                 api_obj]
 
@@ -55,6 +55,25 @@ class FeedListStore(Gtk.ListStore):
 
         interval = 40 if api.name == 'Home TimeLine' else 180
         api_obj.start(interval)
+
+        return new_iter
+
+    def update(self, source, iter):
+        # compare 'target' & 'argument'
+        old = [self.get_value(iter, x).decode('utf-8') 
+               for x in range(2, 4)] # liststore object
+        new = [source.get(x) for x in ['target', 'argument']]
+
+        if old == new:
+            options = source.get('options', {})
+            self.set_value(iter, 4, options) # liststore object
+
+            api_obj = self.get_value(iter, 6) # liststore object
+            api_obj.options = options
+            new_iter = iter
+        else:
+            new_iter = self.append(source, iter)
+            self.remove(iter)
 
         return new_iter
 

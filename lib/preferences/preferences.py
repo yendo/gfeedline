@@ -86,9 +86,7 @@ class Preferences(object):
         (response_id, v) = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:
-            new_iter = self.liststore.append(v, iter)
-
-            self.liststore.remove(iter)
+            new_iter = self.liststore.update(v, iter)
             self._set_coursor_to(new_iter)
 
     def on_button_feed_del_clicked(self, button):
