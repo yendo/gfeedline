@@ -17,7 +17,8 @@ from oauth import oauth
 from twisted.internet import defer, reactor
 from twisted.web import client, error, http_headers
 
-from twittytwister import streaming, txml
+import streaming
+import txml
 
 SIGNATURE_METHOD = oauth.OAuthSignatureMethod_HMAC_SHA1()
 

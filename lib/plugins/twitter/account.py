@@ -1,5 +1,4 @@
-from twittytwister import twitter, txml
-#from ...twittytwister2 import twitter, txml
+from ...twittytwister import twitter, txml
 from oauth import oauth
 
 from getauthtoken import consumer

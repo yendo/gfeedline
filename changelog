@@ -1,5 +1,6 @@
 2012-01-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twittytwister: Include the module.
 	* window.py: Added a context menu item for 'Search Google'.
 
 2012-01-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
