@@ -1,5 +1,7 @@
 2012-01-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* gfeedline.desktop.in: Added a Desktop entry.
+	* setup.py: Added an installation schema.
 	* twittytwister: Include the module.
 	* window.py: Added a context menu item for 'Search Google'.
 
