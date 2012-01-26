@@ -2,13 +2,14 @@ import os
 
 from gi.repository import Gtk
 from ..plugins.twitter.api import TwitterAPIDict
+from ..constants import SHARED_DATA_DIR
 
 class FeedSourceDialog(object):
     """Feed Source Dialog"""
 
     def __init__(self, parent, liststore_row=None):
         self.gui = Gtk.Builder()
-        self.gui.add_from_file(os.path.abspath('share/feedsource.glade'))
+        self.gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'feedsource.glade'))
 
         self.parent = parent
         self.liststore_row = liststore_row

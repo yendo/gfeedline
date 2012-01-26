@@ -10,7 +10,7 @@ from gi.repository import Gtk, WebKit, GLib, GObject
 
 from getauthtoken import TwitterAuthorization
 from ...utils.settings import SETTINGS_TWITTER
-
+from ...constants import SHARED_DATA_DIR
 
 class TwitterAuthAssistant(Gtk.Assistant):
 
@@ -18,7 +18,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
         super(TwitterAuthAssistant, self).__init__()
 
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.abspath('share/assistant_twitter.glade'))
+        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'assistant_twitter.glade'))
 
         self.authorization = TwitterAuthorization()
         self.entry = gui.get_object('entry_pin')

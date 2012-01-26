@@ -16,7 +16,7 @@ from preferences.preferences import Preferences
 from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.htmlentities import decode_html_entities
-from constants import VERSION
+from constants import VERSION, SHARED_DATA_DIR
 
 class MainWindow(object):
 
@@ -24,7 +24,7 @@ class MainWindow(object):
         self.liststore = liststore
 
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.abspath('share/gfeedline.glade'))
+        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'))
 
         self.window = window = gui.get_object('window1')
         self.notebook = gui.get_object('notebook1')
@@ -70,7 +70,7 @@ class FeedWebView(WebKit.WebView):
 
     def __init__(self, scrolled_window):
         super(FeedWebView, self).__init__()
-        self.load_uri("file://%s" % os.path.abspath('share/html/base.html')) 
+        self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup)
@@ -134,7 +134,7 @@ class FeedView(object):
 
         self.notification = window.notification
 
-        template_file = os.path.abspath('share/html/status.html')
+        template_file = os.path.join(SHARED_DATA_DIR, 'html/status.html')
         with open(template_file, 'r') as fh:
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
@@ -164,7 +164,7 @@ class PopupMenu(object):
         self.uri = uri
 
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.abspath('share/menu.glade'))
+        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'menu.glade'))
 
         self.menu = gui.get_object('menu1')
         self.menu.show_all()
@@ -188,7 +188,7 @@ class AboutDialog(object):
 
     def __init__(self, parent):
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.abspath('share/gfeedline.glade'))
+        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'))
         about = gui.get_object('aboutdialog')
         about.set_transient_for(parent)
         about.set_property('version', VERSION)

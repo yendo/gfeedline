@@ -5,13 +5,12 @@ from stat import S_IMODE
 
 from xdg.BaseDirectory import *
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 APP_NAME = 'gfeedline'
 
-#SHARED_DATA_DIR = abspath(os.path.join(dirname(__file__), '../share'))
-#if not os.access(os.path.join(SHARED_DATA_DIR, 'gphotoframe.ui'), os.R_OK):
-#    SHARED_DATA_DIR = '/usr/share/gphotoframe'
-#UI_FILE = os.path.join(SHARED_DATA_DIR, 'gphotoframe.ui')
+SHARED_DATA_DIR = abspath(os.path.join(dirname(__file__), '../share'))
+if not os.access(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'), os.R_OK):
+    SHARED_DATA_DIR = '/usr/share/gfeedline'
 
 # DATA_HOME = os.path.join(xdg_data_home, APP_NAME)
 # CACHE_HOME = os.path.join(xdg_cache_home, APP_NAME)

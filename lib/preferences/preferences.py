@@ -10,6 +10,7 @@ from gi.repository import Gtk, Gdk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..utils.settings import SETTINGS_TWITTER
+from ..constants import SHARED_DATA_DIR
 from feedsource import FeedSourceDialog
 
 class Preferences(object):
@@ -18,7 +19,7 @@ class Preferences(object):
         self.liststore = mainwindow.liststore
 
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.abspath('share/preferences.glade'))
+        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'preferences.glade'))
         self.preferences = gui.get_object('preferences')
         self.preferences.show_all()
 

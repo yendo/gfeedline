@@ -2,6 +2,7 @@ import os
 
 from gi.repository import Gtk, Gdk
 from plugins.twitter.account import AuthorizedTwitterAPI
+from constants import SHARED_DATA_DIR
 
 class UpdateWindow(object):
 
@@ -10,7 +11,7 @@ class UpdateWindow(object):
         self.id = id
 
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.abspath('share/update.glade'))
+        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'update.glade'))
 
         self.update_window = gui.get_object('window1')
         self.text_view =  gui.get_object('textview')

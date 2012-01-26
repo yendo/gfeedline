@@ -5,11 +5,23 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-from lib.utils import gtk3reactor
+import os
+from os.path import abspath, join, dirname
+
+try:
+    from lib.utils import gtk3reactor
+except ImportError:
+    from gfeedline.utils import gtk3reactor
+
 gtk3reactor.install()
+
 from twisted.internet import reactor
 
-from lib.liststore import FeedListStore
+if os.access(
+    abspath(join(dirname(__file__), 'lib/liststore.py')), os.R_OK):
+    from lib.liststore import FeedListStore
+else:
+    from gfeedline.liststore import FeedListStore
 
 
 if __name__ == '__main__':
