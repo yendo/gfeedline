@@ -1,3 +1,7 @@
+2012-01-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py: Added a context menu item for 'Search Google'.
+
 2012-01-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py, update.glade: Added support for updating statuses.

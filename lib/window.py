@@ -17,6 +17,7 @@ from preferences.preferences import Preferences
 from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.htmlentities import decode_html_entities
+from constants import VERSION
 
 class MainWindow(object):
 
@@ -35,6 +36,7 @@ class MainWindow(object):
 
         self.notification = Notification('Gnome Feed Line')
 
+        window.set_default_icon()
         window.resize(480, 600)
         window.connect("delete-event", self.on_stop)
         window.show_all()
@@ -50,6 +52,9 @@ class MainWindow(object):
     def on_menuitem_prefs_activate(self, menuitem):
         prefs = Preferences(self)
 
+    def on_menuitem_about_activate(self, menuitem):
+        about = AboutDialog(self.window)
+        
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
     def __init__(self):
@@ -83,9 +88,12 @@ class FeedWebView(WebKit.WebView):
 
         GLib.timeout_add(200, self.execute_script, 'scrollToBottom()')
 
-    def on_popup(self, view, menu):
-        print self.can_copy_clipboard()
-        menu.destroy()
+    def on_popup(self, view, default_menu):
+        if self.can_copy_clipboard():
+            menuitem = SearchMenuItem()
+            default_menu.prepend(menuitem)
+        else:
+            default_menu.destroy()
 
     def on_click_link(self, view, frame, req, action, decison):
         button = action.get_button()
@@ -100,6 +108,21 @@ class FeedWebView(WebKit.WebView):
             webbrowser.open(uri)
 
         return True
+
+class SearchMenuItem(Gtk.MenuItem):
+
+    def __init__(self):
+        super(SearchMenuItem, self).__init__()
+        self.set_label('_Search')
+        self.set_use_underline(True)
+        self.connect('activate', self.on_search)
+        self.show()
+        
+    def on_search(self, menuitem):
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
+        text = clipboard.wait_for_text()
+        uri = 'http://www.google.com/search?q=%s' % text
+        webbrowser.open(uri)
 
 class FeedView(object):
 
@@ -161,3 +184,17 @@ class PopupMenu(object):
 
     def on_menuitem_retweet_activate(self, menuitem):
         pass
+
+
+class AboutDialog(object):
+
+    def __init__(self, parent):
+        gui = Gtk.Builder()
+        gui.add_from_file(os.path.abspath('share/gfeedline.glade'))
+        about = gui.get_object('aboutdialog')
+        about.set_transient_for(parent)
+        about.set_property('version', VERSION)
+        # about.set_program_name('GNOME Feed Line')
+
+        about.run()
+        about.destroy()
