@@ -5,7 +5,7 @@
 # Licence: GPL3
 
 from ...utils.nullobject import Null
-from output import TwitterOutput, TwitterSearchOutput, TwitterFeedOutput
+from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput
 
 
 class TwitterAPIDict(dict):
@@ -43,7 +43,7 @@ class TwitterAPIBase(object):
         return {}
 
     def _get_output_class(self):
-        self.output= TwitterOutput
+        self.output= TwitterRestOutput
 
 class TwitterFeedAPIBase(TwitterAPIBase):
 

@@ -26,9 +26,7 @@ class TwitterTime(object):
     def get_local_time(self):
         return self.datetime.strftime('%H:%M:%S')
 
-class TwitterOutput(object):
-
-    api_connections = 0
+class TwitterOutputBase(object):
 
     def __init__(self, api, authed, view=None, argument='', options={}):
         self.api = api
@@ -44,7 +42,6 @@ class TwitterOutput(object):
 
         SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
 
-        TwitterOutput.api_connections += 1
         self.delayed = DelayedPool()
         self.add_markup = AddedHtmlMarkup()
 
@@ -54,6 +51,29 @@ class TwitterOutput(object):
             print "rt!"
         else:
             self.got_entry(msg, args)
+
+    def exit(self):
+        print "exit!"
+        if hasattr(self, 'd'):
+            self.d.cancel()
+        if hasattr(self, 'timeout'):
+            self.timeout.cancel()
+        self.view.remove()
+        self.delayed.clear()
+
+    def _restart(self, *args):
+        print "restart!"
+        self.authed.update_credential()
+        self.start()
+
+
+class TwitterRestOutput(TwitterOutputBase):
+
+    api_connections = 0
+
+    def __init__(self, api, authed, view=None, argument='', options={}):
+        super(TwitterRestOutput, self).__init__(api, authed, view, argument, options)
+        TwitterRestOutput.api_connections += 1
 
     def got_entry(self, msg, *args):
         self.all_entries.append(msg)
@@ -115,7 +135,7 @@ class TwitterOutput(object):
         self.timeout = reactor.callLater(interval, self.start, interval)
 
     def _get_interval_seconds(self):
-        print "connections:", TwitterOutput.api_connections
+        print "connections:", TwitterRestOutput.api_connections
 
         rate_limit_remaining = self.authed.api.rate_limit_remaining
         rate_limit_limit = self.authed.api.rate_limit_limit
@@ -124,9 +144,9 @@ class TwitterOutput(object):
         diff = 0
         if rate_limit_reset:
             diff = rate_limit_reset - int(time.time())
-            interval = diff*1.0/rate_limit_remaining * TwitterOutput.api_connections
+            interval = diff*1.0/rate_limit_remaining * TwitterRestOutput.api_connections
         else:
-            interval = 60.0*60/150*TwitterOutput.api_connections
+            interval = 60.0*60/150*TwitterRestOutput.api_connections
 
         interval = 10 if interval < 10 else int(interval)
         print diff, rate_limit_remaining, rate_limit_limit, interval
@@ -134,19 +154,8 @@ class TwitterOutput(object):
         return interval
 
     def exit(self):
-        print "exit!"
-        if hasattr(self, 'd'):
-            self.d.cancel()
-        if hasattr(self, 'timeout'):
-            self.timeout.cancel()
-        self.view.remove()
-        self.delayed.clear()
-        TwitterOutput.api_connections -= 1
-
-    def _restart(self, *args):
-        print "restart!"
-        self.authed.update_credential()
-        self.start()
+        super(TwitterRestOutput, self).exit()
+        TwitterRestOutput.api_connections -= 1
 
     def _on_error(self, e):
         print "error!", e
@@ -186,7 +195,7 @@ class AddedHtmlMarkup(object):
 
         return text
 
-class TwitterSearchOutput(TwitterOutput):
+class TwitterSearchOutput(TwitterRestOutput):
 
     def check_entry(self, msg, *args):
         msg.title = decode_html_entities(msg.title)
@@ -219,7 +228,7 @@ class TwitterSearchOutput(TwitterOutput):
         self.last_id = id
         self.view.update(text, self.options.get('notification'), is_first_call)
 
-class TwitterFeedOutput(TwitterOutput):
+class TwitterFeedOutput(TwitterOutputBase):
 
     def got_entry(self, msg, *args):
         self.print_entry(msg)
@@ -250,4 +259,4 @@ class TwitterFeedOutput(TwitterOutput):
     def _on_error(self, *e):
         print "Error:", e
         if self.is_connecting:
-            reactor.callLater(10, self._restart)
+            reactor.callLater(20, self._restart)
