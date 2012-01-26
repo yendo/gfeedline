@@ -70,7 +70,7 @@ class FeedWebView(WebKit.WebView):
 
     def __init__(self, scrolled_window):
         super(FeedWebView, self).__init__()
-        self.load_uri("file://%s" % os.path.abspath('html/base.html')) 
+        self.load_uri("file://%s" % os.path.abspath('share/html/base.html')) 
 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup)
@@ -134,7 +134,7 @@ class FeedView(object):
 
         self.notification = window.notification
 
-        template_file = os.path.abspath('html/status.html')
+        template_file = os.path.abspath('share/html/status.html')
         with open(template_file, 'r') as fh:
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
