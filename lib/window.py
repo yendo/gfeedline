@@ -36,7 +36,6 @@ class MainWindow(object):
 
         self.notification = Notification('Gnome Feed Line')
 
-        window.set_default_icon()
         window.resize(480, 600)
         window.connect("delete-event", self.on_stop)
         window.show_all()
