@@ -11,7 +11,7 @@ import webbrowser
 from string import Template
 
 from twisted.internet import reactor
-from gi.repository import Gtk, WebKit, GLib, GObject
+from gi.repository import Gtk, WebKit, GLib, GObject, Gdk
 
 from preferences.preferences import Preferences
 from updatewindow import UpdateWindow
@@ -69,7 +69,7 @@ class FeedWebView(WebKit.WebView):
         super(FeedWebView, self).__init__()
         self.load_uri("file://%s" % os.path.abspath('html/base.html')) 
 
-        self.connect("navigation-requested", self.on_click_link)
+        self.connect("navigation-policy-decision-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup)
 
         scrolled_window.add(self)
@@ -84,13 +84,21 @@ class FeedWebView(WebKit.WebView):
         GLib.timeout_add(200, self.execute_script, 'scrollToBottom()')
 
     def on_popup(self, view, menu):
+        print self.can_copy_clipboard()
         menu.destroy()
 
-    def on_click_link(self, view, frame, req):
-        uri = req.get_uri()
-        uri = decode_html_entities(urllib.unquote(uri))
-        uri = uri.replace('#', '%23') # for Twitter hash tags
-        webbrowser.open(uri)
+    def on_click_link(self, view, frame, req, action, decison):
+        button = action.get_button()
+        uri = action.get_original_uri()
+
+        if uri.startswith('gfeedline:'):
+            menu = PopupMenu(uri)
+            menu.menu.popup(None, None, None, None, button, Gdk.CURRENT_TIME)
+        else:
+            uri = decode_html_entities(urllib.unquote(uri))
+            uri = uri.replace('#', '%23') # for Twitter hash tags
+            webbrowser.open(uri)
+
         return True
 
 class FeedView(object):
@@ -128,3 +136,28 @@ class FeedView(object):
             self.notification.notify('', #entry.user.profile_image_url, 
                                      entry['user_name'], entry['popup_body'])
         self.webview.update(text)
+
+class PopupMenu(object):
+
+    def __init__(self, uri):
+        self.uri = uri
+
+        gui = Gtk.Builder()
+        gui.add_from_file(os.path.abspath('share/menu.glade'))
+
+        self.menu = gui.get_object('menu1')
+        self.menu.show_all()
+
+        gui.connect_signals(self)
+
+    def on_menuitem_open_activate(self, menuitem):
+        uri = self.uri.replace('gfeedline:', 'https:')
+        webbrowser.open(uri)
+
+    def on_menuitem_reply_activate(self, menuitem):
+        uri_schme =self.uri.split('/')
+        user, id = uri_schme[3:6:2]
+        update_window = UpdateWindow(None, user, id)
+
+    def on_menuitem_retweet_activate(self, menuitem):
+        pass
