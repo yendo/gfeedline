@@ -27,7 +27,7 @@ class FeedListStore(Gtk.ListStore):
             GdkPixbuf.Pixbuf, str, str, str, object, object, object)
         self.window = MainWindow(self)
         self.api_dict = TwitterAPIDict()
-        self.authed_twitter = AuthorizedTwitterAPI()
+        self.twitter_account = AuthorizedTwitterAPI()
 
         self.save = SaveListStore()
         for entry in self.save.load():
@@ -35,7 +35,7 @@ class FeedListStore(Gtk.ListStore):
 
     def append(self, source, iter=None):
 
-        api = self.api_dict[source['target']](self.authed_twitter)
+        api = self.api_dict[source['target']](self.twitter_account)
 
         page = int(str(self.get_path(iter))) if iter else -1
         view = FeedView(self.window, api.name, page)
@@ -48,7 +48,7 @@ class FeedListStore(Gtk.ListStore):
                 source['target'], # API 
                 source.get('argument'), 
                 options_dict,
-                self.authed_twitter, # account_obj
+                self.twitter_account, # account_obj
                 api_obj]
 
         new_iter = self.insert_before(iter, list)

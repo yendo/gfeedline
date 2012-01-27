@@ -28,15 +28,15 @@ class TwitterAPIDict(dict):
 
 class TwitterAPIBase(object):
 
-    def __init__(self, authed=None):
-        self.authed = authed
+    def __init__(self, account=None):
+        self.account = account
         self.include_rt = True
 
         self._get_output_class()
         self._setup()
 
     def create_obj(self, view, argument, options):
-        obj = self.output(self, self.authed, view, argument, options)
+        obj = self.output(self, self.account, view, argument, options)
         return obj
 
     def get_options(self, argument):
@@ -57,13 +57,13 @@ class TwitterFeedAPIBase(TwitterAPIBase):
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     def _setup(self):
-        self.api = self.authed.api.home_timeline
+        self.api = self.account.api.home_timeline
         self.name = 'Home TimeLine'
 
 class TwitterAPIListTimeLine(TwitterAPIBase):
 
     def _setup(self):
-        self.api = self.authed.api.list_timeline
+        self.api = self.account.api.list_timeline
         self.name = 'List TimeLine'
 
     def get_options(self, argument):
@@ -74,26 +74,26 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
 class TwitterAPIMentions(TwitterAPIBase):
 
     def _setup(self):
-        self.api = self.authed.api.mentions
+        self.api = self.account.api.mentions
         self.name = 'Mentions'
 
 class TwitterAPIDirectMessages(TwitterAPIBase):
 
     def _setup(self):
-        self.api = self.authed.api.direct_messages
+        self.api = self.account.api.direct_messages
         self.name = 'Direct Messages'
 
 
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 
     def _setup(self):
-        self.api = self.authed.api.userstream
+        self.api = self.account.api.userstream
         self.name = 'User Stream'
 
 class TwitterAPITrack(TwitterFeedAPIBase):
 
     def _setup(self):
-        self.api = self.authed.api.track
+        self.api = self.account.api.track
         self.name = 'Track'
         self.include_rt = False
 
@@ -104,7 +104,7 @@ class TwitterAPITrack(TwitterFeedAPIBase):
 class TwitterSearchAPI(TwitterAPIBase):
 
     def _setup(self):
-        self.api = self.authed.api.search
+        self.api = self.account.api.search
         self.name = 'Search'
         self.include_rt = False
 

@@ -28,9 +28,9 @@ user_color = UserColor()
 
 class TwitterOutputBase(object):
 
-    def __init__(self, api, authed, view=None, argument='', options={}):
+    def __init__(self, api, account, view=None, argument='', options={}):
         self.api = api
-        self.authed = authed
+        self.account = account
         self.view = view
         self.argument = argument
         self.options = options
@@ -80,15 +80,15 @@ class TwitterOutputBase(object):
 
     def _restart(self, *args):
         print "restart!"
-        self.authed.update_credential()
+        self.account.update_credential()
         self.start()
 
 class TwitterRestOutput(TwitterOutputBase):
 
     api_connections = 0
 
-    def __init__(self, api, authed, view=None, argument='', options={}):
-        super(TwitterRestOutput, self).__init__(api, authed, view, argument, options)
+    def __init__(self, api, account, view=None, argument='', options={}):
+        super(TwitterRestOutput, self).__init__(api, account, view, argument, options)
         TwitterRestOutput.api_connections += 1
         self.delayed = DelayedPool()
 
@@ -115,7 +115,7 @@ class TwitterRestOutput(TwitterOutputBase):
 
     def start(self, interval=60):
         print "start!"
-        if not self.authed.api.use_oauth:
+        if not self.account.api.use_oauth:
             print "not authorized"
             return
 
@@ -135,9 +135,9 @@ class TwitterRestOutput(TwitterOutputBase):
     def _get_interval_seconds(self):
         print "connections:", TwitterRestOutput.api_connections
 
-        rate_limit_remaining = self.authed.api.rate_limit_remaining
-        rate_limit_limit = self.authed.api.rate_limit_limit
-        rate_limit_reset = self.authed.api.rate_limit_reset
+        rate_limit_remaining = self.account.api.rate_limit_remaining
+        rate_limit_limit = self.account.api.rate_limit_limit
+        rate_limit_reset = self.account.api.rate_limit_reset
 
         diff = 0
         if rate_limit_reset:
@@ -194,15 +194,15 @@ class TwitterSearchOutput(TwitterRestOutput):
 
 class TwitterFeedOutput(TwitterOutputBase):
 
-    def __init__(self, api, authed, view=None, argument='', options={}):
-        super(TwitterFeedOutput, self).__init__(api, authed, view, argument, options)
+    def __init__(self, api, account, view=None, argument='', options={}):
+        super(TwitterFeedOutput, self).__init__(api, account, view, argument, options)
         self.reconnect_interval = 10
 
     def got_entry(self, msg, *args):
         self.print_entry(msg)
 
     def start(self, interval=False):
-        if not self.authed.api.use_oauth:
+        if not self.account.api.use_oauth:
             return
 
         argument = self.api.get_options(self.argument)
