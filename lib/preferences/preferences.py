@@ -40,6 +40,12 @@ class Preferences(object):
         treeview.connect("drag-begin", self.on_drag_begin)
         treeview.connect("drag-end", self.on_drag_end, mainwindow.notebook)
 
+        self.button_prefs = gui.get_object('button_feed_prefs')
+        self.button_del = gui.get_object('button_feed_del')
+        
+        self.button_prefs.set_sensitive(False)
+        self.button_del.set_sensitive(False)
+
         gui.connect_signals(self)
 
     def on_drag_begin(self, treeview, dragcontext):
@@ -93,15 +99,17 @@ class Preferences(object):
     def on_button_feed_del_clicked(self, button):
         treeselection = self.feedsource_treeview.get_selection()
         (model, iter) = treeselection.get_selected()
-
         self.liststore.remove(iter)
-        #self._set_button_sensitive(False)
+
+        self.button_prefs.set_sensitive(False)
+        self.button_del.set_sensitive(False)
 
     def on_treeview1_query_tooltip(self, w, *args):
         pass
 
     def on_treeview1_cursor_changed(self, w):
-        pass
+        self.button_prefs.set_sensitive(True)
+        self.button_del.set_sensitive(True)
 
     def on_treeview1_button_press_event(self, w):
         pass
