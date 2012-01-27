@@ -5,6 +5,7 @@
 # Licence: GPL3
 
 import os
+import re
 
 from gi.repository import Gtk, WebKit, GLib, GObject
 
@@ -22,7 +23,9 @@ class TwitterAuthAssistant(Gtk.Assistant):
 
         self.authorization = TwitterAuthorization()
         self.entry = gui.get_object('entry_pin')
+        self.entry.connect('changed', self.on_entry_pin_changed)
         self.label_screen_name = gui.get_object('label_name')
+        self.pattern_pin = re.compile('^[0-9]{7,}$')
 
         self.set_title('Twitter Account Setup')
         self.set_default_size(480, 200)
@@ -46,7 +49,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
 
         self.set_page_title(page2, 'Enter PIN')
         self.set_page_type(page2, Gtk.AssistantPageType.CONTENT)
-        self.set_page_complete(page2, True)
+        self.set_page_complete(page2, False)
 
         # page 3
         page3 = gui.get_object('box2')
@@ -57,6 +60,13 @@ class TwitterAuthAssistant(Gtk.Assistant):
         self.set_page_complete(page3, True)
 
         self.show_all()
+
+    def on_entry_pin_changed(self, entry):
+        pin = entry.get_text()
+        status = bool(self.pattern_pin.match(pin))
+
+        page_widget = self.get_nth_page(1)
+        self.set_page_complete(page_widget, status)
 
     def on_prepare(self, assistant, page):
         page_num = self.get_current_page()
