@@ -70,15 +70,13 @@ class FeedWebView(WebKit.WebView):
 
     def __init__(self, scrolled_window):
         super(FeedWebView, self).__init__()
-        self.is_scroll_paused = False
+        self.scroll = FeedWebViewScroll()
 
         self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup)
         self.connect("hovering-over-link", self.on_hovering_over_link)
         self.connect('scroll-event', self.on_scroll_event)
-
-        self.timeout = None
 
         scrolled_window.add(self)
         self.show_all()
@@ -89,31 +87,19 @@ class FeedWebView(WebKit.WebView):
         # print js
         self.execute_script(js)
 
-        if not self.is_scroll_paused:
+        if not self.scroll.is_paused:
             GLib.timeout_add(200, self.execute_script, 'scrollToBottom()')
-
-    def pause_scroll(self, delay=10):
-        print "pause!", delay
-        self.is_scroll_paused = True
-
-        if self.timeout:
-            GObject.source_remove(self.timeout)
-        self.timeout = GLib.timeout_add_seconds(delay, self._enable_scroll)
-
-    def _enable_scroll(self):
-        print "play!"
-        self.is_scroll_paused = False
 
     def on_hovering_over_link(self, webview, title, uri):
         print uri, title
 
         if uri:
-            self.is_scroll_paused = True
+            self.scroll.is_paused = True
         else:
-            self.pause_scroll(delay=3)
+            self.scroll.pause(delay=3)
 
     def on_scroll_event(self, webview, event):
-        self.pause_scroll()
+        self.scroll.pause()
 
     def on_popup(self, view, default_menu):
         if self.can_copy_clipboard():
@@ -135,6 +121,24 @@ class FeedWebView(WebKit.WebView):
             webbrowser.open(uri)
 
         return True
+
+class FeedWebViewScroll(object):
+
+    def __init__(self):
+        self.is_paused = False
+        self._timer = None
+
+    def pause(self, delay=10):
+        print "pause!", delay
+        self.is_paused = True
+
+        if self._timer:
+            GObject.source_remove(self._timer)
+        self._timer = GLib.timeout_add_seconds(delay, self._resume)
+
+    def _resume(self):
+        print "play!"
+        self.is_paused = False
 
 class SearchMenuItem(Gtk.MenuItem):
 
