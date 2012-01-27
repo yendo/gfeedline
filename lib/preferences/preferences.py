@@ -23,8 +23,8 @@ class Preferences(object):
         self.preferences = gui.get_object('preferences')
         self.preferences.show_all()
 
-        self.notebook = gui.get_object('notebook1')
-        self.notebook.remove_page(1)
+        notebook = gui.get_object('notebook1')
+        notebook.remove_page(1)
         frame = gui.get_object('frame5')
         frame.hide()
 
@@ -33,16 +33,14 @@ class Preferences(object):
         SETTINGS_TWITTER.connect("changed::user-name", 
                                  self.on_setting_username_changed)
 
-        self.feedsource_treeview = gui.get_object('feedsourcetreeview')
-        self.feedsource_treeview.set_model(self.liststore)
-        self.feedsource_treeview.set_headers_clickable(False) # Builder bug?
-        treeview = self.feedsource_treeview
+        self.feedsource_treeview = treeview = gui.get_object('feedsourcetreeview')
+        treeview.set_model(self.liststore)
+        treeview.set_headers_clickable(False) # Builder bug?
         treeview.connect("drag-begin", self.on_drag_begin)
         treeview.connect("drag-end", self.on_drag_end, mainwindow.notebook)
 
         self.button_prefs = gui.get_object('button_feed_prefs')
         self.button_del = gui.get_object('button_feed_del')
-        
         self.button_prefs.set_sensitive(False)
         self.button_del.set_sensitive(False)
 
@@ -104,17 +102,18 @@ class Preferences(object):
         self.button_prefs.set_sensitive(False)
         self.button_del.set_sensitive(False)
 
-    def on_treeview1_query_tooltip(self, w, *args):
+    def on_treeview1_query_tooltip(self, treeview, *args):
+        print treeview, args
         pass
 
-    def on_treeview1_cursor_changed(self, w):
+    def on_treeview1_cursor_changed(self, treeview):
         self.button_prefs.set_sensitive(True)
         self.button_del.set_sensitive(True)
 
-    def on_treeview1_button_press_event(self, w):
+    def on_treeview1_button_press_event(self, treeview):
         pass
 
-    def on_treeview2_cursor_changed(self, w):
+    def on_treeview2_cursor_changed(self, treeview):
         pass
 
     def _set_coursor_to(self, iter):
