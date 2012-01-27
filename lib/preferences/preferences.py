@@ -35,6 +35,7 @@ class Preferences(object):
 
         self.feedsource_treeview = gui.get_object('feedsourcetreeview')
         self.feedsource_treeview.set_model(self.liststore)
+        self.feedsource_treeview.set_headers_clickable(False) # Builder bug?
         treeview = self.feedsource_treeview
         treeview.connect("drag-begin", self.on_drag_begin)
         treeview.connect("drag-end", self.on_drag_end, mainwindow.notebook)
