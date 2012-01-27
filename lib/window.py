@@ -31,7 +31,6 @@ class MainWindow(object):
         self.notebook.remove_page(0)
         # self.notebook.connect('page-reordered', self.on_page_reordered)
         menubar = gui.get_object('menubar1')
-        self.sw = gui.get_object('scrolledwindow1')
 
         self.notification = Notification('Gnome Feed Line')
 
@@ -64,16 +63,22 @@ class FeedScrolledWindow(Gtk.ScrolledWindow):
         self.set_margin_left(4)
 
         self.set_shadow_type(Gtk.ShadowType.IN)
+
         self.show()
 
 class FeedWebView(WebKit.WebView):
 
     def __init__(self, scrolled_window):
         super(FeedWebView, self).__init__()
-        self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
+        self.is_scroll_paused = False
 
+        self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup)
+        self.connect("hovering-over-link", self.on_hovering_over_link)
+        self.connect('scroll-event', self.on_scroll_event)
+
+        self.timeout = None
 
         scrolled_window.add(self)
         self.show_all()
@@ -84,7 +89,31 @@ class FeedWebView(WebKit.WebView):
         # print js
         self.execute_script(js)
 
-        GLib.timeout_add(200, self.execute_script, 'scrollToBottom()')
+        if not self.is_scroll_paused:
+            GLib.timeout_add(200, self.execute_script, 'scrollToBottom()')
+
+    def pause_scroll(self, delay=10):
+        print "pause!", delay
+        self.is_scroll_paused = True
+
+        if self.timeout:
+            GObject.source_remove(self.timeout)
+        self.timeout = GLib.timeout_add_seconds(delay, self._enable_scroll)
+
+    def _enable_scroll(self):
+        print "play!"
+        self.is_scroll_paused = False
+
+    def on_hovering_over_link(self, webview, title, uri):
+        print uri, title
+
+        if uri:
+            self.is_scroll_paused = True
+        else:
+            self.pause_scroll(delay=3)
+
+    def on_scroll_event(self, webview, event):
+        self.pause_scroll()
 
     def on_popup(self, view, default_menu):
         if self.can_copy_clipboard():
@@ -182,7 +211,6 @@ class PopupMenu(object):
 
     def on_menuitem_retweet_activate(self, menuitem):
         pass
-
 
 class AboutDialog(object):
 

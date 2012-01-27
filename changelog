@@ -1,3 +1,7 @@
+2012-01-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py: Added auto control of scrolling.
+
 2012-01-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* gfeedline.desktop.in: Added a Desktop entry.
