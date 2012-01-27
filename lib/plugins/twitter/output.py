@@ -194,6 +194,10 @@ class TwitterSearchOutput(TwitterRestOutput):
 
 class TwitterFeedOutput(TwitterOutputBase):
 
+    def __init__(self, api, authed, view=None, argument='', options={}):
+        super(TwitterFeedOutput, self).__init__(api, authed, view, argument, options)
+        self.reconnect_interval = 10
+
     def got_entry(self, msg, *args):
         self.print_entry(msg)
 
@@ -218,12 +222,15 @@ class TwitterFeedOutput(TwitterOutputBase):
     def _on_connect(self, stream):
         self.stream = stream
         if stream:
+            self.reconnect_interval = 10
             stream.deferred.addCallback(self._on_error, 'Lost connection.')
 
     def _on_error(self, *e):
         print "Error:", e
         if self.is_connecting:
-            reactor.callLater(20, self._restart)
+            reactor.callLater(self.reconnect_interval, self._restart)
+            if self.reconnect_interval < 180:
+                self.reconnect_interval += 10
 
 class TwitterTime(object):
 
