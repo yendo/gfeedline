@@ -1,6 +1,7 @@
 2012-01-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* window.py: Added auto control of scrolling.
+	* window.py: Added auto control of scrolling.  Added support for
+	  user icons on notifications.
 
 2012-01-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 

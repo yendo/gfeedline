@@ -16,6 +16,7 @@ from preferences.preferences import Preferences
 from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.htmlentities import decode_html_entities
+from utils.urlgetautoproxy import UrlGetWithAutoProxy
 from constants import VERSION, SHARED_DATA_DIR
 
 class MainWindow(object):
@@ -187,9 +188,24 @@ class FeedView(object):
             status_body=entry['status_body'])
 
         if has_notify and not is_first_call:
-            self.notification.notify('', #entry.user.profile_image_url, 
-                                     entry['user_name'], entry['popup_body'])
+            self.get_icon(entry)
+
         self.webview.update(text)
+
+    def get_icon(self, entry):
+        icon_uri = str(entry['image_uri'])
+        entry['icon_path'] = '/tmp/twitter_profile_image.jpg'
+        urlget = UrlGetWithAutoProxy(icon_uri)
+        d = urlget.downloadPage(icon_uri, entry['icon_path']).\
+            addCallback(self.notify, entry).addErrback(self.error)
+ 
+    def notify(self, w, entry):
+        print w
+        self.notification.notify(entry['icon_path'],
+                                 entry['user_name'], entry['popup_body'])
+
+    def error(self, e):
+        print "iconget error!", e
 
 class PopupMenu(object):
 
