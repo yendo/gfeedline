@@ -5,7 +5,7 @@ from stat import S_IMODE
 
 from xdg.BaseDirectory import *
 
-VERSION = '0.0.2'
+VERSION = '0.1-a1'
 APP_NAME = 'gfeedline'
 
 SHARED_DATA_DIR = abspath(os.path.join(dirname(__file__), '../share'))
