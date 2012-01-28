@@ -32,8 +32,7 @@ class MainWindow(object):
         self.notebook.remove_page(0)
         # self.notebook.connect('page-reordered', self.on_page_reordered)
         menubar = gui.get_object('menubar1')
-
-        self.notification = Notification('Gnome Feed Line')
+        self.notification = StatusNotification('Gnome Feed Line')
 
         window.resize(480, 600)
         window.connect("delete-event", self.on_stop)
@@ -188,24 +187,29 @@ class FeedView(object):
             status_body=entry['status_body'])
 
         if has_notify and not is_first_call:
-            self.get_icon(entry)
+            self.notification.notify(entry)
 
         self.webview.update(text)
 
-    def get_icon(self, entry):
+class StatusNotification(object):
+
+    def __init__(self, notification):
+        self.notification = Notification('Gnome Feed Line')
+
+    def notify(self, entry):
         icon_uri = str(entry['image_uri'])
         entry['icon_path'] = '/tmp/twitter_profile_image.jpg'
+ 
         urlget = UrlGetWithAutoProxy(icon_uri)
         d = urlget.downloadPage(icon_uri, entry['icon_path']).\
-            addCallback(self.notify, entry).addErrback(self.error)
+            addCallback(self._notify, entry).addErrback(self._error)
  
-    def notify(self, w, entry):
-        print w
+    def _notify(self, unknown, entry):
         self.notification.notify(entry['icon_path'],
                                  entry['user_name'], entry['popup_body'])
 
-    def error(self, e):
-        print "iconget error!", e
+    def _error(self, *e):
+        print "icon get error!", e
 
 class PopupMenu(object):
 
