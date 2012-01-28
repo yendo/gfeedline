@@ -228,7 +228,7 @@ class TwitterFeedOutput(TwitterOutputBase):
     def _on_error(self, *e):
         print "Error:", e
         if self.is_connecting:
-            reactor.callLater(self.reconnect_interval, self._restart)
+            self.timeout = reactor.callLater(self.reconnect_interval, self._restart)
             if self.reconnect_interval < 180:
                 self.reconnect_interval += 10
 
