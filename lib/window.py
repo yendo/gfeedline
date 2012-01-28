@@ -13,6 +13,7 @@ from twisted.internet import reactor
 from gi.repository import Gtk, WebKit, GLib, GObject, Gdk
 
 from preferences.preferences import Preferences
+from menu import SearchMenuItem, get_status_menuitems
 from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.htmlentities import decode_html_entities
@@ -112,7 +113,7 @@ class FeedWebView(WebKit.WebView):
         elif self.is_hovering and self.uri.startswith('gfeedline:'):
             for x in default_menu.get_children():
                 default_menu.remove(x) 
-            for menuitem in [OpenMenuItem, ReplyMenuItem, RetweetMenuItem]:
+            for menuitem in get_status_menuitems():
                 default_menu.append(menuitem(self.uri))
         else:
             default_menu.destroy()
@@ -122,12 +123,12 @@ class FeedWebView(WebKit.WebView):
         uri = action.get_original_uri()
 
         if uri.startswith('gfeedline:'):
-            menu = PopupMenu(uri)
-            menu.menu.popup(None, None, None, None, button, Gdk.CURRENT_TIME)
+            uri = self.uri.replace('gfeedline:', 'https:')
         else:
             uri = decode_html_entities(urllib.unquote(uri))
             uri = uri.replace('#', '%23') # for Twitter hash tags
-            webbrowser.open(uri)
+
+        webbrowser.open(uri)
 
         return True
 
@@ -148,61 +149,6 @@ class FeedWebViewScroll(object):
     def _resume(self):
         print "play!"
         self.is_paused = False
-
-class PopupMenuItem(Gtk.MenuItem):
-
-    def __init__(self, uri=None):
-        super(PopupMenuItem, self).__init__()
-
-        self. uri = uri
-        self.set_label(self._get_label())
-        self.set_use_underline(True)
-        self.connect('activate', self.on_activate)
-        self.show()
-
-class OpenMenuItem(PopupMenuItem):
-
-    def _get_label(self):
-        return '_Open'
-        
-    def on_activate(self, menuitem):
-        uri = self.uri.replace('gfeedline:', 'https:')
-        webbrowser.open(uri)
-
-class ReplyMenuItem(PopupMenuItem):
-
-    def _get_label(self):
-        return '_Reply'
-        
-    def on_activate(self, menuitem):
-        uri_schme =self.uri.split('/')
-        user, id = uri_schme[3:6:2]
-        update_window = UpdateWindow(None, user, id)
-
-class RetweetMenuItem(PopupMenuItem):
-
-    def __init__(self, uri):
-        super(RetweetMenuItem, self).__init__(uri)
-        self.set_sensitive(False)
-
-    def _get_label(self):
-        return '_Retweet'
-        
-    def on_activate(self, menuitem):
-        uri_schme =self.uri.split('/')
-        user, id = uri_schme[3:6:2]
-        update_window = UpdateWindow(None, user, id)
-
-class SearchMenuItem(PopupMenuItem):
-
-    def _get_label(self):
-        return '_Search'
-
-    def on_activate(self, menuitem):
-        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
-        text = clipboard.wait_for_text()
-        uri = 'http://www.google.com/search?q=%s' % text
-        webbrowser.open(uri)
 
 class FeedView(object):
 
