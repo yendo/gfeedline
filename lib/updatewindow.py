@@ -1,7 +1,7 @@
 import os
 
 from gi.repository import Gtk, Gdk
-from plugins.twitter.account import AuthorizedTwitterAPI
+from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import SHARED_DATA_DIR
 
 class UpdateWindow(object):
@@ -36,7 +36,7 @@ class UpdateWindow(object):
         params = {'in_reply_to_status_id': self.id} \
             if self.user and self.id else {}
 
-        twitter_account = AuthorizedTwitterAPI()
+        twitter_account = AuthorizedTwitterAccount()
         twitter_account.api.update(status, params)
 
         self.update_window.destroy()

@@ -11,7 +11,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 from window import MainWindow, FeedView
 from plugins.twitter.api import TwitterAPIDict
-from plugins.twitter.account import AuthorizedTwitterAPI
+from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import CONFIG_HOME
 
 class FeedListStore(Gtk.ListStore):
@@ -27,7 +27,7 @@ class FeedListStore(Gtk.ListStore):
             GdkPixbuf.Pixbuf, str, str, str, object, object, object)
         self.window = MainWindow(self)
         self.api_dict = TwitterAPIDict()
-        self.twitter_account = AuthorizedTwitterAPI()
+        self.twitter_account = AuthorizedTwitterAccount()
 
         self.save = SaveListStore()
         for entry in self.save.load():

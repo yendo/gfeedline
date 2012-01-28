@@ -4,6 +4,22 @@ from oauth import oauth
 from getauthtoken import consumer
 from ...utils.settings import SETTINGS_TWITTER
 
+class AuthorizedTwitterAccount(object):
+
+    def __init__(self):
+        token = self._get_token()
+        self.api = TwitterFeed(consumer=consumer, token=token)
+
+    def update_credential(self):
+        token = self._get_token()
+        self.api.update_token(token)
+
+    def _get_token(self):
+        key = SETTINGS_TWITTER.get_string('access-token')
+        secret = SETTINGS_TWITTER.get_string('access-secret')
+        token = oauth.OAuthToken(key, secret) if key and secret else None
+        return token
+
 class Twitter(twitter.Twitter):
 
     def list_timeline(self, delegate, params={}, extra_args=None):
@@ -29,19 +45,3 @@ class TwitterFeed(Twitter, twitter.TwitterFeed):
     def userstream(self, delegate, args=None):
         return self._rtfeed('https://userstream.twitter.com/2/user.json',
                             delegate, args)
-
-class AuthorizedTwitterAPI(object):
-
-    def __init__(self):
-        token = self._get_token()
-        self.api = TwitterFeed(consumer=consumer, token=token)
-
-    def update_credential(self):
-        token = self._get_token()
-        self.api.update_token(token)
-
-    def _get_token(self):
-        key = SETTINGS_TWITTER.get_string('access-token')
-        secret = SETTINGS_TWITTER.get_string('access-secret')
-        token = oauth.OAuthToken(key, secret) if key and secret else None
-        return token
