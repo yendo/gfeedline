@@ -2,5 +2,4 @@ include changelog
 include COPYING
 include GPL
 recursive-include share *.in *.png *.svg
-recursive-include share/history *.html *.css *.js
 recursive-include po *.in *.po
