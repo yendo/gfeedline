@@ -6,7 +6,7 @@ GNOME Feed Line is a social feed reader.  It supports Twitter.
 
 * Installation
 
-* Depends
+** Depends
 
 - Python: 2.6 or 2.7
 - python-gobject
@@ -17,6 +17,10 @@ GNOME Feed Line is a social feed reader.  It supports Twitter.
 - python-oauth
 - python-dateutil
 - python-xdg
+
+** Recommends
+
+- python-libproxy: for Gnome Proxy Settings
 
 ** Installation
 
