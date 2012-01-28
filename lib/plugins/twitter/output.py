@@ -74,7 +74,7 @@ class TwitterOutputBase(object):
         print "exit!"
         if hasattr(self, 'd'):
             self.d.cancel()
-        if hasattr(self, 'timeout'):
+        if hasattr(self, 'timeout') and not self.timeout.called:
             self.timeout.cancel()
         self.view.remove()
 
