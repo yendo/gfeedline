@@ -72,14 +72,13 @@ class FeedWebView(WebKit.WebView):
     def __init__(self, scrolled_window):
         super(FeedWebView, self).__init__()
         self.scroll = FeedWebViewScroll()
+        self.link_on_webview = FeedWebViewLink()
 
         self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup)
         self.connect("hovering-over-link", self.on_hovering_over_link)
         self.connect('scroll-event', self.on_scroll_event)
-
-        self.is_hovering = False
 
         scrolled_window.add(self)
         self.show_all()
@@ -94,9 +93,7 @@ class FeedWebView(WebKit.WebView):
             GLib.timeout_add(200, self.execute_script, 'scrollToBottom()')
 
     def on_hovering_over_link(self, webview, title, uri):
-        print uri, title
-        self.uri = uri
-        self.is_hovering = bool(uri)
+        self.link_on_webview.change(uri)
 
         if uri:
             self.scroll.is_paused = True
@@ -107,14 +104,14 @@ class FeedWebView(WebKit.WebView):
         self.scroll.pause()
 
     def on_popup(self, view, default_menu):
-        if self.can_copy_clipboard():
-            menuitem = SearchMenuItem()
-            default_menu.prepend(menuitem)
-        elif self.is_hovering and self.uri.startswith('gfeedline:'):
+        if self.link_on_webview.is_username_link():
             for x in default_menu.get_children():
                 default_menu.remove(x) 
             for menuitem in get_status_menuitems():
-                default_menu.append(menuitem(self.uri))
+                default_menu.append(menuitem(self.link_on_webview.uri))
+        elif not self.link_on_webview.is_hovering and self.can_copy_clipboard():
+            menuitem = SearchMenuItem()
+            default_menu.prepend(menuitem)
         else:
             default_menu.destroy()
 
@@ -123,7 +120,7 @@ class FeedWebView(WebKit.WebView):
         uri = action.get_original_uri()
 
         if uri.startswith('gfeedline:'):
-            uri = self.uri.replace('gfeedline:', 'https:')
+            uri = uri.replace('gfeedline:', 'https:')
         else:
             uri = decode_html_entities(urllib.unquote(uri))
             uri = uri.replace('#', '%23') # for Twitter hash tags
@@ -131,6 +128,18 @@ class FeedWebView(WebKit.WebView):
         webbrowser.open(uri)
 
         return True
+
+class FeedWebViewLink(object):
+
+    def __init__(self):
+        self.uri = None
+
+    def change(self, uri):
+        self.uri = uri
+        self.is_hovering = bool(self.uri)
+
+    def is_username_link(self):
+        return self.is_hovering and self.uri.startswith('gfeedline:')
 
 class FeedWebViewScroll(object):
 
