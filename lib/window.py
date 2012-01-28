@@ -78,6 +78,8 @@ class FeedWebView(WebKit.WebView):
         self.connect("hovering-over-link", self.on_hovering_over_link)
         self.connect('scroll-event', self.on_scroll_event)
 
+        self.is_hovering = False
+
         scrolled_window.add(self)
         self.show_all()
 
@@ -92,6 +94,8 @@ class FeedWebView(WebKit.WebView):
 
     def on_hovering_over_link(self, webview, title, uri):
         print uri, title
+        self.uri = uri
+        self.is_hovering = bool(uri)
 
         if uri:
             self.scroll.is_paused = True
@@ -105,6 +109,11 @@ class FeedWebView(WebKit.WebView):
         if self.can_copy_clipboard():
             menuitem = SearchMenuItem()
             default_menu.prepend(menuitem)
+        elif self.is_hovering and self.uri.startswith('gfeedline:'):
+            for x in default_menu.get_children():
+                default_menu.remove(x) 
+            for menuitem in [OpenMenuItem, ReplyMenuItem, RetweetMenuItem]:
+                default_menu.append(menuitem(self.uri))
         else:
             default_menu.destroy()
 
@@ -140,16 +149,56 @@ class FeedWebViewScroll(object):
         print "play!"
         self.is_paused = False
 
-class SearchMenuItem(Gtk.MenuItem):
+class PopupMenuItem(Gtk.MenuItem):
 
-    def __init__(self):
-        super(SearchMenuItem, self).__init__()
-        self.set_label('_Search')
+    def __init__(self, uri=None):
+        super(PopupMenuItem, self).__init__()
+
+        self. uri = uri
+        self.set_label(self._get_label())
         self.set_use_underline(True)
-        self.connect('activate', self.on_search)
+        self.connect('activate', self.on_activate)
         self.show()
+
+class OpenMenuItem(PopupMenuItem):
+
+    def _get_label(self):
+        return '_Open'
         
-    def on_search(self, menuitem):
+    def on_activate(self, menuitem):
+        uri = self.uri.replace('gfeedline:', 'https:')
+        webbrowser.open(uri)
+
+class ReplyMenuItem(PopupMenuItem):
+
+    def _get_label(self):
+        return '_Reply'
+        
+    def on_activate(self, menuitem):
+        uri_schme =self.uri.split('/')
+        user, id = uri_schme[3:6:2]
+        update_window = UpdateWindow(None, user, id)
+
+class RetweetMenuItem(PopupMenuItem):
+
+    def __init__(self, uri):
+        super(RetweetMenuItem, self).__init__(uri)
+        self.set_sensitive(False)
+
+    def _get_label(self):
+        return '_Retweet'
+        
+    def on_activate(self, menuitem):
+        uri_schme =self.uri.split('/')
+        user, id = uri_schme[3:6:2]
+        update_window = UpdateWindow(None, user, id)
+
+class SearchMenuItem(PopupMenuItem):
+
+    def _get_label(self):
+        return '_Search'
+
+    def on_activate(self, menuitem):
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
         text = clipboard.wait_for_text()
         uri = 'http://www.google.com/search?q=%s' % text
@@ -210,31 +259,6 @@ class StatusNotification(object):
 
     def _error(self, *e):
         print "icon get error!", e
-
-class PopupMenu(object):
-
-    def __init__(self, uri):
-        self.uri = uri
-
-        gui = Gtk.Builder()
-        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'menu.glade'))
-
-        self.menu = gui.get_object('menu1')
-        self.menu.show_all()
-
-        gui.connect_signals(self)
-
-    def on_menuitem_open_activate(self, menuitem):
-        uri = self.uri.replace('gfeedline:', 'https:')
-        webbrowser.open(uri)
-
-    def on_menuitem_reply_activate(self, menuitem):
-        uri_schme =self.uri.split('/')
-        user, id = uri_schme[3:6:2]
-        update_window = UpdateWindow(None, user, id)
-
-    def on_menuitem_retweet_activate(self, menuitem):
-        pass
 
 class AboutDialog(object):
 
