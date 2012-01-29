@@ -76,7 +76,7 @@ class TwitterOutputBase(object):
             self.timeout.cancel()
         self.view.remove()
 
-    def _restart(self, account, unknown):
+    def _restart(self, *args):
         print "restart!"
         self.start()
 

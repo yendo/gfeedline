@@ -29,7 +29,7 @@ class Notification(object):
 
         self.proxy.Notify(
             '(susssasa{sv}i)', 
-            self.app_name, 0, icon, summary, body, [], hints, 0)
+            self.app_name, 0, icon, summary, body, [], hints, -1)
 
     def get_capabilities(self):
         return self.proxy.GetCapabilities()
