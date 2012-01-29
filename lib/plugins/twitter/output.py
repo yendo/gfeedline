@@ -137,11 +137,11 @@ class TwitterRestOutput(TwitterOutputBase):
         rate_limit_reset = self.account.api.rate_limit_reset
 
         diff = 0
-        if rate_limit_reset:
+        if rate_limit_reset and rate_limit_remaining:
             diff = rate_limit_reset - int(time.time())
-            interval = diff*1.0/rate_limit_remaining * TwitterRestOutput.api_connections
+            interval = diff*1.0 / rate_limit_remaining * TwitterRestOutput.api_connections
         else:
-            interval = 60.0*60/150*TwitterRestOutput.api_connections
+            interval = 60*60.0 / 150 * TwitterRestOutput.api_connections
 
         interval = 10 if interval < 10 else int(interval)
         print diff, rate_limit_remaining, rate_limit_limit, interval
