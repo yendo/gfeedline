@@ -14,17 +14,21 @@ class FeedSourceDialog(object):
         self.parent = parent
         self.liststore_row = liststore_row
 
+        self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
+        self.label_argument = self.gui.get_object('label_argument')
+        self.entry_argument = self.gui.get_object('entry_argument')
+
+        self.on_comboboxtext_target_changed()
+        self.gui.connect_signals(self)
+
     def run(self):
         dialog = self.gui.get_object('feed_source')
         dialog.set_transient_for(self.parent)
 
         #source_widget = SourceComboBox(self.gui, source_list, self.data)
 
-        combobox_target = TargetCombobox(self.gui, self.liststore_row)
-
-        entry_argument = self.gui.get_object('entry_argument')
         if self.liststore_row:
-            entry_argument.set_text(self.liststore_row[3])
+            self.entry_argument.set_text(self.liststore_row[3])
 
         checkbutton_notification = self.gui.get_object('checkbutton_notification')
         if self.liststore_row and self.liststore_row[4]:
@@ -36,8 +40,8 @@ class FeedSourceDialog(object):
 
         v = { 
 #            'source'  : source_widget.get_active_text(),
-            'target'  : combobox_target.get_active_text(),
-            'argument': entry_argument.get_text().decode('utf-8'),
+            'target'  : self.combobox_target.get_active_text(),
+            'argument': self.entry_argument.get_text().decode('utf-8'),
             'options' : 
             {'notification': checkbutton_notification.get_active()},
         }
@@ -47,6 +51,14 @@ class FeedSourceDialog(object):
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
         return response_id , v
+
+    def on_comboboxtext_target_changed(self, *args):
+        api_name = self.combobox_target.get_active_text()
+        api_class = TwitterAPIDict().get(api_name)
+        status= api_class().has_argument
+
+        self.label_argument.set_sensitive(status)
+        self.entry_argument.set_sensitive(status)
 
 class TargetCombobox(object):
 

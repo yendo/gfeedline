@@ -22,15 +22,15 @@ class TwitterAPIDict(dict):
              TwitterAPITrack,
              ]
 
-        null = Null()
         for api in all_api:
-            self[api(null).name] = api
+            self[api().name] = api
 
 class TwitterAPIBase(object):
 
     def __init__(self, account=None):
-        self.account = account
+        self.account = account or Null()
         self.include_rt = True
+        self.has_argument = False
 
         self._get_output_class()
         self._setup()
@@ -65,6 +65,7 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
     def _setup(self):
         self.api = self.account.api.list_timeline
         self.name = 'List TimeLine'
+        self.has_argument = True
 
     def get_options(self, argument):
         list_name = argument.split('/')
@@ -96,6 +97,7 @@ class TwitterAPITrack(TwitterFeedAPIBase):
         self.api = self.account.api.track
         self.name = 'Track'
         self.include_rt = False
+        self.has_argument = True
 
     def get_options(self, argument):
         return [ x.strip() for x in argument.split(',') ]
@@ -107,6 +109,7 @@ class TwitterSearchAPI(TwitterAPIBase):
         self.api = self.account.api.search
         self.name = 'Search'
         self.include_rt = False
+        self.has_argument = True
 
     def _get_output_class(self):
         self.output= TwitterSearchOutput

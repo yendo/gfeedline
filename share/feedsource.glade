@@ -155,6 +155,7 @@
                   <object class="GtkComboBoxText" id="comboboxtext_target">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <signal name="changed" handler="on_comboboxtext_target_changed" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
