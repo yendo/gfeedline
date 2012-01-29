@@ -58,7 +58,7 @@ class TwitterOutputBase(object):
         text = dict(
             datetime=time.get_local_time(),
             id=entry.id,
-            image_uri=user.profile_image_url.replace('_normal.', '_mini.'),
+            image_uri=user.profile_image_url, #.replace('_normal.', '_mini.'),
             user_name=user.screen_name,
             user_color=user_color.get(user.screen_name),
             status_body=body,
