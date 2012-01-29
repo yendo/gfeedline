@@ -1,18 +1,28 @@
 from ...twittytwister import twitter, txml
 from oauth import oauth
 
+from gi.repository import GObject
 from getauthtoken import consumer
 from ...utils.settings import SETTINGS_TWITTER
 
-class AuthorizedTwitterAccount(object):
+class AuthorizedTwitterAccount(GObject.GObject):
+
+    __gsignals__ = {
+        'update-credential': (GObject.SignalFlags.RUN_LAST, None, (object, )),
+        }
 
     def __init__(self):
+        super(AuthorizedTwitterAccount, self).__init__()
+
         token = self._get_token()
         self.api = TwitterFeed(consumer=consumer, token=token)
+        SETTINGS_TWITTER.connect("changed::access-secret", 
+                                 self._on_update_credential)
 
-    def update_credential(self):
+    def _on_update_credential(self, account, unknown):
         token = self._get_token()
         self.api.update_token(token)
+        self.emit("update-credential", None)
 
     def _get_token(self):
         key = SETTINGS_TWITTER.get_string('access-token')

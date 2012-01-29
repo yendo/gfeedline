@@ -20,7 +20,6 @@ import dateutil.parser
 from twisted.internet import reactor
 
 from ...utils.usercolor import UserColor
-from ...utils.settings import SETTINGS_TWITTER
 from ...utils.htmlentities import decode_html_entities
 
 user_color = UserColor()
@@ -39,10 +38,9 @@ class TwitterOutputBase(object):
         self.last_id = 0
         self.params = {}
         self.counter = 0
-
-        SETTINGS_TWITTER.connect("changed::access-secret", self._restart)
-
         self.add_markup = AddedHtmlMarkup()
+
+        account.connect("update_credential", self._restart)
 
     def check_entry(self, msg, *args):
         msg.text = decode_html_entities(msg.text)
@@ -78,9 +76,8 @@ class TwitterOutputBase(object):
             self.timeout.cancel()
         self.view.remove()
 
-    def _restart(self, *args):
+    def _restart(self, account, unknown):
         print "restart!"
-        self.account.update_credential()
         self.start()
 
 class TwitterRestOutput(TwitterOutputBase):
