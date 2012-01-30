@@ -81,7 +81,7 @@ class Preferences(object):
 
         if response_id == Gtk.ResponseType.OK:
             new_iter = self.liststore.append(v)
-            self._set_cursor_to(new_iter)
+            self._set_cursor_to(self.feedsource_treeview, new_iter)
 
     def on_button_feed_prefs_clicked(self, button):
         treeselection = self.feedsource_treeview.get_selection()
@@ -92,7 +92,7 @@ class Preferences(object):
 
         if response_id == Gtk.ResponseType.OK:
             new_iter = self.liststore.update(v, iter)
-            self._set_cursor_to(new_iter)
+            self._set_cursor_to(self.feedsource_treeview, new_iter)
 
     def on_button_feed_del_clicked(self, button):
         treeselection = self.feedsource_treeview.get_selection()
@@ -115,7 +115,7 @@ class Preferences(object):
     def on_plugin_treeview_cursor_changed(self, treeview):
         pass
 
-    def _set_cursor_to(self, iter):
-        model = self.feedsource_treeview.get_model()
+    def _set_cursor_to(self, feedsource_treeview, iter):
+        model = feedsource_treeview.get_model()
         row = model.get_path(iter)
-        self.feedsource_treeview.set_cursor(row, None, False)
+        feedsource_treeview.set_cursor(row, None, False)
