@@ -10,6 +10,7 @@ from gi.repository import Gtk, Gdk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..utils.settings import SETTINGS_TWITTER
+from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_DIR
 from feedsource import FeedSourceDialog
 
@@ -44,6 +45,11 @@ class Preferences(object):
         self.button_prefs.set_sensitive(False)
         self.button_del.set_sensitive(False)
 
+        self.autostart = AutoStart('gfeedline')
+        checkbutton_autostart = gui.get_object('checkbutton_autostart')
+        checkbutton_autostart.set_sensitive(self.autostart.check_enable())
+        checkbutton_autostart.set_active(self.autostart.get())
+
         gui.connect_signals(self)
 
     def on_drag_begin(self, treeview, dragcontext):
@@ -72,8 +78,9 @@ class Preferences(object):
     def on_checkbutton_always_toggled_cb(self, button):
         pass
 
-    def on_checkbutton_auto_toggled_cb(self, button):
-        pass
+    def on_checkbutton_autostart_toggled_cb(self, button):
+        state = button.get_active()
+        self.autostart.set(state)
 
     def on_button_feed_new_clicked(self, button):
         dialog = FeedSourceDialog(self.preferences)
