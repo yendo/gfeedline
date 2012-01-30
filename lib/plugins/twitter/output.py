@@ -99,7 +99,8 @@ class TwitterRestOutput(TwitterOutputBase):
         if not self.all_entries:
             return
 
-        interval = api_interval / len(self.all_entries)
+        interval = api_interval*1.0 / len(self.all_entries)
+        # print "interval: ", interval
         for i, entry in enumerate(reversed(self.all_entries)):
             if self.counter:
                 self.delayed.append(
@@ -142,8 +143,9 @@ class TwitterRestOutput(TwitterOutputBase):
             interval = 60*60.0 / 150 * TwitterRestOutput.api_connections
 
         interval = 10 if interval < 10 else int(interval)
-        print "time: %s, limit: %s/%s, intervl: %s" % (
-            diff, rate_limit_remaining, rate_limit_limit, interval)
+        print "time: %s, limit: %s/%s, connections: %s, interval: %s" % (
+            diff, rate_limit_remaining, rate_limit_limit, 
+            TwitterRestOutput.api_connections, interval)
 
         return interval
 
