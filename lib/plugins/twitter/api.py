@@ -100,7 +100,7 @@ class TwitterAPITrack(TwitterFeedAPIBase):
         self.has_argument = True
 
     def get_options(self, argument):
-        return [ x.strip() for x in argument.split(',') ]
+        return [ x.strip() for x in argument.split(' ') ]
 
 
 class TwitterSearchAPI(TwitterAPIBase):
