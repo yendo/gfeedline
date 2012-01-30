@@ -63,7 +63,7 @@ class Preferences(object):
         self.label_username.set_text(user_name)
 
     def on_button_twitter_auth_clicked(self, button):
-        assistant = TwitterAuthAssistant() 
+        assistant = TwitterAuthAssistant(self.preferences) 
 
     def on_button_close_clicked(self, button):
         self.liststore.save_settings()

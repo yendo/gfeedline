@@ -7,7 +7,7 @@
 import os
 import re
 
-from gi.repository import Gtk, WebKit, GLib, GObject
+from gi.repository import Gtk, WebKit, GLib, GObject, Gdk
 
 from getauthtoken import TwitterAuthorization
 from ...utils.settings import SETTINGS_TWITTER
@@ -15,7 +15,7 @@ from ...constants import SHARED_DATA_DIR
 
 class TwitterAuthAssistant(Gtk.Assistant):
 
-    def __init__(self):
+    def __init__(self, parent=None):
         super(TwitterAuthAssistant, self).__init__()
 
         gui = Gtk.Builder()
@@ -29,6 +29,10 @@ class TwitterAuthAssistant(Gtk.Assistant):
 
         self.set_title('Twitter Account Setup')
         self.set_default_size(480, 200)
+        self.set_type_hint(Gdk.WindowTypeHint.DIALOG)
+        self.set_modal(True)
+#        if parent:
+#            self.set_transient_for(parent)
 
         self.connect('apply', self.on_apply_button_clicked)
         self.connect('cancel', self.on_cancel_button_clicked)
