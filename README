@@ -1,8 +1,9 @@
-GNOME Feed Line - A Social Feed Reader for the GNOME Desktop.
+GNOME Feed Line - A Social Networking Client for the GNOME 3 Desktop.
 
 * About
 
-GNOME Feed Line is a social feed reader.  It supports Twitter.
+GNOME Feed Line is a social networking client for the GNOME 3 Desktop.  
+It supports Twitter.
 
 * Installation
 
@@ -27,7 +28,7 @@ GNOME Feed Line is a social feed reader.  It supports Twitter.
 The gschema file must be installed.
 
   sudo cp ./share/com.googlecode.gfeedline.gschema.xml.in /usr/share/glib-2.0/schemas/com.googlecode.gfeedline.gschema.xml
-  sudo sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+  sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 
 You can install with the setup script.
 
