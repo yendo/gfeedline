@@ -115,7 +115,7 @@ class SaveListStore(object):
 
             source_list.append(data)
 
-        print source_list
+        # print source_list
         return source_list
 
     def save(self, liststore):
@@ -135,7 +135,7 @@ class SaveListStore(object):
                     # print key, value
             save_data.append(save_temp)
 
-        print save_data
+        # print save_data
         self.save_to_json(save_data)
 
     def save_to_json(self, save_data):

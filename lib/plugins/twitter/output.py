@@ -45,7 +45,8 @@ class TwitterOutputBase(object):
     def check_entry(self, msg, *args):
         msg.text = decode_html_entities(msg.text)
         if msg.text.startswith('RT @') and not self.api.include_rt:
-            print "rt!"
+            # print "rt!"
+            pass
         else:
             self.got_entry(msg, args)
 
@@ -99,7 +100,6 @@ class TwitterRestOutput(TwitterOutputBase):
             return
 
         interval = api_interval / len(self.all_entries)
-        print "!", interval, api_interval, len(self.all_entries)
         for i, entry in enumerate(reversed(self.all_entries)):
             if self.counter:
                 self.delayed.append(
@@ -130,8 +130,6 @@ class TwitterRestOutput(TwitterOutputBase):
         self.timeout = reactor.callLater(interval, self.start, interval)
 
     def _get_interval_seconds(self):
-        print "connections:", TwitterRestOutput.api_connections
-
         rate_limit_remaining = self.account.api.rate_limit_remaining
         rate_limit_limit = self.account.api.rate_limit_limit
         rate_limit_reset = self.account.api.rate_limit_reset
@@ -144,7 +142,8 @@ class TwitterRestOutput(TwitterOutputBase):
             interval = 60*60.0 / 150 * TwitterRestOutput.api_connections
 
         interval = 10 if interval < 10 else int(interval)
-        print diff, rate_limit_remaining, rate_limit_limit, interval
+        print "time: %s, limit: %s/%s, intervl: %s" % (
+            diff, rate_limit_remaining, rate_limit_limit, interval)
 
         return interval
 
@@ -161,7 +160,8 @@ class TwitterSearchOutput(TwitterRestOutput):
     def check_entry(self, msg, *args):
         msg.title = decode_html_entities(msg.title)
         if msg.title.startswith('RT @') and not self.api.include_rt:
-            print "rt!"
+            # print "rt!"
+            pass
         else:
             self.got_entry(msg, args)
 

@@ -148,7 +148,7 @@ class FeedWebViewScroll(object):
         self._timer = None
 
     def pause(self, delay=10):
-        print "pause!", delay
+        # print "pause!", delay
         self.is_paused = True
 
         if self._timer:
@@ -156,7 +156,7 @@ class FeedWebViewScroll(object):
         self._timer = GLib.timeout_add_seconds(delay, self._resume)
 
     def _resume(self):
-        print "play!"
+        # print "play!"
         self.is_paused = False
 
 class FeedView(object):
