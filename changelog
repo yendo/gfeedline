@@ -1,3 +1,7 @@
+2012-01-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 0.1 release.
+
 2012-01-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* window.py: Added auto control of scrolling.  Added support for
