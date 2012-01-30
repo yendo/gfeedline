@@ -18,6 +18,7 @@ from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.htmlentities import decode_html_entities
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
+from utils.settings import SETTINGS
 from constants import VERSION, SHARED_DATA_DIR
 
 class MainWindow(object):
@@ -34,6 +35,9 @@ class MainWindow(object):
         # self.notebook.connect('page-reordered', self.on_page_reordered)
         menubar = gui.get_object('menubar1')
         self.notification = StatusNotification('Gnome Feed Line')
+
+        SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
+        self.on_settings_sticky_change(SETTINGS, 'window-sticky')
 
         window.resize(480, 600)
         window.connect("delete-event", self.on_stop)
@@ -52,6 +56,12 @@ class MainWindow(object):
 
     def on_menuitem_about_activate(self, menuitem):
         about = AboutDialog(self.window)
+
+    def on_settings_sticky_change(self, settings, key):
+        if settings.get_boolean(key):
+            self.window.stick()
+        else:
+            self.window.unstick()
         
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 

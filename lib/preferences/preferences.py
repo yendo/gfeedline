@@ -9,7 +9,7 @@ import os
 from gi.repository import Gtk, Gdk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
-from ..utils.settings import SETTINGS_TWITTER
+from ..utils.settings import SETTINGS, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_DIR
 from feedsource import FeedSourceDialog
@@ -41,14 +41,21 @@ class Preferences(object):
         treeview.connect("drag-end", self.on_drag_end, mainwindow.notebook)
 
         self.button_prefs = gui.get_object('button_feed_prefs')
-        self.button_del = gui.get_object('button_feed_del')
         self.button_prefs.set_sensitive(False)
+
+        self.button_del = gui.get_object('button_feed_del')
         self.button_del.set_sensitive(False)
 
         self.autostart = AutoStart('gfeedline')
         checkbutton_autostart = gui.get_object('checkbutton_autostart')
         checkbutton_autostart.set_sensitive(self.autostart.check_enable())
         checkbutton_autostart.set_active(self.autostart.get())
+
+        SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
+        self.on_settings_sticky_change(SETTINGS, 'window-sticky')
+        sticky = SETTINGS.get_boolean('window-sticky')
+        checkbutton_sticky = gui.get_object('checkbutton_sticky')
+        checkbutton_sticky.set_active(sticky)
 
         gui.connect_signals(self)
 
@@ -68,6 +75,12 @@ class Preferences(object):
         user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'
         self.label_username.set_text(user_name)
 
+    def on_settings_sticky_change(self, settings, key):
+        if settings.get_boolean(key):
+            self.preferences.stick()
+        else:
+            self.preferences.unstick()
+
     def on_button_twitter_auth_clicked(self, button):
         assistant = TwitterAuthAssistant(self.preferences) 
 
@@ -75,10 +88,11 @@ class Preferences(object):
         self.liststore.save_settings()
         self.preferences.destroy()
 
-    def on_checkbutton_always_toggled_cb(self, button):
-        pass
+    def on_checkbutton_sticky_toggled(self, button):
+        sticky = button.get_active()
+        SETTINGS.set_boolean('window-sticky', sticky)
 
-    def on_checkbutton_autostart_toggled_cb(self, button):
+    def on_checkbutton_autostart_toggled(self, button):
         state = button.get_active()
         self.autostart.set(state)
 

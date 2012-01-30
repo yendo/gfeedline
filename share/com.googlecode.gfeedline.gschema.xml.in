@@ -1,10 +1,10 @@
 <schemalist>
 
   <schema id="com.googlecode.gfeedline" path="/apps/gfeedline/">
-    <key name="color" type="s">
-      <default>''</default>
-      <summary>color</summary>
-      <description>color</description>
+    <key name="window-sticky" type="b">
+      <default>false</default>
+      <summary>sticky</summary>
+      <description>sticky</description>
     </key>
     <child name="plugins" schema="com.googlecode.gfeedline.plugins"/>
   </schema>
