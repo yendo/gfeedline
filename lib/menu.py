@@ -1,10 +1,13 @@
 import webbrowser
 
 from gi.repository import Gtk, Gdk
+
+from plugins.twitter.account import AuthorizedTwitterAccount
 from updatewindow import UpdateWindow
 
 def get_status_menuitems():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem]
+
 
 class PopupMenuItem(Gtk.MenuItem):
 
@@ -38,17 +41,19 @@ class ReplyMenuItem(PopupMenuItem):
 
 class RetweetMenuItem(PopupMenuItem):
 
-    def __init__(self, uri):
-        super(RetweetMenuItem, self).__init__(uri)
-        self.set_sensitive(False)
-
     def _get_label(self):
         return '_Retweet'
         
     def on_activate(self, menuitem):
         uri_schme =self.uri.split('/')
         user, id = uri_schme[3:6:2]
-        update_window = UpdateWindow(None, user, id)
+
+        twitter_account = AuthorizedTwitterAccount()
+        twitter_account.api.retweet(id, self._on_retweet_status)
+
+    def _on_retweet_status(self, *args):
+        #print args
+        pass
 
 class SearchMenuItem(PopupMenuItem):
 
