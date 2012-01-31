@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-_Name=Gnome Feed Line
+_Name=GNOME Feed Line
 _Comment=Read & Write Social Feeds
-_GenericName=Social Feed Reader
+_GenericName=Social Networking Client
 Icon=gfeedline
 Exec=gfeedline
 StartupNotify=true

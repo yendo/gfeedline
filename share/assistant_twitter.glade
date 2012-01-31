@@ -100,7 +100,7 @@
         <property name="can_focus">False</property>
         <property name="hexpand">True</property>
         <property name="xalign">0</property>
-        <property name="label" translatable="yes">Your configuration is complete.  You are now ready to access to Twitter with Gnome Feed Line.
+        <property name="label" translatable="yes">Your configuration is complete.  You are now ready to access to Twitter with GNOME Feed Line.
 
 Click "Apply" to save your settings.</property>
         <property name="wrap">True</property>
@@ -185,7 +185,7 @@ Click "Apply" to save your settings.</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="hexpand">True</property>
-    <property name="label" translatable="yes">This assistant helps you to configure Twitter account for Gnome Feed Line.
+    <property name="label" translatable="yes">This assistant helps you to configure Twitter account for GNOME Feed Line.
 
 Click "Forward" to open a Twitter authorization page with the default browser.</property>
     <property name="wrap">True</property>

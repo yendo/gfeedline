@@ -33,7 +33,7 @@
   <object class="GtkWindow" id="preferences">
     <property name="can_focus">False</property>
     <property name="border_width">12</property>
-    <property name="title" translatable="yes">Photo Frame Preferences</property>
+    <property name="title" translatable="yes">Feed Line Preferences</property>
     <property name="window_position">center</property>
     <property name="destroy_with_parent">True</property>
     <property name="icon_name">gphotoframe</property>
@@ -189,7 +189,7 @@
                       <object class="GtkLabel" id="label_max_size">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Label2&lt;/b&gt;</property>
+                        <property name="label">&lt;b&gt;Label&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
                     </child>
