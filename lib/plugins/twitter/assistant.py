@@ -27,7 +27,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
         self.label_screen_name = gui.get_object('label_name')
         self.pattern_pin = re.compile('^[0-9]{7,}$')
 
-        self.set_title('Twitter Account Setup')
+        self.set_title(_('Twitter Account Setup'))
         self.set_default_size(480, 200)
         self.set_type_hint(Gdk.WindowTypeHint.DIALOG)
         self.set_modal(True)
@@ -43,7 +43,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
         page1 = gui.get_object('label1')
         self.append_page(page1)
 
-        self.set_page_title(page1, 'Intro')
+        self.set_page_title(page1, _('Intro'))
         self.set_page_type(page1, Gtk.AssistantPageType.INTRO)
         self.set_page_complete(page1, True)
 
@@ -51,7 +51,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
         page2 = gui.get_object('box1')
         self.append_page(page2)
 
-        self.set_page_title(page2, 'Enter PIN')
+        self.set_page_title(page2, _('Enter PIN'))
         self.set_page_type(page2, Gtk.AssistantPageType.CONTENT)
         self.set_page_complete(page2, False)
 
@@ -59,7 +59,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
         page3 = gui.get_object('box2')
         self.append_page(page3)
 
-        self.set_page_title(page3, 'Confirm')
+        self.set_page_title(page3, _('Confirm'))
         self.set_page_type(page3, Gtk.AssistantPageType.CONFIRM)
         self.set_page_complete(page3, True)
 

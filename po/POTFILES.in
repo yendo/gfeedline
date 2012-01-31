@@ -4,3 +4,5 @@ share/gfeedline.desktop.in
 share/gfeedline.glade
 share/preferences.glade
 share/update.glade
+lib/menu.py
+lib/plugins/twitter/assistant.py

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-31 21:56+0900\n"
-"PO-Revision-Date: 2012-01-31 21:52+0900\n"
+"POT-Creation-Date: 2012-01-31 21:58+0900\n"
+"PO-Revision-Date: 2012-01-31 21:58+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -203,33 +203,32 @@ msgstr "ツイート(_T)"
 
 #: ../lib/menu.py:26
 msgid "_Open"
-msgstr ""
+msgstr "開く(_O)"
 
 #: ../lib/menu.py:35
 msgid "_Reply"
-msgstr ""
+msgstr "返信(_R)"
 
 #: ../lib/menu.py:45
-#, fuzzy
-msgid "_Retweet"
-msgstr "ツイート(_T)"
+msgid "Re_tweet"
+msgstr "リツイート(_T)"
 
 #: ../lib/menu.py:61
 msgid "_Search"
-msgstr ""
+msgstr "検索(_S)"
 
 #: ../lib/plugins/twitter/assistant.py:30
 msgid "Twitter Account Setup"
-msgstr ""
+msgstr "Twitter アカウントの設定"
 
 #: ../lib/plugins/twitter/assistant.py:46
 msgid "Intro"
-msgstr ""
+msgstr "説明"
 
 #: ../lib/plugins/twitter/assistant.py:54
 msgid "Enter PIN"
-msgstr ""
+msgstr "PIN の入力"
 
 #: ../lib/plugins/twitter/assistant.py:62
 msgid "Confirm"
-msgstr ""
+msgstr "確認"

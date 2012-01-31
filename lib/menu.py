@@ -23,7 +23,7 @@ class PopupMenuItem(Gtk.MenuItem):
 class OpenMenuItem(PopupMenuItem):
 
     def _get_label(self):
-        return '_Open'
+        return _('_Open')
         
     def on_activate(self, menuitem):
         uri = self.uri.replace('gfeedline:', 'https:')
@@ -32,7 +32,7 @@ class OpenMenuItem(PopupMenuItem):
 class ReplyMenuItem(PopupMenuItem):
 
     def _get_label(self):
-        return '_Reply'
+        return _('_Reply')
         
     def on_activate(self, menuitem):
         uri_schme =self.uri.split('/')
@@ -42,7 +42,7 @@ class ReplyMenuItem(PopupMenuItem):
 class RetweetMenuItem(PopupMenuItem):
 
     def _get_label(self):
-        return '_Retweet'
+        return _('Re_tweet')
         
     def on_activate(self, menuitem):
         uri_schme =self.uri.split('/')
@@ -58,7 +58,7 @@ class RetweetMenuItem(PopupMenuItem):
 class SearchMenuItem(PopupMenuItem):
 
     def _get_label(self):
-        return '_Search'
+        return _('_Search')
 
     def on_activate(self, menuitem):
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
