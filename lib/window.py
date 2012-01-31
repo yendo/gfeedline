@@ -65,6 +65,10 @@ class MainWindow(object):
 
         reactor.stop()
 
+    def on_menuitem_quit_activate(self, menuitem):
+        self.on_stop()
+        # self.window.destroy()
+
     def on_menuitem_update_activate(self, menuitem):
         prefs = UpdateWindow(self)
 

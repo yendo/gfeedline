@@ -23,8 +23,33 @@ if os.access(
 else:
     from gfeedline.liststore import FeedListStore
 
+# from gi.repository import Gtk
+# 
+# class GFeedLine(Gtk.Application):
+# 
+#     def __init__(self):
+#         super(GFeedLine, self).__init__(application_id="apps.gfeedline")
+#         self.connect("activate", self.on_activate)
+# 
+#     def on_activate(self, data=None):
+#         liststore = FeedListStore()
+#         liststore.window.window.set_application(self)
+#         # self.connect("quit", self.on_shutdown)
+# 
+#     def on_shutdown(self, *args):
+#         print args
+#         print "shutdown!"
+# 
+#     def do_run_mainloop(self, *args):
+#         reactor.run()
+# 
+#     def do_quit_mainloop(self, *args):
+#         reactor.stop()
 
 if __name__ == '__main__':
 
     liststore = FeedListStore()
     reactor.run()
+
+    #app = GFeedLine()
+    #app.run(None)
