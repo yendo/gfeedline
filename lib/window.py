@@ -30,9 +30,14 @@ class MainWindow(object):
         gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'))
 
         self.window = window = gui.get_object('window1')
+
         self.notebook = gui.get_object('notebook1')
         self.notebook.remove_page(0)
+        self.notebook.connect('switch-page', self.on_update_tablabel_sensitive)
+        self.notebook.connect('button-press-event', 
+                              self.on_update_tablabel_sensitive)
         # self.notebook.connect('page-reordered', self.on_page_reordered)
+
         menubar = gui.get_object('menubar1')
         self.notification = StatusNotification('Gnome Feed Line')
 
@@ -52,6 +57,12 @@ class MainWindow(object):
         window.show_all()
 
         gui.connect_signals(self)
+
+    def on_update_tablabel_sensitive(self, notebook, *args):
+        page = notebook.get_current_page() # get previous page
+        sw = notebook.get_nth_page(page)
+        if hasattr(sw.feedview, 'tab_label'):
+            sw.feedview.tab_label.set_sensitive(False)
 
     def on_stop(self, *args):
         print "save!"
@@ -86,8 +97,9 @@ class MainWindow(object):
         
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
-    def __init__(self):
+    def __init__(self, feedview):
         super(FeedScrolledWindow, self).__init__()
+        self.feedview = feedview
 
         self.set_margin_top(4)
         self.set_margin_bottom(4)
@@ -193,12 +205,15 @@ class FeedWebViewScroll(object):
 class FeedView(object):
 
     def __init__(self, window, name='', page=-1):
-        self.sw = FeedScrolledWindow()
+        self.sw = FeedScrolledWindow(self)
         self.notebook = window.notebook
         self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(name))
         self.notebook.reorder_child(self.sw, page)
         # self.notebook.set_tab_reorderable(self.sw, True)
         self.webview = FeedWebView(self.sw)
+
+        self.tab_label = self.notebook.get_tab_label(self.sw)
+        self.tab_label.set_sensitive(False)
 
         self.notification = window.notification
 
@@ -224,6 +239,7 @@ class FeedView(object):
         if has_notify and not is_first_call:
             self.notification.notify(entry)
 
+        self.tab_label.set_sensitive(True)
         self.webview.update(text)
 
 class StatusNotification(object):
