@@ -13,8 +13,9 @@ class TweetEntry(object):
 
     def __init__(self, add_markup, entry):
         self.add_markup = add_markup
-        self.entry=entry
         self.retweet_icon = ''
+
+        self.entry=entry
 
     def _get_body(self, text):
         body_string = decode_html_entities(text)
@@ -47,17 +48,42 @@ class RestRetweetEntry(TweetEntry):
 
     def __init__(self, add_markup, entry):
         self.add_markup = add_markup
-        self.entry=entry.retweeted_status
         self.retweet_icon = "<img src='/tmp/retweet.png'>"
 
+        self.entry=entry.retweeted_status
+
 class FeedRetweetEntry(TweetEntry):
-    "koredake special"
 
     def __init__(self, add_markup, entry):
         self.add_markup = add_markup
+        self.retweet_icon = "<img src='/tmp/retweet.png'>"
+
         self.entry=DictObj(entry.raw.get('retweeted_status'))
         self.entry.user=DictObj(self.entry.user)
-        self.retweet_icon = "<img src='/tmp/retweet.png'>"
+
+class SearchTweetEntry(TweetEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+
+        time = TwitterTime(entry.published)
+        body_string = decode_html_entities(entry.title)
+        body = self.add_markup.convert(body_string)
+
+        name = entry.author.name.split(' ')[0]
+        id = entry.id.split(':')[2]
+
+        text = dict(
+            datetime=time.get_local_time(),
+            id=id,
+            image_uri=entry.image,
+            retweet='',
+            user_name=name,
+            user_color=user_color.get(name),
+            status_body=body,
+            popup_body=body_string)
+
+        return text
 
 class DictObj(object):
 
@@ -103,4 +129,3 @@ class AddedHtmlMarkup(object):
         # text = self.sequence_pattern.sub(r'\1 ', text)
 
         return text
-

@@ -13,13 +13,12 @@ Rest: check_entry -> got_entry : print_all_entries -> print_entry
 Feed: check_entry -> got_entry                     -> print_entry
 """
 
+import time
+
 from twisted.internet import reactor
 
-from ...utils.usercolor import UserColor
+from tweetentry import *
 from ...utils.htmlentities import decode_html_entities
-from tweetentry import TweetEntry, RestRetweetEntry, FeedRetweetEntry, AddedHtmlMarkup, TwitterTime
-
-user_color = UserColor()
 
 
 class TwitterOutputBase(object):
@@ -158,29 +157,12 @@ class TwitterSearchOutput(TwitterRestOutput):
             self.got_entry(msg, args)
 
     def print_entry(self, entry, is_first_call=False):
-        time = TwitterTime(entry.published)
-        body_string = decode_html_entities(entry.title)
-        body = self.add_markup.convert(body_string)
+        entry_class = SearchTweetEntry
+        text = entry_class(self.add_markup, entry).get_dict(self.api)
 
-        name = entry.author.name.split(' ')[0]
-        id = entry.id.split(':')[2]
-
-        try:
-            text = dict(
-                datetime=time.get_local_time(),
-                id=id,
-                image_uri=entry.image,
-                retweet='',
-                user_name=name,
-                user_color=user_color.get(name),
-                status_body=body,
-                popup_body=body_string)
-        except:
-            print body
-            print "bad!"
-
-        self.last_id = id
+        self.last_id = text['id']
         self.view.update(text, self.options.get('notification'), is_first_call)
+
 
 class TwitterFeedOutput(TwitterOutputBase):
 
