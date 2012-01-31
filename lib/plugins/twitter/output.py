@@ -51,13 +51,12 @@ class TwitterOutputBase(object):
             self.got_entry(msg, args)
 
     def print_entry(self, entry, is_first_call=False):
-        if hasattr(entry, 'raw'):
-            rt = entry.raw.get('retweeted_status')
+        if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
+            entry_class = FeedRetweetEntry 
+        elif hasattr(entry, 'retweeted_status') and entry.retweeted_status:
+            entry_class = RestRetweetEntry
         else:
-            rt = entry.retweeted_status
-
-        entry_class = TweetEntry if not rt else \
-            RetweetEntry if hasattr(rt, 'raw') else RetweetEntry2
+            entry_class = TweetEntry
 
         text = entry_class(self.add_markup).get_dict(entry, self.api)
         self.last_id = text['id']
@@ -305,7 +304,32 @@ class TweetEntry(object):
 
         return text
 
-class RetweetEntry(TweetEntry):
+class RestRetweetEntry(TweetEntry):
+
+    def get_dict(self, entry, api):
+        rt = entry.retweeted_status
+
+        body, body_string = self._get_body(rt.text)
+
+        time = TwitterTime(rt.created_at)
+        screen_name = rt.user.screen_name
+
+        text = dict(
+            datetime=time.get_local_time(),
+            id=rt.id,
+            image_uri=rt.user.profile_image_url,
+            retweet="<img src='/tmp/retweet.png'>",
+            user_name=screen_name,
+            user_color=user_color.get(screen_name),
+
+            status_body=body,
+            popup_body=body_string,
+            )
+
+        return text
+
+class FeedRetweetEntry(TweetEntry):
+    "koredake special"
 
     def get_dict(self, entry, api):
         rt = entry.raw.get('retweeted_status')
@@ -329,26 +353,3 @@ class RetweetEntry(TweetEntry):
 
         return text
 
-class RetweetEntry2(TweetEntry):
-
-    def get_dict(self, entry, api):
-        rt = entry.retweeted_status
-
-        body, body_string = self._get_body(rt.text)
-
-        time = TwitterTime(rt.created_at)
-        screen_name = rt.user.screen_name
-
-        text = dict(
-            datetime=time.get_local_time(),
-            id=rt.id,
-            image_uri=rt.user.profile_image_url,
-            retweet="<img src='/tmp/retweet.png'>",
-            user_name=screen_name,
-            user_color=user_color.get(screen_name),
-
-            status_body=body,
-            popup_body=body_string,
-            )
-
-        return text
