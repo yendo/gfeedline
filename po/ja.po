@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-31 21:58+0900\n"
-"PO-Revision-Date: 2012-01-31 21:58+0900\n"
+"PO-Revision-Date: 2012-01-31 22:22+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -83,7 +83,7 @@ msgstr "ソース(_S):"
 
 #: ../share/feedsource.glade.h:7
 msgid "_Target:"
-msgstr "ターゲット(_T)"
+msgstr "ターゲット(_T):"
 
 #: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:2
 msgid "GNOME Feed Line"
