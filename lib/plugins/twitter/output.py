@@ -51,42 +51,16 @@ class TwitterOutputBase(object):
             self.got_entry(msg, args)
 
     def print_entry(self, entry, is_first_call=False):
-        rt = entry.raw.get('retweeted_status')
-
-        text = rt['text'] if rt else entry.text 
-        body_string = decode_html_entities(text)
-        body = self.add_markup.convert(body_string)
-
-        if rt:
-            time = TwitterTime(rt['created_at'])
-            screen_name = rt['user']['screen_name'] 
-
-            text = dict(
-                datetime=time.get_local_time(),
-                id=rt['id'],
-                image_uri=rt['user']['profile_image_url'],
-                retweet="<img src='/tmp/retweet.png'>",
-                user_name=screen_name,
-                user_color=user_color.get(screen_name),
-                status_body=body,
-                popup_body=body_string,
-                )
+        if hasattr(entry, 'raw'):
+            rt = entry.raw.get('retweeted_status')
         else:
-            time = TwitterTime(entry.created_at)
-            user = entry.sender if self.api.name == 'Direct Messages' else entry.user
+            rt = entry.retweeted_status
 
-            text = dict(
-                datetime=time.get_local_time(),
-                id=entry.id,
-                image_uri=user.profile_image_url,
-                retweet='',
-                user_name=user.screen_name,
-                user_color=user_color.get(user.screen_name),
-                status_body=body,
-                popup_body=body_string,
-                )
+        entry_class = TweetEntry if not rt else \
+            RetweetEntry if hasattr(rt, 'raw') else RetweetEntry2
 
-        self.last_id = entry.id
+        text = entry_class(self.add_markup).get_dict(entry, self.api)
+        self.last_id = text['id']
         self.view.update(text, self.options.get('notification'), is_first_call)
 
     def exit(self):
@@ -300,3 +274,81 @@ class DelayedPool(list):
         for i in self:
             if not i.called:
                 i.cancel()
+
+class TweetEntry(object):
+
+    def __init__(self, add_markup):
+        self.add_markup = add_markup
+
+    def _get_body(self, text):
+        body_string = decode_html_entities(text)
+        body = self.add_markup.convert(body_string)
+
+        return body, body_string
+
+    def get_dict(self, entry, api):
+        body, body_string = self._get_body(entry.text)
+        time = TwitterTime(entry.created_at)
+        user = entry.sender if api.name == 'Direct Messages' else entry.user
+
+        text = dict(
+            datetime=time.get_local_time(),
+            id=entry.id,
+            image_uri=user.profile_image_url,
+            retweet='',
+            user_name=user.screen_name,
+            user_color=user_color.get(user.screen_name),
+
+            status_body=body,
+            popup_body=body_string,
+            )
+
+        return text
+
+class RetweetEntry(TweetEntry):
+
+    def get_dict(self, entry, api):
+        rt = entry.raw.get('retweeted_status')
+
+        body, body_string = self._get_body(rt['text'])
+
+        time = TwitterTime(rt['created_at'])
+        screen_name = rt['user']['screen_name'] 
+
+        text = dict(
+            datetime=time.get_local_time(),
+            id=rt['id'],
+            image_uri=rt['user']['profile_image_url'],
+            retweet="<img src='/tmp/retweet.png'>",
+            user_name=screen_name,
+            user_color=user_color.get(screen_name),
+
+            status_body=body,
+            popup_body=body_string,
+            )
+
+        return text
+
+class RetweetEntry2(TweetEntry):
+
+    def get_dict(self, entry, api):
+        rt = entry.retweeted_status
+
+        body, body_string = self._get_body(rt.text)
+
+        time = TwitterTime(rt.created_at)
+        screen_name = rt.user.screen_name
+
+        text = dict(
+            datetime=time.get_local_time(),
+            id=rt.id,
+            image_uri=rt.user.profile_image_url,
+            retweet="<img src='/tmp/retweet.png'>",
+            user_name=screen_name,
+            user_color=user_color.get(screen_name),
+
+            status_body=body,
+            popup_body=body_string,
+            )
+
+        return text
