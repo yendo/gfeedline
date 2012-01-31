@@ -232,6 +232,7 @@ class FeedView(object):
             datetime=entry['datetime'],
             id=entry['id'],
             image_uri=entry['image_uri'],
+            retweet=entry['retweet'],
             user_name=entry['user_name'],
             user_color=entry['user_color'],
             status_body=entry['status_body'])

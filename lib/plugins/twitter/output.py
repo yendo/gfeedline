@@ -51,20 +51,40 @@ class TwitterOutputBase(object):
             self.got_entry(msg, args)
 
     def print_entry(self, entry, is_first_call=False):
-        time = TwitterTime(entry.created_at)
-        body_string = decode_html_entities(entry.text)
-        body = self.add_markup.convert(body_string)
-        user = entry.sender if self.api.name == 'Direct Messages' else entry.user
+        rt = entry.raw.get('retweeted_status')
 
-        text = dict(
-            datetime=time.get_local_time(),
-            id=entry.id,
-            image_uri=user.profile_image_url, #.replace('_normal.', '_mini.'),
-            user_name=user.screen_name,
-            user_color=user_color.get(user.screen_name),
-            status_body=body,
-            popup_body=body_string,
-            )
+        text = rt['text'] if rt else entry.text 
+        body_string = decode_html_entities(text)
+        body = self.add_markup.convert(body_string)
+
+        if rt:
+            time = TwitterTime(rt['created_at'])
+            screen_name = rt['user']['screen_name'] 
+
+            text = dict(
+                datetime=time.get_local_time(),
+                id=rt['id'],
+                image_uri=rt['user']['profile_image_url'],
+                retweet="<img src='/tmp/retweet.png'>",
+                user_name=screen_name,
+                user_color=user_color.get(screen_name),
+                status_body=body,
+                popup_body=body_string,
+                )
+        else:
+            time = TwitterTime(entry.created_at)
+            user = entry.sender if self.api.name == 'Direct Messages' else entry.user
+
+            text = dict(
+                datetime=time.get_local_time(),
+                id=entry.id,
+                image_uri=user.profile_image_url,
+                retweet='',
+                user_name=user.screen_name,
+                user_color=user_color.get(user.screen_name),
+                status_body=body,
+                popup_body=body_string,
+                )
 
         self.last_id = entry.id
         self.view.update(text, self.options.get('notification'), is_first_call)
@@ -180,6 +200,7 @@ class TwitterSearchOutput(TwitterRestOutput):
                 datetime=time.get_local_time(),
                 id=id,
                 image_uri=entry.image,
+                retweet='',
                 user_name=name,
                 user_color=user_color.get(name),
                 status_body=body,
