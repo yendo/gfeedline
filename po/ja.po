@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-31 21:56+0900\n"
+"PO-Revision-Date: 2012-01-31 21:52+0900\n"
+"Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../share/assistant_twitter.glade.h:1
+msgid "PIN:"
+msgstr "PIN:"
+
+#: ../share/assistant_twitter.glade.h:2
+msgid ""
+"Return to this dialog after you have finished the authorization process on "
+"Twitter.com and Enter your PIN below."
+msgstr ""
+"ブラウザ上で Twitter.com での認証を完了したらこのウィンドウに戻り、この下にあ"
+"る入力欄に PIN を入力してください。"
+
+#: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:14
+msgid "Screen name:"
+msgstr "スクリーンネーム:"
+
+#: ../share/assistant_twitter.glade.h:4
+msgid ""
+"This assistant helps you to configure Twitter account for GNOME Feed Line.\n"
+"\n"
+"Click \"Forward\" to open a Twitter authorization page with the default "
+"browser."
+msgstr ""
+"この設定アシスタントでは GNOME フィードラインで利用するアカウントの設定を行い"
+"ます。\n"
+"\n"
+"[進む] ボタンをクリックすると、ブラウザで Twitter の認証ページを開き、認証作"
+"業を開始します。"
+
+#: ../share/assistant_twitter.glade.h:7
+msgid ""
+"Your configuration is complete.  You are now ready to access to Twitter with "
+"GNOME Feed Line.\n"
+"\n"
+"Click \"Apply\" to save your settings."
+msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
+
+#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:18
+msgid "none"
+msgstr "なし"
+
+#: ../share/feedsource.glade.h:1
+msgid "Feed Source"
+msgstr "フィードソース"
+
+#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:11
+msgid "General"
+msgstr "全般"
+
+#: ../share/feedsource.glade.h:3
+msgid "_Argument:"
+msgstr "引数(_A):"
+
+#: ../share/feedsource.glade.h:4
+msgid "_Enable notification"
+msgstr "通知機能を使う(_E)"
+
+#: ../share/feedsource.glade.h:5
+msgid "_Name:"
+msgstr "名前(_N):"
+
+#: ../share/feedsource.glade.h:6
+msgid "_Source:"
+msgstr "ソース(_S):"
+
+#: ../share/feedsource.glade.h:7
+msgid "_Target:"
+msgstr "ターゲット(_T)"
+
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:2
+msgid "GNOME Feed Line"
+msgstr "GNOME フィードライン"
+
+#: ../share/gfeedline.desktop.in.h:2
+msgid "Read & Write Social Feeds"
+msgstr "ソーシャルフィードの読み書きを行います"
+
+#: ../share/gfeedline.desktop.in.h:3
+msgid "Social Networking Client"
+msgstr "ソーシャルネットワーキングクライアント"
+
+#: ../share/gfeedline.glade.h:1
+msgid "Copyright © 2012 Yoshizumi Endo."
+msgstr "Copyright © 2012 Yoshizumi Endo."
+
+#: ../share/gfeedline.glade.h:3
+msgid "GNOME Social Networking Client"
+msgstr "GNOME ソーシャルネットワーキングクライアント"
+
+#: ../share/gfeedline.glade.h:4
+msgid "_Edit"
+msgstr "編集(_E)"
+
+#: ../share/gfeedline.glade.h:5
+msgid "_File"
+msgstr "ファイル(_F)"
+
+#: ../share/gfeedline.glade.h:6
+msgid "_Help"
+msgstr "ヘルプ(_H)"
+
+#: ../share/gfeedline.glade.h:7
+msgid "_Update"
+msgstr "投稿(_U)"
+
+#: ../share/gfeedline.glade.h:8
+msgid "_View"
+msgstr "表示(_V)"
+
+#: ../share/gfeedline.glade.h:9
+msgid "translator-credits"
+msgstr "Yoshizumi Endo <y-endo@ceres.dti.ne.jp>"
+
+#: ../share/preferences.glade.h:1
+msgid "<b>Account</b>"
+msgstr "<b>アカウント</b>"
+
+#: ../share/preferences.glade.h:2
+msgid "<b>Desktop</b>"
+msgstr "<b>デスクトップ</b>"
+
+#: ../share/preferences.glade.h:3
+msgid "<b>Feed Sources</b>"
+msgstr "<b>フィードソース</b>"
+
+#: ../share/preferences.glade.h:4
+msgid "<b>Plugins</b>"
+msgstr "<b>プラグイン</b>"
+
+#: ../share/preferences.glade.h:5
+msgid "Account"
+msgstr "アカウント"
+
+#: ../share/preferences.glade.h:6
+msgid "Always on _Visible Workspace"
+msgstr "すべてのワークスペースに配置する(_V)"
+
+#: ../share/preferences.glade.h:7
+msgid "Argument"
+msgstr "引数"
+
+#: ../share/preferences.glade.h:8
+msgid "Au_thentication"
+msgstr "認証(_U)"
+
+#: ../share/preferences.glade.h:9
+msgid "Feed Line Preferences"
+msgstr "フィードラインの設定"
+
+#: ../share/preferences.glade.h:10
+msgid "Feeds"
+msgstr "フィード"
+
+#: ../share/preferences.glade.h:12
+msgid "Name"
+msgstr "名前"
+
+#: ../share/preferences.glade.h:13
+msgid "Plugins"
+msgstr "プラグイン"
+
+#: ../share/preferences.glade.h:15
+msgid "Target"
+msgstr "ターゲット"
+
+#: ../share/preferences.glade.h:16
+msgid "_Authorization"
+msgstr "認証(_A)"
+
+#: ../share/preferences.glade.h:17
+msgid "_Auto Start"
+msgstr "ログイン時に自動起動する(_A)"
+
+#: ../share/update.glade.h:1
+msgid "140"
+msgstr "140"
+
+#: ../share/update.glade.h:2
+msgid "What are you doing?"
+msgstr "いまどうしてる?"
+
+#: ../share/update.glade.h:3
+msgid "_Tweet"
+msgstr "ツイート(_T)"
+
+#: ../lib/menu.py:26
+msgid "_Open"
+msgstr ""
+
+#: ../lib/menu.py:35
+msgid "_Reply"
+msgstr ""
+
+#: ../lib/menu.py:45
+#, fuzzy
+msgid "_Retweet"
+msgstr "ツイート(_T)"
+
+#: ../lib/menu.py:61
+msgid "_Search"
+msgstr ""
+
+#: ../lib/plugins/twitter/assistant.py:30
+msgid "Twitter Account Setup"
+msgstr ""
+
+#: ../lib/plugins/twitter/assistant.py:46
+msgid "Intro"
+msgstr ""
+
+#: ../lib/plugins/twitter/assistant.py:54
+msgid "Enter PIN"
+msgstr ""
+
+#: ../lib/plugins/twitter/assistant.py:62
+msgid "Confirm"
+msgstr ""
