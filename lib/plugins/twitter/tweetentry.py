@@ -11,17 +11,10 @@ user_color = UserColor()
 
 class TweetEntry(object):
 
-    def __init__(self, add_markup, entry):
-        self.add_markup = add_markup
+    def __init__(self, entry):
         self.retweet_icon = ''
 
         self.entry=entry
-
-    def _get_body(self, text):
-        body_string = decode_html_entities(text)
-        body = self.add_markup.convert(body_string)
-
-        return body, body_string
 
     def get_dict(self, api):
         entry = self.entry
@@ -44,18 +37,22 @@ class TweetEntry(object):
 
         return text
 
+    def _get_body(self, text):
+        body_string = decode_html_entities(text)
+        body = add_markup.convert(body_string) # add_markup is global
+
+        return body, body_string
+
 class RestRetweetEntry(TweetEntry):
 
-    def __init__(self, add_markup, entry):
-        self.add_markup = add_markup
+    def __init__(self, entry):
         self.retweet_icon = "<img src='/tmp/retweet.png'>"
 
         self.entry=entry.retweeted_status
 
 class FeedRetweetEntry(TweetEntry):
 
-    def __init__(self, add_markup, entry):
-        self.add_markup = add_markup
+    def __init__(self, entry):
         self.retweet_icon = "<img src='/tmp/retweet.png'>"
 
         self.entry=DictObj(entry.raw.get('retweeted_status'))
@@ -67,8 +64,7 @@ class SearchTweetEntry(TweetEntry):
         entry = self.entry
 
         time = TwitterTime(entry.published)
-        body_string = decode_html_entities(entry.title)
-        body = self.add_markup.convert(body_string)
+        body, body_string = self._get_body(entry.title)
 
         name = entry.author.name.split(' ')[0]
         id = entry.id.split(':')[2]
@@ -129,3 +125,5 @@ class AddedHtmlMarkup(object):
         # text = self.sequence_pattern.sub(r'\1 ', text)
 
         return text
+
+add_markup = AddedHtmlMarkup()

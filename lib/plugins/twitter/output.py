@@ -34,7 +34,6 @@ class TwitterOutputBase(object):
         self.last_id = 0
         self.params = {}
         self.counter = 0
-        self.add_markup = AddedHtmlMarkup()
 
         account.connect("update_credential", self._restart)
 
@@ -48,11 +47,10 @@ class TwitterOutputBase(object):
 
     def print_entry(self, entry, is_first_call=False):
         entry_class = self._get_entry_class(entry)
+        text = entry_class(entry).get_dict(self.api)
 
-        text = entry_class(self.add_markup, entry).get_dict(self.api)
         self.last_id = text['id']
         self.view.update(text, self.options.get('notification'), is_first_call)
-
 
     def _get_entry_class(self, entry):
         return TweetEntry
