@@ -26,6 +26,9 @@ class Preferences(object):
 
         notebook = gui.get_object('notebook1')
         notebook.remove_page(1)
+        recent_page = SETTINGS.get_int('preferences-recent-page')
+        notebook.set_current_page(recent_page)
+
         frame = gui.get_object('frame5')
         frame.hide()
 
@@ -84,7 +87,10 @@ class Preferences(object):
     def on_button_twitter_auth_clicked(self, button):
         assistant = TwitterAuthAssistant(self.preferences) 
 
-    def on_button_close_clicked(self, button):
+    def on_button_close_clicked(self, notebook):
+        page = notebook.get_current_page()
+        SETTINGS.set_int('preferences-recent-page', page)
+
         self.liststore.save_settings()
         self.preferences.destroy()
 
