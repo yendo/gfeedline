@@ -6,5 +6,6 @@ def get_settings(key=""):
     return object
 
 SETTINGS = get_settings()
+SETTINGS_GEOMETRY = get_settings('.geometry')
 SETTINGS_PLUGINS = get_settings('.plugins')
 SETTINGS_TWITTER = get_settings('.plugins.twitter')

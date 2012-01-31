@@ -18,7 +18,7 @@ from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.htmlentities import decode_html_entities
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
-from utils.settings import SETTINGS
+from utils.settings import SETTINGS, SETTINGS_GEOMETRY
 from constants import VERSION, SHARED_DATA_DIR
 
 class MainWindow(object):
@@ -39,13 +39,30 @@ class MainWindow(object):
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
         self.on_settings_sticky_change(SETTINGS, 'window-sticky')
 
-        window.resize(480, 600)
+        x = SETTINGS_GEOMETRY.get_int('window-x')
+        y = SETTINGS_GEOMETRY.get_int('window-y')
+        w = SETTINGS_GEOMETRY.get_int('window-width')
+        h = SETTINGS_GEOMETRY.get_int('window-height')
+
+        if x >=0 and y >= 0:
+            window.move(x, y)
+
+        window.resize(w, h)
         window.connect("delete-event", self.on_stop)
         window.show_all()
 
         gui.connect_signals(self)
 
     def on_stop(self, *args):
+        print "save!"
+        x, y = self.window.get_position()
+        w, h = self.window.get_size()
+
+        SETTINGS_GEOMETRY.set_int('window-x', x)
+        SETTINGS_GEOMETRY.set_int('window-y', y)
+        SETTINGS_GEOMETRY.set_int('window-width', w)
+        SETTINGS_GEOMETRY.set_int('window-height', h)
+
         reactor.stop()
 
     def on_menuitem_update_activate(self, menuitem):

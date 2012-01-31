@@ -6,7 +6,42 @@
       <summary>sticky</summary>
       <description>sticky</description>
     </key>
+    <child name="geometry" schema="com.googlecode.gfeedline.geometry"/>
     <child name="plugins" schema="com.googlecode.gfeedline.plugins"/>
+  </schema>
+
+  <schema id="com.googlecode.gfeedline.geometry" path="/apps/gfeedline/geometry/">
+    <key name="window-x" type="i">
+      <default>-1</default>
+      <summary>Window x position</summary>
+      <description>Window x position</description>
+    </key>
+    <key name="window-y" type="i">
+      <default>-1</default>
+      <summary>Window y position</summary>
+      <description>Window y position</description>
+    </key>
+    <key name="window-width" type="i">
+      <default>480</default>
+      <summary>Window width</summary>
+      <description>Window width</description>
+    </key>
+    <key name="window-height" type="i">
+      <default>600</default>
+      <summary>Window </summary>
+      <description>Window width</description>
+    </key>
+
+    <key name="prefs-width" type="i">
+      <default>-1</default>
+      <summary>Preferences width</summary>
+      <description>Preferences width</description>
+    </key>
+    <key name="prefs-height" type="i">
+      <default>-1</default>
+      <summary>Preferences height</summary>
+      <description>Preferences height</description>
+    </key>
   </schema>
 
   <schema id="com.googlecode.gfeedline.plugins" path="/apps/gfeedline/plugins/">
