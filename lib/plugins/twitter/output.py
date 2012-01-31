@@ -47,16 +47,15 @@ class TwitterOutputBase(object):
             self.got_entry(msg, args)
 
     def print_entry(self, entry, is_first_call=False):
-        if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
-            entry_class = FeedRetweetEntry 
-        elif hasattr(entry, 'retweeted_status') and entry.retweeted_status:
-            entry_class = RestRetweetEntry
-        else:
-            entry_class = TweetEntry
+        entry_class = self._get_entry_class(entry)
 
         text = entry_class(self.add_markup, entry).get_dict(self.api)
         self.last_id = text['id']
         self.view.update(text, self.options.get('notification'), is_first_call)
+
+
+    def _get_entry_class(self, entry):
+        return TweetEntry
 
     def exit(self):
         print "exit!"
@@ -99,6 +98,13 @@ class TwitterRestOutput(TwitterOutputBase):
 
         self.counter += 1
         self.all_entries = []
+
+    def _get_entry_class(self, entry):
+        if hasattr(entry, 'retweeted_status') and entry.retweeted_status:
+            entry_class = RestRetweetEntry
+        else:
+            entry_class = TweetEntry
+        return entry_class
 
     def start(self, interval=60):
         print "start!"
@@ -156,13 +162,8 @@ class TwitterSearchOutput(TwitterRestOutput):
         else:
             self.got_entry(msg, args)
 
-    def print_entry(self, entry, is_first_call=False):
-        entry_class = SearchTweetEntry
-        text = entry_class(self.add_markup, entry).get_dict(self.api)
-
-        self.last_id = text['id']
-        self.view.update(text, self.options.get('notification'), is_first_call)
-
+    def _get_entry_class(self, entry):
+        return SearchTweetEntry
 
 class TwitterFeedOutput(TwitterOutputBase):
 
@@ -172,6 +173,14 @@ class TwitterFeedOutput(TwitterOutputBase):
 
     def got_entry(self, msg, *args):
         self.print_entry(msg)
+
+    def _get_entry_class(self, entry):
+        if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
+            entry_class = FeedRetweetEntry 
+        else:
+            entry_class = TweetEntry
+
+        return entry_class
 
     def start(self, interval=False):
         if not self.account.api.use_oauth:
