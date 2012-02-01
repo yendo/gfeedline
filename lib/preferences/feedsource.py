@@ -28,7 +28,7 @@ class FeedSourceDialog(object):
         #source_widget = SourceComboBox(self.gui, source_list, self.data)
 
         if self.liststore_row:
-            self.entry_argument.set_text(self.liststore_row[3])
+            self.entry_argument.set_text(self.liststore_row[5]) # liststore object
 
         checkbutton_notification = self.gui.get_object('checkbutton_notification')
         if self.liststore_row and self.liststore_row[4]:
@@ -39,6 +39,7 @@ class FeedSourceDialog(object):
         response_id = dialog.run()
 
         v = { 
+            'group'   : 'Group',
 #            'source'  : source_widget.get_active_text(),
             'target'  : self.combobox_target.get_active_text(),
             'argument': self.entry_argument.get_text().decode('utf-8'),

@@ -134,6 +134,7 @@
                             <child>
                               <object class="GtkButton" id="button_twitter_auth">
                                 <property name="label" translatable="yes">_Authorization</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -219,6 +220,7 @@
                             <child>
                               <object class="GtkCheckButton" id="checkbutton_sticky">
                                 <property name="label" translatable="yes">Always on _Visible Workspace</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
@@ -237,6 +239,7 @@
                             <child>
                               <object class="GtkCheckButton" id="checkbutton_autostart">
                                 <property name="label" translatable="yes">_Auto Start</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
@@ -379,6 +382,7 @@
                                 <child>
                                   <object class="GtkButton" id="button_auth">
                                     <property name="label" translatable="yes">Au_thentication</property>
+                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -395,6 +399,7 @@
                                 <child>
                                   <object class="GtkButton" id="button_info">
                                     <property name="label">gtk-about</property>
+                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
@@ -487,6 +492,7 @@
                                     <property name="headers_clickable">False</property>
                                     <property name="reorderable">True</property>
                                     <property name="rules_hint">True</property>
+                                    <property name="enable_tree_lines">True</property>
                                     <signal name="cursor-changed" handler="on_feedsource_treeview_cursor_changed" swapped="no"/>
                                     <signal name="button-press-event" handler="on_feedsource_treeview_button_press_event" swapped="no"/>
                                     <signal name="query-tooltip" handler="on_feedsource_treeview_query_tooltip" swapped="no"/>
@@ -562,6 +568,7 @@
                                 <child>
                                   <object class="GtkButton" id="button_feed_new">
                                     <property name="label">gtk-new</property>
+                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -578,6 +585,7 @@
                                 <child>
                                   <object class="GtkButton" id="button_feed_prefs">
                                     <property name="label">gtk-preferences</property>
+                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -594,6 +602,7 @@
                                 <child>
                                   <object class="GtkButton" id="button_feed_del">
                                     <property name="label">gtk-delete</property>
+                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -663,6 +672,7 @@
             <child>
               <object class="GtkButton" id="button_help">
                 <property name="label">gtk-help</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -679,6 +689,7 @@
             <child>
               <object class="GtkButton" id="button_close">
                 <property name="label">gtk-close</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

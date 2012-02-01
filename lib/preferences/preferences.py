@@ -40,6 +40,7 @@ class Preferences(object):
         self.feedsource_treeview = treeview = gui.get_object('feedsourcetreeview')
         treeview.set_model(self.liststore)
         treeview.set_headers_clickable(False) # Builder bug?
+        treeview.expand_all()
         treeview.connect("drag-begin", self.on_drag_begin)
         treeview.connect("drag-end", self.on_drag_end, mainwindow.notebook)
 
