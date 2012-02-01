@@ -86,18 +86,16 @@ class TwitterAuthAssistant(Gtk.Assistant):
             self.label_screen_name.set_text(self.result['screen-name'])
 
     def on_apply_button_clicked(self, assistant):
-        # GSettings.
-
         SETTINGS_TWITTER.set_string('access-token', self.result['access-token'])
         SETTINGS_TWITTER.set_string('access-secret', self.result['access-secret'])
         SETTINGS_TWITTER.set_string('user-name', self.result['screen-name'])
 
-        print "apply"
+        # print "apply"
 
     def on_cancel_button_clicked(self, assistant):
         self.destroy()
 
     def on_close(self, assistant):
-        print "close"
+        # print "close"
         self.destroy()
 

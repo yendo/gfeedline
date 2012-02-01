@@ -1,6 +1,6 @@
 import os
 
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import SHARED_DATA_DIR
 
