@@ -2,6 +2,14 @@
 
 	* retweet.png: Added a retweet icon.
 
+2012-01-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py: Added support for auto start & geometry saving.
+	* preferences.py: Save recents tab.
+	* tweetentry.py, menu.py: Added support for Retweet.
+	* autostart.py: Added support for auto start.
+	* ja.po: Added Japanese translation.
+
 2012-01-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 0.1 release.
