@@ -65,11 +65,11 @@ class Preferences(object):
     def on_drag_begin(self, treeview, dragcontext):
         treeselection = treeview.get_selection()
         model, iter = treeselection.get_selected()
-        self.api_obj = model.get_value(iter, 6)
+        self.api_obj = model.get_value(iter, 8) # liststore obj
 
     def on_drag_end(self, treeview, dragcontext, notebook):
         model = treeview.get_model()
-        all_obj = [x[6] for x in model]
+        all_obj = [x[8] for x in model]  # liststore obj
         page = all_obj.index(self.api_obj)
 
         notebook.reorder_child(self.api_obj.view.sw, page)

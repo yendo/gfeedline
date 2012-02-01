@@ -14,20 +14,25 @@ from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import CONFIG_HOME
 
-class FeedListStore(Gtk.ListStore):
+class FeedListStore(Gtk.TreeStore):
 
     """ListStore for Feed Sources.
 
     0,    1,      2,        3,      4,            5,           6
     icon, source, target, argument, options_dict, account_obj, api_obj
+
+    0,     1,    2,      3,    4,      5,        6,            7,           8
+    group, icon, source, name, target, argument, options_dict, account_obj, api_obj
     """
 
     def __init__(self):
         super(FeedListStore, self).__init__(
-            GdkPixbuf.Pixbuf, str, str, str, object, object, object)
+            str, GdkPixbuf.Pixbuf, str, str, str, str, object, object, object)
         self.window = MainWindow(self)
         self.api_dict = TwitterAPIDict()
         self.twitter_account = AuthorizedTwitterAccount()
+
+        self.parent_iter = None
 
         self.save = SaveListStore()
         for entry in self.save.load():
@@ -43,15 +48,18 @@ class FeedListStore(Gtk.ListStore):
         options_dict = source.get('options')
         api_obj = api.create_obj(view, source.get('argument'), options_dict)
 
-        list = [GdkPixbuf.Pixbuf(),
+        list = ['Group',
+                GdkPixbuf.Pixbuf(),
                 source.get('source'),
+                source.get('name'),
                 source['target'], # API 
                 source.get('argument'), 
                 options_dict,
                 self.twitter_account, # account_obj
                 api_obj]
 
-        new_iter = self.insert_before(iter, list)
+        new_iter = self.insert_before(self.parent_iter, iter, list)
+#        self.parent_iter = new_iter
 
         interval = 40 if api.name == 'Home TimeLine' else 180
         api_obj.start(interval)
@@ -61,14 +69,14 @@ class FeedListStore(Gtk.ListStore):
     def update(self, source, iter):
         # compare 'target' & 'argument'
         old = [self.get_value(iter, x).decode('utf-8') 
-               for x in range(2, 4)] # liststore object
+               for x in range(4, 6)] # liststore object
         new = [source.get(x) for x in ['target', 'argument']]
 
         if old == new:
             options = source.get('options', {})
-            self.set_value(iter, 4, options) # liststore object
+            self.set_value(iter, 6, options) # liststore object
 
-            api_obj = self.get_value(iter, 6) # liststore object
+            api_obj = self.get_value(iter, 8) # liststore object
             api_obj.options = options
             new_iter = iter
         else:
@@ -78,7 +86,7 @@ class FeedListStore(Gtk.ListStore):
         return new_iter
 
     def remove(self, iter):
-        obj = self.get_value(iter, 6) # stop object, liststore object
+        obj = self.get_value(iter, 8) # stop object, liststore object
         obj.exit()
         del obj
         super(FeedListStore, self).remove(iter)
@@ -119,18 +127,18 @@ class SaveListStore(object):
         return source_list
 
     def save(self, liststore):
-        data_list = ['source', 'target', 'argument']
+        data_list = ['source', 'name', 'target', 'argument']
         save_data = []
 
         for i, row in enumerate(liststore):
             save_temp = {}
             for num, key in enumerate(data_list):
-                value = row[num+1] # liststore except icon.
+                value = row[num+2] # liststore except icon.
                 if value is not None:
                     save_temp[key] = value
 
-            if row[4]: # liststore options
-                for key, value in row[4].iteritems():
+            if row[6]: # liststore options
+                for key, value in row[6].iteritems():
                     save_temp[key] = value
                     # print key, value
             save_data.append(save_temp)

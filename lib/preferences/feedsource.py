@@ -32,7 +32,7 @@ class FeedSourceDialog(object):
 
         checkbutton_notification = self.gui.get_object('checkbutton_notification')
         if self.liststore_row and self.liststore_row[4]:
-            status = bool(self.liststore_row[4].get('notification')) # liststore obj
+            status = bool(self.liststore_row[6].get('notification')) # liststore obj
             checkbutton_notification.set_active(status)
 
         # run
@@ -71,8 +71,8 @@ class TargetCombobox(object):
         for text in self.label_list:
             self.widget.append_text(text)
 
-        # listsire obj
-        num = self.label_list.index(feedliststore[2]) if feedliststore else 0
+        # liststore obj (target)
+        num = self.label_list.index(feedliststore[4]) if feedliststore else 0
         self.widget.set_active(num)
 
     def get_active_text(self):
