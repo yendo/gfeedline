@@ -46,14 +46,14 @@ class TweetEntry(object):
 class RestRetweetEntry(TweetEntry):
 
     def __init__(self, entry):
-        self.retweet_icon = "<img src='/tmp/retweet.png'>"
+        self.retweet_icon = "<img src='retweet.png' width='18' height='14'>"
 
         self.entry=entry.retweeted_status
 
 class FeedRetweetEntry(TweetEntry):
 
     def __init__(self, entry):
-        self.retweet_icon = "<img src='/tmp/retweet.png'>"
+        super(FeedRetweetEntry, self).__init__(entry)
 
         self.entry=DictObj(entry.raw.get('retweeted_status'))
         self.entry.user=DictObj(self.entry.user)
