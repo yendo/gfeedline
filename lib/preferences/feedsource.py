@@ -71,8 +71,8 @@ class TargetCombobox(object):
         for text in self.label_list:
             self.widget.append_text(text)
 
-        num = self.label_list.index(feedliststore[2]) \ # listsire obj
-            if feedliststore else 0
+        # listsire obj
+        num = self.label_list.index(feedliststore[2]) if feedliststore else 0
         self.widget.set_active(num)
 
     def get_active_text(self):
