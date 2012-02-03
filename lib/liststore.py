@@ -79,6 +79,9 @@ class FeedListStore(Gtk.ListStore):
         new = [source.get(x) for x in ['target', 'argument']]
 
         if old == new:
+            group = source.get('group', {}) # FIXME
+            self.set_value(iter, 0, group) # liststore object
+
             options = source.get('options', {})
             self.set_value(iter, 6, options) # liststore object
 

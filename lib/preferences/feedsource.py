@@ -17,6 +17,7 @@ class FeedSourceDialog(object):
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
         self.label_argument = self.gui.get_object('label_argument')
         self.entry_argument = self.gui.get_object('entry_argument')
+        self.entry_group = self.gui.get_object('entry_group')
 
         self.on_comboboxtext_target_changed()
         self.gui.connect_signals(self)
@@ -29,6 +30,7 @@ class FeedSourceDialog(object):
 
         if self.liststore_row:
             self.entry_argument.set_text(self.liststore_row[5]) # liststore object
+            self.entry_group.set_text(self.liststore_row[0]) # liststore object
 
         checkbutton_notification = self.gui.get_object('checkbutton_notification')
         if self.liststore_row and self.liststore_row[4]:
@@ -39,10 +41,10 @@ class FeedSourceDialog(object):
         response_id = dialog.run()
 
         v = { 
-            'group'   : 'Group',
 #            'source'  : source_widget.get_active_text(),
             'target'  : self.combobox_target.get_active_text(),
             'argument': self.entry_argument.get_text().decode('utf-8'),
+            'group': self.entry_group.get_text().decode('utf-8'),
             'options' : 
             {'notification': checkbutton_notification.get_active()},
         }

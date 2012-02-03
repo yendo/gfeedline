@@ -92,7 +92,6 @@ class FeedNotebook(Gtk.Notebook):
         self.connect('button-press-event', self.on_update_tablabel_sensitive)
         # self.connect('page-reordered', self.on_page_reordered)
 
-        print "_"*80
         parent.add(self)
         self.show()
 
