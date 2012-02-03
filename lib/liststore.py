@@ -14,7 +14,7 @@ from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import CONFIG_HOME
 
-class FeedListStore(Gtk.TreeStore):
+class FeedListStore(Gtk.ListStore):
 
     """ListStore for Feed Sources.
 
@@ -32,8 +32,6 @@ class FeedListStore(Gtk.TreeStore):
         self.api_dict = TwitterAPIDict()
         self.twitter_account = AuthorizedTwitterAccount()
 
-        self.parent_iter = None
-
         self.save = SaveListStore()
         for entry in self.save.load():
             self.append(entry)
@@ -42,22 +40,13 @@ class FeedListStore(Gtk.TreeStore):
 
         api = self.api_dict[source['target']](self.twitter_account)
 
-        if iter:  # FIXME
-            path = str(self.get_path(iter))
-
-            x = path.split(":")
-            page = x[1] if len(x) > 1 else x[0]
-            page = int(page)
-
-        else:
-            page = -1
-
+        page = int(str(self.get_path(iter))) if iter else -1
         view = FeedView(self.window, api.name, page)
 
         options_dict = source.get('options')
         api_obj = api.create_obj(view, source.get('argument'), options_dict)
 
-        list = [source.get('name') or source['target'],
+        list = [source.get('group'),
                 GdkPixbuf.Pixbuf(),
                 source.get('source'),
                 source.get('name'),
@@ -67,31 +56,12 @@ class FeedListStore(Gtk.TreeStore):
                 self.twitter_account, # account_obj
                 api_obj]
 
-        group_name = source.get('group')
-        self.parent_iter = self.get_parent_iter(group_name, iter)
-        new_iter = self.insert_before(self.parent_iter, iter, list)
+        new_iter = self.insert_before(iter, list)
 
         interval = 40 if api.name == 'Home TimeLine' else 180
         api_obj.start(interval)
 
         return new_iter
-
-    def get_parent_iter(self, group_name, iter):
-        result = False
-
-        for row in self:
-            if row[0] == group_name:
-                result = True
-                break
-
-        if result:
-            parent_iter = self.parent_iter
-        else:
-            list = [group_name, None, '', '', '', '', [], None, None]
-            parent_iter = self.insert_before(None, iter, list)
-
-        return parent_iter
-            
 
     def update(self, source, iter):
         # compare 'target' & 'argument'
@@ -157,23 +127,19 @@ class SaveListStore(object):
         data_list = ['source', 'name', 'target', 'argument']
         save_data = []
 
-        for group in liststore:
-            rows = group.iterchildren()
-            group_name = group[0]
+        for i, row in enumerate(liststore):
+            save_temp = {'group': row[0]} # fixme
 
-            for i, row in enumerate(rows):
-                save_temp = {'group' : group_name}
+            for num, key in enumerate(data_list):
+                value = row[num+2] # liststore except icon.
+                if value is not None:
+                    save_temp[key] = value
 
-                for num, key in enumerate(data_list):
-                    value = row[num+2] # liststore except icon.
-                    if value is not None:
-                        save_temp[key] = value
-
-                if row[6]: # liststore options
-                    for key, value in row[6].iteritems():
-                        save_temp[key] = value
-                        # print key, value
-                save_data.append(save_temp)
+            if row[6]: # liststore options
+                for key, value in row[6].iteritems():
+                    save_temp[key] = value
+                    # print key, value
+            save_data.append(save_temp)
 
         # print save_data
         self.save_to_json(save_data)
