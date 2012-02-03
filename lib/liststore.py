@@ -9,7 +9,7 @@ import json
 
 from gi.repository import Gtk, GdkPixbuf
 
-from window import MainWindow, FeedView
+from window import MainWindow, FeedNotebook, FeedView
 from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import CONFIG_HOME
@@ -32,6 +32,8 @@ class FeedListStore(Gtk.ListStore):
         self.api_dict = TwitterAPIDict()
         self.twitter_account = AuthorizedTwitterAccount()
 
+        self.column = {}
+
         self.save = SaveListStore()
         for entry in self.save.load():
             self.append(entry)
@@ -40,8 +42,15 @@ class FeedListStore(Gtk.ListStore):
 
         api = self.api_dict[source['target']](self.twitter_account)
 
+        group_name = source.get('group')
+        if group_name in self.column:
+            notebook = self.column[group_name]
+        else:
+            notebook = FeedNotebook(self.window.hbox)
+            self.column[group_name] = notebook
+
         page = int(str(self.get_path(iter))) if iter else -1
-        view = FeedView(self.window, api.name, page)
+        view = FeedView(self.window, notebook, api.name, page)
 
         options_dict = source.get('options')
         api_obj = api.create_obj(view, source.get('argument'), options_dict)

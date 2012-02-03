@@ -1,3 +1,7 @@
+2012-02-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py, window.py: Added support for multi-columns.
+
 2012-02-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* retweet.png: Added a retweet icon.
