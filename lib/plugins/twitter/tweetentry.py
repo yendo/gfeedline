@@ -50,7 +50,7 @@ class RestRetweetEntry(TweetEntry):
 
         self.entry=entry.retweeted_status
 
-class FeedRetweetEntry(TweetEntry):
+class FeedRetweetEntry(RestRetweetEntry):
 
     def __init__(self, entry):
         super(FeedRetweetEntry, self).__init__(entry)
