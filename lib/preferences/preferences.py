@@ -68,15 +68,31 @@ class Preferences(object):
 
         self.api_obj = model.get_value(iter, 8) # liststore obj
         self.group = model.get_value(iter, 0) # liststore obj
+        self.old_page = self._get_group_page(model)
 
     def on_drag_end(self, treeview, dragcontext, mainwindow):
         model = treeview.get_model()
 
-        notebook = mainwindow.column[self.group]
-
         all_obj = [x[8] for x in model if x[0] == self.group]  # liststore obj
         page = all_obj.index(self.api_obj)
+
+        notebook = mainwindow.column[self.group]
         notebook.reorder_child(self.api_obj.view.sw, page) # FIXME
+
+        new_page = self._get_group_page(model)
+
+        if self.old_page != new_page:
+            mainwindow.hbox.reorder_child(notebook, new_page)
+
+    def _get_group_page(self, model):
+        all_group =[]
+        for x in model:
+            group = x[0]
+            if group not in all_group:
+                all_group.append(group)
+
+        page = all_group.index(self.group)
+        return page
 
     def on_setting_username_changed(self, *args):
         user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'
