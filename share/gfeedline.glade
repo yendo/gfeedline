@@ -150,13 +150,13 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkCheckMenuItem" id="menuitem_column">
+                      <object class="GtkCheckMenuItem" id="menuitem_multicolumn">
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">_Multi-Column</property>
                         <property name="use_underline">True</property>
-                        <signal name="toggled" handler="on_menuitem_column_toggled" swapped="no"/>
+                        <signal name="toggled" handler="on_menuitem_multicolumn_toggled" swapped="no"/>
                       </object>
                     </child>
                     <child>

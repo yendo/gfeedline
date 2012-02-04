@@ -13,6 +13,7 @@ from window import MainWindow, FeedView
 from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import CONFIG_HOME
+from utils.settings import SETTINGS
 
 class FeedListStore(Gtk.ListStore):
 
@@ -40,7 +41,7 @@ class FeedListStore(Gtk.ListStore):
 
         api = self.api_dict[source['target']](self.twitter_account)
 
-        is_multi_column = False
+        is_multi_column = SETTINGS.get_boolean('multi-column')
         group_name = source.get('group') if is_multi_column else 'main'
         notebook = self.window.get_notebook(group_name)
 
@@ -67,11 +68,11 @@ class FeedListStore(Gtk.ListStore):
 
         return new_iter
 
-    def toggle_column_mode(self, state):
+    def toggle_column_mode(self, is_multi_column):
         self.window.column = {}
 
         for row in self:
-            group_name = row[0] if state else 'main'
+            group_name = row[0] if is_multi_column else 'main'
             notebook = self.window.get_notebook(group_name)
 
             view = row[8].view # liststore obj

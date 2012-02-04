@@ -1,6 +1,11 @@
 <schemalist>
 
   <schema id="com.googlecode.gfeedline" path="/apps/gfeedline/">
+    <key name="multi-column" type="b">
+      <default>false</default>
+      <summary>Multi-column mode</summary>
+      <description>Multi-column mode</description>
+    </key>
     <key name="window-sticky" type="b">
       <default>false</default>
       <summary>Window sticky mode</summary>

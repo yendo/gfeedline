@@ -39,6 +39,10 @@ class MainWindow(object):
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
         self.on_settings_sticky_change(SETTINGS, 'window-sticky')
 
+        is_multi_column = SETTINGS.get_boolean('multi-column')
+        menuitem_multicolumn = gui.get_object('menuitem_multicolumn')
+        menuitem_multicolumn.set_active(is_multi_column)
+
         x = SETTINGS_GEOMETRY.get_int('window-x')
         y = SETTINGS_GEOMETRY.get_int('window-y')
         w = SETTINGS_GEOMETRY.get_int('window-width')
@@ -84,8 +88,10 @@ class MainWindow(object):
     def on_menuitem_prefs_activate(self, menuitem):
         prefs = Preferences(self)
 
-    def on_menuitem_column_toggled(self, menuitem):
-        self.liststore.toggle_column_mode(menuitem.get_active())
+    def on_menuitem_multicolumn_toggled(self, menuitem):
+        is_multi_column = menuitem.get_active()
+        self.liststore.toggle_column_mode(is_multi_column)
+        SETTINGS.set_boolean('multi-column', is_multi_column)
 
     def on_menuitem_about_activate(self, menuitem):
         about = AboutDialog(self.window)
@@ -103,6 +109,9 @@ class FeedNotebook(Gtk.Notebook):
         self.group_name = group_name
 
         super(FeedNotebook, self).__init__()
+        self.set_scrollable(True)
+        self.popup_enable()
+
         self.connect('switch-page', self.on_update_tablabel_sensitive)
         self.connect('button-press-event', self.on_update_tablabel_sensitive)
         # self.connect('page-reordered', self.on_page_reordered)
