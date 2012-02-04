@@ -84,6 +84,9 @@ class MainWindow(object):
     def on_menuitem_prefs_activate(self, menuitem):
         prefs = Preferences(self)
 
+    def on_menuitem_column_toggled(self, menuitem):
+        self.liststore.toggle_column_mode(menuitem.get_active())
+
     def on_menuitem_about_activate(self, menuitem):
         about = AboutDialog(self.window)
 

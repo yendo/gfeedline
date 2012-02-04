@@ -150,6 +150,23 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
+                      <object class="GtkCheckMenuItem" id="menuitem_column">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">_Multi-Column</property>
+                        <property name="use_underline">True</property>
+                        <signal name="toggled" handler="on_menuitem_column_toggled" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="menuitem_sep1">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="menuitem_zoom_in">
                         <property name="label">gtk-zoom-in</property>
                         <property name="use_action_appearance">False</property>

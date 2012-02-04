@@ -1,6 +1,10 @@
+2012-02-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py, window.py: Enabled to toggle multi-column mode.
+
 2012-02-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* liststore.py, window.py: Added support for multi-columns.
+	* liststore.py, window.py: Added support for multi-column.
 
 2012-02-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
