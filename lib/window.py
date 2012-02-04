@@ -223,15 +223,8 @@ class FeedView(object):
         self.sw = FeedScrolledWindow(self)
         self.name = name
 
-        self.notebook = notebook
-        self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(name))
-        self.notebook.reorder_child(self.sw, page)
-
-        # self.notebook.set_tab_reorderable(self.sw, True)
+        self._setup_notebook(notebook, page)
         self.webview = FeedWebView(self.sw)
-
-        self.tab_label = self.notebook.get_tab_label(self.sw)
-        self.tab_label.set_sensitive(False)
 
         self.notification = window.notification
 
@@ -240,20 +233,17 @@ class FeedView(object):
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
 
-
-    def move(self, notebook, page=-1):
-        self.remove()
-
+    def _setup_notebook(self, notebook, page=-1):
         self.notebook = notebook
         self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(self.name))
         self.notebook.reorder_child(self.sw, page)
-
         # self.notebook.set_tab_reorderable(self.sw, True)
-        # self.webview = FeedWebView(self.sw)
-        # self.webview = webview
-
         self.tab_label = self.notebook.get_tab_label(self.sw)
         self.tab_label.set_sensitive(False)
+
+    def move(self, notebook, page=-1):
+        self.remove()
+        self._setup_notebook(notebook)
 
     def remove(self):
         page = self.notebook.page_num(self.sw)
