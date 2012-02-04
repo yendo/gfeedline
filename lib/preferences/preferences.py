@@ -41,7 +41,7 @@ class Preferences(object):
         treeview.set_model(self.liststore)
         treeview.set_headers_clickable(False) # Builder bug?
         treeview.connect("drag-begin", self.on_drag_begin)
-        treeview.connect("drag-end", self.on_drag_end)
+        treeview.connect("drag-end", self.on_drag_end, mainwindow)
 
         self.button_prefs = gui.get_object('button_feed_prefs')
         self.button_prefs.set_sensitive(False)
@@ -65,14 +65,18 @@ class Preferences(object):
     def on_drag_begin(self, treeview, dragcontext):
         treeselection = treeview.get_selection()
         model, iter = treeselection.get_selected()
+
         self.api_obj = model.get_value(iter, 8) # liststore obj
+        self.group = model.get_value(iter, 0) # liststore obj
 
-    def on_drag_end(self, treeview, dragcontext):
+    def on_drag_end(self, treeview, dragcontext, mainwindow):
         model = treeview.get_model()
-        all_obj = [x[8] for x in model]  # liststore obj
-        page = all_obj.index(self.api_obj)
 
-        #notebook.reorder_child(self.api_obj.view.sw, page) # FIXME
+        notebook = mainwindow.column[self.group]
+
+        all_obj = [x[8] for x in model if x[0] == self.group]  # liststore obj
+        page = all_obj.index(self.api_obj)
+        notebook.reorder_child(self.api_obj.view.sw, page) # FIXME
 
     def on_setting_username_changed(self, *args):
         user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'
