@@ -9,7 +9,7 @@ import json
 
 from gi.repository import Gtk, GdkPixbuf
 
-from window import MainWindow, FeedNotebook, FeedView
+from window import MainWindow, FeedView
 from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import CONFIG_HOME
@@ -32,8 +32,6 @@ class FeedListStore(Gtk.ListStore):
         self.api_dict = TwitterAPIDict()
         self.twitter_account = AuthorizedTwitterAccount()
 
-        self.column = {}
-
         self.save = SaveListStore()
         for entry in self.save.load():
             self.append(entry)
@@ -43,12 +41,8 @@ class FeedListStore(Gtk.ListStore):
         api = self.api_dict[source['target']](self.twitter_account)
 
         group_name = source.get('group')
-        if group_name in self.column:
-            notebook = self.column[group_name]
-        else:
-            notebook = FeedNotebook(self.window.hbox)
-            self.column[group_name] = notebook
 
+        notebook = self.window.get_notebook(group_name)
         page = int(str(self.get_path(iter))) if iter else -1
         view = FeedView(self.window, notebook, api.name, page)
 
@@ -79,14 +73,19 @@ class FeedListStore(Gtk.ListStore):
         new = [source.get(x) for x in ['target', 'argument']]
 
         if old == new:
-            group = source.get('group', {}) # FIXME
-            self.set_value(iter, 0, group) # liststore object
-
+            api_obj = self.get_value(iter, 8) # liststore object
             options = source.get('options', {})
             self.set_value(iter, 6, options) # liststore object
-
-            api_obj = self.get_value(iter, 8) # liststore object
             api_obj.options = options
+
+            old_group = self.get_value(iter, 0).decode('utf-8') # liststore object
+            new_group = source.get('group') # FIXME
+            self.set_value(iter, 0, new_group) # liststore object
+
+            if old_group != new_group:
+                notebook = self.window.get_notebook(new_group)
+                api_obj.view.move(notebook)
+
             new_iter = iter
         else:
             new_iter = self.append(source, iter)

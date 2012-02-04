@@ -31,7 +31,7 @@ class MainWindow(object):
 
         self.window = window = gui.get_object('window1')
         self.hbox = gui.get_object('hbox1')
-
+        self.column = {} # multi-columns for Notebooks
 
         menubar = gui.get_object('menubar1')
         self.notification = StatusNotification('Gnome Feed Line')
@@ -52,6 +52,15 @@ class MainWindow(object):
         window.show_all()
 
         gui.connect_signals(self)
+
+    def get_notebook(self, group_name):
+        if group_name in self.column:
+            notebook = self.column[group_name]
+        else:
+            notebook = FeedNotebook(self.hbox)
+            self.column[group_name] = notebook
+        
+        return notebook
 
     def on_stop(self, *args):
         print "save!"
@@ -212,9 +221,12 @@ class FeedView(object):
 
     def __init__(self, window, notebook, name='', page=-1):
         self.sw = FeedScrolledWindow(self)
+        self.name = name
+
         self.notebook = notebook
         self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(name))
         self.notebook.reorder_child(self.sw, page)
+
         # self.notebook.set_tab_reorderable(self.sw, True)
         self.webview = FeedWebView(self.sw)
 
@@ -227,6 +239,21 @@ class FeedView(object):
         with open(template_file, 'r') as fh:
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
+
+
+    def move(self, notebook, page=-1):
+        self.remove()
+
+        self.notebook = notebook
+        self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(self.name))
+        self.notebook.reorder_child(self.sw, page)
+
+        # self.notebook.set_tab_reorderable(self.sw, True)
+        # self.webview = FeedWebView(self.sw)
+        # self.webview = webview
+
+        self.tab_label = self.notebook.get_tab_label(self.sw)
+        self.tab_label.set_sensitive(False)
 
     def remove(self):
         page = self.notebook.page_num(self.sw)
