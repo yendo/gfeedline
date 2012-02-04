@@ -57,7 +57,7 @@ class MainWindow(object):
         if group_name in self.column:
             notebook = self.column[group_name]
         else:
-            notebook = FeedNotebook(self.hbox)
+            notebook = FeedNotebook(self.hbox, self.column, group_name)
             self.column[group_name] = notebook
         
         return notebook
@@ -95,7 +95,10 @@ class MainWindow(object):
 
 class FeedNotebook(Gtk.Notebook):
 
-    def __init__(self, parent):
+    def __init__(self, parent, column, group_name):
+        self.column = column
+        self.group_name = group_name
+
         super(FeedNotebook, self).__init__()
         self.connect('switch-page', self.on_update_tablabel_sensitive)
         self.connect('button-press-event', self.on_update_tablabel_sensitive)
@@ -109,6 +112,22 @@ class FeedNotebook(Gtk.Notebook):
         sw = notebook.get_nth_page(page)
         if hasattr(sw.feedview, 'tab_label'):
             sw.feedview.tab_label.set_sensitive(False)
+
+    def append_page(self, child, name, page=-1):
+        super(FeedNotebook, self).append_page(
+            child, Gtk.Label.new_with_mnemonic(name))
+        self.reorder_child(child, page)
+        # self.set_tab_reorderable(self.sw, True)
+
+        tab_label = self.get_tab_label(child)
+        return tab_label
+
+    def remove_page(self, page):
+        super(FeedNotebook, self).remove_page(page)
+
+        if self.get_n_pages() == 0:
+            self.destroy()
+            del self.column[self.group_name]
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
@@ -222,8 +241,7 @@ class FeedView(object):
     def __init__(self, window, notebook, name='', page=-1):
         self.sw = FeedScrolledWindow(self)
         self.name = name
-
-        self._setup_notebook(notebook, page)
+        self._append(notebook, page)
         self.webview = FeedWebView(self.sw)
 
         self.notification = window.notification
@@ -233,17 +251,14 @@ class FeedView(object):
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
 
-    def _setup_notebook(self, notebook, page=-1):
+    def _append(self, notebook, page=-1):
         self.notebook = notebook
-        self.notebook.append_page(self.sw, Gtk.Label.new_with_mnemonic(self.name))
-        self.notebook.reorder_child(self.sw, page)
-        # self.notebook.set_tab_reorderable(self.sw, True)
-        self.tab_label = self.notebook.get_tab_label(self.sw)
+        self.tab_label = notebook.append_page(self.sw, self.name, page)
         self.tab_label.set_sensitive(False)
 
     def move(self, notebook, page=-1):
         self.remove()
-        self._setup_notebook(notebook)
+        self._append(notebook, page)
 
     def remove(self):
         page = self.notebook.page_num(self.sw)
