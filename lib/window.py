@@ -210,6 +210,7 @@ class FeedWebViewLink(object):
 
     def __init__(self):
         self.uri = None
+        self.is_hovering = False
 
     def change(self, uri):
         self.uri = uri
