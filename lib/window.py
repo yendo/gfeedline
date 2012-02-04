@@ -57,7 +57,10 @@ class MainWindow(object):
 
         gui.connect_signals(self)
 
-    def get_notebook(self, group_name):
+    def get_notebook(self, group_name, is_multi_column):
+        if not is_multi_column:
+            group_name = 'main'
+
         if group_name in self.column:
             notebook = self.column[group_name]
         else:
@@ -65,6 +68,16 @@ class MainWindow(object):
             self.column[group_name] = notebook
         
         return notebook
+
+    def toggle_multicolumn_mode(self, is_multi_column):
+        self.column = {}
+
+        for row in self.liststore:
+            notebook = self.get_notebook(row[0], is_multi_column) # liststore obj
+
+            view = row[8].view # liststore obj
+            view.remove()
+            view.append(notebook, -1)
 
     def on_stop(self, *args):
         print "save!"
@@ -90,7 +103,7 @@ class MainWindow(object):
 
     def on_menuitem_multicolumn_toggled(self, menuitem):
         is_multi_column = menuitem.get_active()
-        self.liststore.toggle_column_mode(is_multi_column)
+        self.toggle_multicolumn_mode(is_multi_column)
         SETTINGS.set_boolean('multi-column', is_multi_column)
 
     def on_menuitem_about_activate(self, menuitem):
@@ -254,7 +267,7 @@ class FeedView(object):
     def __init__(self, window, notebook, name='', page=-1):
         self.sw = FeedScrolledWindow(self)
         self.name = name
-        self._append(notebook, page)
+        self.append(notebook, page)
         self.webview = FeedWebView(self.sw)
 
         self.notification = window.notification
@@ -264,14 +277,14 @@ class FeedView(object):
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
 
-    def _append(self, notebook, page=-1):
+    def append(self, notebook, page=-1):
         self.notebook = notebook
         self.tab_label = notebook.append_page(self.sw, self.name, page)
         self.tab_label.set_sensitive(False)
 
     def move(self, notebook, page=-1):
         self.remove()
-        self._append(notebook, page)
+        self.append(notebook, page)
 
     def remove(self):
         page = self.notebook.page_num(self.sw)

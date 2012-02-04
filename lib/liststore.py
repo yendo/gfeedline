@@ -42,8 +42,7 @@ class FeedListStore(Gtk.ListStore):
         api = self.api_dict[source['target']](self.twitter_account)
 
         is_multi_column = SETTINGS.get_boolean('multi-column')
-        group_name = source.get('group') if is_multi_column else 'main'
-        notebook = self.window.get_notebook(group_name)
+        notebook = self.window.get_notebook(source.get('group'), is_multi_column)
 
         page = int(str(self.get_path(iter))) if iter else -1
         view = FeedView(self.window, notebook, api.name, page)
@@ -68,17 +67,6 @@ class FeedListStore(Gtk.ListStore):
 
         return new_iter
 
-    def toggle_column_mode(self, is_multi_column):
-        self.window.column = {}
-
-        for row in self:
-            group_name = row[0] if is_multi_column else 'main'
-            notebook = self.window.get_notebook(group_name)
-
-            view = row[8].view # liststore obj
-            view.remove()
-            view._append(notebook, -1)
-
     def update(self, source, iter):
         # compare 'target' & 'argument'
         old = [self.get_value(iter, x).decode('utf-8') 
@@ -96,7 +84,7 @@ class FeedListStore(Gtk.ListStore):
             self.set_value(iter, 0, new_group) # liststore object
 
             if old_group != new_group:
-                notebook = self.window.get_notebook(new_group)
+                notebook = self.window.get_notebook(new_group, True)
                 api_obj.view.move(notebook)
 
             new_iter = iter
