@@ -135,15 +135,15 @@ class FeedNotebook(Gtk.Notebook):
 
     def on_update_tablabel_sensitive(self, notebook, *args):
         page = notebook.get_current_page() # get previous page
-        sw = notebook.get_nth_page(page)
-        if hasattr(sw.feedview, 'tab_label'):
-            sw.feedview.tab_label.set_sensitive(False)
+        feedview = notebook.get_nth_page(page) # get child
+        if hasattr(feedview, 'tab_label'):
+            feedview.tab_label.set_sensitive(False)
 
     def append_page(self, child, name, page=-1):
         super(FeedNotebook, self).append_page(
             child, Gtk.Label.new_with_mnemonic(name))
         self.reorder_child(child, page)
-        # self.set_tab_reorderable(self.sw, True)
+        # self.set_tab_reorderable(child, True)
 
         tab_label = self.get_tab_label(child)
         return tab_label
@@ -157,9 +157,8 @@ class FeedNotebook(Gtk.Notebook):
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
-    def __init__(self, feedview):
+    def __init__(self):
         super(FeedScrolledWindow, self).__init__()
-        self.feedview = feedview
 
         self.set_margin_top(4)
         self.set_margin_bottom(4)
@@ -167,7 +166,6 @@ class FeedScrolledWindow(Gtk.ScrolledWindow):
         self.set_margin_left(4)
 
         self.set_shadow_type(Gtk.ShadowType.IN)
-
         self.show()
 
 class FeedWebView(WebKit.WebView):
@@ -263,13 +261,14 @@ class FeedWebViewScroll(object):
         # print "play!"
         self.is_paused = False
 
-class FeedView(object):
+class FeedView(FeedScrolledWindow):
 
     def __init__(self, window, notebook, name='', page=-1):
-        self.sw = FeedScrolledWindow(self)
+        super(FeedView, self).__init__()
+
         self.name = name
         self.append(notebook, page)
-        self.webview = FeedWebView(self.sw)
+        self.webview = FeedWebView(self)
 
         self.notification = window.notification
 
@@ -280,7 +279,7 @@ class FeedView(object):
 
     def append(self, notebook, page=-1):
         self.notebook = notebook
-        self.tab_label = notebook.append_page(self.sw, self.name, page)
+        self.tab_label = notebook.append_page(self, self.name, page)
         self.tab_label.set_sensitive(False)
 
     def move(self, notebook, page=-1):
@@ -288,7 +287,7 @@ class FeedView(object):
         self.append(notebook, page)
 
     def remove(self):
-        page = self.notebook.page_num(self.sw)
+        page = self.notebook.page_num(self)
         print "removed %s page!" % page
         self.notebook.remove_page(page)
 

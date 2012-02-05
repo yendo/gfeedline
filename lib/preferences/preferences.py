@@ -77,7 +77,7 @@ class Preferences(object):
         page = all_obj.index(self.api_obj)
 
         notebook = mainwindow.column[self.group]
-        notebook.reorder_child(self.api_obj.view.sw, page) # FIXME
+        notebook.reorder_child(self.api_obj.view, page) # FIXME
 
         new_page = self._get_group_page(model)
 
