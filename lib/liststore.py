@@ -12,8 +12,9 @@ from gi.repository import Gtk, GdkPixbuf
 from window import MainWindow, FeedView
 from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.account import AuthorizedTwitterAccount
-from constants import CONFIG_HOME
+from constants import CONFIG_HOME, Column
 from utils.settings import SETTINGS
+
 
 class FeedListStore(Gtk.ListStore):
 
@@ -38,7 +39,6 @@ class FeedListStore(Gtk.ListStore):
             self.append(entry)
 
     def append(self, source, iter=None):
-
         api = self.api_dict[source['target']](self.twitter_account)
 
         is_multi_column = SETTINGS.get_boolean('multi-column')
@@ -70,24 +70,23 @@ class FeedListStore(Gtk.ListStore):
     def update(self, source, iter):
         # compare 'target' & 'argument'
         old = [self.get_value(iter, x).decode('utf-8') 
-               for x in range(4, 6)] # liststore object
+               for x in range(Column.TARGET, Column.OPTIONS)]
         new = [source.get(x) for x in ['target', 'argument']]
 
         if old == new:
-            api_obj = self.get_value(iter, 8) # liststore object
-            options = source.get('options', {})
-            self.set_value(iter, 6, options) # liststore object
-            api_obj.options = options
+            new_iter = iter
 
-            old_group = self.get_value(iter, 0).decode('utf-8') # liststore object
+            api_obj = self.get_value(iter, Column.API)
+            api_obj.options = source.get('options', {})
+            self.set_value(iter, Column.OPTIONS, api_obj.options)
+
+            old_group = self.get_value(iter, Column.GROUP).decode('utf-8')
             new_group = source.get('group') # FIXME
-            self.set_value(iter, 0, new_group) # liststore object
+            self.set_value(iter, Column.GROUP, new_group)
 
             if old_group != new_group:
                 notebook = self.window.get_notebook(new_group, True)
                 api_obj.view.move(notebook)
-
-            new_iter = iter
         else:
             new_iter = self.append(source, iter)
             self.remove(iter)
@@ -95,7 +94,7 @@ class FeedListStore(Gtk.ListStore):
         return new_iter
 
     def remove(self, iter):
-        obj = self.get_value(iter, 8) # stop object, liststore object
+        obj = self.get_value(iter, Column.API)
         obj.exit()
         del obj
         super(FeedListStore, self).remove(iter)
@@ -110,7 +109,6 @@ class SaveListStore(object):
         self.save_file = os.path.join(CONFIG_HOME, 'feed_sources.json')
 
     def load(self):
-        #weight = SETTINGS.get_int('default-weight')
         source_list = []
 
         if not self.has_save_file():
@@ -140,15 +138,15 @@ class SaveListStore(object):
         save_data = []
 
         for i, row in enumerate(liststore):
-            save_temp = {'group': row[0]} # fixme
+            save_temp = {'group': row[Column.GROUP]} # fixme
 
             for num, key in enumerate(data_list):
-                value = row[num+2] # liststore except icon.
+                value = row[num+Column.SOURCE] # liststore except icon.
                 if value is not None:
                     save_temp[key] = value
 
-            if row[6]: # liststore options
-                for key, value in row[6].iteritems():
+            if row[Column.OPTIONS]:
+                for key, value in row[Column.OPTIONS].iteritems():
                     save_temp[key] = value
                     # print key, value
             save_data.append(save_temp)

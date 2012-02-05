@@ -11,7 +11,7 @@ from gi.repository import Gtk, Gdk
 from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..utils.settings import SETTINGS, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
-from ..constants import SHARED_DATA_DIR
+from ..constants import SHARED_DATA_DIR, Column
 from feedsource import FeedSourceDialog
 
 class Preferences(object):
@@ -66,14 +66,14 @@ class Preferences(object):
         treeselection = treeview.get_selection()
         model, iter = treeselection.get_selected()
 
-        self.api_obj = model.get_value(iter, 8) # liststore obj
-        self.group = model.get_value(iter, 0) # liststore obj
+        self.api_obj = model.get_value(iter, Column.API)
+        self.group = model.get_value(iter, Column.GROUP)
         self.old_page = self._get_group_page(model)
 
     def on_drag_end(self, treeview, dragcontext, mainwindow):
         model = treeview.get_model()
 
-        all_obj = [x[8] for x in model if x[0] == self.group]  # liststore obj
+        all_obj = [x[Column.API] for x in model if x[Column.GROUP] == self.group]
         page = all_obj.index(self.api_obj)
 
         notebook = mainwindow.column[self.group]

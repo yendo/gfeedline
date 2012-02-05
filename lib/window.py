@@ -19,7 +19,8 @@ from utils.notification import Notification
 from utils.htmlentities import decode_html_entities
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
 from utils.settings import SETTINGS, SETTINGS_GEOMETRY
-from constants import VERSION, SHARED_DATA_DIR
+from constants import VERSION, SHARED_DATA_DIR, Column
+
 
 class MainWindow(object):
 
@@ -73,9 +74,9 @@ class MainWindow(object):
         self.column = {}
 
         for row in self.liststore:
-            notebook = self.get_notebook(row[0], is_multi_column) # liststore obj
+            notebook = self.get_notebook(row[Column.GROUP], is_multi_column)
 
-            view = row[8].view # liststore obj
+            view = row[Column.API].view
             view.remove()
             view.append(notebook, -1)
 

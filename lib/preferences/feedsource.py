@@ -1,8 +1,10 @@
 import os
 
 from gi.repository import Gtk
+
 from ..plugins.twitter.api import TwitterAPIDict
-from ..constants import SHARED_DATA_DIR
+from ..constants import SHARED_DATA_DIR, Column
+
 
 class FeedSourceDialog(object):
     """Feed Source Dialog"""
@@ -29,12 +31,13 @@ class FeedSourceDialog(object):
         #source_widget = SourceComboBox(self.gui, source_list, self.data)
 
         if self.liststore_row:
-            self.entry_argument.set_text(self.liststore_row[5]) # liststore object
-            self.entry_group.set_text(self.liststore_row[0]) # liststore object
+            self.entry_argument.set_text(
+                self.liststore_row[Column.ARGUMENT])
+            self.entry_group.set_text(self.liststore_row[Column.GROUP])
 
         checkbutton_notification = self.gui.get_object('checkbutton_notification')
-        if self.liststore_row and self.liststore_row[4]:
-            status = bool(self.liststore_row[6].get('notification')) # liststore obj
+        if self.liststore_row and self.liststore_row[Column.TARGET]:
+            status = bool(self.liststore_row[Column.OPTIONS].get('notification'))
             checkbutton_notification.set_active(status)
 
         # run
@@ -74,8 +77,8 @@ class TargetCombobox(object):
         for text in self.label_list:
             self.widget.append_text(text)
 
-        # liststore obj (target)
-        num = self.label_list.index(feedliststore[4]) if feedliststore else 0
+        num = self.label_list.index(feedliststore[Column.TARGET]) \
+            if feedliststore else 0
         self.widget.set_active(num)
 
     def get_active_text(self):

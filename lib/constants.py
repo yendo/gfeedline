@@ -21,3 +21,8 @@ for dir in [CONFIG_HOME]:
         os.makedirs(dir, 0700)
     elif S_IMODE(os.stat(dir).st_mode) != 0700:
         os.chmod(dir, 0700)
+
+class Column(object):
+
+    (GROUP, ICON, SOURCE, NAME, TARGET, ARGUMENT, 
+     OPTIONS, ACCOUNT, API) = range(9)
