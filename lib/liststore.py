@@ -11,6 +11,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 from window import MainWindow, FeedView
 from plugins.twitter.api import TwitterAPIDict
+from plugins.twitter.output import TwitterOutputFactory
 from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import CONFIG_HOME, Column
 from utils.settings import SETTINGS
@@ -47,8 +48,9 @@ class FeedListStore(Gtk.ListStore):
         page = int(str(self.get_path(iter))) if iter else -1
         view = FeedView(self.window, notebook, api.name, page)
 
-        options_dict = source.get('options')
-        api_obj = api.create_obj(view, source.get('argument'), options_dict)
+        factory = TwitterOutputFactory()
+        api_obj = factory.create_obj(api, view, 
+                                     source.get('argument'), source.get('options'))
 
         list = [source.get('group'),
                 GdkPixbuf.Pixbuf(),
@@ -56,7 +58,7 @@ class FeedListStore(Gtk.ListStore):
                 source.get('name'),
                 source['target'], # API 
                 source.get('argument'), 
-                options_dict,
+                source.get('options'),
                 self.twitter_account, # account_obj
                 api_obj]
 

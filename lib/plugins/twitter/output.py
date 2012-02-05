@@ -21,11 +21,16 @@ from tweetentry import *
 from ...utils.htmlentities import decode_html_entities
 
 
+class TwitterOutputFactory(object):
+
+    def create_obj(self, api, view, argument, options):
+        obj = api.output(api, view, argument, options)
+        return obj
+
 class TwitterOutputBase(object):
 
-    def __init__(self, api, account, view=None, argument='', options={}):
+    def __init__(self, api, view=None, argument='', options={}):
         self.api = api
-        self.account = account
         self.view = view
         self.argument = argument
         self.options = options
@@ -35,7 +40,7 @@ class TwitterOutputBase(object):
         self.params = {}
         self.counter = 0
 
-        account.connect("update_credential", self._restart)
+        api.account.connect("update_credential", self._restart)
 
     def check_entry(self, msg, *args):
         msg.text = decode_html_entities(msg.text)
@@ -71,8 +76,8 @@ class TwitterRestOutput(TwitterOutputBase):
 
     api_connections = 0
 
-    def __init__(self, api, account, view=None, argument='', options={}):
-        super(TwitterRestOutput, self).__init__(api, account, view, argument, options)
+    def __init__(self, api, view=None, argument='', options={}):
+        super(TwitterRestOutput, self).__init__(api, view, argument, options)
         TwitterRestOutput.api_connections += 1
         self.delayed = DelayedPool()
 
@@ -106,7 +111,7 @@ class TwitterRestOutput(TwitterOutputBase):
 
     def start(self, interval=60):
         print "start!"
-        if not self.account.api.use_oauth:
+        if not self.api.account.api.use_oauth:
             print "not authorized"
             return
 
@@ -124,9 +129,9 @@ class TwitterRestOutput(TwitterOutputBase):
         self.timeout = reactor.callLater(interval, self.start, interval)
 
     def _get_interval_seconds(self):
-        rate_limit_remaining = self.account.api.rate_limit_remaining
-        rate_limit_limit = self.account.api.rate_limit_limit
-        rate_limit_reset = self.account.api.rate_limit_reset
+        rate_limit_remaining = self.api.account.api.rate_limit_remaining
+        rate_limit_limit = self.api.account.api.rate_limit_limit
+        rate_limit_reset = self.api.account.api.rate_limit_reset
 
         diff = 0
         if rate_limit_reset and rate_limit_remaining:
@@ -165,8 +170,8 @@ class TwitterSearchOutput(TwitterRestOutput):
 
 class TwitterFeedOutput(TwitterOutputBase):
 
-    def __init__(self, api, account, view=None, argument='', options={}):
-        super(TwitterFeedOutput, self).__init__(api, account, view, argument, options)
+    def __init__(self, api, view=None, argument='', options={}):
+        super(TwitterFeedOutput, self).__init__(api, view, argument, options)
         self.reconnect_interval = 10
 
     def got_entry(self, msg, *args):
@@ -181,7 +186,7 @@ class TwitterFeedOutput(TwitterOutputBase):
         return entry_class
 
     def start(self, interval=False):
-        if not self.account.api.use_oauth:
+        if not self.api.account.api.use_oauth:
             return
 
         argument = self.api.get_options(self.argument)

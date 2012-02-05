@@ -35,15 +35,11 @@ class TwitterAPIBase(object):
         self._get_output_class()
         self._setup()
 
-    def create_obj(self, view, argument, options):
-        obj = self.output(self, self.account, view, argument, options)
-        return obj
-
     def get_options(self, argument):
         return {}
 
     def _get_output_class(self):
-        self.output= TwitterRestOutput
+        self.output = TwitterRestOutput
 
 class TwitterFeedAPIBase(TwitterAPIBase):
 
