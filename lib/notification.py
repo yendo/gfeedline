@@ -15,6 +15,7 @@ class StatusNotification(Notification):
 
     def __init__(self, notification):
         super(StatusNotification, self).__init__('Gnome Feed Line')
+        self.has_actions = 'actions' in self.get_capabilities()
 
     def notify(self, entry):
         icon_uri = str(entry['image_uri'])
@@ -44,11 +45,16 @@ class StatusNotification(Notification):
 
     def _get_actions(self, entry):
         #print entry
-        user = entry['user_name']
-        id = entry['id']
+        if self.has_actions:
+            user = entry['user_name']
+            id = entry['id']
 
-        return  ['reply %s %s' % (user, id), _('Reply'),
-                 'open %s %s'  % (user, id), _('Open')]
+            actions = ['reply %s %s' % (user, id), _('Reply'),
+                       'open %s %s'  % (user, id), _('Open')]
+        else:
+            actions = []
+
+        return actions
 
     def _error(self, *e):
         print "icon get error!", e
