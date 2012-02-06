@@ -177,6 +177,48 @@ class FeedScrolledWindow(Gtk.ScrolledWindow):
         self.set_shadow_type(Gtk.ShadowType.IN)
         self.show()
 
+class FeedView(FeedScrolledWindow):
+
+    def __init__(self, window, notebook, name='', page=-1):
+        super(FeedView, self).__init__()
+
+        self.name = name
+        self.append(notebook, page)
+        self.webview = FeedWebView(self)
+
+        self.notification = window.notification
+
+        template_file = os.path.join(SHARED_DATA_DIR, 'html/status.html')
+        with open(template_file, 'r') as fh:
+            file = fh.read()
+        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
+
+    def append(self, notebook, page=-1):
+        self.notebook = notebook
+        self.tab_label = notebook.append_page(self, self.name, page)
+        self.tab_label.set_sensitive(False)
+
+    def move(self, notebook, page=-1):
+        self.remove()
+        self.append(notebook, page)
+
+    def remove(self):
+        page = self.notebook.page_num(self)
+        print "removed %s page!" % page
+        self.notebook.remove_page(page)
+
+    def update(self, entry_dict, has_notify=False, is_first_call=False):
+        text = self.temp.substitute(entry_dict)
+
+        if has_notify and not is_first_call:
+            self.notification.notify(entry_dict)
+
+        self.tab_label.set_sensitive(True)
+        self.webview.update(text)
+
+    def jump_to_bottom(self):
+        self.webview.jump_to_bottom()
+
 class FeedWebView(WebKit.WebView):
 
     def __init__(self, scrolled_window):
@@ -272,55 +314,6 @@ class FeedWebViewScroll(object):
     def _resume(self):
         # print "play!"
         self.is_paused = False
-
-class FeedView(FeedScrolledWindow):
-
-    def __init__(self, window, notebook, name='', page=-1):
-        super(FeedView, self).__init__()
-
-        self.name = name
-        self.append(notebook, page)
-        self.webview = FeedWebView(self)
-
-        self.notification = window.notification
-
-        template_file = os.path.join(SHARED_DATA_DIR, 'html/status.html')
-        with open(template_file, 'r') as fh:
-            file = fh.read()
-        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
-
-    def append(self, notebook, page=-1):
-        self.notebook = notebook
-        self.tab_label = notebook.append_page(self, self.name, page)
-        self.tab_label.set_sensitive(False)
-
-    def move(self, notebook, page=-1):
-        self.remove()
-        self.append(notebook, page)
-
-    def remove(self):
-        page = self.notebook.page_num(self)
-        print "removed %s page!" % page
-        self.notebook.remove_page(page)
-
-    def update(self, entry, has_notify=False, is_first_call=False):
-        text = self.temp.substitute(
-            datetime=entry['datetime'],
-            id=entry['id'],
-            image_uri=entry['image_uri'],
-            retweet=entry['retweet'],
-            user_name=entry['user_name'],
-            user_color=entry['user_color'],
-            status_body=entry['status_body'])
-
-        if has_notify and not is_first_call:
-            self.notification.notify(entry)
-
-        self.tab_label.set_sensitive(True)
-        self.webview.update(text)
-
-    def jump_to_bottom(self):
-        self.webview.jump_to_bottom()
 
 class StatusNotification(object):
 

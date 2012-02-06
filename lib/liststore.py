@@ -21,9 +21,6 @@ class FeedListStore(Gtk.ListStore):
 
     """ListStore for Feed Sources.
 
-    0,    1,      2,        3,      4,            5,           6
-    icon, source, target, argument, options_dict, account_obj, api_obj
-
     0,     1,    2,      3,    4,      5,        6,            7,           8
     group, icon, source, name, target, argument, options_dict, account_obj, api_obj
     """
