@@ -43,7 +43,8 @@ class FeedListStore(Gtk.ListStore):
         notebook = self.window.get_notebook(source.get('group'), is_multi_column)
 
         page = int(str(self.get_path(iter))) if iter else -1
-        view = FeedView(self.window, notebook, api.name, page)
+        tab_name = source.get('name') or api.name
+        view = FeedView(self.window, notebook, tab_name, page)
 
         factory = TwitterOutputFactory()
         api_obj = factory.create_obj(api, view, 
@@ -75,20 +76,32 @@ class FeedListStore(Gtk.ListStore):
         if old == new:
             new_iter = iter
 
+            # API
             api_obj = self.get_value(iter, Column.API)
             api_obj.options = source.get('options', {})
             self.set_value(iter, Column.OPTIONS, api_obj.options)
 
+            # GROUP
             old_group = self.get_value(iter, Column.GROUP).decode('utf-8')
             new_group = source.get('group') # FIXME
-            self.set_value(iter, Column.GROUP, new_group)
 
             if old_group != new_group:
+                self.set_value(iter, Column.GROUP, new_group)
+
                 notebook = self.window.get_notebook(new_group, True)
                 api_obj.view.move(notebook)
 
                 new_page = self.get_group_page(source.get('group'))
                 self.window.hbox.reorder_child(notebook, new_page)
+
+            # NAME
+            old_name = self.get_value(iter, Column.NAME).decode('utf-8')
+            new_name = source.get('name')
+
+            if old_name != new_name:
+                self.set_value(iter, Column.NAME, new_name)
+                tab_name = new_name or source.get('target')
+                api_obj.view.tab_label.set_text(tab_name)
         else:
             new_iter = self.append(source, iter)
             self.remove(iter)
@@ -130,12 +143,12 @@ class SaveListStore(object):
             entry = json.load(f)           
 
         for dir in entry:
-            data = { 'target' : '', 'argument' : '',
+            data = { 'name' : '', 'target' : '', 'argument' : '',
                      'source' : 'Twitter', 
                      'options' : {} }
 
             for key, value in dir.items():
-                if key in ['group', 'source', 'target', 'argument', 'weight']:
+                if key in ['group', 'source', 'name', 'target', 'argument']:
                     data[key] = value
                 else:
                     data['options'][key] = value
