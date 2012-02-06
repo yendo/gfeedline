@@ -104,7 +104,7 @@ class FeedListStore(Gtk.ListStore):
     def get_group_page(self, model, new_group):
         all_group =[]
         for x in model:
-            group = x[Column.GROUP]
+            group = x[Column.GROUP].decode('utf-8')
             if group not in all_group:
                 all_group.append(group)
 

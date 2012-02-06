@@ -67,13 +67,14 @@ class Preferences(object):
         model, iter = treeselection.get_selected()
 
         self.api_obj = model.get_value(iter, Column.API)
-        self.group = model.get_value(iter, Column.GROUP)
+        self.group = model.get_value(iter, Column.GROUP).decode('utf-8')
         self.old_page = model.get_group_page(model, self.group)
 
     def on_drag_end(self, treeview, dragcontext, mainwindow):
         model = treeview.get_model()
 
-        all_obj = [x[Column.API] for x in model if x[Column.GROUP] == self.group]
+        all_obj = [x[Column.API] for x in model 
+                   if x[Column.GROUP].decode('utf-8') == self.group]
         page = all_obj.index(self.api_obj)
 
         notebook = mainwindow.column[self.group]
