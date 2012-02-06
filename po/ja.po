@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-04 23:05+0900\n"
-"PO-Revision-Date: 2012-02-04 23:07+0900\n"
+"POT-Creation-Date: 2012-02-06 16:08+0900\n"
+"PO-Revision-Date: 2012-02-06 16:08+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -110,30 +110,34 @@ msgid "GNOME Social Networking Client"
 msgstr "GNOME ソーシャルネットワーキングクライアント"
 
 #: ../share/gfeedline.glade.h:4
+msgid "_All Tabs to the Bottom"
+msgstr "すべてのタブで最終行に移動(_A)"
+
+#: ../share/gfeedline.glade.h:5
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../share/gfeedline.glade.h:5
+#: ../share/gfeedline.glade.h:6
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../share/gfeedline.glade.h:6
+#: ../share/gfeedline.glade.h:7
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../share/gfeedline.glade.h:7
+#: ../share/gfeedline.glade.h:8
 msgid "_Multi-Column"
 msgstr "マルチカラム(_M)"
 
-#: ../share/gfeedline.glade.h:8
+#: ../share/gfeedline.glade.h:9
 msgid "_Update"
 msgstr "投稿(_U)"
 
-#: ../share/gfeedline.glade.h:9
+#: ../share/gfeedline.glade.h:10
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../share/gfeedline.glade.h:10
+#: ../share/gfeedline.glade.h:11
 msgid "translator-credits"
 msgstr "Yoshizumi Endo <y-endo@ceres.dti.ne.jp>"
 
@@ -228,6 +232,14 @@ msgstr "リツイート(_T)"
 #: ../lib/menu.py:61
 msgid "_Search"
 msgstr "検索(_S)"
+
+#: ../lib/notification.py:50
+msgid "Reply"
+msgstr "返信"
+
+#: ../lib/notification.py:51
+msgid "Open"
+msgstr "開く"
 
 #: ../lib/plugins/twitter/assistant.py:30
 msgid "Twitter Account Setup"
