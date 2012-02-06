@@ -1,5 +1,6 @@
 2012-02-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* notification.py: Added support for actions on notification.
 	* twitter/ouput.py: Added support for bad-words filtering.
 	* window.py, gfeedline.glade: Added a menu item of 'All Tabs to the
 	  Bottom'.
