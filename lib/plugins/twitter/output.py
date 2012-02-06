@@ -9,8 +9,8 @@ TwitterOutputBase --- TwitterRestOutput --- TwitterSearchOutput
                    |
                    \- TwitterFeedOutput
 
-Rest: check_entry -> got_entry : print_all_entries -> print_entry
-Feed: check_entry -> got_entry                     -> print_entry
+Rest: got_entry-> check_entry-> buffer_entry : print_all_entries-> print_entry
+Feed: got_entry-> check_entry-> buffer_entry->                     print_entry
 """
 
 import time
@@ -43,14 +43,11 @@ class TwitterOutputBase(object):
 
         api.account.connect("update_credential", self._restart)
 
-    def check_entry(self, msg, *args):
+    def got_entry(self, msg, *args):
         msg.text = decode_html_entities(msg.text)
-        if self._check_bad_tweet(msg.text):
-            pass
-        else:
-            self.got_entry(msg, args)
+        self.check_entry(msg, msg.text, args)
 
-    def _check_bad_tweet(self, text):
+    def check_entry(self, entry, text, *args):
         pass_rt = text.startswith('RT @') and not self.api.include_rt
 
         has_bad = bool([bad for bad in SETTINGS.get_strv('bad-words')
@@ -58,8 +55,8 @@ class TwitterOutputBase(object):
 
         if pass_rt or has_bad:
             print text
-
-        return pass_rt or has_bad
+        else:
+            self.buffer_entry(entry, args)
 
     def print_entry(self, entry, is_first_call=False):
         entry_class = self._get_entry_class(entry)
@@ -92,7 +89,7 @@ class TwitterRestOutput(TwitterOutputBase):
         TwitterRestOutput.api_connections += 1
         self.delayed = DelayedPool()
 
-    def got_entry(self, msg, *args):
+    def buffer_entry(self, msg, *args):
         self.all_entries.append(msg)
 
     def print_all_entries(self, api_interval):
@@ -132,7 +129,7 @@ class TwitterRestOutput(TwitterOutputBase):
         params = self.api.get_options(self.argument)
         self.params.update(params)
 
-        self.d = self.api.api(self.check_entry, params=self.params)
+        self.d = self.api.api(self.got_entry, params=self.params)
         self.d.addErrback(self._on_error).addBoth(lambda x: 
                                                   self.print_all_entries(interval))
 
@@ -168,13 +165,9 @@ class TwitterRestOutput(TwitterOutputBase):
 
 class TwitterSearchOutput(TwitterRestOutput):
 
-    def check_entry(self, msg, *args):
+    def got_entry(self, msg, *args):
         msg.title = decode_html_entities(msg.title)
-        if self._check_bad_tweet(msg.title):
-            print "rt!"
-            #pass
-        else:
-            self.got_entry(msg, args)
+        self.check_entry(msg, msg.title, args)
 
     def _get_entry_class(self, entry):
         return SearchTweetEntry
@@ -185,7 +178,7 @@ class TwitterFeedOutput(TwitterOutputBase):
         super(TwitterFeedOutput, self).__init__(api, view, argument, options)
         self.reconnect_interval = 10
 
-    def got_entry(self, msg, *args):
+    def buffer_entry(self, msg, *args):
         self.print_entry(msg)
 
     def _get_entry_class(self, entry):
@@ -203,7 +196,7 @@ class TwitterFeedOutput(TwitterOutputBase):
         argument = self.api.get_options(self.argument)
         # print argument
 
-        self.d = self.api.api(self.check_entry, argument).\
+        self.d = self.api.api(self.got_entry, argument).\
             addErrback(self._on_error).\
             addBoth(self._on_connect)
         self.is_connecting = True
