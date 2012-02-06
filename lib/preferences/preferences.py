@@ -68,7 +68,7 @@ class Preferences(object):
 
         self.api_obj = model.get_value(iter, Column.API)
         self.group = model.get_value(iter, Column.GROUP)
-        self.old_page = self._get_group_page(model)
+        self.old_page = model.get_group_page(model, self.group)
 
     def on_drag_end(self, treeview, dragcontext, mainwindow):
         model = treeview.get_model()
@@ -79,20 +79,10 @@ class Preferences(object):
         notebook = mainwindow.column[self.group]
         notebook.reorder_child(self.api_obj.view, page) # FIXME
 
-        new_page = self._get_group_page(model)
+        new_page = model.get_group_page(model, self.group)
 
         if self.old_page != new_page:
             mainwindow.hbox.reorder_child(notebook, new_page)
-
-    def _get_group_page(self, model):
-        all_group =[]
-        for x in model:
-            group = x[0]
-            if group not in all_group:
-                all_group.append(group)
-
-        page = all_group.index(self.group)
-        return page
 
     def on_setting_username_changed(self, *args):
         user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'

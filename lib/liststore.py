@@ -86,6 +86,9 @@ class FeedListStore(Gtk.ListStore):
             if old_group != new_group:
                 notebook = self.window.get_notebook(new_group, True)
                 api_obj.view.move(notebook)
+
+                new_page = self.get_group_page(self, source.get('group'))
+                self.window.hbox.reorder_child(notebook, new_page)
         else:
             new_iter = self.append(source, iter)
             self.remove(iter)
@@ -97,6 +100,16 @@ class FeedListStore(Gtk.ListStore):
         obj.exit()
         del obj
         super(FeedListStore, self).remove(iter)
+
+    def get_group_page(self, model, new_group):
+        all_group =[]
+        for x in model:
+            group = x[Column.GROUP]
+            if group not in all_group:
+                all_group.append(group)
+
+        page = all_group.index(new_group)
+        return page
 
     def save_settings(self):
         self.save.save(self)
