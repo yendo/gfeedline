@@ -75,10 +75,11 @@ class MainWindow(object):
 
         for row in self.liststore:
             notebook = self.get_notebook(row[Column.GROUP], is_multi_column)
-
             view = row[Column.API].view
             view.remove()
             view.append(notebook, -1)
+
+        timeout = reactor.callLater(0.1, self.on_menuitem_bottom_activate)
 
     def on_stop(self, *args):
         print "save!"
@@ -110,7 +111,7 @@ class MainWindow(object):
     def on_menuitem_about_activate(self, menuitem):
         about = AboutDialog(self.window)
 
-    def on_menuitem_bottom_activate(self, menuitem):
+    def on_menuitem_bottom_activate(self, menuitem=None):
         for notebook in self.column.values():
             notebook.jump_all_tabs_to_bottom()
 
