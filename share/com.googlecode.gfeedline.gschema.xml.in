@@ -11,6 +11,11 @@
       <summary>Window sticky mode</summary>
       <description>Always on Visible Workspace</description>
     </key>
+    <key name="bad-words" type="as">
+      <default>[]</default>
+      <summary>Bad words for filtering</summary>
+      <description>If a update contains these words, it is hidden from view.</description>
+    </key>
     <key name="preferences-recent-page" type="i">
       <default>0</default>
       <summary>Recent opend preferences page number</summary>

@@ -19,6 +19,7 @@ from twisted.internet import reactor
 
 from tweetentry import *
 from ...utils.htmlentities import decode_html_entities
+from ...utils.settings import SETTINGS
 
 
 class TwitterOutputFactory(object):
@@ -44,11 +45,21 @@ class TwitterOutputBase(object):
 
     def check_entry(self, msg, *args):
         msg.text = decode_html_entities(msg.text)
-        if msg.text.startswith('RT @') and not self.api.include_rt:
-            # print "rt!"
+        if self._check_bad_tweet(msg.text):
             pass
         else:
             self.got_entry(msg, args)
+
+    def _check_bad_tweet(self, text):
+        pass_rt = text.startswith('RT @') and not self.api.include_rt
+
+        has_bad = bool([bad for bad in SETTINGS.get_strv('bad-words')
+                        if text.find(bad.decode('utf-8')) >= 0])
+
+        if pass_rt or has_bad:
+            print text
+
+        return pass_rt or has_bad
 
     def print_entry(self, entry, is_first_call=False):
         entry_class = self._get_entry_class(entry)
@@ -159,9 +170,9 @@ class TwitterSearchOutput(TwitterRestOutput):
 
     def check_entry(self, msg, *args):
         msg.title = decode_html_entities(msg.title)
-        if msg.title.startswith('RT @') and not self.api.include_rt:
-            # print "rt!"
-            pass
+        if self._check_bad_tweet(msg.title):
+            print "rt!"
+            #pass
         else:
             self.got_entry(msg, args)
 
