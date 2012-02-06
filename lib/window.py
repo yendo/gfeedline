@@ -110,6 +110,10 @@ class MainWindow(object):
     def on_menuitem_about_activate(self, menuitem):
         about = AboutDialog(self.window)
 
+    def on_menuitem_bottom_activate(self, menuitem):
+        for notebook in self.column.values():
+            notebook.jump_all_tabs_to_bottom()
+
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
             self.window.stick()
@@ -155,6 +159,10 @@ class FeedNotebook(Gtk.Notebook):
             self.destroy()
             del self.column[self.group_name]
 
+    def jump_all_tabs_to_bottom(self):
+        for feedview in self.get_children():
+            feedview.jump_to_bottom()
+
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
     def __init__(self):
@@ -192,6 +200,9 @@ class FeedWebView(WebKit.WebView):
 
         if not self.scroll.is_paused:
             GLib.timeout_add(200, self.execute_script, 'scrollToBottom()')
+
+    def jump_to_bottom(self):
+        self.execute_script('JumpToBottom()')
 
     def on_hovering_over_link(self, webview, title, uri):
         self.link_on_webview.change(uri)
@@ -306,6 +317,9 @@ class FeedView(FeedScrolledWindow):
 
         self.tab_label.set_sensitive(True)
         self.webview.update(text)
+
+    def jump_to_bottom(self):
+        self.webview.jump_to_bottom()
 
 class StatusNotification(object):
 
