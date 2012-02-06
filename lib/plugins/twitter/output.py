@@ -43,9 +43,9 @@ class TwitterOutputBase(object):
 
         api.account.connect("update_credential", self._restart)
 
-    def got_entry(self, msg, *args):
-        msg.text = decode_html_entities(msg.text)
-        self.check_entry(msg, msg.text, args)
+    def got_entry(self, entry, *args):
+        entry.text = decode_html_entities(entry.text)
+        self.check_entry(entry, entry.text, args)
 
     def check_entry(self, entry, text, *args):
         pass_rt = text.startswith('RT @') and not self.api.include_rt
@@ -89,8 +89,8 @@ class TwitterRestOutput(TwitterOutputBase):
         TwitterRestOutput.api_connections += 1
         self.delayed = DelayedPool()
 
-    def buffer_entry(self, msg, *args):
-        self.all_entries.append(msg)
+    def buffer_entry(self, entry, *args):
+        self.all_entries.append(entry)
 
     def print_all_entries(self, api_interval):
         self.delayed.delete_called()
@@ -165,9 +165,9 @@ class TwitterRestOutput(TwitterOutputBase):
 
 class TwitterSearchOutput(TwitterRestOutput):
 
-    def got_entry(self, msg, *args):
-        msg.title = decode_html_entities(msg.title)
-        self.check_entry(msg, msg.title, args)
+    def got_entry(self, entry, *args):
+        entry.title = decode_html_entities(entry.title)
+        self.check_entry(entry, entry.title, args)
 
     def _get_entry_class(self, entry):
         return SearchTweetEntry
@@ -178,8 +178,8 @@ class TwitterFeedOutput(TwitterOutputBase):
         super(TwitterFeedOutput, self).__init__(api, view, argument, options)
         self.reconnect_interval = 10
 
-    def buffer_entry(self, msg, *args):
-        self.print_entry(msg)
+    def buffer_entry(self, entry, *args):
+        self.print_entry(entry)
 
     def _get_entry_class(self, entry):
         if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
