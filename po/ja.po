@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-06 16:08+0900\n"
-"PO-Revision-Date: 2012-02-06 16:08+0900\n"
+"POT-Creation-Date: 2012-02-06 21:45+0900\n"
+"PO-Revision-Date: 2012-02-06 21:47+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -240,6 +240,34 @@ msgstr "返信"
 #: ../lib/notification.py:51
 msgid "Open"
 msgstr "開く"
+
+#: ../lib/plugins/twitter/api.py:57
+msgid "Home TimeLine"
+msgstr "ホームタイムライン"
+
+#: ../lib/plugins/twitter/api.py:63
+msgid "List TimeLine"
+msgstr "リストタイムライン"
+
+#: ../lib/plugins/twitter/api.py:75
+msgid "Mentions"
+msgstr "メンション"
+
+#: ../lib/plugins/twitter/api.py:81
+msgid "Direct Messages"
+msgstr "ダイレクトメッセージ"
+
+#: ../lib/plugins/twitter/api.py:88
+msgid "User Stream"
+msgstr "ユーザーストリーム"
+
+#: ../lib/plugins/twitter/api.py:94
+msgid "Track"
+msgstr "トラック"
+
+#: ../lib/plugins/twitter/api.py:106
+msgid "Search"
+msgstr "検索"
 
 #: ../lib/plugins/twitter/assistant.py:30
 msgid "Twitter Account Setup"

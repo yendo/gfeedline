@@ -54,13 +54,13 @@ class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     def _setup(self):
         self.api = self.account.api.home_timeline
-        self.name = 'Home TimeLine'
+        self.name = _('Home TimeLine')
 
 class TwitterAPIListTimeLine(TwitterAPIBase):
 
     def _setup(self):
         self.api = self.account.api.list_timeline
-        self.name = 'List TimeLine'
+        self.name = _('List TimeLine')
         self.has_argument = True
 
     def get_options(self, argument):
@@ -72,26 +72,26 @@ class TwitterAPIMentions(TwitterAPIBase):
 
     def _setup(self):
         self.api = self.account.api.mentions
-        self.name = 'Mentions'
+        self.name = _('Mentions')
 
 class TwitterAPIDirectMessages(TwitterAPIBase):
 
     def _setup(self):
         self.api = self.account.api.direct_messages
-        self.name = 'Direct Messages'
+        self.name = _('Direct Messages')
 
 
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 
     def _setup(self):
         self.api = self.account.api.userstream
-        self.name = 'User Stream'
+        self.name = _('User Stream')
 
 class TwitterAPITrack(TwitterFeedAPIBase):
 
     def _setup(self):
         self.api = self.account.api.track
-        self.name = 'Track'
+        self.name = _('Track')
         self.include_rt = False
         self.has_argument = True
 
@@ -103,7 +103,7 @@ class TwitterSearchAPI(TwitterAPIBase):
 
     def _setup(self):
         self.api = self.account.api.search
-        self.name = 'Search'
+        self.name = _('Search')
         self.include_rt = False
         self.has_argument = True
 

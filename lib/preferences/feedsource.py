@@ -49,7 +49,7 @@ class FeedSourceDialog(object):
         v = { 
 #            'source'  : source_widget.get_active_text(),
             'name' : self.entry_name.get_text().decode('utf-8'),
-            'target' : self.combobox_target.get_active_text().decode('utf-8'),
+            'target' : self.combobox_target.get_active_text(), #.decode('utf-8'),
             'argument' : self.entry_argument.get_text().decode('utf-8'),
             'group': self.entry_group.get_text().decode('utf-8'),
             'options' : 
@@ -81,8 +81,8 @@ class TargetCombobox(object):
         for text in self.label_list:
             self.widget.append_text(text)
 
-        num = self.label_list.index(feedliststore[Column.TARGET]) \
-            if feedliststore else 0
+        num = self.label_list.index(
+            feedliststore[Column.TARGET].decode('utf-8')) if feedliststore else 0
         self.widget.set_active(num)
 
     def get_active_text(self):

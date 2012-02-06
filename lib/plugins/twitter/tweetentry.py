@@ -21,7 +21,7 @@ class TweetEntry(object):
 
         body, body_string = self._get_body(entry.text)
         time = TwitterTime(entry.created_at)
-        user = entry.sender if api.name == 'Direct Messages' else entry.user
+        user = entry.sender if api.name == _('Direct Messages') else entry.user
 
         text = dict(
             datetime=time.get_local_time(),

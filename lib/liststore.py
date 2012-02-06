@@ -37,7 +37,11 @@ class FeedListStore(Gtk.ListStore):
             self.append(entry)
 
     def append(self, source, iter=None):
-        api = self.api_dict[source['target']](self.twitter_account)
+        api_class = self.api_dict.get(source['target'])
+        if not api_class:
+            return
+
+        api = api_class(self.twitter_account)
 
         is_multi_column = SETTINGS.get_boolean('multi-column')
         notebook = self.window.get_notebook(source.get('group'), is_multi_column)
