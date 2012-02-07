@@ -7,7 +7,7 @@
 import os
 import re
 
-from gi.repository import Gtk, WebKit, GLib, GObject, Gdk
+from gi.repository import Gtk, WebKit, Gdk
 
 from getauthtoken import TwitterAuthorization
 from ...utils.settings import SETTINGS_TWITTER

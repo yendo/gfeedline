@@ -10,7 +10,7 @@ import webbrowser
 from string import Template
 
 from twisted.internet import reactor
-from gi.repository import Gtk, WebKit, GLib, GObject, Gdk
+from gi.repository import Gtk, WebKit
 
 from preferences.preferences import Preferences
 from menu import SearchMenuItem, get_status_menuitems
@@ -241,7 +241,7 @@ class FeedWebView(WebKit.WebView):
         self.execute_script(js)
 
         if not self.scroll.is_paused:
-            GLib.timeout_add(200, self.execute_script, 'scrollToBottom()')
+            reactor.callLater(0.2, self.execute_script, 'scrollToBottom()')
 
     def jump_to_bottom(self):
         self.execute_script('JumpToBottom()')
@@ -306,9 +306,10 @@ class FeedWebViewScroll(object):
         # print "pause!", delay
         self.is_paused = True
 
-        if self._timer:
-            GObject.source_remove(self._timer)
-        self._timer = GLib.timeout_add_seconds(delay, self._resume)
+        if self._timer and not self._timer.called:
+            # print "cancel"
+            self._timer.cancel()
+        self._timer = reactor.callLater(delay, self._resume)
 
     def _resume(self):
         # print "play!"
