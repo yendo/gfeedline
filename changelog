@@ -1,3 +1,7 @@
+2012-02-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* html/theme/*: Added support for themes.
+
 2012-02-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* notification.py: Added support for actions on notification.

@@ -187,7 +187,8 @@ class FeedView(FeedScrolledWindow):
 
         self.notification = window.notification
 
-        template_file = os.path.join(SHARED_DATA_DIR, 'html/status.html')
+        template_file = os.path.join(SHARED_DATA_DIR, 
+                                     'html/theme/chat.html')
         with open(template_file, 'r') as fh:
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
@@ -236,7 +237,7 @@ class FeedWebView(WebKit.WebView):
 
     def update(self, text=None):
 
-        is_descend = True
+        is_descend = True # False
         is_descend_js = 'true' if is_descend else 'false' 
 
         text = text.replace('\n', '')
