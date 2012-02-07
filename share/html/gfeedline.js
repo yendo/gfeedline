@@ -8,6 +8,7 @@ function append(text, is_append) {
     } 
     else {
         div_msg.insertBefore(entry, div_msg.childNodes[0]);
+        $(entry).hide().slideDown(300);
     }
 }
 
