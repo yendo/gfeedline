@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-06 21:45+0900\n"
-"PO-Revision-Date: 2012-02-06 21:47+0900\n"
+"POT-Creation-Date: 2012-02-07 23:59+0900\n"
+"PO-Revision-Date: 2012-02-07 23:58+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -28,7 +28,7 @@ msgstr ""
 "ブラウザ上で Twitter.com での認証を完了したらこのウィンドウに戻り、この下にあ"
 "る入力欄に PIN を入力してください。"
 
-#: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:15
+#: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:16
 msgid "Screen name:"
 msgstr "スクリーンネーム:"
 
@@ -53,7 +53,7 @@ msgid ""
 "Click \"Apply\" to save your settings."
 msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
 
-#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:19
+#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:21
 msgid "none"
 msgstr "なし"
 
@@ -61,7 +61,7 @@ msgstr "なし"
 msgid "Feed Source"
 msgstr "フィードソース"
 
-#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:11
+#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:12
 msgid "General"
 msgstr "全般"
 
@@ -158,52 +158,60 @@ msgid "<b>Plugins</b>"
 msgstr "<b>プラグイン</b>"
 
 #: ../share/preferences.glade.h:5
+msgid "<b>View</b>"
+msgstr "<b>表示</b>"
+
+#: ../share/preferences.glade.h:6
 msgid "Account"
 msgstr "アカウント"
 
-#: ../share/preferences.glade.h:6
+#: ../share/preferences.glade.h:7
 msgid "Always on _Visible Workspace"
 msgstr "すべてのワークスペースに配置する(_V)"
 
-#: ../share/preferences.glade.h:7
+#: ../share/preferences.glade.h:8
 msgid "Argument"
 msgstr "引数"
 
-#: ../share/preferences.glade.h:8
+#: ../share/preferences.glade.h:9
 msgid "Au_thentication"
 msgstr "認証(_U)"
 
-#: ../share/preferences.glade.h:9
+#: ../share/preferences.glade.h:10
 msgid "Feed Line Preferences"
 msgstr "フィードラインの設定"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:11
 msgid "Feeds"
 msgstr "フィード"
 
-#: ../share/preferences.glade.h:12
+#: ../share/preferences.glade.h:13
 msgid "Group"
 msgstr "グループ"
 
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:14
 msgid "Name"
 msgstr "名前"
 
-#: ../share/preferences.glade.h:14
+#: ../share/preferences.glade.h:15
 msgid "Plugins"
 msgstr "プラグイン"
 
-#: ../share/preferences.glade.h:16
+#: ../share/preferences.glade.h:17
 msgid "Target"
 msgstr "ターゲット"
 
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:18
 msgid "_Authorization"
 msgstr "認証(_A)"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:19
 msgid "_Auto Start"
 msgstr "ログイン時に自動起動する(_A)"
+
+#: ../share/preferences.glade.h:20
+msgid "_Theme:"
+msgstr "テーマ(_T):"
 
 #: ../share/update.glade.h:1
 msgid "140"
@@ -233,11 +241,11 @@ msgstr "リツイート(_T)"
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../lib/notification.py:50
+#: ../lib/notification.py:52
 msgid "Reply"
 msgstr "返信"
 
-#: ../lib/notification.py:51
+#: ../lib/notification.py:53
 msgid "Open"
 msgstr "開く"
 
