@@ -235,13 +235,18 @@ class FeedWebView(WebKit.WebView):
         self.show_all()
 
     def update(self, text=None):
+
+        is_descend = True
+        is_descend_js = 'true' if is_descend else 'false' 
+
         text = text.replace('\n', '')
-        js = 'append("%s")' % text
+        js = 'append("%s", %s)' % (text, is_descend_js)
         # print js
         self.execute_script(js)
 
         if not self.scroll.is_paused:
-            reactor.callLater(0.2, self.execute_script, 'scrollToBottom()')
+            js = 'scrollToBottom(%s)' % is_descend_js
+            reactor.callLater(0.2, self.execute_script, js)
 
     def jump_to_bottom(self):
         self.execute_script('JumpToBottom()')
