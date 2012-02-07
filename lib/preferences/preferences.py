@@ -29,9 +29,6 @@ class Preferences(object):
         recent_page = SETTINGS.get_int('preferences-recent-page')
         notebook.set_current_page(recent_page)
 
-        frame = gui.get_object('frame5')
-        frame.hide()
-
         self.label_username = gui.get_object('label_confirm_username')
         self.on_setting_username_changed()
         SETTINGS_TWITTER.connect("changed::user-name", 

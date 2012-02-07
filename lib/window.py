@@ -187,8 +187,10 @@ class FeedView(FeedScrolledWindow):
 
         self.notification = window.notification
 
+        theme_name = SETTINGS.get_string('theme').lower()
         template_file = os.path.join(SHARED_DATA_DIR, 
-                                     'html/theme/chat.html')
+                                     'html/theme/%s.html' % theme_name)
+
         with open(template_file, 'r') as fh:
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
@@ -231,13 +233,15 @@ class FeedWebView(WebKit.WebView):
         self.connect("populate-popup", self.on_popup)
         self.connect("hovering-over-link", self.on_hovering_over_link)
         self.connect('scroll-event', self.on_scroll_event)
+        self.connect("document-load-finished", self.on_load_finished)
 
         scrolled_window.add(self)
         self.show_all()
 
     def update(self, text=None):
 
-        is_descend = True # False
+        theme_name = SETTINGS.get_string('theme').lower()
+        is_descend = True if theme_name == 'chat' else False
         is_descend_js = 'true' if is_descend else 'false' 
 
         text = text.replace('\n', '')
@@ -288,6 +292,13 @@ class FeedWebView(WebKit.WebView):
         webbrowser.open(uri)
 
         return True
+
+    def on_load_finished(self, view, *args):
+        theme_name = SETTINGS.get_string('theme').lower()
+        css_file = os.path.join(SHARED_DATA_DIR, 
+                                     'html/theme/%s.css' % theme_name)
+        js = 'changeCSS("%s");' % css_file
+        self.execute_script(js)
 
 class FeedWebViewLink(object):
 

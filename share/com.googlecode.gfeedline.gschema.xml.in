@@ -6,6 +6,11 @@
       <summary>Multi-column mode</summary>
       <description>Multi-column mode</description>
     </key>
+    <key name="theme" type="s">
+      <default>'Twitter'</default>
+      <summary>FeedView Theme</summary>
+      <description>FeedView Theme</description>
+    </key>
     <key name="window-sticky" type="b">
       <default>false</default>
       <summary>Window sticky mode</summary>

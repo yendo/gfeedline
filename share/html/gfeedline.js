@@ -20,3 +20,7 @@ function scrollToBottom(is_bottom) {
 function JumpToBottom() {
     window.scrollTo(0, document.height);
 }
+
+function changeCSS(css) {
+    document.getElementById("custom").href = css
+}
