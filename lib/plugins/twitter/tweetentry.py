@@ -109,8 +109,6 @@ class AddedHtmlMarkup(object):
         self.hash_pattern = re.compile(
             u'(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
 
-        self.sequence_pattern = re.compile(r'((.)\2{10,10})') # 10 times
-
     def convert(self, text):
         text = text.replace("'", '&apos;')
 
@@ -122,7 +120,6 @@ class AddedHtmlMarkup(object):
 
         text = text.replace('"', '&quot;')
         text = text.replace('\n', '<br>')
-        # text = self.sequence_pattern.sub(r'\1 ', text)
 
         return text
 
