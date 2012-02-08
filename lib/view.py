@@ -94,7 +94,7 @@ class FeedWebView(WebKit.WebView):
         self.show_all()
 
     def update(self, text=None):
-        is_descend_js = self.theme.is_descend_js()
+        is_descend_js = self._bool_js(self.theme.is_descend())
         
         text = text.replace('\n', '')
         js = 'append("%s", %s)' % (text, is_descend_js)
@@ -106,16 +106,10 @@ class FeedWebView(WebKit.WebView):
             reactor.callLater(0.2, self.execute_script, js)
 
     def jump_to_bottom(self, is_bottom=True):
-        is_bottom_js = 'true' if is_bottom else 'false' 
-        self.execute_script('jumpToBottom(%s)' % is_bottom_js)
+        self.execute_script('jumpToBottom(%s)' % self._bool_js(is_bottom))
 
     def clear_buffer(self):
         self.execute_script('clearBuffer()')
-
-    def is_load_finished(self):
-        #return self.get_property('load-status') is WebKit.LoadStatus.FINISHED
-        print self.get_property('load-status')
-        return self.get_property('load-status') is not WebKit.LoadStatus.PROVISIONAL
 
     def on_hovering_over_link(self, webview, title, uri):
         self.link_on_webview.change(uri)
@@ -154,7 +148,12 @@ class FeedWebView(WebKit.WebView):
         return True
 
     def on_load_finished(self, view, *args):
-        self.theme.update_css(self)
+        css_file = self.theme.get_css_file()
+        js = 'changeCSS("%s");' % css_file
+        self.execute_script(js)
+
+    def _bool_js(self, value):
+        return 'true' if value else 'false' 
 
 class FeedWebViewLink(object):
 
@@ -190,13 +189,25 @@ class FeedWebViewScroll(object):
 
 class Theme(object):
 
-    def __init__(self, window):
-        self.window = window
-
+    def __init__(self):
         SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
-        self.on_setting_theme_changed()
+        self.on_setting_theme_changed(SETTINGS, 'theme')
 
-    def get_status_template(self, *args):
+    def is_descend(self):
+        theme_name = self._get_theme_name()
+        is_descend = True if theme_name == 'chat' else False
+        return is_descend
+
+    def get_css_file(self):
+        theme_name = self._get_theme_name()
+        css_file = os.path.join(SHARED_DATA_DIR, 
+                                     'html/theme/%s.css' % theme_name)
+        return css_file
+
+    def _get_theme_name(self):
+        return SETTINGS.get_string('theme').lower()
+
+    def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
         template_file = os.path.join(SHARED_DATA_DIR, 
                                      'html/theme/%s.html' % theme_name)
@@ -204,26 +215,3 @@ class Theme(object):
         with open(template_file, 'r') as fh:
             file = fh.read()
         self.template = Template(unicode(file, 'utf-8', 'ignore'))
-
-    def is_descend_js(self):
-        is_descend_js = 'true' if self._is_descend() else 'false' 
-        return is_descend_js 
-
-    def update_css(self, webview):
-        theme_name = self._get_theme_name()
-        css_file = os.path.join(SHARED_DATA_DIR, 
-                                     'html/theme/%s.css' % theme_name)
-        js = 'changeCSS("%s");' % css_file
-        webview.execute_script(js)
-
-    def on_setting_theme_changed(self, *args):
-        self.get_status_template()
-        self.window.update_jump_menuitem(self._is_descend())
-
-    def _is_descend(self):
-        theme_name = self._get_theme_name()
-        is_descend = True if theme_name == 'chat' else False
-        return is_descend
-
-    def _get_theme_name(self):
-        return SETTINGS.get_string('theme').lower()

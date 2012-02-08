@@ -28,13 +28,16 @@ class MainWindow(object):
         self.window = window = gui.get_object('window1')
         self.hbox = gui.get_object('hbox1')
         self.column = {} # multi-columns for Notebooks
-        self.theme = Theme(self)
+        self.theme = Theme()
 
         menubar = gui.get_object('menubar1')
         self.notification = StatusNotification('Gnome Feed Line')
 
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
         self.on_settings_sticky_change(SETTINGS, 'window-sticky')
+
+        SETTINGS.connect("changed::theme", self.on_settings_theme_change)
+        self.on_settings_theme_change(SETTINGS, 'theme')
 
         is_multi_column = SETTINGS.get_boolean('multi-column')
         menuitem_multicolumn = gui.get_object('menuitem_multicolumn')
@@ -76,16 +79,6 @@ class MainWindow(object):
             view.append(notebook, -1)
 
         timeout = reactor.callLater(0.1, self.on_menuitem_bottom_activate)
-
-    def update_jump_menuitem(self, is_descend):
-        top = self.gui.get_object('menuitem_top')
-        bottom = self.gui.get_object('menuitem_bottom')
-
-        if not is_descend:
-            top, bottom = bottom, top
-
-        top.hide()
-        bottom.show()
 
     def on_stop(self, *args):
         print "save!"
@@ -130,6 +123,16 @@ class MainWindow(object):
             self.window.stick()
         else:
             self.window.unstick()
+
+    def on_settings_theme_change(self, settings, key):
+        top = self.gui.get_object('menuitem_top')
+        bottom = self.gui.get_object('menuitem_bottom')
+
+        if not self.theme.is_descend():
+            top, bottom = bottom, top
+
+        top.hide()
+        bottom.show()
 
 class FeedNotebook(Gtk.Notebook):
 
