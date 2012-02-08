@@ -37,6 +37,7 @@ class FeedView(FeedScrolledWindow):
         super(FeedView, self).__init__()
 
         self.name = name
+        self.window = window
         self.append(notebook, page)
         self.webview = FeedWebView(self)
         self.notification = window.notification
@@ -85,6 +86,11 @@ class FeedView(FeedScrolledWindow):
         with open(template_file, 'r') as fh:
             file = fh.read()
         self.temp = Template(unicode(file, 'utf-8', 'ignore'))
+
+        theme_name = SETTINGS.get_string('theme').lower()
+        self.is_descend = True if theme_name == 'chat' else False
+
+        self.window.update_jump_menuitem(self.is_descend)
 
 class FeedWebView(WebKit.WebView):
 

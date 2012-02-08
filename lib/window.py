@@ -28,6 +28,9 @@ class MainWindow(object):
         self.hbox = gui.get_object('hbox1')
         self.column = {} # multi-columns for Notebooks
 
+        self.menuitem_top = self.gui.get_object('menuitem_top')
+        self.menuitem_bottom = self.gui.get_object('menuitem_bottom')
+
         menubar = gui.get_object('menubar1')
         self.notification = StatusNotification('Gnome Feed Line')
 
@@ -74,6 +77,14 @@ class MainWindow(object):
             view.append(notebook, -1)
 
         timeout = reactor.callLater(0.1, self.on_menuitem_bottom_activate)
+
+    def update_jump_menuitem(self, is_descend):
+        if is_descend:
+            self.menuitem_top.hide()
+            self.menuitem_bottom.show()
+        else:
+            self.menuitem_top.show()
+            self.menuitem_bottom.hide()
 
     def on_stop(self, *args):
         print "save!"
