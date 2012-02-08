@@ -43,6 +43,11 @@ class Preferences(object):
         self.button_prefs = gui.get_object('button_feed_prefs')
         self.button_del = gui.get_object('button_feed_del')
 
+        self.combobox_theme = gui.get_object('comboboxtext_theme')
+        theme = SETTINGS.get_string('theme')
+        num = ['Twitter', 'Chat'].index(theme.decode('utf-8'))
+        self.combobox_theme.set_active(num)
+
         self.autostart = AutoStart('gfeedline')
         checkbutton_autostart = gui.get_object('checkbutton_autostart')
         checkbutton_autostart.set_sensitive(self.autostart.check_enable())
@@ -95,6 +100,14 @@ class Preferences(object):
     def on_button_close_clicked(self, notebook):
         page = notebook.get_current_page()
         SETTINGS.set_int('preferences-recent-page', page)
+
+        old = SETTINGS.get_string('theme')
+        new = ['Twitter', 'Chat'][self.combobox_theme.get_active()]
+        print old, new
+
+        if old != new:
+            SETTINGS.set_string('theme', new)
+            self.liststore.restart()
 
         self.liststore.save_settings()
         self.preferences.destroy()

@@ -24,3 +24,7 @@ function JumpToBottom() {
 function changeCSS(css) {
     document.getElementById("custom").href = css
 }
+
+function clearBuffer() {
+    document.getElementById("messages").innerHTML = ""
+}

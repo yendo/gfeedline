@@ -118,6 +118,11 @@ class FeedListStore(Gtk.ListStore):
         del obj
         super(FeedListStore, self).remove(iter)
 
+    def restart(self):
+        for column in self:
+            api = column[Column.API]
+            api.view.clear_buffer()
+
     def get_group_page(self, target_group):
         all_group =[]
         for x in self:

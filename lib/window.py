@@ -184,16 +184,10 @@ class FeedView(FeedScrolledWindow):
         self.name = name
         self.append(notebook, page)
         self.webview = FeedWebView(self)
-
         self.notification = window.notification
 
-        theme_name = SETTINGS.get_string('theme').lower()
-        template_file = os.path.join(SHARED_DATA_DIR, 
-                                     'html/theme/%s.html' % theme_name)
-
-        with open(template_file, 'r') as fh:
-            file = fh.read()
-        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
+        SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
+        self.on_setting_theme_changed()
 
     def append(self, notebook, page=-1):
         self.notebook = notebook
@@ -220,6 +214,21 @@ class FeedView(FeedScrolledWindow):
 
     def jump_to_bottom(self):
         self.webview.jump_to_bottom()
+
+    def clear_buffer(self):
+        self.webview.clear_buffer()
+        self.tab_label.set_sensitive(False)
+
+    def on_setting_theme_changed(self, *args):
+        self.webview.on_load_finished(None) # Change CSS
+
+        theme_name = SETTINGS.get_string('theme').lower()
+        template_file = os.path.join(SHARED_DATA_DIR, 
+                                     'html/theme/%s.html' % theme_name)
+
+        with open(template_file, 'r') as fh:
+            file = fh.read()
+        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
 
 class FeedWebView(WebKit.WebView):
 
@@ -256,6 +265,9 @@ class FeedWebView(WebKit.WebView):
     def jump_to_bottom(self):
         self.execute_script('JumpToBottom()')
 
+    def clear_buffer(self):
+        self.execute_script('clearBuffer()')
+
     def on_hovering_over_link(self, webview, title, uri):
         self.link_on_webview.change(uri)
 
@@ -290,7 +302,6 @@ class FeedWebView(WebKit.WebView):
             uri = uri.replace('#', '%23') # for Twitter hash tags
 
         webbrowser.open(uri)
-
         return True
 
     def on_load_finished(self, view, *args):
