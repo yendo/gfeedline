@@ -220,7 +220,8 @@ class FeedView(FeedScrolledWindow):
         self.tab_label.set_sensitive(False)
 
     def on_setting_theme_changed(self, *args):
-        self.webview.on_load_finished(None) # Change CSS
+        if self.webview.is_load_finished():
+            self.webview.on_load_finished(None) # Change CSS
 
         theme_name = SETTINGS.get_string('theme').lower()
         template_file = os.path.join(SHARED_DATA_DIR, 
@@ -267,6 +268,9 @@ class FeedWebView(WebKit.WebView):
 
     def clear_buffer(self):
         self.execute_script('clearBuffer()')
+
+    def is_load_finished(self):
+        return self.get_property('load-status') is WebKit.LoadStatus.FINISHED
 
     def on_hovering_over_link(self, webview, title, uri):
         self.link_on_webview.change(uri)
