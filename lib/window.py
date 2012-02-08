@@ -110,6 +110,10 @@ class MainWindow(object):
     def on_menuitem_about_activate(self, menuitem):
         about = AboutDialog(self.window)
 
+    def on_menuitem_top_activate(self, menuitem=None):
+        for notebook in self.column.values():
+            notebook.jump_all_tabs_to_bottom(is_bottom=False)
+
     def on_menuitem_bottom_activate(self, menuitem=None):
         for notebook in self.column.values():
             notebook.jump_all_tabs_to_bottom()
@@ -159,9 +163,9 @@ class FeedNotebook(Gtk.Notebook):
             self.destroy()
             del self.column[self.group_name]
 
-    def jump_all_tabs_to_bottom(self):
+    def jump_all_tabs_to_bottom(self, is_bottom=True):
         for feedview in self.get_children():
-            feedview.jump_to_bottom()
+            feedview.jump_to_bottom(is_bottom)
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
@@ -212,8 +216,8 @@ class FeedView(FeedScrolledWindow):
         self.tab_label.set_sensitive(True)
         self.webview.update(text)
 
-    def jump_to_bottom(self):
-        self.webview.jump_to_bottom()
+    def jump_to_bottom(self, is_bottom=True):
+        self.webview.jump_to_bottom(is_bottom)
 
     def clear_buffer(self):
         self.webview.clear_buffer()
@@ -263,8 +267,9 @@ class FeedWebView(WebKit.WebView):
             js = 'scrollToBottom(%s)' % is_descend_js
             reactor.callLater(0.2, self.execute_script, js)
 
-    def jump_to_bottom(self):
-        self.execute_script('JumpToBottom()')
+    def jump_to_bottom(self, is_bottom=True):
+        is_bottom_js = 'true' if is_bottom else 'false' 
+        self.execute_script('jumpToBottom(%s)' % is_bottom_js)
 
     def clear_buffer(self):
         self.execute_script('clearBuffer()')

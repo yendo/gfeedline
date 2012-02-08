@@ -17,8 +17,9 @@ function scrollToBottom(is_bottom) {
     scrollsmoothly.setScroll(target);
 }
 
-function JumpToBottom() {
-    window.scrollTo(0, document.height);
+function jumpToBottom(is_bottom) {
+    var target = is_bottom ? document.height : 0;
+    window.scrollTo(0, target);
 }
 
 function changeCSS(css) {

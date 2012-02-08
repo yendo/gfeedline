@@ -40,6 +40,11 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-goto-bottom</property>
   </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-goto-top</property>
+  </object>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">GNOME Feed Line</property>
@@ -107,8 +112,21 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
+                      <object class="GtkImageMenuItem" id="menuitem_top">
+                        <property name="label" translatable="yes">All Tabs to the _Top</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="image">image2</property>
+                        <property name="use_stock">False</property>
+                        <accelerator key="Home" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_menuitem_top_activate" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="menuitem_bottom">
-                        <property name="label" translatable="yes">_All Tabs to the Bottom</property>
+                        <property name="label" translatable="yes">All Tabs to the _Bottom</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>

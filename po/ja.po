@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-07 23:59+0900\n"
-"PO-Revision-Date: 2012-02-07 23:58+0900\n"
+"POT-Creation-Date: 2012-02-08 12:31+0900\n"
+"PO-Revision-Date: 2012-02-08 12:31+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -89,7 +89,7 @@ msgstr "ソース(_S):"
 msgid "_Target:"
 msgstr "ターゲット(_T):"
 
-#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:2
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
 msgid "GNOME Feed Line"
 msgstr "GNOME フィードライン"
 
@@ -102,42 +102,46 @@ msgid "Social Networking Client"
 msgstr "ソーシャルネットワーキングクライアント"
 
 #: ../share/gfeedline.glade.h:1
+msgid "All Tabs to the _Bottom"
+msgstr "すべてのタブで最終行に移動(_B)"
+
+#: ../share/gfeedline.glade.h:2
+msgid "All Tabs to the _Top"
+msgstr "すべてのタブで先頭行に移動(_T)"
+
+#: ../share/gfeedline.glade.h:3
 msgid "Copyright © 2012 Yoshizumi Endo."
 msgstr "Copyright © 2012 Yoshizumi Endo."
 
-#: ../share/gfeedline.glade.h:3
+#: ../share/gfeedline.glade.h:5
 msgid "GNOME Social Networking Client"
 msgstr "GNOME ソーシャルネットワーキングクライアント"
 
-#: ../share/gfeedline.glade.h:4
-msgid "_All Tabs to the Bottom"
-msgstr "すべてのタブで最終行に移動(_A)"
-
-#: ../share/gfeedline.glade.h:5
+#: ../share/gfeedline.glade.h:6
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../share/gfeedline.glade.h:6
+#: ../share/gfeedline.glade.h:7
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../share/gfeedline.glade.h:7
+#: ../share/gfeedline.glade.h:8
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../share/gfeedline.glade.h:8
+#: ../share/gfeedline.glade.h:9
 msgid "_Multi-Column"
 msgstr "マルチカラム(_M)"
 
-#: ../share/gfeedline.glade.h:9
+#: ../share/gfeedline.glade.h:10
 msgid "_Update"
 msgstr "投稿(_U)"
 
-#: ../share/gfeedline.glade.h:10
+#: ../share/gfeedline.glade.h:11
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../share/gfeedline.glade.h:11
+#: ../share/gfeedline.glade.h:12
 msgid "translator-credits"
 msgstr "Yoshizumi Endo <y-endo@ceres.dti.ne.jp>"
 
