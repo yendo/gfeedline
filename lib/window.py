@@ -22,16 +22,13 @@ class MainWindow(object):
     def __init__(self, liststore):
         self.liststore = liststore
 
-        gui = Gtk.Builder()
+        self.gui = gui = Gtk.Builder()
         gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'))
 
         self.window = window = gui.get_object('window1')
         self.hbox = gui.get_object('hbox1')
         self.column = {} # multi-columns for Notebooks
         self.theme = Theme(self)
-
-        self.menuitem_top = gui.get_object('menuitem_top')
-        self.menuitem_bottom = gui.get_object('menuitem_bottom')
 
         menubar = gui.get_object('menubar1')
         self.notification = StatusNotification('Gnome Feed Line')
@@ -53,7 +50,7 @@ class MainWindow(object):
 
         window.resize(w, h)
         window.connect("delete-event", self.on_stop)
-        window.show_all()
+        window.show()
 
         gui.connect_signals(self)
 
@@ -81,12 +78,14 @@ class MainWindow(object):
         timeout = reactor.callLater(0.1, self.on_menuitem_bottom_activate)
 
     def update_jump_menuitem(self, is_descend):
-        if is_descend:
-            self.menuitem_top.hide()
-            self.menuitem_bottom.show()
-        else:
-            self.menuitem_top.show()
-            self.menuitem_bottom.hide()
+        top = self.gui.get_object('menuitem_top')
+        bottom = self.gui.get_object('menuitem_bottom')
+
+        if not is_descend:
+            top, bottom = bottom, top
+
+        top.hide()
+        bottom.show()
 
     def on_stop(self, *args):
         print "save!"

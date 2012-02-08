@@ -44,9 +44,6 @@ class FeedView(FeedScrolledWindow):
         self.webview = FeedWebView(self)
         self.notification = window.notification
 
-        SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
-        self.on_setting_theme_changed()
-
     def append(self, notebook, page=-1):
         self.notebook = notebook
         self.tab_label = notebook.append_page(self, self.name, page)
@@ -62,7 +59,7 @@ class FeedView(FeedScrolledWindow):
         self.notebook.remove_page(page)
 
     def update(self, entry_dict, has_notify=False, is_first_call=False):
-        text = self.temp.substitute(entry_dict)
+        text = self.theme.template.substitute(entry_dict)
 
         if has_notify and not is_first_call:
             self.notification.notify(entry_dict)
@@ -76,13 +73,6 @@ class FeedView(FeedScrolledWindow):
     def clear_buffer(self):
         self.webview.clear_buffer()
         self.tab_label.set_sensitive(False)
-
-    def on_setting_theme_changed(self, *args):
-        if self.webview.is_load_finished():
-            self.webview.on_load_finished(None) # Change CSS
-
-        self.temp = self.theme.get_status_template()
-        self.theme.update_menuitem()
 
 class FeedWebView(WebKit.WebView):
 
@@ -98,16 +88,14 @@ class FeedWebView(WebKit.WebView):
         self.connect("hovering-over-link", self.on_hovering_over_link)
         self.connect('scroll-event', self.on_scroll_event)
         self.connect("document-load-finished", self.on_load_finished)
+        SETTINGS.connect("changed::theme", self.on_load_finished)
 
         scrolled_window.add(self)
         self.show_all()
 
     def update(self, text=None):
-
-        theme_name = SETTINGS.get_string('theme').lower()
-        is_descend = True if theme_name == 'chat' else False
-        is_descend_js = 'true' if is_descend else 'false' 
-
+        is_descend_js = self.theme.is_descend_js()
+        
         text = text.replace('\n', '')
         js = 'append("%s", %s)' % (text, is_descend_js)
         # print js
@@ -205,25 +193,37 @@ class Theme(object):
     def __init__(self, window):
         self.window = window
 
+        SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
+        self.on_setting_theme_changed()
+
     def get_status_template(self, *args):
-        theme_name = SETTINGS.get_string('theme').lower()
+        theme_name = self._get_theme_name()
         template_file = os.path.join(SHARED_DATA_DIR, 
                                      'html/theme/%s.html' % theme_name)
 
         with open(template_file, 'r') as fh:
             file = fh.read()
-        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
-        return self.temp
+        self.template = Template(unicode(file, 'utf-8', 'ignore'))
 
-    def update_menuitem(self):
-        theme_name = SETTINGS.get_string('theme').lower()
-        self.is_descend = True if theme_name == 'chat' else False
-
-        self.window.update_jump_menuitem(self.is_descend)
+    def is_descend_js(self):
+        is_descend_js = 'true' if self._is_descend() else 'false' 
+        return is_descend_js 
 
     def update_css(self, webview):
-        theme_name = SETTINGS.get_string('theme').lower()
+        theme_name = self._get_theme_name()
         css_file = os.path.join(SHARED_DATA_DIR, 
                                      'html/theme/%s.css' % theme_name)
         js = 'changeCSS("%s");' % css_file
         webview.execute_script(js)
+
+    def on_setting_theme_changed(self, *args):
+        self.get_status_template()
+        self.window.update_jump_menuitem(self._is_descend())
+
+    def _is_descend(self):
+        theme_name = self._get_theme_name()
+        is_descend = True if theme_name == 'chat' else False
+        return is_descend
+
+    def _get_theme_name(self):
+        return SETTINGS.get_string('theme').lower()
