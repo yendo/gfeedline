@@ -38,6 +38,8 @@ class FeedView(FeedScrolledWindow):
 
         self.name = name
         self.window = window
+        self.theme = window.theme
+
         self.append(notebook, page)
         self.webview = FeedWebView(self)
         self.notification = window.notification
@@ -79,18 +81,8 @@ class FeedView(FeedScrolledWindow):
         if self.webview.is_load_finished():
             self.webview.on_load_finished(None) # Change CSS
 
-        theme_name = SETTINGS.get_string('theme').lower()
-        template_file = os.path.join(SHARED_DATA_DIR, 
-                                     'html/theme/%s.html' % theme_name)
-
-        with open(template_file, 'r') as fh:
-            file = fh.read()
-        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
-
-        theme_name = SETTINGS.get_string('theme').lower()
-        self.is_descend = True if theme_name == 'chat' else False
-
-        self.window.update_jump_menuitem(self.is_descend)
+        self.temp = self.theme.get_status_template()
+        self.theme.update_menuitem()
 
 class FeedWebView(WebKit.WebView):
 
@@ -98,6 +90,7 @@ class FeedWebView(WebKit.WebView):
         super(FeedWebView, self).__init__()
         self.scroll = FeedWebViewScroll()
         self.link_on_webview = FeedWebViewLink()
+        self.theme = scrolled_window.theme
 
         self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
@@ -132,7 +125,9 @@ class FeedWebView(WebKit.WebView):
         self.execute_script('clearBuffer()')
 
     def is_load_finished(self):
-        return self.get_property('load-status') is WebKit.LoadStatus.FINISHED
+        #return self.get_property('load-status') is WebKit.LoadStatus.FINISHED
+        print self.get_property('load-status')
+        return self.get_property('load-status') is not WebKit.LoadStatus.PROVISIONAL
 
     def on_hovering_over_link(self, webview, title, uri):
         self.link_on_webview.change(uri)
@@ -171,11 +166,7 @@ class FeedWebView(WebKit.WebView):
         return True
 
     def on_load_finished(self, view, *args):
-        theme_name = SETTINGS.get_string('theme').lower()
-        css_file = os.path.join(SHARED_DATA_DIR, 
-                                     'html/theme/%s.css' % theme_name)
-        js = 'changeCSS("%s");' % css_file
-        self.execute_script(js)
+        self.theme.update_css(self)
 
 class FeedWebViewLink(object):
 
@@ -208,3 +199,31 @@ class FeedWebViewScroll(object):
     def _resume(self):
         # print "play!"
         self.is_paused = False
+
+class Theme(object):
+
+    def __init__(self, window):
+        self.window = window
+
+    def get_status_template(self, *args):
+        theme_name = SETTINGS.get_string('theme').lower()
+        template_file = os.path.join(SHARED_DATA_DIR, 
+                                     'html/theme/%s.html' % theme_name)
+
+        with open(template_file, 'r') as fh:
+            file = fh.read()
+        self.temp = Template(unicode(file, 'utf-8', 'ignore'))
+        return self.temp
+
+    def update_menuitem(self):
+        theme_name = SETTINGS.get_string('theme').lower()
+        self.is_descend = True if theme_name == 'chat' else False
+
+        self.window.update_jump_menuitem(self.is_descend)
+
+    def update_css(self, webview):
+        theme_name = SETTINGS.get_string('theme').lower()
+        css_file = os.path.join(SHARED_DATA_DIR, 
+                                     'html/theme/%s.css' % theme_name)
+        js = 'changeCSS("%s");' % css_file
+        webview.execute_script(js)

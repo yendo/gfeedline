@@ -10,6 +10,7 @@ from twisted.internet import reactor
 from gi.repository import Gtk
 
 from preferences.preferences import Preferences
+from view import Theme
 from updatewindow import UpdateWindow
 from notification import StatusNotification
 from utils.settings import SETTINGS, SETTINGS_GEOMETRY
@@ -27,9 +28,10 @@ class MainWindow(object):
         self.window = window = gui.get_object('window1')
         self.hbox = gui.get_object('hbox1')
         self.column = {} # multi-columns for Notebooks
+        self.theme = Theme(self)
 
-        self.menuitem_top = self.gui.get_object('menuitem_top')
-        self.menuitem_bottom = self.gui.get_object('menuitem_bottom')
+        self.menuitem_top = gui.get_object('menuitem_top')
+        self.menuitem_bottom = gui.get_object('menuitem_bottom')
 
         menubar = gui.get_object('menubar1')
         self.notification = StatusNotification('Gnome Feed Line')
