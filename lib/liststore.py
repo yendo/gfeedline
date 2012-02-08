@@ -9,7 +9,8 @@ import json
 
 from gi.repository import Gtk, GdkPixbuf
 
-from window import MainWindow, FeedView
+from window import MainWindow
+from view import FeedView
 from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.output import TwitterOutputFactory
 from plugins.twitter.account import AuthorizedTwitterAccount
