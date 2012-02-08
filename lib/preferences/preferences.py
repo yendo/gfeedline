@@ -41,10 +41,7 @@ class Preferences(object):
         treeview.connect("drag-end", self.on_drag_end, mainwindow)
 
         self.button_prefs = gui.get_object('button_feed_prefs')
-        self.button_prefs.set_sensitive(False)
-
         self.button_del = gui.get_object('button_feed_del')
-        self.button_del.set_sensitive(False)
 
         self.autostart = AutoStart('gfeedline')
         checkbutton_autostart = gui.get_object('checkbutton_autostart')
