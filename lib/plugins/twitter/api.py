@@ -31,6 +31,7 @@ class TwitterAPIBase(object):
         self.account = account or Null()
         self.include_rt = True
         self.has_argument = False
+        self.has_popup_menu = True
 
         self._get_output_class()
         self._setup()
@@ -79,7 +80,7 @@ class TwitterAPIDirectMessages(TwitterAPIBase):
     def _setup(self):
         self.api = self.account.api.direct_messages
         self.name = _('Direct Messages')
-
+        self.has_popup_menu = False
 
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 

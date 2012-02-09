@@ -33,7 +33,7 @@ class FeedScrolledWindow(Gtk.ScrolledWindow):
 
 class FeedView(FeedScrolledWindow):
 
-    def __init__(self, window, notebook, name='', page=-1):
+    def __init__(self, window, notebook, api, name='', page=-1):
         super(FeedView, self).__init__()
 
         self.name = name
@@ -41,7 +41,7 @@ class FeedView(FeedScrolledWindow):
         self.theme = window.theme
 
         self.append(notebook, page)
-        self.webview = FeedWebView(self)
+        self.webview = FeedWebView(self, api)
         self.notification = window.notification
 
     def append(self, notebook, page=-1):
@@ -76,7 +76,7 @@ class FeedView(FeedScrolledWindow):
 
 class FeedWebView(WebKit.WebView):
 
-    def __init__(self, scrolled_window):
+    def __init__(self, scrolled_window, api):
         super(FeedWebView, self).__init__()
         self.scroll = FeedWebViewScroll()
         self.link_on_webview = FeedWebViewLink()
@@ -85,7 +85,7 @@ class FeedWebView(WebKit.WebView):
 
         self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
-        self.connect("populate-popup", self.on_popup)
+        self.connect("populate-popup", self.on_popup, api)
         self.connect("hovering-over-link", self.on_hovering_over_link)
         self.connect('scroll-event', self.on_scroll_event)
         self.connect("document-load-finished", self.on_load_finished)
@@ -123,8 +123,8 @@ class FeedWebView(WebKit.WebView):
     def on_scroll_event(self, webview, event):
         self.scroll.pause()
 
-    def on_popup(self, view, default_menu):
-        if self.link_on_webview.is_username_link():
+    def on_popup(self, view, default_menu, api):
+        if self.link_on_webview.is_username_link() and api.has_popup_menu:
             for x in default_menu.get_children():
                 default_menu.remove(x) 
             for menuitem in get_status_menuitems():
