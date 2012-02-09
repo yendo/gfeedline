@@ -17,7 +17,7 @@ class PopupMenuItem(Gtk.MenuItem):
         super(PopupMenuItem, self).__init__()
 
         self.uri = uri
-        self.parent = scrolled_window.window.window
+        self.parent = scrolled_window
 
         self.set_label(self._get_label())
         self.set_use_underline(True)
@@ -53,7 +53,7 @@ class RetweetMenuItem(PopupMenuItem):
         user, entry_id = uri_schme[3:6:2]
 
         dialog = RetweetDialog()
-        dialog.run(user, entry_id, self.parent)
+        dialog.run(user, entry_id, self.parent.window.window)
 
 class RetweetDialog(object):
 
