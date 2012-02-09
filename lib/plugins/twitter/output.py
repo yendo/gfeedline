@@ -45,6 +45,7 @@ class TwitterOutputBase(object):
 
     def got_entry(self, entry, *args):
         entry.text = decode_html_entities(entry.text)
+        self._set_last_id(entry.id)
         self.check_entry(entry, entry.text, args)
 
     def check_entry(self, entry, text, *args):
@@ -61,12 +62,17 @@ class TwitterOutputBase(object):
     def print_entry(self, entry, is_first_call=False):
         entry_class = self._get_entry_class(entry)
         text = entry_class(entry).get_dict(self.api)
-
-        self.last_id = text['id']
         self.view.update(text, self.options.get('notification'), is_first_call)
 
     def _get_entry_class(self, entry):
         return TweetEntry
+
+    def _set_last_id(self, entry_id):
+        entry_id = int(entry_id)
+
+        if self.last_id < entry_id:
+            self.last_id = entry_id
+        # print self.last_id, type(self.last_id)
 
     def exit(self):
         print "exit!"
@@ -178,6 +184,7 @@ class TwitterSearchOutput(TwitterRestOutput):
 
     def got_entry(self, entry, *args):
         entry.title = decode_html_entities(entry.title)
+        self._set_last_id( entry.id.split(':')[2] )
         self.check_entry(entry, entry.title, args)
 
     def _get_entry_class(self, entry):
