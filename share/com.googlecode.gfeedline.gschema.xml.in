@@ -2,7 +2,7 @@
 
   <schema id="com.googlecode.gfeedline" path="/apps/gfeedline/">
     <key name="multi-column" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Multi-column mode</summary>
       <description>Multi-column mode</description>
     </key>
