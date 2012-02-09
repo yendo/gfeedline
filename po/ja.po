@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-08 12:31+0900\n"
-"PO-Revision-Date: 2012-02-08 12:31+0900\n"
+"POT-Creation-Date: 2012-02-09 16:49+0900\n"
+"PO-Revision-Date: 2012-02-09 16:51+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -229,19 +229,28 @@ msgstr "いまどうしてる?"
 msgid "_Tweet"
 msgstr "ツイート(_T)"
 
-#: ../lib/menu.py:26
+#: ../share/retweet.glade.h:1
+msgid "<big><b>Retweet?</b></big>"
+msgstr "<big><b>リツイートしますか?</b></big>"
+
+#: ../lib/menu.py:30
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:35
+#: ../lib/menu.py:39
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:45
+#: ../lib/menu.py:49
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:61
+#: ../lib/menu.py:67
+#, python-format
+msgid "Retweet this %s's tweet to your followers?"
+msgstr "%s さんのツイートをあなたのフォロワーにリツイートしますか?"
+
+#: ../lib/menu.py:84
 msgid "_Search"
 msgstr "検索(_S)"
 
@@ -265,7 +274,7 @@ msgstr "リストタイムライン"
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:81
+#: ../lib/plugins/twitter/api.py:81 ../lib/plugins/twitter/tweetentry.py:24
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 

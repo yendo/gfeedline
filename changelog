@@ -1,3 +1,7 @@
+2012-02-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* Added a confirmation dialog for retweets.
+
 2012-02-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* html/theme/*: Added support for themes.

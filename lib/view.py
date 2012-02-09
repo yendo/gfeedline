@@ -80,6 +80,7 @@ class FeedWebView(WebKit.WebView):
         super(FeedWebView, self).__init__()
         self.scroll = FeedWebViewScroll()
         self.link_on_webview = FeedWebViewLink()
+        self.scrolled_window = scrolled_window
         self.theme = scrolled_window.theme
 
         self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
@@ -127,7 +128,8 @@ class FeedWebView(WebKit.WebView):
             for x in default_menu.get_children():
                 default_menu.remove(x) 
             for menuitem in get_status_menuitems():
-                default_menu.append(menuitem(self.link_on_webview.uri))
+                default_menu.append(menuitem(self.link_on_webview.uri,
+                                             self.scrolled_window))
         elif not self.link_on_webview.is_hovering and self.can_copy_clipboard():
             menuitem = SearchMenuItem()
             default_menu.prepend(menuitem)
