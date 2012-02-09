@@ -41,7 +41,7 @@ class TwitterOutputBase(object):
         self.params = {}
         self.counter = 0
 
-        api.account.connect("update_credential", self._restart)
+        api.account.connect("update_credential", self._reconnect)
 
     def got_entry(self, entry, *args):
         entry.text = decode_html_entities(entry.text)
@@ -70,14 +70,24 @@ class TwitterOutputBase(object):
 
     def exit(self):
         print "exit!"
+        self.disconnect()
+        self.view.remove()
+
+    def disconnect(self):
         if hasattr(self, 'd'):
             self.d.cancel()
         if hasattr(self, 'timeout') and not self.timeout.called:
             self.timeout.cancel()
-        self.view.remove()
 
-    def _restart(self, *args):
-        print "restart!"
+    def restart(self, *args):
+        print self.last_id
+        self.disconnect()
+        self.last_id = 0
+        self.counter = 0
+        self.start()
+
+    def _reconnect(self, *args):
+        print "reconnect!"
         self.start()
 
 class TwitterRestOutput(TwitterOutputBase):
@@ -123,6 +133,7 @@ class TwitterRestOutput(TwitterOutputBase):
             print "not authorized"
             return
 
+        self.params.clear()
         if self.last_id:
             self.params['since_id'] = str(self.last_id)
 
@@ -207,6 +218,13 @@ class TwitterFeedOutput(TwitterOutputBase):
         self.is_connecting = False
         super(TwitterFeedOutput, self).exit()
 
+    def _reconnect(self, *args):
+        print "restart!"
+        self.start()
+
+    def restart(self, *args):
+        pass
+
     def _on_connect(self, stream):
         self.stream = stream
         if stream:
@@ -216,7 +234,8 @@ class TwitterFeedOutput(TwitterOutputBase):
     def _on_error(self, *e):
         print "Error:", e
         if self.is_connecting:
-            self.timeout = reactor.callLater(self.reconnect_interval, self._restart)
+            self.timeout = reactor.callLater(self.reconnect_interval, 
+                                             self._reconnect)
             if self.reconnect_interval < 180:
                 self.reconnect_interval += 10
 

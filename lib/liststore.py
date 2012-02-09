@@ -123,6 +123,7 @@ class FeedListStore(Gtk.ListStore):
         for column in self:
             api = column[Column.API]
             api.view.clear_buffer()
+            api.restart()
 
     def get_group_page(self, target_group):
         all_group =[]
