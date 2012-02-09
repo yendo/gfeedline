@@ -25,7 +25,7 @@ class MainWindow(object):
         self.gui = gui = Gtk.Builder()
         gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'))
 
-        self.window = window = gui.get_object('window1')
+        self.window = window = gui.get_object('main_window')
         self.hbox = gui.get_object('hbox1')
         self.column = {} # multi-columns for Notebooks
         self.theme = Theme()
@@ -52,7 +52,6 @@ class MainWindow(object):
             window.move(x, y)
 
         window.resize(w, h)
-        window.connect("delete-event", self.on_stop)
         window.show()
 
         gui.connect_signals(self)
