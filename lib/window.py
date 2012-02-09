@@ -56,9 +56,9 @@ class MainWindow(object):
 
         gui.connect_signals(self)
 
-    def get_notebook(self, group_name, is_multi_column):
-        if not is_multi_column:
-            group_name = 'main'
+    def get_notebook(self, group_name):
+        if not SETTINGS.get_boolean('multi-column'):
+            group_name = 'dummy for single column'
 
         if group_name in self.column:
             notebook = self.column[group_name]
@@ -68,11 +68,11 @@ class MainWindow(object):
         
         return notebook
 
-    def toggle_multicolumn_mode(self, is_multi_column):
+    def toggle_multicolumn_mode(self):
         self.column = {}
 
         for row in self.liststore:
-            notebook = self.get_notebook(row[Column.GROUP], is_multi_column)
+            notebook = self.get_notebook(row[Column.GROUP])
             view = row[Column.API].view
             view.remove()
             view.append(notebook, -1)
@@ -103,8 +103,8 @@ class MainWindow(object):
 
     def on_menuitem_multicolumn_toggled(self, menuitem):
         is_multi_column = menuitem.get_active()
-        self.toggle_multicolumn_mode(is_multi_column)
         SETTINGS.set_boolean('multi-column', is_multi_column)
+        self.toggle_multicolumn_mode()
 
     def on_menuitem_about_activate(self, menuitem):
         about = AboutDialog(self.window)

@@ -15,7 +15,6 @@ from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.output import TwitterOutputFactory
 from plugins.twitter.account import AuthorizedTwitterAccount
 from constants import CONFIG_HOME, Column
-from utils.settings import SETTINGS
 
 
 class FeedListStore(Gtk.ListStore):
@@ -43,9 +42,7 @@ class FeedListStore(Gtk.ListStore):
             return
 
         api = api_class(self.twitter_account)
-
-        is_multi_column = SETTINGS.get_boolean('multi-column')
-        notebook = self.window.get_notebook(source.get('group'), is_multi_column)
+        notebook = self.window.get_notebook(source.get('group'))
 
         page = int(str(self.get_path(iter))) if iter else -1
         tab_name = source.get('name') or api.name
@@ -93,7 +90,7 @@ class FeedListStore(Gtk.ListStore):
             if old_group != new_group:
                 self.set_value(iter, Column.GROUP, new_group)
 
-                notebook = self.window.get_notebook(new_group, True)
+                notebook = self.window.get_notebook(new_group)
                 api_obj.view.move(notebook)
 
                 new_page = self.get_group_page(source.get('group'))
