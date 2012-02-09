@@ -6,7 +6,7 @@ function append(text, is_append) {
     if (is_append) {
         div_msg.appendChild(entry);
     } 
-    else {
+    else { // is_prepend
         div_msg.insertBefore(entry, div_msg.childNodes[0]);
         $(entry).hide().slideDown(300);
     }

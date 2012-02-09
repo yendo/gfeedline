@@ -79,13 +79,6 @@ class TwitterOutputBase(object):
         if hasattr(self, 'timeout') and not self.timeout.called:
             self.timeout.cancel()
 
-    def restart(self, *args):
-        print self.last_id
-        self.disconnect()
-        self.last_id = 0
-        self.counter = 0
-        self.start()
-
     def _reconnect(self, *args):
         print "reconnect!"
         self.start()
@@ -171,6 +164,13 @@ class TwitterRestOutput(TwitterOutputBase):
         TwitterRestOutput.api_connections -= 1
         self.delayed.clear()
 
+    def restart(self, *args):
+        print self.last_id
+        self.disconnect()
+        self.last_id = 0
+        self.counter = 0
+        self.start()
+
     def _on_error(self, e):
         print "error!", e
 
@@ -217,10 +217,6 @@ class TwitterFeedOutput(TwitterOutputBase):
             self.stream.transport.stopProducing()
         self.is_connecting = False
         super(TwitterFeedOutput, self).exit()
-
-    def _reconnect(self, *args):
-        print "restart!"
-        self.start()
 
     def restart(self, *args):
         pass

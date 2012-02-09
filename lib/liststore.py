@@ -114,9 +114,9 @@ class FeedListStore(Gtk.ListStore):
         return new_iter
 
     def remove(self, iter):
-        obj = self.get_value(iter, Column.API)
-        obj.exit()
-        del obj
+        api = self.get_value(iter, Column.API)
+        api.exit()
+        del api
         super(FeedListStore, self).remove(iter)
 
     def restart(self):
