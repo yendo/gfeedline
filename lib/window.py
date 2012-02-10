@@ -77,7 +77,12 @@ class MainWindow(object):
             view.remove()
             view.append(notebook, -1)
 
-        timeout = reactor.callLater(0.1, self.on_menuitem_bottom_activate)
+        timeout = reactor.callLater(0.1, self._jump_all_tabs_to_bottom, 
+                                    self.theme.is_descend())
+
+    def _jump_all_tabs_to_bottom(self, is_bottom=True):
+        for notebook in self.column.values():
+            notebook.jump_all_tabs_to_bottom(is_bottom)
 
     def on_stop(self, *args):
         print "save!"
@@ -110,12 +115,10 @@ class MainWindow(object):
         about = AboutDialog(self.window)
 
     def on_menuitem_top_activate(self, menuitem=None):
-        for notebook in self.column.values():
-            notebook.jump_all_tabs_to_bottom(is_bottom=False)
+        self._jump_all_tabs_to_bottom(False)
 
     def on_menuitem_bottom_activate(self, menuitem=None):
-        for notebook in self.column.values():
-            notebook.jump_all_tabs_to_bottom()
+        self._jump_all_tabs_to_bottom()
 
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
