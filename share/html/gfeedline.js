@@ -1,15 +1,13 @@
 function append(text, is_append, is_scroll_paused) {
-    var div_msg = document.getElementById("messages");
+    var parent = document.getElementById("messages");
     var entry = document.createElement("div");
     entry.innerHTML = text;
 
     if (is_append) {
-        div_msg.appendChild(entry);
+        parent.appendChild(entry);
     } 
     else { // is_prepend
-        is_scroll_paused = is_scroll_paused || false;
-
-        div_msg.insertBefore(entry, div_msg.childNodes[0]);
+        parent.insertBefore(entry, parent.childNodes[0]);
 
         if (is_scroll_paused) {
             var body = $('body');
