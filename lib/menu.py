@@ -8,7 +8,7 @@ from updatewindow import UpdateWindow
 from constants import SHARED_DATA_DIR
 
 def get_status_menuitems():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem]
+    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
 
 
 class PopupMenuItem(Gtk.MenuItem):
@@ -17,6 +17,7 @@ class PopupMenuItem(Gtk.MenuItem):
         super(PopupMenuItem, self).__init__()
 
         self.uri = uri
+        self.user, self.entry_id = uri.split('/')[3:6:2]
         self.parent = scrolled_window
 
         self.set_label(self._get_label())
@@ -39,9 +40,7 @@ class ReplyMenuItem(PopupMenuItem):
         return _('_Reply')
         
     def on_activate(self, menuitem):
-        uri_schme =self.uri.split('/')
-        user, id = uri_schme[3:6:2]
-        update_window = UpdateWindow(None, user, id)
+        update_window = UpdateWindow(None, self.user, self.entry_id)
 
 class RetweetMenuItem(PopupMenuItem):
 
@@ -49,11 +48,8 @@ class RetweetMenuItem(PopupMenuItem):
         return _('Re_tweet')
         
     def on_activate(self, menuitem):
-        uri_schme =self.uri.split('/')
-        user, entry_id = uri_schme[3:6:2]
-
         dialog = RetweetDialog()
-        dialog.run(user, entry_id, self.parent.window.window)
+        dialog.run(self.user, self.entry_id, self.parent.window.window)
 
 class RetweetDialog(object):
 
@@ -78,6 +74,15 @@ class RetweetDialog(object):
         #print args
         pass
 
+class FavMenuItem(PopupMenuItem):
+
+    def _get_label(self):
+        return _('_Favorite')
+        
+    def on_activate(self, menuitem):
+        twitter_account = AuthorizedTwitterAccount()
+        twitter_account.api.fav(self.entry_id)
+            
 class SearchMenuItem(PopupMenuItem):
 
     def _get_label(self):

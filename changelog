@@ -1,3 +1,7 @@
+2012-02-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py, twitter/account.py: Added support for creating favorites.
+
 2012-02-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 1.0 beta 2 release.

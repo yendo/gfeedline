@@ -7,14 +7,91 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-09 16:49+0900\n"
-"PO-Revision-Date: 2012-02-09 16:51+0900\n"
+"POT-Creation-Date: 2012-02-10 23:27+0900\n"
+"PO-Revision-Date: 2012-02-10 23:28+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../lib/menu.py:30
+msgid "_Open"
+msgstr "開く(_O)"
+
+#: ../lib/menu.py:39
+msgid "_Reply"
+msgstr "返信(_R)"
+
+#: ../lib/menu.py:49
+msgid "_Favorite"
+msgstr "お気に入り(_F)"
+
+#: ../lib/menu.py:61
+msgid "Re_tweet"
+msgstr "リツイート(_T)"
+
+#: ../lib/menu.py:79
+#, python-format
+msgid "Retweet this %s's tweet to your followers?"
+msgstr "%s さんのツイートをあなたのフォロワーにリツイートしますか?"
+
+#: ../lib/menu.py:96
+msgid "_Search"
+msgstr "検索(_S)"
+
+#: ../lib/notification.py:52
+msgid "Reply"
+msgstr "返信"
+
+#: ../lib/notification.py:53
+msgid "Open"
+msgstr "開く"
+
+#: ../lib/plugins/twitter/api.py:58
+msgid "Home TimeLine"
+msgstr "ホームタイムライン"
+
+#: ../lib/plugins/twitter/api.py:64
+msgid "List TimeLine"
+msgstr "リストタイムライン"
+
+#: ../lib/plugins/twitter/api.py:76
+msgid "Mentions"
+msgstr "メンション"
+
+#: ../lib/plugins/twitter/api.py:82 ../lib/plugins/twitter/tweetentry.py:24
+msgid "Direct Messages"
+msgstr "ダイレクトメッセージ"
+
+#: ../lib/plugins/twitter/api.py:89
+msgid "User Stream"
+msgstr "ユーザーストリーム"
+
+#: ../lib/plugins/twitter/api.py:95
+msgid "Track"
+msgstr "トラック"
+
+#: ../lib/plugins/twitter/api.py:107
+msgid "Search"
+msgstr "検索"
+
+#: ../lib/plugins/twitter/assistant.py:30
+msgid "Twitter Account Setup"
+msgstr "Twitter アカウントの設定"
+
+#: ../lib/plugins/twitter/assistant.py:46
+msgid "Intro"
+msgstr "説明"
+
+#: ../lib/plugins/twitter/assistant.py:54
+msgid "Enter PIN"
+msgstr "PIN の入力"
+
+#: ../lib/plugins/twitter/assistant.py:62
+msgid "Confirm"
+msgstr "確認"
 
 #: ../share/assistant_twitter.glade.h:1
 msgid "PIN:"
@@ -217,6 +294,10 @@ msgstr "ログイン時に自動起動する(_A)"
 msgid "_Theme:"
 msgstr "テーマ(_T):"
 
+#: ../share/retweet.glade.h:1
+msgid "<big><b>Retweet?</b></big>"
+msgstr "<big><b>リツイートしますか?</b></big>"
+
 #: ../share/update.glade.h:1
 msgid "140"
 msgstr "140"
@@ -228,80 +309,3 @@ msgstr "いまどうしてる?"
 #: ../share/update.glade.h:3
 msgid "_Tweet"
 msgstr "ツイート(_T)"
-
-#: ../share/retweet.glade.h:1
-msgid "<big><b>Retweet?</b></big>"
-msgstr "<big><b>リツイートしますか?</b></big>"
-
-#: ../lib/menu.py:30
-msgid "_Open"
-msgstr "開く(_O)"
-
-#: ../lib/menu.py:39
-msgid "_Reply"
-msgstr "返信(_R)"
-
-#: ../lib/menu.py:49
-msgid "Re_tweet"
-msgstr "リツイート(_T)"
-
-#: ../lib/menu.py:67
-#, python-format
-msgid "Retweet this %s's tweet to your followers?"
-msgstr "%s さんのツイートをあなたのフォロワーにリツイートしますか?"
-
-#: ../lib/menu.py:84
-msgid "_Search"
-msgstr "検索(_S)"
-
-#: ../lib/notification.py:52
-msgid "Reply"
-msgstr "返信"
-
-#: ../lib/notification.py:53
-msgid "Open"
-msgstr "開く"
-
-#: ../lib/plugins/twitter/api.py:57
-msgid "Home TimeLine"
-msgstr "ホームタイムライン"
-
-#: ../lib/plugins/twitter/api.py:63
-msgid "List TimeLine"
-msgstr "リストタイムライン"
-
-#: ../lib/plugins/twitter/api.py:75
-msgid "Mentions"
-msgstr "メンション"
-
-#: ../lib/plugins/twitter/api.py:81 ../lib/plugins/twitter/tweetentry.py:24
-msgid "Direct Messages"
-msgstr "ダイレクトメッセージ"
-
-#: ../lib/plugins/twitter/api.py:88
-msgid "User Stream"
-msgstr "ユーザーストリーム"
-
-#: ../lib/plugins/twitter/api.py:94
-msgid "Track"
-msgstr "トラック"
-
-#: ../lib/plugins/twitter/api.py:106
-msgid "Search"
-msgstr "検索"
-
-#: ../lib/plugins/twitter/assistant.py:30
-msgid "Twitter Account Setup"
-msgstr "Twitter アカウントの設定"
-
-#: ../lib/plugins/twitter/assistant.py:46
-msgid "Intro"
-msgstr "説明"
-
-#: ../lib/plugins/twitter/assistant.py:54
-msgid "Enter PIN"
-msgstr "PIN の入力"
-
-#: ../lib/plugins/twitter/assistant.py:62
-msgid "Confirm"
-msgstr "確認"

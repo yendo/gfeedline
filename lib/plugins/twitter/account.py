@@ -43,6 +43,12 @@ class Twitter(twitter.Twitter):
         return self.__doDownloadPage(self.search_url + '?' + self._urlencode(params),
             txml.Feed(delegate, extra_args), agent=self.agent)
 
+    def fav(self, status_id):
+        return self.__post('/favorites/create/%s.xml' % status_id)
+
+    def unfav(self, status_id):
+        return self.__post('/favorites/destroy/%s.xml' % status_id)
+
     def update_token(self, token):
         self.use_auth = True
         self.use_oauth = True
