@@ -22,6 +22,9 @@ for dir in [CONFIG_HOME]:
     elif S_IMODE(os.stat(dir).st_mode) != 0700:
         os.chmod(dir, 0700)
 
+def SHARED_DATA_FILE(file):
+    return os.path.join(SHARED_DATA_DIR, file)
+
 class Column(object):
 
     (GROUP, ICON, SOURCE, NAME, TARGET, ARGUMENT, 

@@ -4,8 +4,6 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-import os
-
 from twisted.internet import reactor
 from gi.repository import Gtk
 
@@ -14,7 +12,7 @@ from view import Theme
 from updatewindow import UpdateWindow
 from notification import StatusNotification
 from utils.settings import SETTINGS, SETTINGS_GEOMETRY
-from constants import VERSION, SHARED_DATA_DIR, Column
+from constants import VERSION, SHARED_DATA_FILE, Column
 
 
 class MainWindow(object):
@@ -23,7 +21,7 @@ class MainWindow(object):
         self.liststore = liststore
 
         self.gui = gui = Gtk.Builder()
-        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'))
+        gui.add_from_file(SHARED_DATA_FILE('gfeedline.glade'))
 
         self.window = window = gui.get_object('main_window')
         self.hbox = gui.get_object('hbox1')
@@ -183,7 +181,7 @@ class AboutDialog(object):
 
     def __init__(self, parent):
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'))
+        gui.add_from_file(SHARED_DATA_FILE('gfeedline.glade'))
         about = gui.get_object('aboutdialog')
         about.set_transient_for(parent)
         about.set_property('version', VERSION)

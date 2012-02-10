@@ -4,14 +4,12 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-import os
-
 from gi.repository import Gtk, Gdk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..utils.settings import SETTINGS, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
-from ..constants import SHARED_DATA_DIR, Column
+from ..constants import SHARED_DATA_FILE, Column
 from feedsource import FeedSourceDialog
 
 class Preferences(object):
@@ -20,7 +18,7 @@ class Preferences(object):
         self.liststore = mainwindow.liststore
 
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'preferences.glade'))
+        gui.add_from_file(SHARED_DATA_FILE('preferences.glade'))
         self.preferences = gui.get_object('preferences')
         self.preferences.show_all()
 

@@ -1,13 +1,12 @@
-import os
 import webbrowser
 
 from gi.repository import Gtk, Gdk
 
 from plugins.twitter.account import AuthorizedTwitterAccount
 from updatewindow import UpdateWindow
-from constants import SHARED_DATA_DIR
+from constants import SHARED_DATA_FILE
 
-def get_status_menuitems():
+def ENTRY_POPUP_MENU():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
 
 
@@ -55,7 +54,7 @@ class RetweetDialog(object):
 
     def run(self, user, entry_id, parent):
         gui = Gtk.Builder()
-        gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'retweet.glade'))
+        gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
         
         dialog = gui.get_object('messagedialog')
         dialog.set_transient_for(parent)

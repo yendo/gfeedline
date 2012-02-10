@@ -4,7 +4,6 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-import os
 import urllib
 import webbrowser
 from string import Template
@@ -12,10 +11,10 @@ from string import Template
 from twisted.internet import reactor
 from gi.repository import Gtk, WebKit
 
-from menu import SearchMenuItem, get_status_menuitems
+from menu import SearchMenuItem, ENTRY_POPUP_MENU
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS
-from constants import SHARED_DATA_DIR
+from constants import SHARED_DATA_FILE
 
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
@@ -83,7 +82,7 @@ class FeedWebView(WebKit.WebView):
         self.scrolled_window = scrolled_window
         self.theme = scrolled_window.theme
 
-        self.load_uri("file://%s" % os.path.join(SHARED_DATA_DIR, 'html/base.html')) 
+        self.load_uri("file://%s" % SHARED_DATA_FILE('html/base.html')) 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup, api)
         self.connect("hovering-over-link", self.on_hovering_over_link)
@@ -128,7 +127,7 @@ class FeedWebView(WebKit.WebView):
         if self.link_on_webview.is_username_link() and api.has_popup_menu:
             for x in default_menu.get_children():
                 default_menu.remove(x) 
-            for menuitem in get_status_menuitems():
+            for menuitem in ENTRY_POPUP_MENU():
                 default_menu.append(menuitem(self.link_on_webview.uri,
                                              self.scrolled_window))
         elif not self.link_on_webview.is_hovering and self.can_copy_clipboard():
@@ -203,8 +202,7 @@ class Theme(object):
 
     def get_css_file(self):
         theme_name = self._get_theme_name()
-        css_file = os.path.join(SHARED_DATA_DIR, 
-                                     'html/theme/%s.css' % theme_name)
+        css_file = SHARED_DATA_FILE('html/theme/%s.css' % theme_name)
         return css_file
 
     def _get_theme_name(self):
@@ -212,8 +210,7 @@ class Theme(object):
 
     def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
-        template_file = os.path.join(SHARED_DATA_DIR, 
-                                     'html/theme/%s.html' % theme_name)
+        template_file = SHARED_DATA_FILE('html/theme/%s.html' % theme_name)
 
         with open(template_file, 'r') as fh:
             file = fh.read()

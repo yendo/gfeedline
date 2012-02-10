@@ -1,9 +1,7 @@
-import os
-
 from gi.repository import Gtk
 
 from ..plugins.twitter.api import TwitterAPIDict
-from ..constants import SHARED_DATA_DIR, Column
+from ..constants import SHARED_DATA_FILE, Column
 
 
 class FeedSourceDialog(object):
@@ -11,7 +9,7 @@ class FeedSourceDialog(object):
 
     def __init__(self, parent, liststore_row=None):
         self.gui = Gtk.Builder()
-        self.gui.add_from_file(os.path.join(SHARED_DATA_DIR, 'feedsource.glade'))
+        self.gui.add_from_file(SHARED_DATA_FILE('feedsource.glade'))
 
         self.parent = parent
         self.liststore_row = liststore_row
