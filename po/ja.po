@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-10 23:27+0900\n"
-"PO-Revision-Date: 2012-02-10 23:28+0900\n"
+"POT-Creation-Date: 2012-02-11 00:03+0900\n"
+"PO-Revision-Date: 2012-02-11 00:05+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,28 +16,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../lib/menu.py:30
+#: ../lib/menu.py:31
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:39
+#: ../lib/menu.py:40
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:49
-msgid "_Favorite"
-msgstr "お気に入り(_F)"
-
-#: ../lib/menu.py:61
+#: ../lib/menu.py:48
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:79
+#: ../lib/menu.py:63
 #, python-format
 msgid "Retweet this %s's tweet to your followers?"
 msgstr "%s さんのツイートをあなたのフォロワーにリツイートしますか?"
 
-#: ../lib/menu.py:96
+#: ../lib/menu.py:80
+msgid "_Favorite"
+msgstr "お気に入り(_F)"
+
+#: ../lib/menu.py:89
 msgid "_Search"
 msgstr "検索(_S)"
 
@@ -92,6 +92,11 @@ msgstr "PIN の入力"
 #: ../lib/plugins/twitter/assistant.py:62
 msgid "Confirm"
 msgstr "確認"
+
+#: ../lib/updatewindow.py:23
+#, python-format
+msgid "Reply to %s"
+msgstr "%s への返信"
 
 #: ../share/assistant_twitter.glade.h:1
 msgid "PIN:"

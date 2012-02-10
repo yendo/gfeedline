@@ -20,7 +20,7 @@ class UpdateWindow(object):
         text_buffer = self.text_view.get_buffer()
 
         if self.user and self.id:
-            self.update_window.set_title('Reply to %s' % user)
+            self.update_window.set_title(_('Reply to %s') % user)
             text_buffer.set_text('@%s '% user)
 
         self.on_textbuffer_changed(text_buffer)
