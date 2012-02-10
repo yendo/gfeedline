@@ -95,10 +95,11 @@ class FeedWebView(WebKit.WebView):
         self.show_all()
 
     def update(self, text=None):
-        is_descend_js = self._bool_js(self.theme.is_descend())
-        
         text = text.replace('\n', '')
-        js = 'append("%s", %s)' % (text, is_descend_js)
+        is_descend_js = self._bool_js(self.theme.is_descend())
+        is_paused_js = self._bool_js(self.scroll.is_paused)
+
+        js = 'append("%s", %s, %s)' % (text, is_descend_js, is_paused_js)
         # print js
         self.execute_script(js)
 
