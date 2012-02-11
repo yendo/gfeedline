@@ -1,5 +1,6 @@
 2012-02-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* gfeedline.glade, window.py: Added a welcome message.
 	* menu.py, twitter/account.py: Added support for creating favorites.
 
 2012-02-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>

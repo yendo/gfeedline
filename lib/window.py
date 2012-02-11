@@ -25,7 +25,7 @@ class MainWindow(object):
 
         self.window = window = gui.get_object('main_window')
         self.hbox = gui.get_object('hbox1')
-        self.column = {} # multi-columns for Notebooks
+        self.column = MultiColumnDict(gui) # multi-columns for Notebooks
         self.theme = Theme()
 
         menubar = gui.get_object('menubar1')
@@ -59,16 +59,14 @@ class MainWindow(object):
             group_name = 'dummy for single column'
 
         if group_name in self.column:
-            notebook = self.column[group_name]
+            notebook = self.column.get(group_name)
         else:
             notebook = FeedNotebook(self.hbox, self.column, group_name)
-            self.column[group_name] = notebook
+            self.column.add(group_name, notebook)
         
         return notebook
 
     def toggle_multicolumn_mode(self):
-        self.column = {}
-
         for row in self.liststore:
             notebook = self.get_notebook(row[Column.GROUP])
             view = row[Column.API].view
@@ -134,6 +132,22 @@ class MainWindow(object):
         top.hide()
         bottom.show()
 
+class MultiColumnDict(dict):
+
+    def __init__(self, gui):
+        super(MultiColumnDict, self).__init__()
+        self.welcome = gui.get_object('label_welcome')
+
+    def add(self, group_name, notebook):
+        self[group_name] = notebook
+        self.welcome.hide()
+
+    def remove(self, group_name):
+        del self[group_name]
+
+        if not self:
+            self.welcome.show()
+
 class FeedNotebook(Gtk.Notebook):
 
     def __init__(self, parent, column, group_name):
@@ -171,7 +185,7 @@ class FeedNotebook(Gtk.Notebook):
 
         if self.get_n_pages() == 0:
             self.destroy()
-            del self.column[self.group_name]
+            self.column.remove(self.group_name)
 
     def jump_all_tabs_to_bottom(self, is_bottom=True):
         for feedview in self.get_children():

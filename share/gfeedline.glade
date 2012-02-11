@@ -249,6 +249,28 @@
           </packing>
         </child>
         <child>
+          <object class="GtkLabel" id="label_welcome">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xpad">24</property>
+            <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Welcome to GNOME Feed Line!&lt;/b&gt;&lt;/big&gt;
+
+Gnome Feed Line is a social networking client for the GNOME 3 Desktop.  It supports Twitter.
+
+You have no Twitter account configured.  To start connecting with GNOME Feed Line, open the Preferences dialog from &lt;b&gt;Edit  ▸ Preference&lt;/b&gt; to configure your account.
+
+You can configured your feeds in the Feeds tab of the Preferences dialog.
+</property>
+            <property name="use_markup">True</property>
+            <property name="wrap">True</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkBox" id="hbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -261,7 +283,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
