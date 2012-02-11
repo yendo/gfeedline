@@ -24,7 +24,6 @@ class MainWindow(object):
         gui.add_from_file(SHARED_DATA_FILE('gfeedline.glade'))
 
         self.window = window = gui.get_object('main_window')
-        self.hbox = gui.get_object('hbox1')
         self.column = MultiColumnDict(gui) # multi-columns for Notebooks
         self.theme = Theme()
 
@@ -61,7 +60,7 @@ class MainWindow(object):
         if group_name in self.column:
             notebook = self.column.get(group_name)
         else:
-            notebook = FeedNotebook(self.hbox, self.column, group_name)
+            notebook = FeedNotebook(self.column, group_name)
             self.column.add(group_name, notebook)
         
         return notebook
@@ -136,10 +135,12 @@ class MultiColumnDict(dict):
 
     def __init__(self, gui):
         super(MultiColumnDict, self).__init__()
+        self.hbox = gui.get_object('hbox1')
         self.welcome = gui.get_object('label_welcome')
 
     def add(self, group_name, notebook):
         self[group_name] = notebook
+        self.hbox.add(notebook)
         self.welcome.hide()
 
     def remove(self, group_name):
@@ -150,7 +151,7 @@ class MultiColumnDict(dict):
 
 class FeedNotebook(Gtk.Notebook):
 
-    def __init__(self, parent, column, group_name):
+    def __init__(self, column, group_name):
         self.column = column
         self.group_name = group_name
 
@@ -162,7 +163,6 @@ class FeedNotebook(Gtk.Notebook):
         self.connect('button-press-event', self.on_update_tablabel_sensitive)
         # self.connect('page-reordered', self.on_page_reordered)
 
-        parent.add(self)
         self.show()
 
     def on_update_tablabel_sensitive(self, notebook, *args):
