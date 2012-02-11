@@ -174,7 +174,6 @@ class ComboboxTheme(object):
 
         if old != new:
             SETTINGS.set_string('theme', new)
-            self.liststore.restart()
 
 class AutoStartWithCheckButton(AutoStart):
 

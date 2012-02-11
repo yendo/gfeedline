@@ -41,7 +41,8 @@ class TwitterOutputBase(object):
         self.params = {}
         self.counter = 0
 
-        api.account.connect("update_credential", self._reconnect)
+        api.account.connect("update_credential", self._on_reconnect_credential)
+        SETTINGS.connect_after("changed::theme", self._on_restart_theme_changed)
 
     def got_entry(self, entry, *args):
         entry.text = decode_html_entities(entry.text)
@@ -85,8 +86,9 @@ class TwitterOutputBase(object):
         if hasattr(self, 'timeout') and not self.timeout.called:
             self.timeout.cancel()
 
-    def _reconnect(self, *args):
+    def _on_reconnect_credential(self, *args):
         print "reconnect!"
+        self.view.clear_buffer()
         self.start()
 
 class TwitterRestOutput(TwitterOutputBase):
@@ -170,8 +172,8 @@ class TwitterRestOutput(TwitterOutputBase):
         TwitterRestOutput.api_connections -= 1
         self.delayed.clear()
 
-    def restart(self, *args):
-        print self.last_id
+    def _on_restart_theme_changed(self, *args):
+        self.view.clear_buffer()
         self.disconnect()
         self.last_id = 0
         self.counter = 0
@@ -225,8 +227,12 @@ class TwitterFeedOutput(TwitterOutputBase):
         self.is_connecting = False
         super(TwitterFeedOutput, self).exit()
 
-    def restart(self, *args):
-        pass
+    def _on_restart_theme_changed(self, *args):
+        self.view.clear_buffer()
+
+    def _reconnect_lost_connection(self, *args):
+        print "reconnect!"
+        self.start()
 
     def _on_connect(self, stream):
         self.stream = stream
@@ -238,7 +244,7 @@ class TwitterFeedOutput(TwitterOutputBase):
         print "Error:", e
         if self.is_connecting:
             self.timeout = reactor.callLater(self.reconnect_interval, 
-                                             self._reconnect)
+                                             self._reconnect_lost_connection)
             if self.reconnect_interval < 180:
                 self.reconnect_interval += 10
 
