@@ -155,7 +155,7 @@ class FeedSourceTreeview(object):
         new_page = model.get_group_page(self.group)
 
         if self.old_page != new_page:
-            mainwindow.hbox.reorder_child(notebook, new_page)
+            mainwindow.column.hbox.reorder_child(notebook, new_page)
 
 class ComboboxTheme(object):
 

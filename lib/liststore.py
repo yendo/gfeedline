@@ -94,7 +94,7 @@ class FeedListStore(Gtk.ListStore):
                 api_obj.view.move(notebook)
 
                 new_page = self.get_group_page(source.get('group'))
-                self.window.hbox.reorder_child(notebook, new_page)
+                self.window.column.hbox.reorder_child(notebook, new_page)
 
             # NAME
             old_name = self.get_value(iter, Column.NAME).decode('utf-8')
