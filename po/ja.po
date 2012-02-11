@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-11 00:03+0900\n"
-"PO-Revision-Date: 2012-02-11 00:05+0900\n"
+"POT-Creation-Date: 2012-02-11 18:53+0900\n"
+"PO-Revision-Date: 2012-02-11 18:53+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,28 +16,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../lib/menu.py:31
+#: ../lib/menu.py:32
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:40
+#: ../lib/menu.py:41
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:48
+#: ../lib/menu.py:49
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:63
+#: ../lib/menu.py:64
 #, python-format
 msgid "Retweet this %s's tweet to your followers?"
 msgstr "%s さんのツイートをあなたのフォロワーにリツイートしますか?"
 
-#: ../lib/menu.py:80
+#: ../lib/menu.py:81
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:89
+#: ../lib/menu.py:90
 msgid "_Search"
 msgstr "検索(_S)"
 
@@ -77,23 +77,23 @@ msgstr "トラック"
 msgid "Search"
 msgstr "検索"
 
-#: ../lib/plugins/twitter/assistant.py:30
+#: ../lib/plugins/twitter/assistant.py:29
 msgid "Twitter Account Setup"
 msgstr "Twitter アカウントの設定"
 
-#: ../lib/plugins/twitter/assistant.py:46
+#: ../lib/plugins/twitter/assistant.py:45
 msgid "Intro"
 msgstr "説明"
 
-#: ../lib/plugins/twitter/assistant.py:54
+#: ../lib/plugins/twitter/assistant.py:53
 msgid "Enter PIN"
 msgstr "PIN の入力"
 
-#: ../lib/plugins/twitter/assistant.py:62
+#: ../lib/plugins/twitter/assistant.py:61
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/updatewindow.py:23
+#: ../lib/updatewindow.py:21
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
@@ -171,7 +171,7 @@ msgstr "ソース(_S):"
 msgid "_Target:"
 msgstr "ターゲット(_T):"
 
-#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:11
 msgid "GNOME Feed Line"
 msgstr "GNOME フィードライン"
 
@@ -184,46 +184,72 @@ msgid "Social Networking Client"
 msgstr "ソーシャルネットワーキングクライアント"
 
 #: ../share/gfeedline.glade.h:1
+msgid ""
+"<big><b>Welcome to GNOME Feed Line!</b></big>\n"
+"\n"
+"Gnome Feed Line is a social networking client for the GNOME 3 Desktop.  It "
+"supports Twitter.\n"
+"\n"
+"You have no Twitter account configured.  To start connecting with GNOME Feed "
+"Line, open the Preferences dialog from <b>Edit  ▸ Preference</b> to "
+"configure your account.\n"
+"\n"
+"You can configured your feeds in the Feeds tab of the Preferences dialog.  "
+"To enable multi-column view, enter a group name in each feed source dialog."
+msgstr ""
+"<big><b>GNOME フィードラインへようこそ!</b></big>\n"
+"\n"
+"GNOME フィードラインは GNOME 3 デスクトップ向けのソーシャルネットワーキングク"
+"ライアントです。Twitter をサポートしています。\n"
+"\n"
+"まだ Twitter アカウントが設定されていません。GNOME フィードラインでアクセスす"
+"るために、メニューの<b>ファイル ▸ 設定</b>から設定ダイアログを開き、アカウン"
+"トを設定してください。\n"
+"\n"
+"また、同じ設定ダイアログのフィードタブでは複数のフィードが設定でき、各フィー"
+"ドでグループ名を指定するとマルチカラム表示が可能です。"
+
+#: ../share/gfeedline.glade.h:8
 msgid "All Tabs to the _Bottom"
 msgstr "すべてのタブで最終行に移動(_B)"
 
-#: ../share/gfeedline.glade.h:2
+#: ../share/gfeedline.glade.h:9
 msgid "All Tabs to the _Top"
 msgstr "すべてのタブで先頭行に移動(_T)"
 
-#: ../share/gfeedline.glade.h:3
+#: ../share/gfeedline.glade.h:10
 msgid "Copyright © 2012 Yoshizumi Endo."
 msgstr "Copyright © 2012 Yoshizumi Endo."
 
-#: ../share/gfeedline.glade.h:5
+#: ../share/gfeedline.glade.h:12
 msgid "GNOME Social Networking Client"
 msgstr "GNOME ソーシャルネットワーキングクライアント"
 
-#: ../share/gfeedline.glade.h:6
+#: ../share/gfeedline.glade.h:13
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../share/gfeedline.glade.h:7
+#: ../share/gfeedline.glade.h:14
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../share/gfeedline.glade.h:8
+#: ../share/gfeedline.glade.h:15
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../share/gfeedline.glade.h:9
+#: ../share/gfeedline.glade.h:16
 msgid "_Multi-Column"
 msgstr "マルチカラム(_M)"
 
-#: ../share/gfeedline.glade.h:10
+#: ../share/gfeedline.glade.h:17
 msgid "_Update"
 msgstr "投稿(_U)"
 
-#: ../share/gfeedline.glade.h:11
+#: ../share/gfeedline.glade.h:18
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../share/gfeedline.glade.h:12
+#: ../share/gfeedline.glade.h:19
 msgid "translator-credits"
 msgstr "Yoshizumi Endo <y-endo@ceres.dti.ne.jp>"
 

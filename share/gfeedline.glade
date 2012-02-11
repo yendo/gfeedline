@@ -259,8 +259,7 @@ Gnome Feed Line is a social networking client for the GNOME 3 Desktop.  It suppo
 
 You have no Twitter account configured.  To start connecting with GNOME Feed Line, open the Preferences dialog from &lt;b&gt;Edit  ▸ Preference&lt;/b&gt; to configure your account.
 
-You can configured your feeds in the Feeds tab of the Preferences dialog.
-</property>
+You can configured your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog.</property>
             <property name="use_markup">True</property>
             <property name="wrap">True</property>
           </object>
