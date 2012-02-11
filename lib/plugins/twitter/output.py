@@ -86,11 +86,6 @@ class TwitterOutputBase(object):
         if hasattr(self, 'timeout') and not self.timeout.called:
             self.timeout.cancel()
 
-    def _on_reconnect_credential(self, *args):
-        print "reconnect!"
-        self.view.clear_buffer()
-        self.start()
-
 class TwitterRestOutput(TwitterOutputBase):
 
     api_connections = 0
@@ -179,6 +174,10 @@ class TwitterRestOutput(TwitterOutputBase):
         self.counter = 0
         self.start()
 
+    def _on_reconnect_credential(self, *args):
+        print "reconnect for updating credential!"
+        self._on_restart_theme_changed()
+
     def _on_error(self, e):
         print "error!", e
 
@@ -227,11 +226,22 @@ class TwitterFeedOutput(TwitterOutputBase):
         self.is_connecting = False
         super(TwitterFeedOutput, self).exit()
 
+    def _on_reconnect_credential(self, *args):
+        self.disconnect()
+
+        if hasattr(self, 'stream') and hasattr(self.stream, 'transport'):
+            print "force stop stream connection!"
+            self.stream.transport.stopProducing()
+        self.is_connecting = False
+
+        self.view.clear_buffer()
+        reactor.callLater(2, self.start) # waits lost connection.
+
     def _on_restart_theme_changed(self, *args):
         self.view.clear_buffer()
 
     def _reconnect_lost_connection(self, *args):
-        print "reconnect!"
+        print "reconnect for lost stream connection!"
         self.start()
 
     def _on_connect(self, stream):
