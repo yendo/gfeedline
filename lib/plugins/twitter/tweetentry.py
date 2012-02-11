@@ -24,7 +24,7 @@ class TweetEntry(object):
         user = entry.sender if api.name == _('Direct Messages') else entry.user
 
         text = dict(
-            datetime=time.get_local_time(),
+            date_time=time.get_local_time(),
             id=entry.id,
             image_uri=user.profile_image_url,
             retweet=self.retweet_icon,
@@ -67,11 +67,11 @@ class SearchTweetEntry(TweetEntry):
         body, body_string = self._get_body(entry.title)
 
         name = entry.author.name.split(' ')[0]
-        id = entry.id.split(':')[2]
+        entry_id = entry.id.split(':')[2]
 
         text = dict(
-            datetime=time.get_local_time(),
-            id=id,
+            date_time=time.get_local_time(),
+            id=entry_id,
             image_uri=entry.image,
             retweet='',
             user_name=name,
@@ -93,11 +93,11 @@ class TwitterTime(object):
 
     def __init__(self, utc_str):
         dt = dateutil.parser.parse(utc_str)
-        self.datetime = dt.replace(tzinfo=dateutil.tz.tzutc()
+        self.date_time = dt.replace(tzinfo=dateutil.tz.tzutc()
                                    ).astimezone(dateutil.tz.tzlocal())
 
     def get_local_time(self):
-        return self.datetime.strftime('%H:%M:%S')
+        return self.date_time.strftime('%H:%M:%S')
 
 class AddedHtmlMarkup(object):
 
