@@ -1,5 +1,7 @@
 2012-02-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/tweetentry.py (TwitterTime): Show the date instead of
+	  the time if the entry published one day before.
 	* gfeedline.glade, window.py: Added a welcome message.
 	* menu.py, twitter/account.py: Added support for creating favorites.
 

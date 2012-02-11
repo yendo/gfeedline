@@ -1,5 +1,6 @@
 import re
 import time
+from datetime import datetime, timedelta
 
 import dateutil.parser
 
@@ -92,12 +93,16 @@ class DictObj(object):
 class TwitterTime(object):
 
     def __init__(self, utc_str):
-        dt = dateutil.parser.parse(utc_str)
-        self.date_time = dt.replace(tzinfo=dateutil.tz.tzutc()
+        self.utc = dateutil.parser.parse(utc_str).replace(tzinfo=None)
+        self.local_time = self.utc.replace(tzinfo=dateutil.tz.tzutc()
                                    ).astimezone(dateutil.tz.tzlocal())
 
     def get_local_time(self):
-        return self.date_time.strftime('%H:%M:%S')
+        datetime_format = '%y-%m-%d' \
+            if datetime.utcnow() - self.utc >= timedelta(days=1) \
+            else '%H:%M:%S'
+
+        return self.local_time.strftime(datetime_format)
 
 class AddedHtmlMarkup(object):
 
