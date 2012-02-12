@@ -80,7 +80,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
             pin = self.entry.get_text()
 
             self.result = self.authorization.get_access_token(pin, self.token)
-            print self.result
+            # print self.result
 
             self.label_screen_name.set_text(self.result['screen-name'])
 

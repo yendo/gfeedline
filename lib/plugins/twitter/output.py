@@ -220,19 +220,16 @@ class TwitterFeedOutput(TwitterOutputBase):
             addBoth(self._on_connect)
         self.is_connecting = True
 
-    def exit(self):
-        if hasattr(self, 'stream') and hasattr(self.stream, 'transport'):
-            self.stream.transport.stopProducing()
-        self.is_connecting = False
-        super(TwitterFeedOutput, self).exit()
-
-    def _on_reconnect_credential(self, *args):
-        self.disconnect()
+    def disconnect(self):
+        super(TwitterFeedOutput, self).disconnect()
 
         if hasattr(self, 'stream') and hasattr(self.stream, 'transport'):
             print "force stop stream connection!"
             self.stream.transport.stopProducing()
         self.is_connecting = False
+
+    def _on_reconnect_credential(self, *args):
+        self.disconnect()
 
         self.view.clear_buffer()
         reactor.callLater(2, self.start) # waits lost connection.
