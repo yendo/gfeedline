@@ -77,7 +77,7 @@ class Preferences(object):
 
     def on_button_feed_new_clicked(self, button):
         dialog = FeedSourceDialog(self.preferences)
-        (response_id, v) = dialog.run()
+        response_id, v = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:
             new_iter = self.liststore.append(v)
@@ -87,7 +87,7 @@ class Preferences(object):
         model, iter = treeselection.get_selected()
 
         dialog = FeedSourceDialog(self.preferences, model[iter])
-        (response_id, v) = dialog.run()
+        response_id, v = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:
             new_iter = self.liststore.update(v, iter)

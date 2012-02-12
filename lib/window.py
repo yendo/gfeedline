@@ -26,8 +26,6 @@ class MainWindow(object):
         self.window = window = gui.get_object('main_window')
         self.column = MultiColumnDict(gui) # multi-columns for Notebooks
         self.theme = Theme()
-
-        menubar = gui.get_object('menubar1')
         self.notification = StatusNotification('Gnome Feed Line')
 
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
