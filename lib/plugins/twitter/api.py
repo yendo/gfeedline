@@ -27,25 +27,22 @@ class TwitterAPIDict(dict):
 
 class TwitterAPIBase(object):
 
+    output = TwitterRestOutput
+    include_rt = True
+    has_argument = False
+    has_popup_menu = True
+
     def __init__(self, account=None):
         self.account = account or Null()
-        self.include_rt = True
-        self.has_argument = False
-        self.has_popup_menu = True
-
-        self._get_output_class()
-        self._setup()
+        self.api = self._get_api()
 
     def get_options(self, argument):
         return {}
 
-    def _get_output_class(self):
-        self.output = TwitterRestOutput
 
 class TwitterFeedAPIBase(TwitterAPIBase):
 
-    def _get_output_class(self):
-        self.output = TwitterFeedOutput
+    output = TwitterFeedOutput
 
     def get_options(self, argument):
         return None
@@ -53,16 +50,18 @@ class TwitterFeedAPIBase(TwitterAPIBase):
 
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
-    def _setup(self):
-        self.api = self.account.api.home_timeline
-        self.name = _('Home TimeLine')
+    name = _('Home TimeLine')
+
+    def _get_api(self):
+        return self.account.api.home_timeline
 
 class TwitterAPIListTimeLine(TwitterAPIBase):
 
-    def _setup(self):
-        self.api = self.account.api.list_timeline
-        self.name = _('List TimeLine')
-        self.has_argument = True
+    name = _('List TimeLine')
+    has_argument = True
+
+    def _get_api(self):
+        return self.account.api.list_timeline
 
     def get_options(self, argument):
         list_name = argument.split('/')
@@ -71,30 +70,34 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
 
 class TwitterAPIMentions(TwitterAPIBase):
 
-    def _setup(self):
-        self.api = self.account.api.mentions
-        self.name = _('Mentions')
+    name = _('Mentions')
+
+    def _get_api(self):
+        return self.account.api.mentions
 
 class TwitterAPIDirectMessages(TwitterAPIBase):
 
-    def _setup(self):
-        self.api = self.account.api.direct_messages
-        self.name = _('Direct Messages')
-        self.has_popup_menu = False
+    name = _('Direct Messages')
+    has_popup_menu = False
+
+    def _get_api(self):
+        return self.account.api.direct_messages
 
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 
-    def _setup(self):
-        self.api = self.account.api.userstream
-        self.name = _('User Stream')
+    name = _('User Stream')
+
+    def _get_api(self):
+        return self.account.api.userstream
 
 class TwitterAPITrack(TwitterFeedAPIBase):
 
-    def _setup(self):
-        self.api = self.account.api.track
-        self.name = _('Track')
-        self.include_rt = False
-        self.has_argument = True
+    name = _('Track')
+    include_rt = False
+    has_argument = True
+
+    def _get_api(self):
+        return self.account.api.track
 
     def get_options(self, argument):
         return [ x.strip() for x in argument.split(' ') ]
@@ -102,15 +105,13 @@ class TwitterAPITrack(TwitterFeedAPIBase):
 
 class TwitterSearchAPI(TwitterAPIBase):
 
-    def _setup(self):
-        self.api = self.account.api.search
-        self.name = _('Search')
-        self.include_rt = False
-        self.has_argument = True
+    output= TwitterSearchOutput
+    name = _('Search')
+    include_rt = False
+    has_argument = True
 
-    def _get_output_class(self):
-        self.output= TwitterSearchOutput
+    def _get_api(self):
+        return self.account.api.search
 
     def get_options(self, argument):
         return {'q': argument}
-
