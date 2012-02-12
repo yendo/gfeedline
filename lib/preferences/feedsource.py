@@ -17,7 +17,7 @@ class FeedSourceDialog(object):
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
         self.entry_name = self.gui.get_object('entry_name')
         self.label_argument = self.gui.get_object('label_argument')
-        self.entry_argument = self.gui.get_object('entry_argument')
+        self.entry_argument = ArgumentEntry(self.gui, self.combobox_target)
         self.entry_group = self.gui.get_object('entry_group')
 
         self.on_comboboxtext_target_changed()
@@ -61,10 +61,7 @@ class FeedSourceDialog(object):
         return response_id , v
 
     def on_comboboxtext_target_changed(self, *args):
-        api_name = self.combobox_target.get_active_text()
-        api_class = TwitterAPIDict().get(api_name)
-        status= api_class().has_argument
-
+        status = self.combobox_target.has_argument_entry_enabled()
         self.label_argument.set_sensitive(status)
         self.entry_argument.set_sensitive(status)
 
@@ -86,3 +83,26 @@ class TargetCombobox(object):
     def get_active_text(self):
         label = self.label_list[self.widget.get_active()]
         return label
+
+    def has_argument_entry_enabled(self):
+        api_name = self.get_active_text()
+        api_class = TwitterAPIDict().get(api_name)
+        status = api_class.has_argument
+
+        return status
+
+class ArgumentEntry(object):
+
+    def __init__(self, gui, combobox_target):
+        self.widget = gui.get_object('entry_argument')
+        self.combobox_target = combobox_target
+
+    def get_text(self):
+        has_argument = self.combobox_target.has_argument_entry_enabled() 
+        return self.widget.get_text() if has_argument else ''
+
+    def set_text(self, text):
+        self.widget.set_text(text)
+
+    def set_sensitive(self, status):
+        self.widget.set_sensitive(status)
