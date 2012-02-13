@@ -38,10 +38,7 @@ class MainWindow(object):
         menuitem_multicolumn = gui.get_object('menuitem_multicolumn')
         menuitem_multicolumn.set_active(is_multi_column)
 
-        x = SETTINGS_GEOMETRY.get_int('window-x')
-        y = SETTINGS_GEOMETRY.get_int('window-y')
-        w = SETTINGS_GEOMETRY.get_int('window-width')
-        h = SETTINGS_GEOMETRY.get_int('window-height')
+        x, y, w, h = self._get_geometry_from_settings()
 
         if x >=0 and y >= 0:
             window.move(x, y)
@@ -77,16 +74,30 @@ class MainWindow(object):
         for notebook in self.column.values():
             notebook.jump_all_tabs_to_bottom(is_bottom)
 
+    def _get_geometry_from_settings(self):
+        x = SETTINGS_GEOMETRY.get_int('window-x')
+        y = SETTINGS_GEOMETRY.get_int('window-y')
+        w = SETTINGS_GEOMETRY.get_int('window-width')
+        h = SETTINGS_GEOMETRY.get_int('window-height')
+        return x, y, w, h
+
+    def on_window_leave_notify_event(self, widget, event):
+        ox, oy, ow, oh = self._get_geometry_from_settings()
+
+        x, y = widget.get_position()
+        w, h = widget.get_size()
+
+        if x != ox or y != oy:
+            print "save xy"
+            SETTINGS_GEOMETRY.set_int('window-x', x)
+            SETTINGS_GEOMETRY.set_int('window-y', y)
+
+        if w != ow or h != oh:
+            print "save wh"
+            SETTINGS_GEOMETRY.set_int('window-width', w)
+            SETTINGS_GEOMETRY.set_int('window-height', h)
+
     def on_stop(self, *args):
-        print "save!"
-        x, y = self.window.get_position()
-        w, h = self.window.get_size()
-
-        SETTINGS_GEOMETRY.set_int('window-x', x)
-        SETTINGS_GEOMETRY.set_int('window-y', y)
-        SETTINGS_GEOMETRY.set_int('window-width', w)
-        SETTINGS_GEOMETRY.set_int('window-height', h)
-
         reactor.stop()
 
     def on_menuitem_quit_activate(self, menuitem):
