@@ -4,7 +4,6 @@ from gi.repository import Gtk, Gdk
 
 from plugins.twitter.account import AuthorizedTwitterAccount
 from updatewindow import UpdateWindow, RetweetDialog
-from constants import SHARED_DATA_FILE
 
 def ENTRY_POPUP_MENU():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
@@ -19,13 +18,12 @@ class PopupMenuItem(Gtk.MenuItem):
 
         self.uri = uri
         if uri:
-            self.user, self.entry_id = uri.split('/')[3:6:2]
-
+            user, entry_id = uri.split('/')[3:6:2]
         self.parent = scrolled_window
 
         self.set_label(self.LABEL)
         self.set_use_underline(True)
-        self.connect('activate', self.on_activate)
+        self.connect('activate', self.on_activate, entry_id)
         self.show()
 
     def _get_entry_from_dom(self, entry_id):
@@ -54,7 +52,7 @@ class OpenMenuItem(PopupMenuItem):
 
     LABEL = _('_Open')
         
-    def on_activate(self, menuitem):
+    def on_activate(self, menuitem, entry_id):
         uri = self.uri.replace('gfeedline:', 'https:')
         webbrowser.open(uri)
 
@@ -62,16 +60,16 @@ class ReplyMenuItem(PopupMenuItem):
 
     LABEL = _('_Reply')
         
-    def on_activate(self, menuitem):
-        entry_dict = self._get_entry_from_dom(self.entry_id)
+    def on_activate(self, menuitem, entry_id):
+        entry_dict = self._get_entry_from_dom(entry_id)
         update_window = UpdateWindow(None, entry_dict)
 
 class RetweetMenuItem(PopupMenuItem):
 
     LABEL = _('Re_tweet')
         
-    def on_activate(self, menuitem):
-        entry_dict = self._get_entry_from_dom(self.entry_id)
+    def on_activate(self, menuitem, entry_id):
+        entry_dict = self._get_entry_from_dom(entry_id)
         dialog = RetweetDialog()
         dialog.run(entry_dict, self.parent.window.window)
 
@@ -79,15 +77,15 @@ class FavMenuItem(PopupMenuItem):
 
     LABEL = _('_Favorite')
         
-    def on_activate(self, menuitem):
+    def on_activate(self, menuitem, entry_id):
         twitter_account = AuthorizedTwitterAccount()
-        twitter_account.api.fav(self.entry_id)
+        twitter_account.api.fav(entry_id)
             
 class SearchMenuItem(PopupMenuItem):
 
     LABEL = _('_Search')
 
-    def on_activate(self, menuitem):
+    def on_activate(self, menuitem, entry_id):
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
         text = clipboard.wait_for_text()
         uri = 'http://www.google.com/search?q=%s' % text
