@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-11 18:53+0900\n"
-"PO-Revision-Date: 2012-02-11 18:53+0900\n"
+"POT-Creation-Date: 2012-02-13 12:45+0900\n"
+"PO-Revision-Date: 2012-02-13 13:14+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../lib/menu.py:32
+#: ../lib/menu.py:33
 msgid "_Open"
 msgstr "開く(_O)"
 
@@ -24,20 +24,15 @@ msgstr "開く(_O)"
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:49
+#: ../lib/menu.py:48
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:64
-#, python-format
-msgid "Retweet this %s's tweet to your followers?"
-msgstr "%s さんのツイートをあなたのフォロワーにリツイートしますか?"
-
-#: ../lib/menu.py:81
+#: ../lib/menu.py:105
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:90
+#: ../lib/menu.py:113
 msgid "_Search"
 msgstr "検索(_S)"
 
@@ -49,23 +44,23 @@ msgstr "返信"
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/plugins/twitter/api.py:58
+#: ../lib/plugins/twitter/api.py:53
 msgid "Home TimeLine"
 msgstr "ホームタイムライン"
 
-#: ../lib/plugins/twitter/api.py:64
+#: ../lib/plugins/twitter/api.py:60
 msgid "List TimeLine"
 msgstr "リストタイムライン"
 
-#: ../lib/plugins/twitter/api.py:76
+#: ../lib/plugins/twitter/api.py:73
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:82 ../lib/plugins/twitter/tweetentry.py:24
+#: ../lib/plugins/twitter/api.py:80 ../lib/plugins/twitter/tweetentry.py:25
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:89
+#: ../lib/plugins/twitter/api.py:88
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
@@ -73,7 +68,7 @@ msgstr "ユーザーストリーム"
 msgid "Track"
 msgstr "トラック"
 
-#: ../lib/plugins/twitter/api.py:107
+#: ../lib/plugins/twitter/api.py:109
 msgid "Search"
 msgstr "検索"
 
@@ -110,7 +105,7 @@ msgstr ""
 "ブラウザ上で Twitter.com での認証を完了したらこのウィンドウに戻り、この下にあ"
 "る入力欄に PIN を入力してください。"
 
-#: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:16
+#: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:14
 msgid "Screen name:"
 msgstr "スクリーンネーム:"
 
@@ -135,7 +130,7 @@ msgid ""
 "Click \"Apply\" to save your settings."
 msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
 
-#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:21
+#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:19
 msgid "none"
 msgstr "なし"
 
@@ -143,7 +138,7 @@ msgstr "なし"
 msgid "Feed Source"
 msgstr "フィードソース"
 
-#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:12
+#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:11
 msgid "General"
 msgstr "全般"
 
@@ -266,68 +261,64 @@ msgid "<b>Feed Sources</b>"
 msgstr "<b>フィードソース</b>"
 
 #: ../share/preferences.glade.h:4
-msgid "<b>Plugins</b>"
-msgstr "<b>プラグイン</b>"
-
-#: ../share/preferences.glade.h:5
 msgid "<b>View</b>"
 msgstr "<b>表示</b>"
 
-#: ../share/preferences.glade.h:6
+#: ../share/preferences.glade.h:5
 msgid "Account"
 msgstr "アカウント"
 
-#: ../share/preferences.glade.h:7
+#: ../share/preferences.glade.h:6
 msgid "Always on _Visible Workspace"
 msgstr "すべてのワークスペースに配置する(_V)"
 
-#: ../share/preferences.glade.h:8
+#: ../share/preferences.glade.h:7
 msgid "Argument"
 msgstr "引数"
 
-#: ../share/preferences.glade.h:9
+#: ../share/preferences.glade.h:8
 msgid "Au_thentication"
 msgstr "認証(_U)"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:9
 msgid "Feed Line Preferences"
 msgstr "フィードラインの設定"
 
-#: ../share/preferences.glade.h:11
+#: ../share/preferences.glade.h:10
 msgid "Feeds"
 msgstr "フィード"
 
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:12
 msgid "Group"
 msgstr "グループ"
 
-#: ../share/preferences.glade.h:14
+#: ../share/preferences.glade.h:13
 msgid "Name"
 msgstr "名前"
 
 #: ../share/preferences.glade.h:15
-msgid "Plugins"
-msgstr "プラグイン"
-
-#: ../share/preferences.glade.h:17
 msgid "Target"
 msgstr "ターゲット"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:16
 msgid "_Authorization"
 msgstr "認証(_A)"
 
-#: ../share/preferences.glade.h:19
+#: ../share/preferences.glade.h:17
 msgid "_Auto Start"
 msgstr "ログイン時に自動起動する(_A)"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:18
 msgid "_Theme:"
 msgstr "テーマ(_T):"
 
 #: ../share/retweet.glade.h:1
 msgid "<big><b>Retweet?</b></big>"
 msgstr "<big><b>リツイートしますか?</b></big>"
+
+#: ../share/retweet.glade.h:2
+msgid "Retweet this to your followers?"
+msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
 #: ../share/update.glade.h:1
 msgid "140"
@@ -340,3 +331,9 @@ msgstr "いまどうしてる?"
 #: ../share/update.glade.h:3
 msgid "_Tweet"
 msgstr "ツイート(_T)"
+
+#~ msgid "<b>Plugins</b>"
+#~ msgstr "<b>プラグイン</b>"
+
+#~ msgid "Plugins"
+#~ msgstr "プラグイン"

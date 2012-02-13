@@ -1,7 +1,7 @@
 2012-02-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* menu.py, view.py: Added dom accessing for retrieving each entry
-	  data from WebView.
+	  data from the WebView.  Added message info on a retweet dialog.
 
 2012-02-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
