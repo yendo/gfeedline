@@ -150,6 +150,8 @@ class FeedWebView(WebKit.WebView):
         return True
 
     def on_load_finished(self, view, *args):
+        self.dom = self.get_dom_document()
+
         css_file = self.theme.get_css_file()
         js = 'changeCSS("%s");' % css_file
         self.execute_script(js)

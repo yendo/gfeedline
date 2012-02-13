@@ -49,25 +49,45 @@ class RetweetMenuItem(PopupMenuItem):
         return _('Re_tweet')
         
     def on_activate(self, menuitem):
+        self.dom = self.parent.webview.dom.get_element_by_id(self.entry_id)
+
+        img_url = self._get_first_class('usericon').get_attribute('src')
+        user_name = self._get_first_class('username').get_inner_text()
+        body = self._get_first_class('body').get_inner_text()
+        date_time = self._get_first_class('datetime').get_inner_text()
+
+        entry_dict = dict(
+            date_time=date_time,
+            id=self.entry_id,
+            image_uri=img_url,
+            user_name=user_name,
+            status_body=body
+            )
+
+        print entry_dict
+
         dialog = RetweetDialog()
-        dialog.run(self.user, self.entry_id, self.parent.window.window)
+        dialog.run(entry_dict, self.parent.window.window)
+
+    def _get_first_class(self, cls_name):
+        return self.dom.get_elements_by_class_name(cls_name).item(0)
 
 class RetweetDialog(object):
 
-    def run(self, user, entry_id, parent):
+    def run(self, entry, parent):
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
         
         dialog = gui.get_object('messagedialog')
         dialog.set_transient_for(parent)
         dialog.format_secondary_text(
-            _("Retweet this %s's tweet to your followers?") % user)
+            _("Retweet this %s's tweet to your followers?") % entry['user_name'])
 
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
             twitter_account = AuthorizedTwitterAccount()
-            twitter_account.api.retweet(entry_id, self._on_retweet_status)
+            twitter_account.api.retweet(entry['id'], self._on_retweet_status)
             
         dialog.destroy()
 
