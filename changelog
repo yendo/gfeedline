@@ -1,3 +1,8 @@
+2012-02-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py, view.py: Added dom accessing for retrieving each entry
+	  data from WebView.
+
 2012-02-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/tweetentry.py (TwitterTime): Show the date instead of

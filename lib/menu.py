@@ -12,6 +12,8 @@ def ENTRY_POPUP_MENU():
 
 class PopupMenuItem(Gtk.MenuItem):
 
+    LABEL = ''
+
     def __init__(self, uri=None, scrolled_window=None):
         super(PopupMenuItem, self).__init__()
 
@@ -21,15 +23,14 @@ class PopupMenuItem(Gtk.MenuItem):
 
         self.parent = scrolled_window
 
-        self.set_label(self._get_label())
+        self.set_label(self.LABEL)
         self.set_use_underline(True)
         self.connect('activate', self.on_activate)
         self.show()
 
 class OpenMenuItem(PopupMenuItem):
 
-    def _get_label(self):
-        return _('_Open')
+    LABEL = _('_Open')
         
     def on_activate(self, menuitem):
         uri = self.uri.replace('gfeedline:', 'https:')
@@ -37,16 +38,14 @@ class OpenMenuItem(PopupMenuItem):
 
 class ReplyMenuItem(PopupMenuItem):
 
-    def _get_label(self):
-        return _('_Reply')
+    LABEL = _('_Reply')
         
     def on_activate(self, menuitem):
         update_window = UpdateWindow(None, self.user, self.entry_id)
 
 class RetweetMenuItem(PopupMenuItem):
 
-    def _get_label(self):
-        return _('Re_tweet')
+    LABEL = _('Re_tweet')
         
     def on_activate(self, menuitem):
         self.dom = self.parent.webview.dom.get_element_by_id(self.entry_id)
@@ -97,8 +96,7 @@ class RetweetDialog(object):
 
 class FavMenuItem(PopupMenuItem):
 
-    def _get_label(self):
-        return _('_Favorite')
+    LABEL = _('_Favorite')
         
     def on_activate(self, menuitem):
         twitter_account = AuthorizedTwitterAccount()
@@ -106,8 +104,7 @@ class FavMenuItem(PopupMenuItem):
             
 class SearchMenuItem(PopupMenuItem):
 
-    def _get_label(self):
-        return _('_Search')
+    LABEL = _('_Search')
 
     def on_activate(self, menuitem):
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
