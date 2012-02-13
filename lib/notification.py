@@ -4,8 +4,10 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
+import os
 import webbrowser
 
+from constants import TMP_DIR
 from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
@@ -19,7 +21,7 @@ class StatusNotification(Notification):
 
     def notify(self, entry):
         icon_uri = str(entry['image_uri'])
-        entry['icon_path'] = '/tmp/twitter_profile_image.jpg'
+        entry['icon_path'] = os.path.join(TMP_DIR, 'notification_icon.jpg')
  
         urlget = UrlGetWithAutoProxy(icon_uri)
         d = urlget.downloadPage(icon_uri, entry['icon_path']).\

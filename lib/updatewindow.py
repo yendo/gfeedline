@@ -1,6 +1,7 @@
+import os
 from gi.repository import Gtk
 
-from constants import SHARED_DATA_FILE
+from constants import SHARED_DATA_FILE, TMP_DIR
 from plugins.twitter.account import AuthorizedTwitterAccount
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
 
@@ -12,7 +13,8 @@ class UpdateWidgetBase(object):
 
     def _download_user_icon_with_callback(self, gui, entry):
         icon_uri = str(entry['image_uri'])
-        entry['icon_path'] = '/tmp/twitter_profile_image2.jpg'
+        entry['icon_path'] = os.path.join(TMP_DIR, 'profile_image.jpg')
+
         urlget = UrlGetWithAutoProxy(icon_uri)
         d = urlget.downloadPage(icon_uri, entry['icon_path']).\
             addCallback(self._run, gui, entry).addErrback(self._on_error)
