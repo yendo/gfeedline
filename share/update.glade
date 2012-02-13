@@ -92,33 +92,53 @@
           <object class="GtkGrid" id="grid_entry">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">6</property>
-            <property name="margin_right">6</property>
-            <property name="column_spacing">6</property>
+            <property name="hexpand">True</property>
+            <property name="column_spacing">12</property>
             <child>
-              <object class="GtkLabel" id="label_user">
+              <object class="GtkImage" id="image_usericon">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">6</property>
                 <property name="xalign">0</property>
                 <property name="yalign">0</property>
-                <property name="label">&lt;b&gt;yendo0206&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="stock">gtk-missing-image</property>
+                <property name="icon-size">5</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
                 <property name="width">1</property>
-                <property name="height">1</property>
+                <property name="height">2</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label_body">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_right">6</property>
+                <property name="hexpand">True</property>
                 <property name="xalign">0</property>
                 <property name="yalign">0</property>
                 <property name="label">This is a dummy message.</property>
                 <property name="wrap">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label_user">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_right">6</property>
+                <property name="hexpand">True</property>
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
+                <property name="label">&lt;b&gt;yendo0206&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -128,19 +148,18 @@
               </packing>
             </child>
             <child>
-              <object class="GtkImage" id="image_usericon">
+              <object class="GtkSeparator" id="separator1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="yalign">0</property>
-                <property name="stock">gtk-missing-image</property>
-                <property name="icon-size">5</property>
+                <property name="margin_top">6</property>
+                <property name="margin_bottom">14</property>
+                <property name="hexpand">True</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">2</property>
+                <property name="width">2</property>
+                <property name="height">1</property>
               </packing>
             </child>
           </object>
