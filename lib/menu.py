@@ -3,9 +3,8 @@ import webbrowser
 from gi.repository import Gtk, Gdk
 
 from plugins.twitter.account import AuthorizedTwitterAccount
-from updatewindow import UpdateWindow
+from updatewindow import UpdateWindow, RetweetDialog
 from constants import SHARED_DATA_FILE
-from utils.urlgetautoproxy import UrlGetWithAutoProxy
 
 def ENTRY_POPUP_MENU():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
@@ -75,43 +74,6 @@ class RetweetMenuItem(PopupMenuItem):
         entry_dict = self._get_entry_from_dom(self.entry_id)
         dialog = RetweetDialog()
         dialog.run(entry_dict, self.parent.window.window)
-
-class RetweetDialog(object):
-
-    def run(self, entry, parent):
-        self.parent = parent
-
-        gui = Gtk.Builder()
-        gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
-
-        icon_uri = str(entry['image_uri'])
-        entry['icon_path'] = '/tmp/twitter_profile_image2.jpg'
-        urlget = UrlGetWithAutoProxy(icon_uri)
-        d = urlget.downloadPage(icon_uri, entry['icon_path']).\
-            addCallback(self._run, gui, entry).addErrback(self._on_error)
-
-    def _run(self, unknown, gui, entry, *args):
-        gui.get_object('label_user').set_markup('<b>%s</b>' % entry['user_name'])
-        gui.get_object('label_body').set_text(entry['status_body'])
-        gui.get_object('image_usericon').set_from_file(entry['icon_path'])
-
-        dialog = gui.get_object('messagedialog')
-        dialog.set_transient_for(self.parent)
-
-        response_id = dialog.run()
-
-        if response_id == Gtk.ResponseType.YES:
-            twitter_account = AuthorizedTwitterAccount()
-            twitter_account.api.retweet(entry['id'], self._on_retweet_status)
-            
-        dialog.destroy()
-
-    def _on_error(self, *args):
-        print "error", args
-
-    def _on_retweet_status(self, *args):
-        #print args
-        pass
 
 class FavMenuItem(PopupMenuItem):
 
