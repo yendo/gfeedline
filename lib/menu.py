@@ -29,6 +29,28 @@ class PopupMenuItem(Gtk.MenuItem):
         self.connect('activate', self.on_activate)
         self.show()
 
+    def _get_entry_from_dom(self, entry_id):
+        dom = self.parent.webview.dom.get_element_by_id(entry_id)
+
+        def _get_first_class(cls_name):
+            return dom.get_elements_by_class_name(cls_name).item(0)
+
+        img_url = _get_first_class('usericon').get_attribute('src')
+        user_name = _get_first_class('username').get_inner_text()
+        body = _get_first_class('body').get_inner_text()
+        date_time = _get_first_class('datetime').get_inner_text()
+
+        entry_dict = dict(
+            date_time=date_time,
+            id=entry_id,
+            image_uri=img_url,
+            user_name=user_name,
+            status_body=body
+            )
+
+        # print entry_dict
+        return entry_dict
+
 class OpenMenuItem(PopupMenuItem):
 
     LABEL = _('_Open')
@@ -42,52 +64,33 @@ class ReplyMenuItem(PopupMenuItem):
     LABEL = _('_Reply')
         
     def on_activate(self, menuitem):
-        update_window = UpdateWindow(None, self.user, self.entry_id)
+        entry_dict = self._get_entry_from_dom(self.entry_id)
+        update_window = UpdateWindow(None, entry_dict)
 
 class RetweetMenuItem(PopupMenuItem):
 
     LABEL = _('Re_tweet')
         
     def on_activate(self, menuitem):
-        self.dom = self.parent.webview.dom.get_element_by_id(self.entry_id)
-
-        img_url = self._get_first_class('usericon').get_attribute('src')
-        user_name = self._get_first_class('username').get_inner_text()
-        body = self._get_first_class('body').get_inner_text()
-        date_time = self._get_first_class('datetime').get_inner_text()
-
-        entry_dict = dict(
-            date_time=date_time,
-            id=self.entry_id,
-            image_uri=img_url,
-            user_name=user_name,
-            status_body=body
-            )
-
-        # print entry_dict
-
+        entry_dict = self._get_entry_from_dom(self.entry_id)
         dialog = RetweetDialog()
         dialog.run(entry_dict, self.parent.window.window)
-
-    def _get_first_class(self, cls_name):
-        return self.dom.get_elements_by_class_name(cls_name).item(0)
 
 class RetweetDialog(object):
 
     def run(self, entry, parent):
         self.parent = parent
-        
-        icon_uri = str(entry['image_uri'])
-        entry['icon_path'] = '/tmp/twitter_profile_image2.jpg'
- 
-        urlget = UrlGetWithAutoProxy(icon_uri)
-        d = urlget.downloadPage(icon_uri, entry['icon_path']).\
-            addCallback(self._run, entry).addErrback(self._on_error)
 
-    def _run(self, unknown, entry, *args):
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
 
+        icon_uri = str(entry['image_uri'])
+        entry['icon_path'] = '/tmp/twitter_profile_image2.jpg'
+        urlget = UrlGetWithAutoProxy(icon_uri)
+        d = urlget.downloadPage(icon_uri, entry['icon_path']).\
+            addCallback(self._run, gui, entry).addErrback(self._on_error)
+
+    def _run(self, unknown, gui, entry, *args):
         gui.get_object('label_user').set_markup('<b>%s</b>' % entry['user_name'])
         gui.get_object('label_body').set_text(entry['status_body'])
         gui.get_object('image_usericon').set_from_file(entry['icon_path'])

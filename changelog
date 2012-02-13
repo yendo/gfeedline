@@ -1,5 +1,6 @@
 2012-02-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* updatewindow.py: Add message info when replies.
 	* menu.py, view.py: Added dom accessing for retrieving each entry
 	  data from the WebView.  Added message info on a retweet dialog.
 
