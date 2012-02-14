@@ -16,6 +16,11 @@
       <summary>Window sticky mode</summary>
       <description>Always on Visible Workspace</description>
     </key>
+    <key name="update-window-keep-above" type="b">
+      <default>true</default>
+      <summary>Update window set keep above</summary>
+      <description>Update window set keep above</description>
+    </key>
     <key name="bad-words" type="as">
       <default>[]</default>
       <summary>Bad words for filtering</summary>

@@ -3,6 +3,7 @@ from gi.repository import Gtk
 
 from constants import SHARED_DATA_FILE, TMP_DIR
 from plugins.twitter.account import AuthorizedTwitterAccount
+from utils.settings import SETTINGS
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
 
 
@@ -33,7 +34,10 @@ class UpdateWindow(UpdateWidgetBase):
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
 
+        is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')
+        self.update_window.set_keep_above(is_above)
+
         self.text_view = gui.get_object('textview')
         self.label_num = gui.get_object('label_num')
         self.button_tweet = gui.get_object('button_tweet')
@@ -46,7 +50,7 @@ class UpdateWindow(UpdateWidgetBase):
             self._download_user_icon_with_callback(gui, entry)
         else:
             gui.get_object('grid_entry').destroy()
-            self.update_window.show_all()
+            self.update_window.present()
 
     def _run(self, unknown, gui, entry, *args):
         self._set_ui(gui, entry)
@@ -55,7 +59,7 @@ class UpdateWindow(UpdateWidgetBase):
         self.update_window.set_title(_('Reply to %s') % user)
         self.text_buffer.set_text('@%s '% user)
 
-        self.update_window.show_all()
+        self.update_window.present()
 
     def on_button_tweet_clicked(self, button):
         text_buffer = self.text_view.get_buffer()
