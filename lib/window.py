@@ -88,12 +88,10 @@ class MainWindow(object):
         w, h = widget.get_size()
 
         if x != ox or y != oy:
-            print "save xy"
             SETTINGS_GEOMETRY.set_int('window-x', x)
             SETTINGS_GEOMETRY.set_int('window-y', y)
 
         if w != ow or h != oh:
-            print "save wh"
             SETTINGS_GEOMETRY.set_int('window-width', w)
             SETTINGS_GEOMETRY.set_int('window-height', h)
 

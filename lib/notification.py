@@ -26,7 +26,7 @@ class StatusNotification(Notification):
 
         urlget = UrlGetWithAutoProxy(icon_uri)
         d = urlget.downloadPage(icon_uri, self.icon_file).\
-            addCallback(self._notify, entry).addErrback(self._error)
+            addCallback(self._notify, entry).addErrback(self._error, entry)
  
     def _notify(self, unknown, entry):
         super(StatusNotification, self).notify(
@@ -39,7 +39,8 @@ class StatusNotification(Notification):
             action_array = action_string.split(' ')
             action = action_array[0]
             entry_pickle = ' '.join(action_array[1:])
-            entry_dict = pickle.loads(entry_pickle)
+            if entry_pickle: # for a GNOME Classic bug
+                entry_dict = pickle.loads(entry_pickle)
 
             if action == 'reply':
                 entry_dict['status_body'] = entry_dict['popup_body']
@@ -60,5 +61,5 @@ class StatusNotification(Notification):
 
         return actions
 
-    def _error(self, *e):
-        print "icon get error!", e
+    def _error(self, *args):
+        print "Notification call back error: ", args

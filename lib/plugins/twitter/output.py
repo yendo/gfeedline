@@ -56,7 +56,8 @@ class TwitterOutputBase(object):
                         if text.find(bad.decode('utf-8')) >= 0])
 
         if pass_rt or has_bad:
-            print text
+            # print "Del: ", text
+            pass
         else:
             self.buffer_entry(entry, args)
 
@@ -76,7 +77,7 @@ class TwitterOutputBase(object):
         # print self.last_id, type(self.last_id)
 
     def exit(self):
-        print "exit!"
+        # print "exit!"
         self.disconnect()
         self.view.remove()
 
@@ -124,9 +125,9 @@ class TwitterRestOutput(TwitterOutputBase):
         return entry_class
 
     def start(self, interval=60):
-        print "start!"
+        # print "start!"
         if not self.api.account.api.use_oauth:
-            print "not authorized"
+            print "Not authorized."
             return
 
         self.params.clear()
@@ -156,9 +157,9 @@ class TwitterRestOutput(TwitterOutputBase):
             interval = 60*60.0 / 150 * TwitterRestOutput.api_connections
 
         interval = 10 if interval < 10 else int(interval)
-        print "time: %s, limit: %s/%s, connections: %s, interval: %s" % (
-            diff, rate_limit_remaining, rate_limit_limit, 
-            TwitterRestOutput.api_connections, interval)
+#        print "time: %s, limit: %s/%s, connections: %s, interval: %s" % (
+#            diff, rate_limit_remaining, rate_limit_limit, 
+#            TwitterRestOutput.api_connections, interval)
 
         return interval
 
@@ -175,11 +176,11 @@ class TwitterRestOutput(TwitterOutputBase):
         self.start()
 
     def _on_reconnect_credential(self, *args):
-        print "reconnect for updating credential!"
+        # print "reconnect for updating credential!"
         self._on_restart_theme_changed()
 
     def _on_error(self, e):
-        print "error!", e
+        print "Error: ", e
 
 class TwitterSearchOutput(TwitterRestOutput):
 
@@ -224,7 +225,7 @@ class TwitterFeedOutput(TwitterOutputBase):
         super(TwitterFeedOutput, self).disconnect()
 
         if hasattr(self, 'stream') and hasattr(self.stream, 'transport'):
-            print "force stop stream connection!"
+            # print "force stop stream connection!"
             self.stream.transport.stopProducing()
         self.is_connecting = False
 
@@ -238,7 +239,7 @@ class TwitterFeedOutput(TwitterOutputBase):
         self.view.clear_buffer()
 
     def _reconnect_lost_connection(self, *args):
-        print "reconnect for lost stream connection!"
+        # print "reconnect for lost stream connection!"
         self.start()
 
     def _on_connect(self, stream):

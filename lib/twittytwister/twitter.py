@@ -565,7 +565,7 @@ class TwitterFeed(Twitter):
                            for name, value
                            in authHeaders.iteritems()])
         headers = http_headers.Headers(rawHeaders)
-        print 'Fetching', url
+        # print 'Fetching', url
         d = self.agent.request('GET', url, headers, None)
         d.addCallback(cb)
         return d

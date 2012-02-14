@@ -3,6 +3,10 @@ from twisted.web import sux, microdom
 
 import logging
 logger = logging.getLogger('twittytwister.txml')
+stream_log = logging.StreamHandler()
+stream_log.setLevel(logging.ERROR)
+logging.getLogger().addHandler(stream_log)
+logger = logging
 
 class NoopParser(object):
     def __init__(self, n):
