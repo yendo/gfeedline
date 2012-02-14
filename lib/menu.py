@@ -5,6 +5,12 @@ from gi.repository import Gtk, Gdk
 from plugins.twitter.account import AuthorizedTwitterAccount
 from updatewindow import UpdateWindow, RetweetDialog
 
+# for old WebKit (<= 1.6)
+from gi.repository import WebKit
+from updatewindow import UpdateWindowOLD, RetweetDialogOLD
+CAN_ACCESS_DOM = WebKit.MAJOR_VERSION >= 1 and WebKit.MINOR_VERSION >= 6
+
+
 def ENTRY_POPUP_MENU():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
 
@@ -18,7 +24,7 @@ class PopupMenuItem(Gtk.MenuItem):
 
         self.uri = uri
         if uri:
-            user, entry_id = uri.split('/')[3:6:2]
+            self.user, entry_id = uri.split('/')[3:6:2]
         self.parent = scrolled_window
 
         self.set_label(self.LABEL)
@@ -61,16 +67,25 @@ class ReplyMenuItem(PopupMenuItem):
     LABEL = _('_Reply')
         
     def on_activate(self, menuitem, entry_id):
-        entry_dict = self._get_entry_from_dom(entry_id)
-        update_window = UpdateWindow(None, entry_dict)
+        if CAN_ACCESS_DOM:
+            entry_dict = self._get_entry_from_dom(entry_id)
+            update_window = UpdateWindow(None, entry_dict)
+        else:
+            entry_dict = {'id': entry_id, 'user_name': self.user}
+            update_window = UpdateWindowOLD(None, entry_dict)
 
 class RetweetMenuItem(PopupMenuItem):
 
     LABEL = _('Re_tweet')
         
     def on_activate(self, menuitem, entry_id):
-        entry_dict = self._get_entry_from_dom(entry_id)
-        dialog = RetweetDialog()
+        if CAN_ACCESS_DOM:
+            entry_dict = self._get_entry_from_dom(entry_id)
+            dialog = RetweetDialog()
+        else:
+            entry_dict = {'id': entry_id, 'user_name': self.user}
+            dialog = RetweetDialogOLD()
+
         dialog.run(entry_dict, self.parent.window.window)
 
 class FavMenuItem(PopupMenuItem):

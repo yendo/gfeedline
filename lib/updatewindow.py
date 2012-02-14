@@ -107,3 +107,56 @@ class RetweetDialog(UpdateWidgetBase):
     def _on_retweet_status(self, *args):
         #print args
         pass
+
+class UpdateWindowOLD(UpdateWindow):
+
+    def __init__(self, mainwindow, entry=None):
+        self.entry = entry
+
+        gui = Gtk.Builder()
+        gui.add_from_file(SHARED_DATA_FILE('update.glade'))
+
+        is_above = SETTINGS.get_boolean('update-window-keep-above')
+        self.update_window = gui.get_object('window1')
+        self.update_window.set_keep_above(is_above)
+
+        self.text_view = gui.get_object('textview')
+        self.label_num = gui.get_object('label_num')
+        self.button_tweet = gui.get_object('button_tweet')
+        self.text_buffer = self.text_view.get_buffer()
+
+        self.on_textbuffer_changed(self.text_buffer)
+        gui.connect_signals(self)
+
+# from: for ubuntu oneiric
+        gui.get_object('grid_entry').destroy()
+
+        if entry:
+            user = entry['user_name']
+            self.update_window.set_title(_('Reply to %s') % user)
+            self.text_buffer.set_text('@%s '% user)
+
+        self.update_window.present()
+# end
+
+class RetweetDialogOLD(RetweetDialog):
+
+    def run(self, entry, parent):
+        self.parent = parent
+
+        gui = Gtk.Builder()
+        gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
+
+        gui.get_object('grid1').destroy()
+        self._run("dummy",gui, entry)
+
+    def _run(self, unknown, gui, entry, *args):
+        dialog = gui.get_object('messagedialog')
+        dialog.set_transient_for(self.parent)
+        response_id = dialog.run()
+
+        if response_id == Gtk.ResponseType.YES:
+            twitter_account = AuthorizedTwitterAccount()
+            twitter_account.api.retweet(entry['id'], self._on_retweet_status)
+            
+        dialog.destroy()

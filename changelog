@@ -1,3 +1,7 @@
+2012-02-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py, updatewindow.py: Added checking for old WebKit version.
+
 2012-02-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py: Added new setting for 'update-window-keep-above'.
