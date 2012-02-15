@@ -23,8 +23,7 @@ class PopupMenuItem(Gtk.MenuItem):
         super(PopupMenuItem, self).__init__()
 
         self.uri = uri
-        if uri:
-            self.user, entry_id = uri.split('/')[3:6:2]
+        self.user, entry_id = uri.split('/')[3:6:2] if uri else [None]*2
         self.parent = scrolled_window
 
         self.set_label(self.LABEL)
