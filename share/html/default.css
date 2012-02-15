@@ -1,0 +1,9 @@
+body { font-size: 10pt; }
+
+div.status { line-height: 1.4; 
+             word-wrap: break-word; }
+.datetime { color: #606060 }
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+a.username { font-weight: bold; }

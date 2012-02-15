@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+_Name=GNOME Feed Line
+_Comment=Read & Write Social Feeds
+_GenericName=Social Networking Client
+Icon=gfeedline
+Exec=gfeedline
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=GTK;Network;

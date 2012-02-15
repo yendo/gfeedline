@@ -1,0 +1,55 @@
+#!/usr/bin/python
+#
+# gfeedline - Gnome Social Feed Reader
+#
+# Copyright (c) 2012, Yoshizumi Endo.
+# Licence: GPL3
+
+import os
+from os.path import abspath, join, dirname
+
+try:
+    from lib.utils import gtk3reactor
+except ImportError:
+    from gfeedline.utils import gtk3reactor
+
+gtk3reactor.install()
+
+from twisted.internet import reactor
+
+if os.access(
+    abspath(join(dirname(__file__), 'lib/liststore.py')), os.R_OK):
+    from lib.liststore import FeedListStore
+else:
+    from gfeedline.liststore import FeedListStore
+
+# from gi.repository import Gtk
+# 
+# class GFeedLine(Gtk.Application):
+# 
+#     def __init__(self):
+#         super(GFeedLine, self).__init__(application_id="apps.gfeedline")
+#         self.connect("activate", self.on_activate)
+# 
+#     def on_activate(self, data=None):
+#         liststore = FeedListStore()
+#         liststore.window.window.set_application(self)
+#         # self.connect("quit", self.on_shutdown)
+# 
+#     def on_shutdown(self, *args):
+#         print args
+#         print "shutdown!"
+# 
+#     def do_run_mainloop(self, *args):
+#         reactor.run()
+# 
+#     def do_quit_mainloop(self, *args):
+#         reactor.stop()
+
+if __name__ == '__main__':
+
+    liststore = FeedListStore()
+    reactor.run()
+
+    #app = GFeedLine()
+    #app.run(None)
