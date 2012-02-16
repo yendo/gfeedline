@@ -1,5 +1,6 @@
 2012-02-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* et.po: Added new Estonian translation.  Thanks Rivo Zängov!
 	* twitter/tweetentry.py (AddedHtmlMarkup): Added html escaping.
 
 2012-02-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>

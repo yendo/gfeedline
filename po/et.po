@@ -1,0 +1,311 @@
+# Estonian translation for gfeedline
+# Copyright (C) 2012 Yoshizumi Endo.
+# This file is distributed under the same license as the gfeedline package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: GNOME Feed Line\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-13 12:49+0900\n"
+"PO-Revision-Date: 2012-02-13 03:50+0000\n"
+"Last-Translator: Yoshizumi Endo <y-endo@ceres.dti.ne.jp>\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/gfeedline/language/et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../lib/menu.py:33
+msgid "_Open"
+msgstr ""
+
+#: ../lib/menu.py:41
+msgid "_Reply"
+msgstr ""
+
+#: ../lib/menu.py:48
+msgid "Re_tweet"
+msgstr ""
+
+#: ../lib/menu.py:105
+msgid "_Favorite"
+msgstr ""
+
+#: ../lib/menu.py:113
+msgid "_Search"
+msgstr ""
+
+#: ../lib/notification.py:52
+msgid "Reply"
+msgstr "Vasta"
+
+#: ../lib/notification.py:53
+msgid "Open"
+msgstr "Ava"
+
+#: ../lib/plugins/twitter/api.py:53
+msgid "Home TimeLine"
+msgstr "Kodu ajatelg"
+
+#: ../lib/plugins/twitter/api.py:60
+msgid "List TimeLine"
+msgstr "Nimekirja ajatelg"
+
+#: ../lib/plugins/twitter/api.py:73
+msgid "Mentions"
+msgstr "Mainimised"
+
+#: ../lib/plugins/twitter/api.py:80 ../lib/plugins/twitter/tweetentry.py:25
+msgid "Direct Messages"
+msgstr "Otsesed sõnumid"
+
+#: ../lib/plugins/twitter/api.py:88
+msgid "User Stream"
+msgstr "Kasutaja voog"
+
+#: ../lib/plugins/twitter/api.py:95
+msgid "Track"
+msgstr "Jälgi"
+
+#: ../lib/plugins/twitter/api.py:109
+msgid "Search"
+msgstr "Otsi"
+
+#: ../lib/plugins/twitter/assistant.py:29
+msgid "Twitter Account Setup"
+msgstr "Twitteri konto seadistamine"
+
+#: ../lib/plugins/twitter/assistant.py:45
+msgid "Intro"
+msgstr "Sissejuhatus"
+
+#: ../lib/plugins/twitter/assistant.py:53
+msgid "Enter PIN"
+msgstr "Sisesta PIN"
+
+#: ../lib/plugins/twitter/assistant.py:61
+msgid "Confirm"
+msgstr "Kinnita"
+
+#: ../lib/updatewindow.py:21
+#, python-format
+msgid "Reply to %s"
+msgstr "Vasta %s"
+
+#: ../share/assistant_twitter.glade.h:1
+msgid "PIN:"
+msgstr "IN:"
+
+#: ../share/assistant_twitter.glade.h:2
+msgid ""
+"Return to this dialog after you have finished the authorization process on "
+"Twitter.com and Enter your PIN below."
+msgstr ""
+
+#: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:14
+msgid "Screen name:"
+msgstr "Näidatav nimi:"
+
+#: ../share/assistant_twitter.glade.h:4
+msgid ""
+"This assistant helps you to configure Twitter account for GNOME Feed Line.\n"
+"\n"
+"Click \"Forward\" to open a Twitter authorization page with the default browser."
+msgstr ""
+
+#: ../share/assistant_twitter.glade.h:7
+msgid ""
+"Your configuration is complete.  You are now ready to access to Twitter with GNOME Feed Line.\n"
+"\n"
+"Click \"Apply\" to save your settings."
+msgstr ""
+
+#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:19
+msgid "none"
+msgstr "pole"
+
+#: ../share/feedsource.glade.h:1
+msgid "Feed Source"
+msgstr "Uudisvoo allikas"
+
+#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:11
+msgid "General"
+msgstr "Üldine"
+
+#: ../share/feedsource.glade.h:3
+msgid "_Argument:"
+msgstr ""
+
+#: ../share/feedsource.glade.h:4
+msgid "_Enable notification"
+msgstr ""
+
+#: ../share/feedsource.glade.h:5
+msgid "_Group:"
+msgstr "_Grupp:"
+
+#: ../share/feedsource.glade.h:6
+msgid "_Name:"
+msgstr "_Nimi:"
+
+#: ../share/feedsource.glade.h:7
+msgid "_Source:"
+msgstr ""
+
+#: ../share/feedsource.glade.h:8
+msgid "_Target:"
+msgstr ""
+
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:11
+msgid "GNOME Feed Line"
+msgstr "GNOMEi uudisvood"
+
+#: ../share/gfeedline.desktop.in.h:2
+msgid "Read & Write Social Feeds"
+msgstr ""
+
+#: ../share/gfeedline.desktop.in.h:3
+msgid "Social Networking Client"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:1
+msgid ""
+"<big><b>Welcome to GNOME Feed Line!</b></big>\n"
+"\n"
+"Gnome Feed Line is a social networking client for the GNOME 3 Desktop.  It supports Twitter.\n"
+"\n"
+"You have no Twitter account configured.  To start connecting with GNOME Feed Line, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your account.\n"
+"\n"
+"You can configured your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
+msgstr ""
+
+#: ../share/gfeedline.glade.h:8
+msgid "All Tabs to the _Bottom"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:9
+msgid "All Tabs to the _Top"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:10
+msgid "Copyright © 2012 Yoshizumi Endo."
+msgstr ""
+
+#: ../share/gfeedline.glade.h:12
+msgid "GNOME Social Networking Client"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:13
+msgid "_Edit"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:14
+msgid "_File"
+msgstr "_Fail"
+
+#: ../share/gfeedline.glade.h:15
+msgid "_Help"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:16
+msgid "_Multi-Column"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:17
+msgid "_Update"
+msgstr "_Uuenda"
+
+#: ../share/gfeedline.glade.h:18
+msgid "_View"
+msgstr "_Vaade"
+
+#: ../share/gfeedline.glade.h:19
+msgid "translator-credits"
+msgstr "tõlkijad"
+
+#: ../share/preferences.glade.h:1
+msgid "<b>Account</b>"
+msgstr "<b>Konto</b>"
+
+#: ../share/preferences.glade.h:2
+msgid "<b>Desktop</b>"
+msgstr "<b>Töölaud</b>"
+
+#: ../share/preferences.glade.h:3
+msgid "<b>Feed Sources</b>"
+msgstr "<b>Uudisvoogude allikad</b>"
+
+#: ../share/preferences.glade.h:4
+msgid "<b>View</b>"
+msgstr ""
+
+#: ../share/preferences.glade.h:5
+msgid "Account"
+msgstr "Konto"
+
+#: ../share/preferences.glade.h:6
+msgid "Always on _Visible Workspace"
+msgstr ""
+
+#: ../share/preferences.glade.h:7
+msgid "Argument"
+msgstr "Argument"
+
+#: ../share/preferences.glade.h:8
+msgid "Au_thentication"
+msgstr ""
+
+#: ../share/preferences.glade.h:9
+msgid "Feed Line Preferences"
+msgstr "Uudisvoogude eelistused"
+
+#: ../share/preferences.glade.h:10
+msgid "Feeds"
+msgstr "Uudisvood"
+
+#: ../share/preferences.glade.h:12
+msgid "Group"
+msgstr "Grupp"
+
+#: ../share/preferences.glade.h:13
+msgid "Name"
+msgstr "Nimi"
+
+#: ../share/preferences.glade.h:15
+msgid "Target"
+msgstr ""
+
+#: ../share/preferences.glade.h:16
+msgid "_Authorization"
+msgstr "_Authoriseermine"
+
+#: ../share/preferences.glade.h:17
+msgid "_Auto Start"
+msgstr "_Automaatne käivitamine"
+
+#: ../share/preferences.glade.h:18
+msgid "_Theme:"
+msgstr "_Teema:"
+
+#: ../share/retweet.glade.h:1
+msgid "<big><b>Retweet?</b></big>"
+msgstr ""
+
+#: ../share/retweet.glade.h:2
+msgid "Retweet this to your followers?"
+msgstr ""
+
+#: ../share/update.glade.h:1
+msgid "140"
+msgstr "140"
+
+#: ../share/update.glade.h:2
+msgid "What are you doing?"
+msgstr "Mida sa parasjagu teed?"
+
+#: ../share/update.glade.h:3
+msgid "_Tweet"
+msgstr ""
