@@ -4,7 +4,6 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-from ...utils.nullobject import Null
 from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput
 
 
@@ -23,7 +22,7 @@ class TwitterAPIDict(dict):
              ]
 
         for api in all_api:
-            self[api().name] = api
+            self[api.name] = api
 
 class TwitterAPIBase(object):
 
@@ -32,8 +31,8 @@ class TwitterAPIBase(object):
     has_argument = False
     has_popup_menu = True
 
-    def __init__(self, account=None):
-        self.account = account or Null()
+    def __init__(self, account):
+        self.account = account
         self.api = self._get_api()
 
     def get_options(self, argument):
