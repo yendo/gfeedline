@@ -1,3 +1,7 @@
+2012-02-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences.py (FeedSourceTreeview): Fixed button sensitiveness.
+
 2012-02-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* et.po: Added new Estonian translation.  Thanks Rivo Zängov!
