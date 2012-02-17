@@ -1,5 +1,6 @@
 2012-02-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* updatewindow.py (UpdateWindow): Fixed update argument.
 	* preferences.py (FeedSourceTreeview): Fixed button sensitiveness.
 
 2012-02-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
