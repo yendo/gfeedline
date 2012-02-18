@@ -1,3 +1,7 @@
+2012-02-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.0 release.
+
 2012-02-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py (UpdateWindow): Fixed update argument.
