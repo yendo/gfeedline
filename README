@@ -9,23 +9,23 @@ It supports Twitter.
 
 ** Depends
 
-- Python: 2.6 or 2.7
-- python-gobject
-- gir1.2-gtk-3.0
-- gir1.2-webkit-3.0
-- Twisted: twisted.internet & twisted.web
-- python-beautifulsoup
-- python-oauth
-- python-dateutil
-- python-xdg
+  - Python: 2.6 or 2.7
+  - python-gobject
+  - gir1.2-gtk-3.0
+  - gir1.2-webkit-3.0
+  - Twisted: twisted.internet & twisted.web
+  - python-beautifulsoup
+  - python-oauth
+  - python-dateutil
+  - python-xdg
 
 ** Recommends
 
-- python-libproxy: for Gnome Proxy Settings
+  - python-libproxy: for Gnome Proxy Settings
 
 ** Installation
 
-The gschema file must be installed.
+The gschema file *must* be installed.
 
   sudo cp ./share/com.googlecode.gfeedline.gschema.xml.in /usr/share/glib-2.0/schemas/com.googlecode.gfeedline.gschema.xml
   sudo glib-compile-schemas /usr/share/glib-2.0/schemas
@@ -44,6 +44,7 @@ Web: http://code.google.com/p/gfeedline/
 E-mail: y-endo@ceres.dti.ne.jp
 Twitter: yendo0206
 
+#+STARTUP: showall
 Local variables:
-mode: outline
+mode: org
 end:

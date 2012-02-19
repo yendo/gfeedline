@@ -1,3 +1,17 @@
+2012-02-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.0 release.
+
+2012-02-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py (UpdateWindow): Fixed update argument.
+	* preferences.py (FeedSourceTreeview): Fixed button sensitiveness.
+
+2012-02-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* et.po: Added new Estonian translation.  Thanks Rivo Zängov!
+	* twitter/tweetentry.py (AddedHtmlMarkup): Added html escaping.
+
 2012-02-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* menu.py, updatewindow.py: Added checking for old WebKit version.

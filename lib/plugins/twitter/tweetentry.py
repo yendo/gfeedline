@@ -1,6 +1,7 @@
 import re
 import time
 from datetime import datetime, timedelta
+from xml.sax.saxutils import escape
 
 import dateutil.parser
 
@@ -115,7 +116,7 @@ class AddedHtmlMarkup(object):
             u'(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
 
     def convert(self, text):
-        text = text.replace("'", '&apos;')
+        text = escape(text, {"'": '&apos;'}) # Important!
 
         text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
         text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 

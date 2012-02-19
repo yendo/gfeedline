@@ -71,7 +71,7 @@ class UpdateWindow(UpdateWidgetBase):
             if self.entry else {}
 
         twitter_account = AuthorizedTwitterAccount()
-        twitter_account.api.update(status, params)
+        twitter_account.api.update(status, params=params)
 
         self.update_window.destroy()
 

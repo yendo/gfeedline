@@ -1,324 +1,302 @@
-# Japanese translation for gfeedline
+# Estonian translation for gfeedline
 # Copyright (C) 2012 Yoshizumi Endo.
 # This file is distributed under the same license as the gfeedline package.
-# Yoshizumi Endo <y-endo@ceres.dti.ne.jp>, 2012.
-#
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: GNOME Feed Line\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-13 12:45+0900\n"
-"PO-Revision-Date: 2012-02-13 13:14+0900\n"
-"Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2012-02-13 12:49+0900\n"
+"PO-Revision-Date: 2012-02-13 03:50+0000\n"
+"Last-Translator: Yoshizumi Endo <y-endo@ceres.dti.ne.jp>\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/gfeedline/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../lib/menu.py:33
 msgid "_Open"
-msgstr "開く(_O)"
+msgstr ""
 
 #: ../lib/menu.py:41
 msgid "_Reply"
-msgstr "返信(_R)"
+msgstr ""
 
 #: ../lib/menu.py:48
 msgid "Re_tweet"
-msgstr "リツイート(_T)"
+msgstr ""
 
 #: ../lib/menu.py:105
 msgid "_Favorite"
-msgstr "お気に入り(_F)"
+msgstr ""
 
 #: ../lib/menu.py:113
 msgid "_Search"
-msgstr "検索(_S)"
+msgstr ""
 
 #: ../lib/notification.py:52
 msgid "Reply"
-msgstr "返信"
+msgstr "Vasta"
 
 #: ../lib/notification.py:53
 msgid "Open"
-msgstr "開く"
+msgstr "Ava"
 
 #: ../lib/plugins/twitter/api.py:53
 msgid "Home TimeLine"
-msgstr "ホームタイムライン"
+msgstr "Kodu ajatelg"
 
 #: ../lib/plugins/twitter/api.py:60
 msgid "List TimeLine"
-msgstr "リストタイムライン"
+msgstr "Nimekirja ajatelg"
 
 #: ../lib/plugins/twitter/api.py:73
 msgid "Mentions"
-msgstr "メンション"
+msgstr "Mainimised"
 
 #: ../lib/plugins/twitter/api.py:80 ../lib/plugins/twitter/tweetentry.py:25
 msgid "Direct Messages"
-msgstr "ダイレクトメッセージ"
+msgstr "Otsesed sõnumid"
 
 #: ../lib/plugins/twitter/api.py:88
 msgid "User Stream"
-msgstr "ユーザーストリーム"
+msgstr "Kasutaja voog"
 
 #: ../lib/plugins/twitter/api.py:95
 msgid "Track"
-msgstr "トラック"
+msgstr "Jälgi"
 
 #: ../lib/plugins/twitter/api.py:109
 msgid "Search"
-msgstr "検索"
+msgstr "Otsi"
 
 #: ../lib/plugins/twitter/assistant.py:29
 msgid "Twitter Account Setup"
-msgstr "Twitter アカウントの設定"
+msgstr "Twitteri konto seadistamine"
 
 #: ../lib/plugins/twitter/assistant.py:45
 msgid "Intro"
-msgstr "説明"
+msgstr "Sissejuhatus"
 
 #: ../lib/plugins/twitter/assistant.py:53
 msgid "Enter PIN"
-msgstr "PIN の入力"
+msgstr "Sisesta PIN"
 
 #: ../lib/plugins/twitter/assistant.py:61
 msgid "Confirm"
-msgstr "確認"
+msgstr "Kinnita"
 
 #: ../lib/updatewindow.py:21
 #, python-format
 msgid "Reply to %s"
-msgstr "%s への返信"
+msgstr "Vasta %s"
 
 #: ../share/assistant_twitter.glade.h:1
 msgid "PIN:"
-msgstr "PIN:"
+msgstr "IN:"
 
 #: ../share/assistant_twitter.glade.h:2
 msgid ""
 "Return to this dialog after you have finished the authorization process on "
 "Twitter.com and Enter your PIN below."
 msgstr ""
-"ブラウザ上で Twitter.com での認証を完了したらこのウィンドウに戻り、この下にあ"
-"る入力欄に PIN を入力してください。"
 
 #: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:14
 msgid "Screen name:"
-msgstr "スクリーンネーム:"
+msgstr "Näidatav nimi:"
 
 #: ../share/assistant_twitter.glade.h:4
 msgid ""
 "This assistant helps you to configure Twitter account for GNOME Feed Line.\n"
 "\n"
-"Click \"Forward\" to open a Twitter authorization page with the default "
-"browser."
+"Click \"Forward\" to open a Twitter authorization page with the default browser."
 msgstr ""
-"この設定アシスタントでは GNOME フィードラインで利用するアカウントの設定を行い"
-"ます。\n"
-"\n"
-"[進む] ボタンをクリックすると、ブラウザで Twitter の認証ページを開き、認証作"
-"業を開始します。"
 
 #: ../share/assistant_twitter.glade.h:7
 msgid ""
-"Your configuration is complete.  You are now ready to access to Twitter with "
-"GNOME Feed Line.\n"
+"Your configuration is complete.  You are now ready to access to Twitter with GNOME Feed Line.\n"
 "\n"
 "Click \"Apply\" to save your settings."
-msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
+msgstr ""
 
 #: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:19
 msgid "none"
-msgstr "なし"
+msgstr "pole"
 
 #: ../share/feedsource.glade.h:1
 msgid "Feed Source"
-msgstr "フィードソース"
+msgstr "Uudisvoo allikas"
 
 #: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:11
 msgid "General"
-msgstr "全般"
+msgstr "Üldine"
 
 #: ../share/feedsource.glade.h:3
 msgid "_Argument:"
-msgstr "引数(_A):"
+msgstr ""
 
 #: ../share/feedsource.glade.h:4
 msgid "_Enable notification"
-msgstr "通知機能を使う(_E)"
+msgstr ""
 
 #: ../share/feedsource.glade.h:5
 msgid "_Group:"
-msgstr "グループ(_G):"
+msgstr "_Grupp:"
 
 #: ../share/feedsource.glade.h:6
 msgid "_Name:"
-msgstr "名前(_N):"
+msgstr "_Nimi:"
 
 #: ../share/feedsource.glade.h:7
 msgid "_Source:"
-msgstr "ソース(_S):"
+msgstr ""
 
 #: ../share/feedsource.glade.h:8
 msgid "_Target:"
-msgstr "ターゲット(_T):"
+msgstr ""
 
 #: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:11
 msgid "GNOME Feed Line"
-msgstr "GNOME フィードライン"
+msgstr "GNOMEi uudisvood"
 
 #: ../share/gfeedline.desktop.in.h:2
 msgid "Read & Write Social Feeds"
-msgstr "ソーシャルフィードの読み書きを行います"
+msgstr ""
 
 #: ../share/gfeedline.desktop.in.h:3
 msgid "Social Networking Client"
-msgstr "ソーシャルネットワーキングクライアント"
+msgstr ""
 
 #: ../share/gfeedline.glade.h:1
 msgid ""
 "<big><b>Welcome to GNOME Feed Line!</b></big>\n"
 "\n"
-"Gnome Feed Line is a social networking client for the GNOME 3 Desktop.  It "
-"supports Twitter.\n"
+"Gnome Feed Line is a social networking client for the GNOME 3 Desktop.  It supports Twitter.\n"
 "\n"
-"You have no Twitter account configured.  To start connecting with GNOME Feed "
-"Line, open the Preferences dialog from <b>Edit  ▸ Preference</b> to "
-"configure your account.\n"
+"You have no Twitter account configured.  To start connecting with GNOME Feed Line, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your account.\n"
 "\n"
-"You can configured your feeds in the Feeds tab of the Preferences dialog.  "
-"To enable multi-column view, enter a group name in each feed source dialog."
+"You can configured your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
 msgstr ""
-"<big><b>GNOME フィードラインへようこそ!</b></big>\n"
-"\n"
-"GNOME フィードラインは GNOME 3 デスクトップ向けのソーシャルネットワーキングク"
-"ライアントです。Twitter をサポートしています。\n"
-"\n"
-"まだ Twitter アカウントが設定されていません。GNOME フィードラインでアクセスす"
-"るために、メニューの<b>ファイル ▸ 設定</b>から設定ダイアログを開き、アカウン"
-"トを設定してください。\n"
-"\n"
-"また、同じ設定ダイアログのフィードタブでは複数のフィードが設定でき、各フィー"
-"ドでグループ名を指定するとマルチカラム表示が可能です。"
 
 #: ../share/gfeedline.glade.h:8
 msgid "All Tabs to the _Bottom"
-msgstr "すべてのタブで最終行に移動(_B)"
+msgstr ""
 
 #: ../share/gfeedline.glade.h:9
 msgid "All Tabs to the _Top"
-msgstr "すべてのタブで先頭行に移動(_T)"
+msgstr ""
 
 #: ../share/gfeedline.glade.h:10
 msgid "Copyright © 2012 Yoshizumi Endo."
-msgstr "Copyright © 2012 Yoshizumi Endo."
+msgstr ""
 
 #: ../share/gfeedline.glade.h:12
 msgid "GNOME Social Networking Client"
-msgstr "GNOME ソーシャルネットワーキングクライアント"
+msgstr ""
 
 #: ../share/gfeedline.glade.h:13
 msgid "_Edit"
-msgstr "編集(_E)"
+msgstr ""
 
 #: ../share/gfeedline.glade.h:14
 msgid "_File"
-msgstr "ファイル(_F)"
+msgstr "_Fail"
 
 #: ../share/gfeedline.glade.h:15
 msgid "_Help"
-msgstr "ヘルプ(_H)"
+msgstr ""
 
 #: ../share/gfeedline.glade.h:16
 msgid "_Multi-Column"
-msgstr "マルチカラム(_M)"
+msgstr ""
 
 #: ../share/gfeedline.glade.h:17
 msgid "_Update"
-msgstr "投稿(_U)"
+msgstr "_Uuenda"
 
 #: ../share/gfeedline.glade.h:18
 msgid "_View"
-msgstr "表示(_V)"
+msgstr "_Vaade"
 
 #: ../share/gfeedline.glade.h:19
 msgid "translator-credits"
-msgstr "Yoshizumi Endo <y-endo@ceres.dti.ne.jp>"
+msgstr "tõlkijad"
 
 #: ../share/preferences.glade.h:1
 msgid "<b>Account</b>"
-msgstr "<b>アカウント</b>"
+msgstr "<b>Konto</b>"
 
 #: ../share/preferences.glade.h:2
 msgid "<b>Desktop</b>"
-msgstr "<b>デスクトップ</b>"
+msgstr "<b>Töölaud</b>"
 
 #: ../share/preferences.glade.h:3
 msgid "<b>Feed Sources</b>"
-msgstr "<b>フィードソース</b>"
+msgstr "<b>Uudisvoogude allikad</b>"
 
 #: ../share/preferences.glade.h:4
 msgid "<b>View</b>"
-msgstr "<b>表示</b>"
+msgstr ""
 
 #: ../share/preferences.glade.h:5
 msgid "Account"
-msgstr "アカウント"
+msgstr "Konto"
 
 #: ../share/preferences.glade.h:6
 msgid "Always on _Visible Workspace"
-msgstr "すべてのワークスペースに配置する(_V)"
+msgstr ""
 
 #: ../share/preferences.glade.h:7
 msgid "Argument"
-msgstr "引数"
+msgstr "Argument"
 
 #: ../share/preferences.glade.h:8
 msgid "Au_thentication"
-msgstr "認証(_U)"
+msgstr ""
 
 #: ../share/preferences.glade.h:9
 msgid "Feed Line Preferences"
-msgstr "フィードラインの設定"
+msgstr "Uudisvoogude eelistused"
 
 #: ../share/preferences.glade.h:10
 msgid "Feeds"
-msgstr "フィード"
+msgstr "Uudisvood"
 
 #: ../share/preferences.glade.h:12
 msgid "Group"
-msgstr "グループ"
+msgstr "Grupp"
 
 #: ../share/preferences.glade.h:13
 msgid "Name"
-msgstr "名前"
+msgstr "Nimi"
 
 #: ../share/preferences.glade.h:15
 msgid "Target"
-msgstr "ターゲット"
+msgstr ""
 
 #: ../share/preferences.glade.h:16
 msgid "_Authorization"
-msgstr "認証(_A)"
+msgstr "_Authoriseermine"
 
 #: ../share/preferences.glade.h:17
 msgid "_Auto Start"
-msgstr "ログイン時に自動起動する(_A)"
+msgstr "_Automaatne käivitamine"
 
 #: ../share/preferences.glade.h:18
 msgid "_Theme:"
-msgstr "テーマ(_T):"
+msgstr "_Teema:"
 
 #: ../share/retweet.glade.h:1
 msgid "<big><b>Retweet?</b></big>"
-msgstr "<big><b>リツイートしますか?</b></big>"
+msgstr ""
 
 #: ../share/retweet.glade.h:2
 msgid "Retweet this to your followers?"
-msgstr "あなたのフォロワーにこれをリツイートしますか?"
+msgstr ""
 
 #: ../share/update.glade.h:1
 msgid "140"
@@ -326,14 +304,8 @@ msgstr "140"
 
 #: ../share/update.glade.h:2
 msgid "What are you doing?"
-msgstr "いまどうしてる?"
+msgstr "Mida sa parasjagu teed?"
 
 #: ../share/update.glade.h:3
 msgid "_Tweet"
-msgstr "ツイート(_T)"
-
-#~ msgid "<b>Plugins</b>"
-#~ msgstr "<b>プラグイン</b>"
-
-#~ msgid "Plugins"
-#~ msgstr "プラグイン"
+msgstr ""

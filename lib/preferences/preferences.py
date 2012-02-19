@@ -118,6 +118,7 @@ class Preferences(object):
 class FeedSourceTreeview(object):
 
     def __init__(self, gui, mainwindow):
+        self.gui = gui
         self.liststore = mainwindow.liststore
 
         self.treeview = treeview = gui.get_object('feedsourcetreeview')
@@ -143,7 +144,12 @@ class FeedSourceTreeview(object):
         self.old_page = model.get_group_page(self.group)
 
     def on_drag_end(self, treeview, dragcontext, mainwindow):
-        model = treeview.get_model()
+        treeselection = treeview.get_selection()
+        model, iter = treeselection.get_selected()
+
+        if not iter:
+            self.gui.get_object('button_feed_prefs').set_sensitive(False)
+            self.gui.get_object('button_feed_del').set_sensitive(False)
 
         all_obj = [x[Column.API] for x in model 
                    if x[Column.GROUP].decode('utf-8') == self.group]
