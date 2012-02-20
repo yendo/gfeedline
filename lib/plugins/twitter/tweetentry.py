@@ -10,6 +10,11 @@ from ...utils.htmlentities import decode_html_entities
 
 user_color = UserColor()
 
+"""
+TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
+           \- SearchTweetEntry
+"""
+
 
 class TweetEntry(object):
 
@@ -21,8 +26,9 @@ class TweetEntry(object):
     def get_dict(self, api):
         entry = self.entry
 
-        body, body_string = self._get_body(entry.text)
         time = TwitterTime(entry.created_at)
+        body_string = self._get_body(entry.text)
+        body = add_markup.convert(body_string) # add_markup is global
         user = entry.sender if api.name == _('Direct Messages') else entry.user
 
         text = dict(
@@ -40,10 +46,7 @@ class TweetEntry(object):
         return text
 
     def _get_body(self, text):
-        body_string = decode_html_entities(text)
-        body = add_markup.convert(body_string) # add_markup is global
-
-        return body, body_string
+        return text
 
 class RestRetweetEntry(TweetEntry):
 
@@ -52,6 +55,10 @@ class RestRetweetEntry(TweetEntry):
 
         self.entry=entry.retweeted_status
 
+    def _get_body(self, text):
+        text = decode_html_entities(text) # need to decode!
+        return text
+        
 class FeedRetweetEntry(RestRetweetEntry):
 
     def __init__(self, entry):
@@ -60,13 +67,17 @@ class FeedRetweetEntry(RestRetweetEntry):
         self.entry=DictObj(entry.raw.get('retweeted_status'))
         self.entry.user=DictObj(self.entry.user)
 
+    def _get_body(self, text):
+        return text
+
 class SearchTweetEntry(TweetEntry):
 
     def get_dict(self, api):
         entry = self.entry
 
         time = TwitterTime(entry.published)
-        body, body_string = self._get_body(entry.title)
+        body_string = self._get_body(entry.title)
+        body = add_markup.convert(body_string) # add_markup is global
 
         name = entry.author.name.split(' ')[0]
         entry_id = entry.id.split(':')[2]
