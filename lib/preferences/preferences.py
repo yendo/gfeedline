@@ -109,9 +109,6 @@ class Preferences(object):
             self.button_prefs.set_sensitive(True)
             self.button_del.set_sensitive(True)
 
-    def on_feedsource_treeview_button_press_event(self, treeview):
-        pass
-
     def on_plugin_treeview_cursor_changed(self, treeview):
         pass
 
