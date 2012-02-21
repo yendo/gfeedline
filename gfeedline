@@ -30,11 +30,11 @@ else:
 #     def __init__(self):
 #         super(GFeedLine, self).__init__(application_id="apps.gfeedline")
 #         self.connect("activate", self.on_activate)
+#         # self.connect("quit", self.on_shutdown)
 # 
 #     def on_activate(self, data=None):
 #         liststore = FeedListStore()
 #         liststore.window.window.set_application(self)
-#         # self.connect("quit", self.on_shutdown)
 # 
 #     def on_shutdown(self, *args):
 #         print args
