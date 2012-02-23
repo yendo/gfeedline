@@ -1,0 +1,305 @@
+# Spanish translation for gfeedline
+# Copyright (2012) Yoshizumi Endo
+# This file is distributed under the same license as the gfeedline package.
+# 
+# Translators:
+#   <alexnmoya@gmail.com>, 2012.
+# Yoshizumi Endo <y-endo@ceres.dti.ne.jp>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: GFeedLine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-23 16:12+0900\n"
+"PO-Revision-Date: 2012-02-23 12:47+0000\n"
+"Last-Translator: Yoshizumi Endo <y-endo@ceres.dti.ne.jp>\n"
+"Language-Team: Spanish (Spain) (http://www.transifex.net/projects/p/gfeedline/language/es_ES/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../lib/menu.py:58
+msgid "_Open"
+msgstr "_Abrir"
+
+#: ../lib/menu.py:66
+msgid "_Reply"
+msgstr "_Responder"
+
+#: ../lib/menu.py:78
+msgid "Re_tweet"
+msgstr "Re_twittear"
+
+#: ../lib/menu.py:92
+msgid "_Favorite"
+msgstr "_Favorito"
+
+#: ../lib/menu.py:100
+msgid "_Search"
+msgstr "_Buscar"
+
+#: ../lib/notification.py:57
+msgid "Reply"
+msgstr "Responder"
+
+#: ../lib/notification.py:58
+msgid "Open"
+msgstr "Abrir"
+
+#: ../lib/plugins/twitter/api.py:52
+msgid "Home TimeLine"
+msgstr "Cronología"
+
+#: ../lib/plugins/twitter/api.py:59
+msgid "List TimeLine"
+msgstr "Cronología de las listas"
+
+#: ../lib/plugins/twitter/api.py:72
+msgid "Mentions"
+msgstr "Menciones"
+
+#. add_markup is global
+#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:32
+msgid "Direct Messages"
+msgstr "Mensajes directos"
+
+#: ../lib/plugins/twitter/api.py:87
+msgid "User Stream"
+msgstr "User Stream"
+
+#: ../lib/plugins/twitter/api.py:94
+msgid "Track"
+msgstr "Pista"
+
+#: ../lib/plugins/twitter/api.py:108
+msgid "Search"
+msgstr "Buscar"
+
+#: ../lib/plugins/twitter/assistant.py:29
+msgid "Twitter Account Setup"
+msgstr "Configuración de la cuenta de Twitter"
+
+#: ../lib/plugins/twitter/assistant.py:45
+msgid "Intro"
+msgstr "Introducción"
+
+#: ../lib/plugins/twitter/assistant.py:53
+msgid "Enter PIN"
+msgstr "Introduce el PIN"
+
+#: ../lib/plugins/twitter/assistant.py:61
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: ../lib/updatewindow.py:59 ../lib/updatewindow.py:136
+#, python-format
+msgid "Reply to %s"
+msgstr "Responder a %s"
+
+#: ../share/assistant_twitter.glade.h:1
+msgid "PIN:"
+msgstr "PIN:"
+
+#: ../share/assistant_twitter.glade.h:2
+msgid ""
+"Return to this dialog after you have finished the authorization process on "
+"Twitter.com and Enter your PIN below."
+msgstr "Vuelve a este diálogo cuando hayas terminado el proceso de autorización en Twitter.com e introduce tu PIN."
+
+#: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:14
+msgid "Screen name:"
+msgstr "Nombre de usuario:"
+
+#: ../share/assistant_twitter.glade.h:4
+msgid ""
+"This assistant helps you to configure Twitter account for GFeedLine.\n"
+"\n"
+"Click \"Forward\" to open a Twitter authorization page with the default browser."
+msgstr "Este asistente te ayudará a configurar tu cuenta de Twitter para ser usada con GFeedLine.\n\nHaz clic en \"Siguiente\" para comenzar el proceso de autorización."
+
+#: ../share/assistant_twitter.glade.h:7
+msgid ""
+"Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
+"\n"
+"Click \"Apply\" to save your settings."
+msgstr "La configuración ha terminado.  Ya puedes acceder a Twitter desde GFeedLine.\n\nHaz clic en \"Finalizar\" para guardar tu configuración."
+
+#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:19
+msgid "none"
+msgstr "nada"
+
+#: ../share/feedsource.glade.h:1
+msgid "Feed Source"
+msgstr "Fuente del feed"
+
+#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:11
+msgid "General"
+msgstr "General"
+
+#: ../share/feedsource.glade.h:3
+msgid "_Argument:"
+msgstr "_Argumento:"
+
+#: ../share/feedsource.glade.h:4
+msgid "_Enable notification"
+msgstr "A_ctivar notificaciones"
+
+#: ../share/feedsource.glade.h:5
+msgid "_Group:"
+msgstr "_Grupo:"
+
+#: ../share/feedsource.glade.h:6
+msgid "_Name:"
+msgstr "_Nombre:"
+
+#: ../share/feedsource.glade.h:7
+msgid "_Source:"
+msgstr "_Fuente:"
+
+#: ../share/feedsource.glade.h:8
+msgid "_Target:"
+msgstr "_Objetivo:"
+
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:11
+msgid "GFeedLine"
+msgstr "GFeedLine"
+
+#: ../share/gfeedline.desktop.in.h:2
+msgid "Read & Write Social Feeds"
+msgstr "Leer y escribir Fuentes Sociales"
+
+#: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:12
+msgid "Social Networking Client"
+msgstr "Cliente de redes sociales"
+
+#: ../share/gfeedline.glade.h:1
+msgid ""
+"<big><b>Welcome to GFeedLine!</b></big>\n"
+"\n"
+"GFeedLine is a social networking client.  It supports Twitter.\n"
+"\n"
+"You have no Twitter account configured.  To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your account.\n"
+"\n"
+"You can configured your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
+msgstr "<big><b>¡Bienvenido a GFeedLine!</b></big>\n\nGFeedLine es un cliente de redes sociales.  Actualmente soporta a Twitter.\n\nNo has configurado ninguna cuenta de Twitter.  Para comenzar a usar GFeedLine, abre el diálogo de Preferencias desde <b>Editar  ▸ Preferencias</b> para configurar tu cuenta.\n\nPuedes configurar tus fuentes desde la pestaña de Fuentes en el diálogo de Preferencias.  Para activar la vista de multicolumna, introduce el nombre de un grupo en cada diálogo de orígenes de fuentes."
+
+#: ../share/gfeedline.glade.h:8
+msgid "All Tabs to the _Bottom"
+msgstr "Todas las pestañas _abajo"
+
+#: ../share/gfeedline.glade.h:9
+msgid "All Tabs to the _Top"
+msgstr "Todas las pestañas a_rriba"
+
+#: ../share/gfeedline.glade.h:10
+msgid "Copyright © 2012 Yoshizumi Endo."
+msgstr "Copyright © 2012 Yoshizumi Endo."
+
+#: ../share/gfeedline.glade.h:13
+msgid "_Edit"
+msgstr "_Editar"
+
+#: ../share/gfeedline.glade.h:14
+msgid "_File"
+msgstr "_Archivo"
+
+#: ../share/gfeedline.glade.h:15
+msgid "_Help"
+msgstr "A_yuda"
+
+#: ../share/gfeedline.glade.h:16
+msgid "_Multi-Column"
+msgstr "_Multicolumnas"
+
+#: ../share/gfeedline.glade.h:17
+msgid "_Update"
+msgstr "Ac_tualizar"
+
+#: ../share/gfeedline.glade.h:18
+msgid "_View"
+msgstr "_Ver"
+
+#: ../share/gfeedline.glade.h:19
+msgid "translator-credits"
+msgstr "alexnmoya"
+
+#: ../share/preferences.glade.h:1
+msgid "<b>Account</b>"
+msgstr "<b>Cuenta</b>"
+
+#: ../share/preferences.glade.h:2
+msgid "<b>Desktop</b>"
+msgstr "<b>Escritorio</b>"
+
+#: ../share/preferences.glade.h:3
+msgid "<b>Feed Sources</b>"
+msgstr "<b>Origen de los feeds<b>"
+
+#: ../share/preferences.glade.h:4
+msgid "<b>View</b>"
+msgstr "<b>Ver</b>"
+
+#: ../share/preferences.glade.h:5
+msgid "Account"
+msgstr "Cuenta"
+
+#: ../share/preferences.glade.h:6
+msgid "Always on _Visible Workspace"
+msgstr "Siempre _visible"
+
+#: ../share/preferences.glade.h:7
+msgid "Argument"
+msgstr "Argumentos"
+
+#: ../share/preferences.glade.h:8
+msgid "Au_thentication"
+msgstr "Au_tenticación"
+
+#: ../share/preferences.glade.h:9
+msgid "Feed Line Preferences"
+msgstr "Preferencias de los feeds"
+
+#: ../share/preferences.glade.h:10
+msgid "Feeds"
+msgstr "Fuentes"
+
+#: ../share/preferences.glade.h:12
+msgid "Group"
+msgstr "Grupo"
+
+#: ../share/preferences.glade.h:13
+msgid "Name"
+msgstr "Nombre"
+
+#: ../share/preferences.glade.h:15
+msgid "Target"
+msgstr "Objetivo"
+
+#: ../share/preferences.glade.h:16
+msgid "_Authorization"
+msgstr "_Autorización"
+
+#: ../share/preferences.glade.h:17
+msgid "_Auto Start"
+msgstr "_Inciar automáticamente"
+
+#: ../share/preferences.glade.h:18
+msgid "_Theme:"
+msgstr "_Tema:"
+
+#: ../share/retweet.glade.h:1
+msgid "<big><b>Retweet?</b></big>"
+msgstr "<big><b>¿Retwittear?</b></big>"
+
+#: ../share/retweet.glade.h:2
+msgid "Retweet this to your followers?"
+msgstr "¿Retwittear a tus seguidores?"
+
+#: ../share/update.glade.h:1
+msgid "What are you doing?"
+msgstr "¿Qué estás haciendo?"
+
+#: ../share/update.glade.h:2
+msgid "_Tweet"
+msgstr "_Twittear"

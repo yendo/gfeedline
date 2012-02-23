@@ -1,5 +1,6 @@
 2012-02-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* es_ES.po: Added new Spanish (Spain) translation.  Thanks alexnmoya!
 	* gfeedline: Renamed the product name from GNOME Feed Line to
 	  GFeedLine (issue #1).
 
