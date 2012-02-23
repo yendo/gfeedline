@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-13 12:45+0900\n"
-"PO-Revision-Date: 2012-02-13 13:14+0900\n"
+"POT-Creation-Date: 2012-02-23 16:12+0900\n"
+"PO-Revision-Date: 2012-02-23 16:11+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,59 +16,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../lib/menu.py:33
+#: ../lib/menu.py:58
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:41
+#: ../lib/menu.py:66
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:48
+#: ../lib/menu.py:78
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:105
+#: ../lib/menu.py:92
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:113
+#: ../lib/menu.py:100
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../lib/notification.py:52
+#: ../lib/notification.py:57
 msgid "Reply"
 msgstr "返信"
 
-#: ../lib/notification.py:53
+#: ../lib/notification.py:58
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/plugins/twitter/api.py:53
+#: ../lib/plugins/twitter/api.py:52
 msgid "Home TimeLine"
 msgstr "ホームタイムライン"
 
-#: ../lib/plugins/twitter/api.py:60
+#: ../lib/plugins/twitter/api.py:59
 msgid "List TimeLine"
 msgstr "リストタイムライン"
 
-#: ../lib/plugins/twitter/api.py:73
+#: ../lib/plugins/twitter/api.py:72
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:80 ../lib/plugins/twitter/tweetentry.py:25
+#. add_markup is global
+#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:32
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:88
+#: ../lib/plugins/twitter/api.py:87
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
-#: ../lib/plugins/twitter/api.py:95
+#: ../lib/plugins/twitter/api.py:94
 msgid "Track"
 msgstr "トラック"
 
-#: ../lib/plugins/twitter/api.py:109
+#: ../lib/plugins/twitter/api.py:108
 msgid "Search"
 msgstr "検索"
 
@@ -88,7 +89,7 @@ msgstr "PIN の入力"
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/updatewindow.py:21
+#: ../lib/updatewindow.py:59 ../lib/updatewindow.py:136
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
@@ -111,13 +112,12 @@ msgstr "スクリーンネーム:"
 
 #: ../share/assistant_twitter.glade.h:4
 msgid ""
-"This assistant helps you to configure Twitter account for GNOME Feed Line.\n"
+"This assistant helps you to configure Twitter account for GFeedLine.\n"
 "\n"
 "Click \"Forward\" to open a Twitter authorization page with the default "
 "browser."
 msgstr ""
-"この設定アシスタントでは GNOME フィードラインで利用するアカウントの設定を行い"
-"ます。\n"
+"この設定アシスタントでは GFeedLine で利用するアカウントの設定を行います。\n"
 "\n"
 "[進む] ボタンをクリックすると、ブラウザで Twitter の認証ページを開き、認証作"
 "業を開始します。"
@@ -125,7 +125,7 @@ msgstr ""
 #: ../share/assistant_twitter.glade.h:7
 msgid ""
 "Your configuration is complete.  You are now ready to access to Twitter with "
-"GNOME Feed Line.\n"
+"GFeedLine.\n"
 "\n"
 "Click \"Apply\" to save your settings."
 msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
@@ -167,39 +167,38 @@ msgid "_Target:"
 msgstr "ターゲット(_T):"
 
 #: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:11
-msgid "GNOME Feed Line"
-msgstr "GNOME フィードライン"
+msgid "GFeedLine"
+msgstr "GFeedLine"
 
 #: ../share/gfeedline.desktop.in.h:2
 msgid "Read & Write Social Feeds"
 msgstr "ソーシャルフィードの読み書きを行います"
 
-#: ../share/gfeedline.desktop.in.h:3
+#: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:12
 msgid "Social Networking Client"
 msgstr "ソーシャルネットワーキングクライアント"
 
 #: ../share/gfeedline.glade.h:1
 msgid ""
-"<big><b>Welcome to GNOME Feed Line!</b></big>\n"
+"<big><b>Welcome to GFeedLine!</b></big>\n"
 "\n"
-"Gnome Feed Line is a social networking client for the GNOME 3 Desktop.  It "
-"supports Twitter.\n"
+"GFeedLine is a social networking client.  It supports Twitter.\n"
 "\n"
-"You have no Twitter account configured.  To start connecting with GNOME Feed "
-"Line, open the Preferences dialog from <b>Edit  ▸ Preference</b> to "
-"configure your account.\n"
+"You have no Twitter account configured.  To start connecting with GFeedLine, "
+"open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your "
+"account.\n"
 "\n"
 "You can configured your feeds in the Feeds tab of the Preferences dialog.  "
 "To enable multi-column view, enter a group name in each feed source dialog."
 msgstr ""
-"<big><b>GNOME フィードラインへようこそ!</b></big>\n"
+"<big><b>GFeedLine へようこそ!</b></big>\n"
 "\n"
-"GNOME フィードラインは GNOME 3 デスクトップ向けのソーシャルネットワーキングク"
-"ライアントです。Twitter をサポートしています。\n"
+"GFeedLine はソーシャルネットワーキングクライアントです。Twitter をサポートし"
+"ています。\n"
 "\n"
-"まだ Twitter アカウントが設定されていません。GNOME フィードラインでアクセスす"
-"るために、メニューの<b>ファイル ▸ 設定</b>から設定ダイアログを開き、アカウン"
-"トを設定してください。\n"
+"まだ Twitter アカウントが設定されていません。GFeedLine でアクセスするために、"
+"メニューの<b>ファイル ▸ 設定</b>から設定ダイアログを開き、アカウントを設定し"
+"てください。\n"
 "\n"
 "また、同じ設定ダイアログのフィードタブでは複数のフィードが設定でき、各フィー"
 "ドでグループ名を指定するとマルチカラム表示が可能です。"
@@ -215,10 +214,6 @@ msgstr "すべてのタブで先頭行に移動(_T)"
 #: ../share/gfeedline.glade.h:10
 msgid "Copyright © 2012 Yoshizumi Endo."
 msgstr "Copyright © 2012 Yoshizumi Endo."
-
-#: ../share/gfeedline.glade.h:12
-msgid "GNOME Social Networking Client"
-msgstr "GNOME ソーシャルネットワーキングクライアント"
 
 #: ../share/gfeedline.glade.h:13
 msgid "_Edit"
@@ -321,16 +316,15 @@ msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
 #: ../share/update.glade.h:1
-msgid "140"
-msgstr "140"
-
-#: ../share/update.glade.h:2
 msgid "What are you doing?"
 msgstr "いまどうしてる?"
 
-#: ../share/update.glade.h:3
+#: ../share/update.glade.h:2
 msgid "_Tweet"
 msgstr "ツイート(_T)"
+
+#~ msgid "140"
+#~ msgstr "140"
 
 #~ msgid "<b>Plugins</b>"
 #~ msgstr "<b>プラグイン</b>"

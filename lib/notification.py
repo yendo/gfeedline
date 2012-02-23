@@ -1,5 +1,5 @@
 #
-# gfeedline - Gnome Social Feed Reader
+# gfeedline - A Social Networking Client
 #
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
@@ -17,7 +17,7 @@ from utils.urlgetautoproxy import UrlGetWithAutoProxy
 class StatusNotification(Notification):
 
     def __init__(self, notification):
-        super(StatusNotification, self).__init__('Gnome Feed Line')
+        super(StatusNotification, self).__init__('GFeedLine')
         self.has_actions = 'actions' in self.get_capabilities()
         self.icon_file = os.path.join(TMP_DIR, 'notification_icon.jpg')
 

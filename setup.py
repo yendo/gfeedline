@@ -12,8 +12,8 @@ for file in glob.glob('share/*.*'):
 
 setup(name = 'gfeedline',
       version = VERSION,
-      description = 'GNOME Feed Line',
-      long_description = 'A Social Networking Client for the GNOME Desktop.',
+      description = 'GFeedLine',
+      long_description = 'A Social Networking Client',
       author = 'Yoshizumi Endo',
       author_email = 'y-endo@ceres.dti.ne.jp',
       url = 'http://code.google.com/p/gfeedline/',

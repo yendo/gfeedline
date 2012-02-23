@@ -1,5 +1,5 @@
 #
-# gfeedline - Gnome Social Feed Reader
+# gfeedline - A Social Networking Client
 #
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3

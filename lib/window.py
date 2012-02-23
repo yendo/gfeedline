@@ -1,5 +1,5 @@
 #
-# gfeedline - Gnome Social Feed Reader
+# gfeedline - A Social Networking Client
 #
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
@@ -26,7 +26,7 @@ class MainWindow(object):
         self.window = window = gui.get_object('main_window')
         self.column = MultiColumnDict(gui) # multi-columns for Notebooks
         self.theme = Theme()
-        self.notification = StatusNotification('Gnome Feed Line')
+        self.notification = StatusNotification('GFeedLine')
 
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
         self.on_settings_sticky_change(SETTINGS, 'window-sticky')
@@ -206,7 +206,7 @@ class AboutDialog(object):
         about = gui.get_object('aboutdialog')
         about.set_transient_for(parent)
         about.set_property('version', VERSION)
-        # about.set_program_name('GNOME Feed Line')
+        # about.set_program_name('GFeedLine')
 
         about.run()
         about.destroy()

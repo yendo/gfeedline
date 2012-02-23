@@ -5,9 +5,9 @@
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="type_hint">dialog</property>
-    <property name="program_name">GNOME Feed Line</property>
+    <property name="program_name">GFeedLine</property>
     <property name="copyright" translatable="yes">Copyright © 2012 Yoshizumi Endo.</property>
-    <property name="comments" translatable="yes">GNOME Social Networking Client</property>
+    <property name="comments" translatable="yes">Social Networking Client</property>
     <property name="website">http://code.google.com/p/gfeedline/</property>
     <property name="authors">Yoshizumi Endo &lt;yendo0206@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes">translator-credits</property>
@@ -47,7 +47,7 @@
   </object>
   <object class="GtkWindow" id="main_window">
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">GNOME Feed Line</property>
+    <property name="title" translatable="yes">GFeedLine</property>
     <signal name="leave-notify-event" handler="on_window_leave_notify_event" swapped="no"/>
     <signal name="delete-event" handler="on_stop" swapped="no"/>
     <child>
@@ -254,11 +254,11 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="xpad">24</property>
-            <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Welcome to GNOME Feed Line!&lt;/b&gt;&lt;/big&gt;
+            <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Welcome to GFeedLine!&lt;/b&gt;&lt;/big&gt;
 
-Gnome Feed Line is a social networking client for the GNOME 3 Desktop.  It supports Twitter.
+GFeedLine is a social networking client.  It supports Twitter.
 
-You have no Twitter account configured.  To start connecting with GNOME Feed Line, open the Preferences dialog from &lt;b&gt;Edit  ▸ Preference&lt;/b&gt; to configure your account.
+You have no Twitter account configured.  To start connecting with GFeedLine, open the Preferences dialog from &lt;b&gt;Edit  ▸ Preference&lt;/b&gt; to configure your account.
 
 You can configured your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog.</property>
             <property name="use_markup">True</property>
