@@ -1,10 +1,10 @@
 import os
-from ..constants import CONFIG_HOME
 import json
+import time
+from datetime import datetime, timedelta
 
 from gi.repository import Gtk
-
-from ..constants import SHARED_DATA_FILE
+from ..constants import SHARED_DATA_FILE, CONFIG_HOME
 
 
 class FilterDialog(object):
@@ -38,17 +38,32 @@ class FilterDialog(object):
             target = labels.index(self.liststore_row[0])
             self.combobox_target.set_active(target)
 
-            self.entry_word.set_text(
-                self.liststore_row[1])
-            self.spinbutton_expiry.set_value(int(self.liststore_row[2]))
+            self.entry_word.set_text(self.liststore_row[1])
+
+            expire_epoch = int(self.liststore_row[3])
+            future = datetime.fromtimestamp(expire_epoch)
+            now = datetime.now()
+            delta = future - now
+
+            self.spinbutton_expiry.set_value(delta.days)
 
         # run
         response_id = dialog.run()
 
+        expire_days = self.spinbutton_expiry.get_value_as_int()
+        now = datetime.now()
+        expire_days = timedelta(days=expire_days)
+        future = now + expire_days
+        expire_epoch = int(time.mktime(future.timetuple()))
+
+        expiration =  "%s days" % expire_days.days if expire_days.days \
+            else "%s hours" % (expire_days.seconds / 3600)
+
+
         v = [
             self.combobox_model[self.combobox_target.get_active()][0],
             self.entry_word.get_text().decode('utf-8'),
-            str(self.spinbutton_expiry.get_value_as_int()),
+            expiration, expire_epoch,
         ]
 
 
@@ -63,12 +78,12 @@ class FilterListStore(Gtk.ListStore):
 
     """ListStore for Filters.
 
-    0,      1,     2,      
-    target, words, expire,
+    0,      1,     2,           3,
+    target, words, expire days, expire datetime
     """
 
     def __init__(self):
-        super(FilterListStore, self).__init__(str, str, str)
+        super(FilterListStore, self).__init__(str, str, str, int)
 
         self.save = SaveFilterListStore()
         for entry in self.save.load():
@@ -103,7 +118,16 @@ class SaveFilterListStore(object):
             entry = json.load(f)           
 
         for row in entry:
-            data = [row['target'], row['words'], row['expiry']]
+            now = datetime.now()
+            future = datetime.fromtimestamp(row['expire_datetime'])
+            expire_days = future - now
+            expiration =  "%s days" % expire_days.days if expire_days.days \
+                else "%s hours" % (expire_days.seconds / 3600)
+
+            print expiration
+
+            data = [row['target'], row['words'], 
+                    str(expiration), row['expire_datetime']]
             source_list.append(data)
 
         return source_list
@@ -114,7 +138,7 @@ class SaveFilterListStore(object):
         for i, row in enumerate(liststore):
             save_temp = {'target': row[0],
                          'words': row[1],
-                         'expiry': row[2]
+                         'expire_datetime': row[3]
                          }
 
 
