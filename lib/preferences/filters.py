@@ -4,6 +4,58 @@ import json
 
 from gi.repository import Gtk
 
+from ..constants import SHARED_DATA_FILE
+
+
+class FilterDialog(object):
+    """Filter Dialog"""
+
+    def __init__(self, parent, liststore_row=None):
+        self.gui = Gtk.Builder()
+        self.gui.add_from_file(SHARED_DATA_FILE('filters.glade'))
+
+        self.parent = parent
+        self.liststore_row = liststore_row
+
+        self.combobox_target = self.gui.get_object('comboboxtext_target')
+        self.combobox_target.set_active(0)
+        self.entry_word = self.gui.get_object('entry_word')
+        self.spinbutton_expiry= self.gui.get_object('spinbutton_expiry')
+
+#        self.on_comboboxtext_target_changed()
+        self.gui.connect_signals(self)
+
+    def run(self):
+        dialog = self.gui.get_object('filter_dialog')
+        dialog.set_transient_for(self.parent)
+
+        #source_widget = SourceComboBox(self.gui, source_list, self.data)
+
+#        if self.liststore_row:
+#            self.entry_name.set_text(
+#                self.liststore_row[Column.NAME])
+#            self.entry_argument.set_text(
+#                self.liststore_row[Column.ARGUMENT])
+#            self.entry_group.set_text(self.liststore_row[Column.GROUP])
+
+        # run
+        response_id = dialog.run()
+
+        model = self.combobox_target.get_model()
+
+        v = [
+            model[self.combobox_target.get_active()][0],
+            self.entry_word.get_text().decode('utf-8'),
+            str(self.spinbutton_expiry.get_value_as_int()),
+        ]
+
+
+
+        print v
+        dialog.destroy()
+#        if response_id == Gtk.ResponseType.OK:
+#            SETTINGS_RECENTS.set_string('source', v['source'])
+        return response_id , v
 
 class FilterListStore(Gtk.ListStore):
 

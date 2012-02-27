@@ -11,6 +11,7 @@ from ..utils.settings import SETTINGS, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE, Column
 from feedsource import FeedSourceDialog
+from filters import FilterDialog
 
 class Preferences(object):
 
@@ -117,6 +118,33 @@ class Preferences(object):
 
     def on_plugin_treeview_cursor_changed(self, treeview):
         pass
+
+
+    def on_button_filter_new_clicked(self, button):
+        dialog = FilterDialog(self.preferences)
+        response_id, v = dialog.run()
+
+        print response_id, v
+        if response_id == Gtk.ResponseType.OK:
+            new_iter = self.liststore.filter_liststore.append(v)
+            #self.feedsource_treeview.set_cursor_to(new_iter)
+
+    def on_button_filter_prefs_clicked(self, treeselection):
+        model, iter = treeselection.get_selected()
+
+        dialog = FilterDialog(self.preferences, model[iter])
+        response_id, v = dialog.run()
+
+        if response_id == Gtk.ResponseType.OK:
+            new_iter = self.liststore.filter_liststore.update(v, iter)
+            #self.feedsource_treeview.set_cursor_to(new_iter)
+
+    def on_button_filter_del_clicked(self, treeselection):
+        model, iter = treeselection.get_selected()
+        model.remove(iter)
+
+        #self.button_prefs.set_sensitive(False)
+        #self.button_del.set_sensitive(False)
 
 class FeedSourceTreeview(object):
 
