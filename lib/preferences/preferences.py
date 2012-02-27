@@ -70,6 +70,7 @@ class Preferences(object):
 
         self.combobox_theme.check_active()
         self.liststore.save_settings()
+        self.liststore.filter_liststore.save_settings()
         self.preferences.destroy()
 
     def on_checkbutton_sticky_toggled(self, button):
