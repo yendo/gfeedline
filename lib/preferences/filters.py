@@ -19,6 +19,7 @@ class FilterDialog(object):
 
         self.combobox_target = self.gui.get_object('comboboxtext_target')
         self.combobox_target.set_active(0)
+        self.combobox_model = self.combobox_target.get_model()
         self.entry_word = self.gui.get_object('entry_word')
         self.spinbutton_expiry= self.gui.get_object('spinbutton_expiry')
 
@@ -31,20 +32,21 @@ class FilterDialog(object):
 
         #source_widget = SourceComboBox(self.gui, source_list, self.data)
 
-#        if self.liststore_row:
-#            self.entry_name.set_text(
-#                self.liststore_row[Column.NAME])
-#            self.entry_argument.set_text(
-#                self.liststore_row[Column.ARGUMENT])
-#            self.entry_group.set_text(self.liststore_row[Column.GROUP])
+        if self.liststore_row:
+
+            labels = [i[0] for i in self.combobox_model]
+            target = labels.index(self.liststore_row[0])
+            self.combobox_target.set_active(target)
+
+            self.entry_word.set_text(
+                self.liststore_row[1])
+            self.spinbutton_expiry.set_value(int(self.liststore_row[2]))
 
         # run
         response_id = dialog.run()
 
-        model = self.combobox_target.get_model()
-
         v = [
-            model[self.combobox_target.get_active()][0],
+            self.combobox_model[self.combobox_target.get_active()][0],
             self.entry_word.get_text().decode('utf-8'),
             str(self.spinbutton_expiry.get_value_as_int()),
         ]
