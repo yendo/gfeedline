@@ -21,7 +21,9 @@ class FilterDialog(object):
         self.combobox_target.set_active(0)
         self.combobox_model = self.combobox_target.get_model()
         self.entry_word = self.gui.get_object('entry_word')
-        self.spinbutton_expiry= self.gui.get_object('spinbutton_expiry')
+        self.spinbutton_expiry = self.gui.get_object('spinbutton_expiry')
+        self.combobox_expire_unit = self.gui.get_object('comboboxtext_expire_unit')
+
 
 #        self.on_comboboxtext_target_changed()
         self.gui.connect_signals(self)
@@ -29,6 +31,7 @@ class FilterDialog(object):
     def run(self):
         dialog = self.gui.get_object('filter_dialog')
         dialog.set_transient_for(self.parent)
+        self.combobox_expire_unit.set_active(0) # glade bug
 
         #source_widget = SourceComboBox(self.gui, source_list, self.data)
 
@@ -37,38 +40,31 @@ class FilterDialog(object):
             labels = [i[0] for i in self.combobox_model]
             target = labels.index(self.liststore_row[0])
             self.combobox_target.set_active(target)
-
             self.entry_word.set_text(self.liststore_row[1])
 
-            expire_epoch = int(self.liststore_row[3])
-            future = datetime.fromtimestamp(expire_epoch)
-            now = datetime.now()
-            delta = future - now
-
-            self.spinbutton_expiry.set_value(delta.days)
+            active = self.liststore_row[3] == "hours"
+            self.combobox_expire_unit.set_active(active)
+            self.spinbutton_expiry.set_value(int(self.liststore_row[2]))
 
         # run
         response_id = dialog.run()
 
-        expire_days = self.spinbutton_expiry.get_value_as_int()
+        expire_time_value = self.spinbutton_expiry.get_value_as_int()
         now = datetime.now()
-        expire_days = timedelta(days=expire_days)
+        expire_days = timedelta(days=expire_time_value)
         future = now + expire_days
         expire_epoch = int(time.mktime(future.timetuple()))
 
-        expiration =  "%s days" % expire_days.days if expire_days.days \
-            else "%s hours" % (expire_days.seconds / 3600)
-
+        expiration_unit = 'hours' \
+            if self.combobox_expire_unit.get_active() else 'days'
 
         v = [
             self.combobox_model[self.combobox_target.get_active()][0],
             self.entry_word.get_text().decode('utf-8'),
-            expiration, expire_epoch,
+            str(expire_time_value), expiration_unit, expire_epoch,
         ]
 
-
-
-        print v
+#        print v
         dialog.destroy()
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
@@ -78,12 +74,12 @@ class FilterListStore(Gtk.ListStore):
 
     """ListStore for Filters.
 
-    0,      1,     2,           3,
-    target, words, expire days, expire datetime
+    0,      1,     2,           3,           4,
+    target, words, expire days, expire unit, expire datetime
     """
 
     def __init__(self):
-        super(FilterListStore, self).__init__(str, str, str, int)
+        super(FilterListStore, self).__init__(str, str, str, str, int)
 
         self.save = SaveFilterListStore()
         for entry in self.save.load():
@@ -121,13 +117,14 @@ class SaveFilterListStore(object):
             now = datetime.now()
             future = datetime.fromtimestamp(row['expire_datetime'])
             expire_days = future - now
-            expiration =  "%s days" % expire_days.days if expire_days.days \
-                else "%s hours" % (expire_days.seconds / 3600)
 
-            print expiration
+            expiration =  expire_days.days if expire_days.days \
+                else expire_days.seconds / 3600
+            expiration_unit =  "days" if expire_days.days else "hours"
 
             data = [row['target'], row['words'], 
-                    str(expiration), row['expire_datetime']]
+                    str(expiration), str(expiration_unit), 
+                    row['expire_datetime']]
             source_list.append(data)
 
         return source_list
@@ -138,7 +135,7 @@ class SaveFilterListStore(object):
         for i, row in enumerate(liststore):
             save_temp = {'target': row[0],
                          'words': row[1],
-                         'expire_datetime': row[3]
+                         'expire_datetime': row[4]
                          }
 
 

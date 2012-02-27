@@ -60,8 +60,8 @@ class TwitterOutputBase(object):
                if text.find(row[1].decode('utf-8')) >= 0])
 
         if pass_rt or has_bad:
-            print "Del: ", text
-            #pass
+            #print "Del: ", text
+            pass
         else:
             self.buffer_entry(entry, args)
 
