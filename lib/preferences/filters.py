@@ -33,22 +33,32 @@ class FilterDialog(object):
                 self.liststore_row[FilterColumn.TARGET])
             self.entry_word.set_text(self.liststore_row[FilterColumn.WORD])
             self.spinbutton_expiry.set_value(
-                int(self.liststore_row[FilterColumn.EXPIRE_TIME]))
+                int(self.liststore_row[FilterColumn.EXPIRE_TIME] or 0))
             self.combobox_expire_unit.set_active_text(
                 self.liststore_row[FilterColumn.EXPIRE_UNIT])
 
         # run
         response_id = dialog.run()
 
-        expire_time = ExpireTime(self.spinbutton_expiry.get_value_as_int(),
+        spinbutton_value = self.spinbutton_expiry.get_value_as_int()
+        expire_time = ExpireTime(spinbutton_value,
                                  self.combobox_expire_unit.get_active())
+
+        if spinbutton_value == 0:
+            expire_value_col = ''
+            expire_unit_col = ''
+            expire_epoch_col = 0
+        else:
+            expire_value_col = str(spinbutton_value)
+            expire_unit_col = self.combobox_expire_unit.get_active_text()
+            expire_epoch_col = expire_time.get_epoch()
 
         v = [
             self.combobox_target.get_active_text(),
             self.entry_word.get_text().decode('utf-8'),
-            str(self.spinbutton_expiry.get_value_as_int()), 
-            self.combobox_expire_unit.get_active_text(), 
-            expire_time.get_epoch(),
+            expire_value_col, 
+            expire_unit_col, 
+            expire_epoch_col,
         ]
 
 #        print v
@@ -90,23 +100,15 @@ class ComboboxTarget(object):
 
     def set_active_text(self, text):
         labels = [i[0] for i in self.model]
-        target = labels.index(text)
+        target = labels.index(text) if text in labels else 0
         self.widget.set_active(target)
 
 class ComboboxExpireUnit(ComboboxTarget):
 
     WIDGET = 'comboboxtext_expire_unit'
 
-    def get_active_text(self):
-        return 'hours' if self.widget.get_active() else 'days'
-
-    def set_active_text(self, text):
-        active = text == "hours"
-        self.widget.set_active(active)
-
 class FilterAction(FeedSourceAction):
 
     DIALOG = FilterDialog
     BUTTON_PREFS = 'button_filter_prefs'
     BUTTON_DEL = 'button_filter_del'
-

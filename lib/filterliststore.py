@@ -52,9 +52,12 @@ class SaveFilterListStore(SaveListStoreBase):
             future = datetime.fromtimestamp(row['expire_datetime'])
             expire_timedelta = future - now
 
-            expiration =  expire_timedelta.days if expire_timedelta.days \
+            expiration = '' if not row['expire_datetime'] \
+                else expire_timedelta.days if expire_timedelta.days \
                 else expire_timedelta.seconds / 3600
-            expiration_unit =  "days" if expire_timedelta.days else "hours"
+
+            expiration_unit = '' if not row['expire_datetime'] \
+                else "days" if expire_timedelta.days else "hours"
 
             data = [row['target'], row['word'], 
                     str(expiration), str(expiration_unit), 
