@@ -53,9 +53,6 @@ class TwitterOutputBase(object):
     def check_entry(self, entry, text, *args):
         pass_rt = text.startswith('RT @') and not self.api.include_rt
 
-        #has_bad = bool([bad for bad in SETTINGS.get_strv('bad-words')
-        #                if text.find(bad.decode('utf-8')) >= 0])
-
         has_bad = bool([row for row in self.filters
                if text.find(row[FilterColumn.WORD].decode('utf-8')) >= 0])
 

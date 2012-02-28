@@ -1,8 +1,9 @@
-import os
 import json
 from datetime import datetime
+import time
 
 from gi.repository import Gtk
+from twisted.internet import reactor
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 
 
@@ -24,6 +25,7 @@ class FilterListStore(ListStoreBase):
         self.save = SaveFilterListStore()
         for entry in self.save.load():
             self.append(entry)
+        self.expire()
 
     def append(self, entry, iter=None):
         new_iter = self.insert_before(iter, entry)
@@ -33,6 +35,14 @@ class FilterListStore(ListStoreBase):
         new_iter = self.append(entry, iter)
         self.remove(iter)
         return new_iter
+
+    def expire(self):
+        now = int(time.mktime(datetime.now().timetuple()))
+        for i, entry in enumerate(self):
+            if entry[FilterColumn.EXPIRE_EPOCH] - now < 0:
+                self.remove(self.get_iter(i))
+
+        reactor.callLater(300, self.expire)
 
 class SaveFilterListStore(SaveListStoreBase):
 
@@ -49,19 +59,26 @@ class SaveFilterListStore(SaveListStoreBase):
 
         for row in entry:
             now = datetime.now()
-            future = datetime.fromtimestamp(row['expire_datetime'])
-            expire_timedelta = future - now
+            future = datetime.fromtimestamp(row['expire_epoch'])
+            timedelta = future - now
 
-            expiration = '' if not row['expire_datetime'] \
-                else expire_timedelta.days if expire_timedelta.days \
-                else expire_timedelta.seconds / 3600
+            if not row['expire_epoch']:
+                expiration_value = ''
+            elif timedelta.days:
+                expiration_value = timedelta.days
+            elif timedelta.seconds >= 3600:
+                expiration_value = timedelta.seconds / 3600
+            else:
+                expiration_value = round(timedelta.seconds / 3600.0, 1)
+                if expiration_value == 1.0:
+                    expiration_value = 1
 
-            expiration_unit = '' if not row['expire_datetime'] \
-                else "days" if expire_timedelta.days else "hours"
+            expiration_unit = '' if not row['expire_epoch'] \
+                else "days" if timedelta.days else "hours"
 
             data = [row['target'], row['word'], 
-                    str(expiration), str(expiration_unit), 
-                    row['expire_datetime']]
+                    str(expiration_value), str(expiration_unit), 
+                    row['expire_epoch']]
             source_list.append(data)
 
         return source_list
@@ -72,7 +89,7 @@ class SaveFilterListStore(SaveListStoreBase):
         for row in liststore:
             save_temp = {'target': row[FilterColumn.TARGET],
                          'word': row[FilterColumn.WORD],
-                         'expire_datetime': row[FilterColumn.EXPIRE_EPOCH]
+                         'expire_epoch': row[FilterColumn.EXPIRE_EPOCH]
                          }
 
             save_data.append(save_temp)

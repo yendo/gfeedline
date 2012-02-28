@@ -32,8 +32,12 @@ class FilterDialog(object):
             self.combobox_target.set_active_text(
                 self.liststore_row[FilterColumn.TARGET])
             self.entry_word.set_text(self.liststore_row[FilterColumn.WORD])
-            self.spinbutton_expiry.set_value(
-                int(self.liststore_row[FilterColumn.EXPIRE_TIME] or 0))
+
+            expire_time = self.liststore_row[FilterColumn.EXPIRE_TIME] or '0'
+            if 0 < float(expire_time) < 1:
+                expire_time = 1
+            self.spinbutton_expiry.set_value(int(expire_time))
+
             self.combobox_expire_unit.set_active_text(
                 self.liststore_row[FilterColumn.EXPIRE_UNIT])
 
