@@ -6,6 +6,7 @@ lib/plugins/twitter/tweetentry.py
 lib/updatewindow.py
 share/assistant_twitter.glade
 share/feedsource.glade
+share/filters.glade
 share/gfeedline.desktop.in
 share/gfeedline.glade
 share/preferences.glade
