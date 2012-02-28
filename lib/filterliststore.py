@@ -36,10 +36,18 @@ class FilterListStore(ListStoreBase):
         self.remove(iter)
         return new_iter
 
+    def update_expire_info(self):
+        for i, entry in enumerate(self):
+            epoch = entry[FilterColumn.EXPIRE_EPOCH]
+            if epoch:
+                entry[FilterColumn.EXPIRE_TIME], \
+                    entry[FilterColumn.EXPIRE_UNIT] = get_expire_info(epoch)
+
     def expire(self):
         now = int(time.mktime(datetime.now().timetuple()))
         for i, entry in enumerate(self):
-            if entry[FilterColumn.EXPIRE_EPOCH] - now < 0:
+            epoch = entry[FilterColumn.EXPIRE_EPOCH]
+            if epoch > 0 and epoch - now < 0:
                 self.remove(self.get_iter(i))
 
         reactor.callLater(300, self.expire)
@@ -58,26 +66,10 @@ class SaveFilterListStore(SaveListStoreBase):
             entry = json.load(f)           
 
         for row in entry:
-            now = datetime.now()
-            future = datetime.fromtimestamp(row['expire_epoch'])
-            timedelta = future - now
-
-            if not row['expire_epoch']:
-                expiration_value = ''
-            elif timedelta.days:
-                expiration_value = timedelta.days
-            elif timedelta.seconds >= 3600:
-                expiration_value = timedelta.seconds / 3600
-            else:
-                expiration_value = round(timedelta.seconds / 3600.0, 1)
-                if expiration_value == 1.0:
-                    expiration_value = 1
-
-            expiration_unit = '' if not row['expire_epoch'] \
-                else "days" if timedelta.days else "hours"
+            expiration_value, expiration_unit = get_expire_info(row['expire_epoch'])
 
             data = [row['target'], row['word'], 
-                    str(expiration_value), str(expiration_unit), 
+                    expiration_value, expiration_unit, 
                     row['expire_epoch']]
             source_list.append(data)
 
@@ -96,3 +88,24 @@ class SaveFilterListStore(SaveListStoreBase):
 
         #print save_data
         self.save_to_json(save_data)
+
+def get_expire_info(expire_epoch):
+    now = datetime.now()
+    future = datetime.fromtimestamp(expire_epoch)
+    timedelta = future - now
+
+    if not expire_epoch:
+        expiration_value = ''
+    elif timedelta.days:
+        expiration_value = timedelta.days
+    elif timedelta.seconds >= 3600:
+        expiration_value = timedelta.seconds / 3600
+    else:
+        expiration_value = round(timedelta.seconds / 3600.0, 1)
+        if expiration_value == 1.0:
+            expiration_value = 1
+
+    expiration_unit = '' if not expire_epoch \
+        else "days" if timedelta.days else "hours"
+
+    return str(expiration_value), str(expiration_unit)

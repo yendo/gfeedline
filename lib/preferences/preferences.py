@@ -126,6 +126,7 @@ class FilterTreeview(object):
     def __init__(self, gui, mainwindow):
         self.gui = gui
         self.liststore = mainwindow.liststore
+        self.liststore.filter_liststore.update_expire_info()
 
         self.treeview = treeview = gui.get_object('filter_treeview')
         treeview.set_model(self.liststore.filter_liststore)
