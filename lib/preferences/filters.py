@@ -10,12 +10,13 @@ from feedsource import FeedSourceAction
 class FilterDialog(object):
     """Filter Dialog"""
 
-    def __init__(self, parent, liststore_row=None):
+    def __init__(self, parent=None, liststore_row=None, text=None):
         self.gui = Gtk.Builder()
         self.gui.add_from_file(SHARED_DATA_FILE('filters.glade'))
 
         self.parent = parent
         self.liststore_row = liststore_row
+        self.text = text
 
         self.combobox_target = ComboboxTarget(self.gui)
         self.entry_word = self.gui.get_object('entry_word')
@@ -26,7 +27,11 @@ class FilterDialog(object):
 
     def run(self):
         dialog = self.gui.get_object('filter_dialog')
-        dialog.set_transient_for(self.parent)
+        if self.parent:
+            dialog.set_transient_for(self.parent)
+
+        if self.text:
+            self.entry_word.set_text(self.text)
 
         if self.liststore_row:
             self.combobox_target.set_active_text(

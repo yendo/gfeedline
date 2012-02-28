@@ -49,7 +49,7 @@ class FeedListStore(ListStoreBase):
 
         page = int(str(self.get_path(iter))) if iter else -1
         tab_name = source.get('name') or api.name
-        view = FeedView(self.window, notebook, api, tab_name, page)
+        view = FeedView(self, notebook, api, tab_name, page)
 
         factory = TwitterOutputFactory()
         api_obj = factory.create_obj(api, view, 

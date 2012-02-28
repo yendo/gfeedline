@@ -4,6 +4,7 @@ from gi.repository import Gtk, Gdk
 
 from plugins.twitter.account import AuthorizedTwitterAccount
 from updatewindow import UpdateWindow, RetweetDialog
+from preferences.filters import FilterDialog
 
 # for old WebKit (<= 1.6)
 from gi.repository import WebKit
@@ -102,5 +103,22 @@ class SearchMenuItem(PopupMenuItem):
     def on_activate(self, menuitem, entry_id):
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
         text = clipboard.wait_for_text()
+
         uri = 'http://www.google.com/search?q=%s' % text
         webbrowser.open(uri)
+
+class AddFilterMenuItem(PopupMenuItem):
+
+    LABEL = _('_Add Filter')
+
+    def on_activate(self, menuitem, entry_id):
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
+        text = clipboard.wait_for_text()
+
+        filter_liststore = self.parent.liststore.filter_liststore
+
+        dialog = FilterDialog(text=text)
+        response_id, v = dialog.run()
+
+        if response_id == Gtk.ResponseType.OK:
+            new_iter = filter_liststore.append(v)

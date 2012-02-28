@@ -11,7 +11,7 @@ from string import Template
 from twisted.internet import reactor
 from gi.repository import Gtk, WebKit
 
-from menu import SearchMenuItem, ENTRY_POPUP_MENU
+from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS
 from constants import SHARED_DATA_FILE
@@ -32,11 +32,12 @@ class FeedScrolledWindow(Gtk.ScrolledWindow):
 
 class FeedView(FeedScrolledWindow):
 
-    def __init__(self, window, notebook, api, name='', page=-1):
+    def __init__(self, liststore, notebook, api, name='', page=-1):
         super(FeedView, self).__init__()
 
         self.name = name
-        self.window = window
+        self.liststore = liststore
+        window = liststore.window
         self.theme = window.theme
 
         self.append(notebook, page)
@@ -133,6 +134,9 @@ class FeedWebView(WebKit.WebView):
         elif not self.link_on_webview.is_hovering and self.can_copy_clipboard():
             menuitem = SearchMenuItem()
             default_menu.prepend(menuitem)
+
+            menuitem = AddFilterMenuItem(scrolled_window=self.scrolled_window)
+            default_menu.append(menuitem)
         else:
             default_menu.destroy()
 
