@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from gi.repository import Gtk
 from ..constants import SHARED_DATA_FILE
 from ..filterliststore import FilterColumn
+from feedsource import FeedSourceAction
+
 
 class FilterDialog(object):
     """Filter Dialog"""
@@ -100,3 +102,10 @@ class ComboboxExpireUnit(ComboboxTarget):
     def set_active_text(self, text):
         active = text == "hours"
         self.widget.set_active(active)
+
+class FilterAction(FeedSourceAction):
+
+    DIALOG = FilterDialog
+    BUTTON_PREFS = 'button_filter_prefs'
+    BUTTON_DEL = 'button_filter_del'
+

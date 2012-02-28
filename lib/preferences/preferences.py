@@ -11,7 +11,7 @@ from ..utils.settings import SETTINGS, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE, Column
 from feedsource import FeedSourceDialog, FeedSourceAction
-from filters import FilterDialog
+from filters import FilterDialog, FilterAction
 
 class Preferences(object):
 
@@ -33,16 +33,19 @@ class Preferences(object):
         SETTINGS_TWITTER.connect("changed::user-name", 
                                  self.on_setting_username_changed)
 
+        # feedsource
         self.feedsource_treeview = FeedSourceTreeview(gui, mainwindow)
         self.feedsource_action = FeedSourceAction(
             gui, self.liststore, self.preferences, self.feedsource_treeview)
+
+        # filter
+        self.filter_treeview = FilterTreeview(gui, mainwindow)
+        self.filter_action = FilterAction(
+            gui, self.liststore.filter_liststore,
+            self.preferences, self.filter_treeview)
+
         self.combobox_theme = ComboboxTheme(gui, self.liststore)
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
-
-
-        self.filter_treeview = gui.get_object('filter_treeview')
-        self.filter_treeview.set_model(self.liststore.filter_liststore)
-
 
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
         self.on_settings_sticky_change(SETTINGS, 'window-sticky')
@@ -104,29 +107,29 @@ class Preferences(object):
 
 
     def on_button_filter_new_clicked(self, button):
-        dialog = FilterDialog(self.preferences)
-        response_id, v = dialog.run()
-
-        if response_id == Gtk.ResponseType.OK:
-            new_iter = self.liststore.filter_liststore.append(v)
-            #self.feedsource_treeview.set_cursor_to(new_iter)
+        self.filter_action.on_button_feed_new_clicked(button)
 
     def on_button_filter_prefs_clicked(self, treeselection):
-        model, iter = treeselection.get_selected()
-
-        dialog = FilterDialog(self.preferences, model[iter])
-        response_id, v = dialog.run()
-
-        if response_id == Gtk.ResponseType.OK:
-            new_iter = self.liststore.filter_liststore.update(v, iter)
-            #self.feedsource_treeview.set_cursor_to(new_iter)
+        self.filter_action.on_button_feed_prefs_clicked(treeselection)
 
     def on_button_filter_del_clicked(self, treeselection):
-        model, iter = treeselection.get_selected()
-        model.remove(iter)
+        self.filter_action.on_button_feed_del_clicked(treeselection)
 
-        #self.button_prefs.set_sensitive(False)
-        #self.button_del.set_sensitive(False)
+
+class FilterTreeview(object):
+
+    def __init__(self, gui, mainwindow):
+        self.gui = gui
+        self.liststore = mainwindow.liststore
+
+        self.treeview = treeview = gui.get_object('filter_treeview')
+        treeview.set_model(self.liststore.filter_liststore)
+
+    def set_cursor_to(self, iter):
+        model = self.treeview.get_model()
+        row = model.get_path(iter)
+        self.treeview.set_cursor(row, None, False)
+
 
 class FeedSourceTreeview(object):
 
@@ -136,6 +139,7 @@ class FeedSourceTreeview(object):
 
         self.treeview = treeview = gui.get_object('feedsourcetreeview')
         treeview.set_model(self.liststore)
+
         treeview.set_headers_clickable(False) # Builder bug?
         treeview.connect("drag-begin", self.on_drag_begin)
         treeview.connect("drag-end", self.on_drag_end, mainwindow)

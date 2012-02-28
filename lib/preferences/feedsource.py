@@ -4,50 +4,6 @@ from ..plugins.twitter.api import TwitterAPIDict
 from ..constants import SHARED_DATA_FILE, Column
 
 
-class FeedSourceAction(object):
-
-    def __init__(self, gui, liststore, preferences, feedsource_treeview):
-        self.liststore = liststore
-        self.preferences = preferences
-        self.feedsource_treeview = feedsource_treeview
-
-        self.button_prefs = gui.get_object('button_feed_prefs')
-        self.button_del = gui.get_object('button_feed_del')
-
-    def on_button_feed_new_clicked(self, button):
-        dialog = FeedSourceDialog(self.preferences)
-        response_id, v = dialog.run()
-
-        if response_id == Gtk.ResponseType.OK:
-            new_iter = self.liststore.append(v)
-            self.feedsource_treeview.set_cursor_to(new_iter)
-
-    def on_button_feed_prefs_clicked(self, treeselection):
-        model, iter = treeselection.get_selected()
-
-        dialog = FeedSourceDialog(self.preferences, model[iter])
-        response_id, v = dialog.run()
-
-        if response_id == Gtk.ResponseType.OK:
-            new_iter = self.liststore.update(v, iter)
-            self.feedsource_treeview.set_cursor_to(new_iter)
-
-    def on_button_feed_del_clicked(self, treeselection):
-        model, iter = treeselection.get_selected()
-        model.remove(iter)
-
-        self.button_prefs.set_sensitive(False)
-        self.button_del.set_sensitive(False)
-
-    def on_feedsource_treeview_query_tooltip(self, treeview, *args):
-        pass
-
-    def on_feedsource_treeview_cursor_changed(self, treeselection):
-        model, iter = treeselection.get_selected()
-        if iter:
-            self.button_prefs.set_sensitive(True)
-            self.button_del.set_sensitive(True)
-
 class FeedSourceDialog(object):
     """Feed Source Dialog"""
 
@@ -150,3 +106,52 @@ class ArgumentEntry(object):
 
     def set_sensitive(self, status):
         self.widget.set_sensitive(status)
+
+class FeedSourceAction(object):
+
+    DIALOG = FeedSourceDialog
+    BUTTON_PREFS = 'button_feed_prefs'
+    BUTTON_DEL = 'button_feed_del'
+
+    def __init__(self, gui, liststore, preferences, feedsource_treeview):
+        self.liststore = liststore
+        self.preferences = preferences
+        self.feedsource_treeview = feedsource_treeview
+
+        self.button_prefs = gui.get_object(self.BUTTON_PREFS)
+        self.button_del = gui.get_object(self.BUTTON_DEL)
+
+    def on_button_feed_new_clicked(self, button):
+        dialog = self.DIALOG(self.preferences)
+        response_id, v = dialog.run()
+
+        if response_id == Gtk.ResponseType.OK:
+            new_iter = self.liststore.append(v)
+            self.feedsource_treeview.set_cursor_to(new_iter)
+
+    def on_button_feed_prefs_clicked(self, treeselection):
+        model, iter = treeselection.get_selected()
+
+        dialog = self.DIALOG(self.preferences, model[iter])
+        response_id, v = dialog.run()
+
+        if response_id == Gtk.ResponseType.OK:
+            new_iter = self.liststore.update(v, iter)
+            self.feedsource_treeview.set_cursor_to(new_iter)
+
+    def on_button_feed_del_clicked(self, treeselection):
+        model, iter = treeselection.get_selected()
+        model.remove(iter)
+
+        self.button_prefs.set_sensitive(False)
+        self.button_del.set_sensitive(False)
+
+    def on_feedsource_treeview_query_tooltip(self, treeview, *args):
+        pass
+
+    def on_feedsource_treeview_cursor_changed(self, treeselection):
+        model, iter = treeselection.get_selected()
+        if iter:
+            self.button_prefs.set_sensitive(True)
+            self.button_del.set_sensitive(True)
+
