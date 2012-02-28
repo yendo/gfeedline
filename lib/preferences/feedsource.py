@@ -20,6 +20,9 @@ class FeedSourceDialog(object):
         self.entry_argument = ArgumentEntry(self.gui, self.combobox_target)
         self.entry_group = self.gui.get_object('entry_group')
 
+        self.button_ok = self.gui.get_object('button_ok')
+        self.button_ok.set_sensitive(False)
+
         self.on_comboboxtext_target_changed()
         self.gui.connect_signals(self)
 
@@ -64,6 +67,11 @@ class FeedSourceDialog(object):
         status = self.combobox_target.has_argument_entry_enabled()
         self.label_argument.set_sensitive(status)
         self.entry_argument.set_sensitive(status)
+        self.button_ok.set_sensitive(not status)
+
+    def on_entry_argument_changed(self, entry, *args):
+        has_entry = entry.get_text_length() > 0
+        self.button_ok.set_sensitive(has_entry)
 
 class TargetCombobox(object):
 

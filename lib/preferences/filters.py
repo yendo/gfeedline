@@ -23,6 +23,9 @@ class FilterDialog(object):
         self.spinbutton_expiry = self.gui.get_object('spinbutton_expiry')
         self.combobox_expire_unit = ComboboxExpireUnit(self.gui)
 
+        self.button_ok = self.gui.get_object('button_ok')
+        self.button_ok.set_sensitive(False)
+
         self.gui.connect_signals(self)
 
     def run(self):
@@ -65,6 +68,10 @@ class FilterDialog(object):
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
         return response_id , v
+
+    def on_entry_word_changed(self, entry, *args):
+        has_entry = entry.get_text_length() > 0
+        self.button_ok.set_sensitive(has_entry)
 
 class ExpireValues(object):
 
