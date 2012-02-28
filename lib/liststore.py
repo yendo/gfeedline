@@ -7,18 +7,19 @@
 import os
 import json
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import GdkPixbuf
 
 from window import MainWindow
 from view import FeedView
+from constants import CONFIG_HOME, Column
+from filterliststore import FilterListStore
+from utils.liststorebase import ListStoreBase, SaveListStoreBase
 from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.output import TwitterOutputFactory
 from plugins.twitter.account import AuthorizedTwitterAccount
-from constants import CONFIG_HOME, Column
-from preferences.filters import FilterListStore
 
 
-class FeedListStore(Gtk.ListStore):
+class FeedListStore(ListStoreBase):
 
     """ListStore for Feed Sources.
 
@@ -129,14 +130,9 @@ class FeedListStore(Gtk.ListStore):
         page = all_group.index(target_group)
         return page
 
-    def save_settings(self):
-        self.save.save(self)
+class SaveListStore(SaveListStoreBase):
 
-class SaveListStore(object):
-
-    def __init__(self):
-
-        self.save_file = os.path.join(CONFIG_HOME, 'feed_sources.json')
+    SAVE_FILE = 'feed_sources.json'
 
     def load(self):
         source_list = []
@@ -183,12 +179,3 @@ class SaveListStore(object):
 
         # print save_data
         self.save_to_json(save_data)
-
-    def save_to_json(self, save_data):
-        "for defaultsource.py"
-        with open(self.save_file, mode='w') as f:
-            json.dump(save_data, f)      
-
-    def has_save_file(self):
-        "for defaultsource.py"
-        return os.path.exists(self.save_file)

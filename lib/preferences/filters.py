@@ -1,10 +1,8 @@
-import os
-import json
 import time
 from datetime import datetime, timedelta
 
 from gi.repository import Gtk
-from ..constants import SHARED_DATA_FILE, CONFIG_HOME
+from ..constants import SHARED_DATA_FILE
 
 
 class FilterDialog(object):
@@ -128,57 +126,3 @@ class FilterListStore(Gtk.ListStore):
 
     def save_settings(self):
         self.save.save(self)
-
-class SaveFilterListStore(object):
-
-    def __init__(self):
-        self.save_file = os.path.join(CONFIG_HOME, 'filters.json')
-
-    def load(self):
-        source_list = []
-
-        if not self.has_save_file():
-            return source_list
-
-        with open(self.save_file, 'r') as f:
-            entry = json.load(f)           
-
-        for row in entry:
-            now = datetime.now()
-            future = datetime.fromtimestamp(row['expire_datetime'])
-            expire_days = future - now
-
-            expiration =  expire_days.days if expire_days.days \
-                else expire_days.seconds / 3600
-            expiration_unit =  "days" if expire_days.days else "hours"
-
-            data = [row['target'], row['words'], 
-                    str(expiration), str(expiration_unit), 
-                    row['expire_datetime']]
-            source_list.append(data)
-
-        return source_list
-
-    def save(self, liststore):
-        save_data = []
-
-        for i, row in enumerate(liststore):
-            save_temp = {'target': row[0],
-                         'words': row[1],
-                         'expire_datetime': row[4]
-                         }
-
-
-            save_data.append(save_temp)
-
-        #print save_data
-        self.save_to_json(save_data)
-
-    def save_to_json(self, save_data):
-        "for defaultsource.py"
-        with open(self.save_file, mode='w') as f:
-            json.dump(save_data, f)      
-
-    def has_save_file(self):
-        "for defaultsource.py"
-        return os.path.exists(self.save_file)
