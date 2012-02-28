@@ -95,15 +95,11 @@ class Preferences(object):
     def on_button_feed_del_clicked(self, treeselection):
         self.feedsource_action.on_button_feed_del_clicked(treeselection)
 
-    def on_feedsource_treeview_query_tooltip(self, treeview, *args):
-        self.feedsource_action.on_feedsource_treeview_query_tooltip(treeview, args)
-
     def on_feedsource_treeview_cursor_changed(self, treeselection):
         self.feedsource_action.on_feedsource_treeview_cursor_changed(treeselection)
 
-
-    def on_plugin_treeview_cursor_changed(self, treeview):
-        pass
+    def on_feedsource_treeview_query_tooltip(self, treeview, *args):
+        self.feedsource_action.on_feedsource_treeview_query_tooltip(treeview, args)
 
 
     def on_button_filter_new_clicked(self, button):
@@ -115,6 +111,15 @@ class Preferences(object):
     def on_button_filter_del_clicked(self, treeselection):
         self.filter_action.on_button_feed_del_clicked(treeselection)
 
+    def on_filter_treeview_cursor_changed(self, treeselection):
+        self.filter_action.on_feedsource_treeview_cursor_changed(treeselection)
+
+#    def on_filter_treeview_query_tooltip(self, treeview, *args):
+#        self.filter_action.on_feedsource_treeview_query_tooltip(treeview, args)
+
+
+    def on_plugin_treeview_cursor_changed(self, treeview):
+        pass
 
 class FilterTreeview(object):
 

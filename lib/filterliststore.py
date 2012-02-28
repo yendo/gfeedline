@@ -66,7 +66,7 @@ class SaveFilterListStore(SaveListStoreBase):
     def save(self, liststore):
         save_data = []
 
-        for i, row in enumerate(liststore):
+        for row in liststore:
             save_temp = {'target': row[FilterColumn.TARGET],
                          'word': row[FilterColumn.WORD],
                          'expire_datetime': row[FilterColumn.EXPIRE_EPOCH]

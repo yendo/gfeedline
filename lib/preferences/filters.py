@@ -68,6 +68,7 @@ class ExpireTime(object):
         now = datetime.now()
         future = now + self._get_timedelta()
         expire_epoch = int(time.mktime(future.timetuple()))
+        return expire_epoch 
 
     def _get_timedelta(self):
         return timedelta(hours=self.expire_timedelta)
