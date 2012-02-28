@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-28 14:26+0900\n"
-"PO-Revision-Date: 2012-02-28 14:26+0900\n"
+"POT-Creation-Date: 2012-02-29 01:50+0900\n"
+"PO-Revision-Date: 2012-02-29 01:50+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,25 +16,45 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../lib/menu.py:58
+#: ../lib/filterliststore.py:93
+msgid "Body"
+msgstr "本文"
+
+#: ../lib/filterliststore.py:93
+msgid "Sender"
+msgstr "差出人"
+
+#: ../lib/filterliststore.py:112
+msgid "days"
+msgstr "日間"
+
+#: ../lib/filterliststore.py:112
+msgid "hours"
+msgstr "時間"
+
+#: ../lib/menu.py:59
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:66
+#: ../lib/menu.py:67
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:78
+#: ../lib/menu.py:79
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:92
+#: ../lib/menu.py:93
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:100
+#: ../lib/menu.py:101
 msgid "_Search"
 msgstr "検索(_S)"
+
+#: ../lib/menu.py:112
+msgid "_Add Filter"
+msgstr "フィルターに追加(_A)"
 
 #: ../lib/notification.py:57
 msgid "Reply"
@@ -162,15 +182,19 @@ msgstr "名前(_N):"
 msgid "_Source:"
 msgstr "ソース(_S):"
 
-#: ../share/feedsource.glade.h:8 ../share/filters.glade.h:2
+#: ../share/feedsource.glade.h:8 ../share/filters.glade.h:3
 msgid "_Target:"
 msgstr "ターゲット(_T):"
 
 #: ../share/filters.glade.h:1
+msgid "Add Filter"
+msgstr "フィルターの追加"
+
+#: ../share/filters.glade.h:2
 msgid "_Expiry:"
 msgstr "有効期間(_E):"
 
-#: ../share/filters.glade.h:3
+#: ../share/filters.glade.h:4
 msgid "_Word:"
 msgstr "単語(_W):"
 
@@ -346,6 +370,9 @@ msgstr "いまどうしてる?"
 #: ../share/update.glade.h:2
 msgid "_Tweet"
 msgstr "ツイート(_T)"
+
+#~ msgid "User"
+#~ msgstr "送信者"
 
 #, fuzzy
 #~ msgid "Target:"

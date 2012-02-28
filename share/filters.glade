@@ -122,7 +122,7 @@
                 <property name="active">1</property>
                 <items>
                   <item translatable="yes">Body</item>
-                  <item translatable="yes">User</item>
+                  <item translatable="yes">Sender</item>
                 </items>
               </object>
               <packing>

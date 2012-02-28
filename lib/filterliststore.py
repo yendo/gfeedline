@@ -90,6 +90,8 @@ class SaveFilterListStore(SaveListStoreBase):
         #print save_data
         self.save_to_json(save_data)
 
+dummy = [_('Body'), _('Sender')] # for intltool 0.41.1 bug
+
 def get_expire_info(expire_epoch):
     now = datetime.now()
     future = datetime.fromtimestamp(expire_epoch)
@@ -107,6 +109,6 @@ def get_expire_info(expire_epoch):
             expiration_value = 1
 
     expiration_unit = '' if not expire_epoch \
-        else "days" if timedelta.days else "hours"
+        else _("days") if timedelta.days else _("hours")
 
-    return str(expiration_value), str(expiration_unit)
+    return str(expiration_value), str(expiration_unit.encode('utf-8'))
