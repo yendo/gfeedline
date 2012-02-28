@@ -40,25 +40,15 @@ class FilterDialog(object):
         # run
         response_id = dialog.run()
 
-        spinbutton_value = self.spinbutton_expiry.get_value_as_int()
-        expire_time = ExpireTime(spinbutton_value,
-                                 self.combobox_expire_unit.get_active())
-
-        if spinbutton_value == 0:
-            expire_value_col = ''
-            expire_unit_col = ''
-            expire_epoch_col = 0
-        else:
-            expire_value_col = str(spinbutton_value)
-            expire_unit_col = self.combobox_expire_unit.get_active_text()
-            expire_epoch_col = expire_time.get_epoch()
+        expire = ExpireValues(self.spinbutton_expiry.get_value_as_int(), 
+                              self.combobox_expire_unit)
 
         v = [
             self.combobox_target.get_active_text(),
             self.entry_word.get_text().decode('utf-8'),
-            expire_value_col, 
-            expire_unit_col, 
-            expire_epoch_col,
+            expire.value, 
+            expire.unit, 
+            expire.epoch,
         ]
 
 #        print v
@@ -67,21 +57,28 @@ class FilterDialog(object):
 #            SETTINGS_RECENTS.set_string('source', v['source'])
         return response_id , v
 
-class ExpireTime(object):
+class ExpireValues(object):
 
-    def __init__(self, expire_timedelta, is_hours):
-        self.expire_timedelta = expire_timedelta
+    def __init__(self, spinbutton_value, combobox_expire_unit):
+        is_hours = combobox_expire_unit.get_active()
+
+        if spinbutton_value:
+            self.value = str(spinbutton_value)
+            self.unit = combobox_expire_unit.get_active_text()
+            self.epoch = self._get_epoch(spinbutton_value, is_hours)
+        else:
+            self.value = ''
+            self.unit = ''
+            self.epoch =0
+
+    def _get_epoch(self, expire_timedelta, is_hours):
         if not is_hours:
-            self.expire_timedelta *= 24
+            expire_timedelta *= 24
 
-    def get_epoch(self):
         now = datetime.now()
-        future = now + self._get_timedelta()
+        future = now + timedelta(hours=expire_timedelta)
         expire_epoch = int(time.mktime(future.timetuple()))
         return expire_epoch 
-
-    def _get_timedelta(self):
-        return timedelta(hours=self.expire_timedelta)
 
 class ComboboxTarget(object):
 
