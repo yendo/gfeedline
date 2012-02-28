@@ -20,7 +20,7 @@ from twisted.internet import reactor
 from tweetentry import *
 from ...utils.htmlentities import decode_html_entities
 from ...utils.settings import SETTINGS
-
+from ...filterliststore import FilterColumn
 
 class TwitterOutputFactory(object):
 
@@ -57,7 +57,7 @@ class TwitterOutputBase(object):
         #                if text.find(bad.decode('utf-8')) >= 0])
 
         has_bad = bool([row for row in self.filters
-               if text.find(row[1].decode('utf-8')) >= 0])
+               if text.find(row[FilterColumn.WORD].decode('utf-8')) >= 0])
 
         if pass_rt or has_bad:
             #print "Del: ", text

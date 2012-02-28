@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 from gi.repository import Gtk
 from ..constants import SHARED_DATA_FILE
-
+from ..filterliststore import FilterColumn
 
 class FilterDialog(object):
     """Filter Dialog"""
@@ -27,10 +27,13 @@ class FilterDialog(object):
         dialog.set_transient_for(self.parent)
 
         if self.liststore_row:
-            self.combobox_target.set_active_text(self.liststore_row[0])
-            self.entry_word.set_text(self.liststore_row[1])
-            self.spinbutton_expiry.set_value(int(self.liststore_row[2]))
-            self.combobox_expire_unit.set_active_text(self.liststore_row[3])
+            self.combobox_target.set_active_text(
+                self.liststore_row[FilterColumn.TARGET])
+            self.entry_word.set_text(self.liststore_row[FilterColumn.WORD])
+            self.spinbutton_expiry.set_value(
+                int(self.liststore_row[FilterColumn.EXPIRE_TIME]))
+            self.combobox_expire_unit.set_active_text(
+                self.liststore_row[FilterColumn.EXPIRE_UNIT])
 
         # run
         response_id = dialog.run()
@@ -97,32 +100,3 @@ class ComboboxExpireUnit(ComboboxTarget):
     def set_active_text(self, text):
         active = text == "hours"
         self.widget.set_active(active)
-
-class FilterListStore(Gtk.ListStore):
-
-    """ListStore for Filters.
-
-    0,      1,     2,           3,           4,
-    target, words, expire days, expire unit, expire datetime
-    """
-
-    def __init__(self):
-        super(FilterListStore, self).__init__(str, str, str, str, int)
-
-        self.save = SaveFilterListStore()
-        for entry in self.save.load():
-            self.append(entry)
-
-#        self.append(['body', u'yes', 'yes'])
-#        self.append(['body', u'linux', 'yes'])
-
-    def append(self, filter_entry, iter=None):
-        new_iter = self.insert_before(iter, filter_entry)
-        return new_iter
-
-    def update(self, filter_entry, iter):
-        new_iter = self.append(filter_entry, iter)
-        self.remove(iter)
-
-    def save_settings(self):
-        self.save.save(self)

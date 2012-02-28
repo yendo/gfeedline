@@ -5,12 +5,17 @@ from datetime import datetime
 from gi.repository import Gtk
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 
+
+class FilterColumn(object):
+
+    (TARGET, WORD, EXPIRE_TIME, EXPIRE_UNIT, EXPIRE_EPOCH) = range(5)
+
 class FilterListStore(ListStoreBase):
 
     """ListStore for Filters.
 
-    0,      1,     2,           3,           4,
-    target, words, expire days, expire unit, expire datetime
+    0,      1,    2,           3,           4,
+    target, word, expire days, expire unit, expire datetime
     """
 
     def __init__(self):
@@ -45,13 +50,13 @@ class SaveFilterListStore(SaveListStoreBase):
         for row in entry:
             now = datetime.now()
             future = datetime.fromtimestamp(row['expire_datetime'])
-            expire_days = future - now
+            expire_timedelta = future - now
 
-            expiration =  expire_days.days if expire_days.days \
-                else expire_days.seconds / 3600
-            expiration_unit =  "days" if expire_days.days else "hours"
+            expiration =  expire_timedelta.days if expire_timedelta.days \
+                else expire_timedelta.seconds / 3600
+            expiration_unit =  "days" if expire_timedelta.days else "hours"
 
-            data = [row['target'], row['words'], 
+            data = [row['target'], row['word'], 
                     str(expiration), str(expiration_unit), 
                     row['expire_datetime']]
             source_list.append(data)
@@ -62,9 +67,9 @@ class SaveFilterListStore(SaveListStoreBase):
         save_data = []
 
         for i, row in enumerate(liststore):
-            save_temp = {'target': row[0],
-                         'words': row[1],
-                         'expire_datetime': row[4]
+            save_temp = {'target': row[FilterColumn.TARGET],
+                         'word': row[FilterColumn.WORD],
+                         'expire_datetime': row[FilterColumn.EXPIRE_EPOCH]
                          }
 
             save_data.append(save_temp)
