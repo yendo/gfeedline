@@ -53,19 +53,9 @@ class TwitterOutputBase(object):
     def check_entry(self, entry, text, *args):
         pass_rt = text.startswith('RT @') and not self.api.include_rt
 
-        TARGET, WORD = FilterColumn.TARGET, FilterColumn.WORD
-        is_bad_body = bool([
-                row for row in self.filters
-                if text.lower().find(row[WORD].decode('utf-8').lower()) >= 0
-                and row[TARGET].decode('utf-8') == _('Body')
-                ])
-
-        sender = self._get_entry_class(entry)(entry).get_sender_name(self.api)
-        is_bad_sender = bool([
-                row for row in self.filters
-                if sender.lower().find(row[WORD].decode('utf-8').lower()) >= 0
-                and row[TARGET].decode('utf-8') == _('Sender')
-                ])
+        is_bad_body = self._check_filter(text, _('Body'), self.filters)
+        sender = self._get_entry_obj(entry).get_sender_name(self.api)
+        is_bad_sender = self._check_filter(sender, _('Sender'), self.filters)
 
         if is_bad_sender:
             print text
@@ -76,13 +66,21 @@ class TwitterOutputBase(object):
         else:
             self.buffer_entry(entry, args)
 
+    def _check_filter(self, text, target, filters):
+        TARGET, WORD = FilterColumn.TARGET, FilterColumn.WORD
+        is_bad = bool([
+                row for row in filters
+                if text.lower().find(row[WORD].decode('utf-8').lower()) >= 0
+                and row[TARGET].decode('utf-8') == target
+                ])
+        return is_bad
+
     def print_entry(self, entry, is_first_call=False):
-        entry_class = self._get_entry_class(entry)
-        text = entry_class(entry).get_dict(self.api)
+        text = self._get_entry_obj(entry).get_dict(self.api)
         self.view.update(text, self.options.get('notification'), is_first_call)
 
-    def _get_entry_class(self, entry):
-        return TweetEntry
+    def _get_entry_obj(self, entry):
+        return TweetEntry(entry)
 
     def _set_last_id(self, entry_id):
         entry_id = int(entry_id)
@@ -133,12 +131,12 @@ class TwitterRestOutput(TwitterOutputBase):
         self.counter += 1
         self.all_entries = []
 
-    def _get_entry_class(self, entry):
+    def _get_entry_obj(self, entry):
         if hasattr(entry, 'retweeted_status') and entry.retweeted_status:
             entry_class = RestRetweetEntry
         else:
             entry_class = TweetEntry
-        return entry_class
+        return entry_class(entry)
 
     def start(self, interval=60):
         # print "start!"
@@ -205,8 +203,8 @@ class TwitterSearchOutput(TwitterRestOutput):
         self._set_last_id( entry.id.split(':')[2] )
         self.check_entry(entry, entry.title, args)
 
-    def _get_entry_class(self, entry):
-        return SearchTweetEntry
+    def _get_entry_obj(self, entry):
+        return SearchTweetEntry(entry)
 
 class TwitterFeedOutput(TwitterOutputBase):
 
@@ -218,13 +216,13 @@ class TwitterFeedOutput(TwitterOutputBase):
     def buffer_entry(self, entry, *args):
         self.print_entry(entry)
 
-    def _get_entry_class(self, entry):
+    def _get_entry_obj(self, entry):
         if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
             entry_class = FeedRetweetEntry 
         else:
             entry_class = TweetEntry
 
-        return entry_class
+        return entry_class(entry)
 
     def start(self, interval=False):
         if not self.api.account.api.use_oauth:
