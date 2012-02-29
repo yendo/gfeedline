@@ -31,7 +31,7 @@ class TweetEntry(object):
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
 
-        text = dict(
+        entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry.id,
             image_uri=user.profile_image_url,
@@ -43,7 +43,7 @@ class TweetEntry(object):
             popup_body=body_string,
             )
 
-        return text
+        return entry_dict
 
     def get_sender_name(self, api):
         sender = self._get_sender(api)
@@ -87,11 +87,13 @@ class SearchTweetEntry(TweetEntry):
         time = TwitterTime(entry.published)
         body_string = self._get_body(entry.title)
         body = add_markup.convert(body_string) # add_markup is global
+        #body = decode_html_entities(entry.content)
+        #body = body.replace('"', "'")
 
         name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
 
-        text = dict(
+        entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry_id,
             image_uri=entry.image,
@@ -101,7 +103,7 @@ class SearchTweetEntry(TweetEntry):
             status_body=body,
             popup_body=body_string)
 
-        return text
+        return entry_dict
 
     def get_sender_name(self, api=None):
         return self.entry.author.name.split(' ')[0]

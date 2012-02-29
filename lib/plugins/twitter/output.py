@@ -57,8 +57,8 @@ class TwitterOutputBase(object):
         sender = self._get_entry_obj(entry).get_sender_name(self.api)
         is_bad_sender = self._check_filter(sender, _('Sender'), self.filters)
 
-        if is_bad_sender:
-            print text
+#        if is_bad_sender:
+#            print text
 
         if pass_rt or is_bad_body or is_bad_sender:
             # print "Del: ", text
@@ -76,8 +76,8 @@ class TwitterOutputBase(object):
         return is_bad
 
     def print_entry(self, entry, is_first_call=False):
-        text = self._get_entry_obj(entry).get_dict(self.api)
-        self.view.update(text, self.options.get('notification'), is_first_call)
+        entry_dict = self._get_entry_obj(entry).get_dict(self.api)
+        self.view.update(entry_dict, self.options.get('notification'), is_first_call)
 
     def _get_entry_obj(self, entry):
         return TweetEntry(entry)

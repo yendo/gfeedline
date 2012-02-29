@@ -4,14 +4,11 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-import os
-import json
-
 from gi.repository import GdkPixbuf
 
 from window import MainWindow
 from view import FeedView
-from constants import CONFIG_HOME, Column
+from constants import Column
 from filterliststore import FilterListStore
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 from plugins.twitter.api import TwitterAPIDict
@@ -134,14 +131,8 @@ class SaveListStore(SaveListStoreBase):
 
     SAVE_FILE = 'feed_sources.json'
 
-    def load(self):
+    def _parse_entry(self, entry):
         source_list = []
-
-        if not self.has_save_file():
-            return source_list
-
-        with open(self.save_file, 'r') as f:
-            entry = json.load(f)           
 
         for dir in entry:
             data = { 'name' : '', 'target' : '', 'argument' : '',

@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 import time
 
@@ -56,14 +55,8 @@ class SaveFilterListStore(SaveListStoreBase):
 
     SAVE_FILE = 'filters.json'
 
-    def load(self):
+    def _parse_entry(self, entry):
         source_list = []
-
-        if not self.has_save_file():
-            return source_list
-
-        with open(self.save_file, 'r') as f:
-            entry = json.load(f)           
 
         for row in entry:
             expiration_value, expiration_unit = get_expire_info(row['expire_epoch'])
