@@ -7,7 +7,7 @@ from ui import *
 class FeedSourceDialog(DialogBase):
     """Feed Source Dialog"""
 
-    WIDGET = 'feedsource.glade'
+    GLADE = 'feedsource.glade'
     DIALOG = 'feed_source'
 
     def _setup_ui(self):

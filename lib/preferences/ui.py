@@ -4,12 +4,12 @@ from ..constants import SHARED_DATA_FILE
 
 class DialogBase(object):
 
-    WIDGET = ''
+    GLADED = ''
     DIALOG = ''
 
     def __init__(self, parent, liststore_row=None, text=None):
         self.gui = Gtk.Builder()
-        self.gui.add_from_file(SHARED_DATA_FILE(self.WIDGET))
+        self.gui.add_from_file(SHARED_DATA_FILE(self.GLADE))
 
         self.parent = parent
         self.liststore_row = liststore_row

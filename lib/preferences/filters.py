@@ -10,7 +10,7 @@ from ui import *
 class FilterDialog(DialogBase):
     """Filter Dialog"""
 
-    WIDGET = 'filters.glade'
+    GLADE = 'filters.glade'
     DIALOG = 'filter_dialog'
 
     def _setup_ui(self):
@@ -68,7 +68,7 @@ class ExpireValues(object):
         else:
             self.value = ''
             self.unit = ''
-            self.epoch =0
+            self.epoch = 0
 
     def _get_epoch(self, expire_timedelta, is_hours):
         if not is_hours:
