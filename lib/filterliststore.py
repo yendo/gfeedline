@@ -2,7 +2,6 @@ import json
 from datetime import datetime
 import time
 
-from gi.repository import Gtk
 from twisted.internet import reactor
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 

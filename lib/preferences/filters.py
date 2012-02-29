@@ -120,8 +120,24 @@ class ComboboxExpireUnit(ComboboxTarget):
 
     WIDGET = 'comboboxtext_expire_unit'
 
+class FilterTreeview(object):
+
+    def __init__(self, gui, mainwindow):
+        self.gui = gui
+        self.liststore = mainwindow.liststore
+        self.liststore.filter_liststore.update_expire_info()
+
+        self.treeview = treeview = gui.get_object('filter_treeview')
+        treeview.set_model(self.liststore.filter_liststore)
+
+    def set_cursor_to(self, iter):
+        model = self.treeview.get_model()
+        row = model.get_path(iter)
+        self.treeview.set_cursor(row, None, False)
+
 class FilterAction(FeedSourceAction):
 
     DIALOG = FilterDialog
+    TREEVIEW = FilterTreeview
     BUTTON_PREFS = 'button_filter_prefs'
     BUTTON_DEL = 'button_filter_del'

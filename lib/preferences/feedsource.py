@@ -115,16 +115,66 @@ class ArgumentEntry(object):
     def set_sensitive(self, status):
         self.widget.set_sensitive(status)
 
+class FeedSourceTreeview(object):
+
+    def __init__(self, gui, mainwindow):
+        self.gui = gui
+        self.liststore = mainwindow.liststore
+
+        self.treeview = treeview = gui.get_object('feedsourcetreeview')
+        treeview.set_model(self.liststore)
+
+        treeview.set_headers_clickable(False) # Builder bug?
+        treeview.connect("drag-begin", self.on_drag_begin)
+        treeview.connect("drag-end", self.on_drag_end, mainwindow)
+
+    def get_selection(self):
+        return self.treeview.get_selection()
+
+    def set_cursor_to(self, iter):
+        model = self.treeview.get_model()
+        row = model.get_path(iter)
+        self.treeview.set_cursor(row, None, False)
+
+    def on_drag_begin(self, treeview, dragcontext):
+        treeselection = treeview.get_selection()
+        model, iter = treeselection.get_selected()
+
+        self.api_obj = model.get_value(iter, Column.API)
+        self.group = model.get_value(iter, Column.GROUP).decode('utf-8')
+        self.old_page = model.get_group_page(self.group)
+
+    def on_drag_end(self, treeview, dragcontext, mainwindow):
+        treeselection = treeview.get_selection()
+        model, iter = treeselection.get_selected()
+
+        if not iter:
+            self.gui.get_object('button_feed_prefs').set_sensitive(False)
+            self.gui.get_object('button_feed_del').set_sensitive(False)
+
+        all_obj = [x[Column.API] for x in model 
+                   if x[Column.GROUP].decode('utf-8') == self.group]
+        page = all_obj.index(self.api_obj)
+
+        notebook = mainwindow.column[self.group]
+        notebook.reorder_child(self.api_obj.view, page) # FIXME
+
+        new_page = model.get_group_page(self.group)
+
+        if self.old_page != new_page:
+            mainwindow.column.hbox.reorder_child(notebook, new_page)
+
 class FeedSourceAction(object):
 
     DIALOG = FeedSourceDialog
+    TREEVIEW = FeedSourceTreeview
     BUTTON_PREFS = 'button_feed_prefs'
     BUTTON_DEL = 'button_feed_del'
 
-    def __init__(self, gui, liststore, preferences, feedsource_treeview):
+    def __init__(self, gui, mainwindow, liststore, preferences):
         self.liststore = liststore
         self.preferences = preferences
-        self.feedsource_treeview = feedsource_treeview
+        self.feedsource_treeview = self.TREEVIEW(gui, mainwindow)
 
         self.button_prefs = gui.get_object(self.BUTTON_PREFS)
         self.button_del = gui.get_object(self.BUTTON_DEL)

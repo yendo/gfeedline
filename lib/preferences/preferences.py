@@ -33,16 +33,10 @@ class Preferences(object):
         SETTINGS_TWITTER.connect("changed::user-name", 
                                  self.on_setting_username_changed)
 
-        # feedsource
-        self.feedsource_treeview = FeedSourceTreeview(gui, mainwindow)
         self.feedsource_action = FeedSourceAction(
-            gui, self.liststore, self.preferences, self.feedsource_treeview)
-
-        # filter
-        self.filter_treeview = FilterTreeview(gui, mainwindow)
+            gui, mainwindow, self.liststore, self.preferences)
         self.filter_action = FilterAction(
-            gui, self.liststore.filter_liststore,
-            self.preferences, self.filter_treeview)
+            gui, mainwindow, self.liststore.filter_liststore, self.preferences)
 
         self.combobox_theme = ComboboxTheme(gui, self.liststore)
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
@@ -120,71 +114,6 @@ class Preferences(object):
 
     def on_plugin_treeview_cursor_changed(self, treeview):
         pass
-
-class FilterTreeview(object):
-
-    def __init__(self, gui, mainwindow):
-        self.gui = gui
-        self.liststore = mainwindow.liststore
-        self.liststore.filter_liststore.update_expire_info()
-
-        self.treeview = treeview = gui.get_object('filter_treeview')
-        treeview.set_model(self.liststore.filter_liststore)
-
-    def set_cursor_to(self, iter):
-        model = self.treeview.get_model()
-        row = model.get_path(iter)
-        self.treeview.set_cursor(row, None, False)
-
-
-class FeedSourceTreeview(object):
-
-    def __init__(self, gui, mainwindow):
-        self.gui = gui
-        self.liststore = mainwindow.liststore
-
-        self.treeview = treeview = gui.get_object('feedsourcetreeview')
-        treeview.set_model(self.liststore)
-
-        treeview.set_headers_clickable(False) # Builder bug?
-        treeview.connect("drag-begin", self.on_drag_begin)
-        treeview.connect("drag-end", self.on_drag_end, mainwindow)
-
-    def get_selection(self):
-        return self.treeview.get_selection()
-
-    def set_cursor_to(self, iter):
-        model = self.treeview.get_model()
-        row = model.get_path(iter)
-        self.treeview.set_cursor(row, None, False)
-
-    def on_drag_begin(self, treeview, dragcontext):
-        treeselection = treeview.get_selection()
-        model, iter = treeselection.get_selected()
-
-        self.api_obj = model.get_value(iter, Column.API)
-        self.group = model.get_value(iter, Column.GROUP).decode('utf-8')
-        self.old_page = model.get_group_page(self.group)
-
-    def on_drag_end(self, treeview, dragcontext, mainwindow):
-        treeselection = treeview.get_selection()
-        model, iter = treeselection.get_selected()
-
-        if not iter:
-            self.gui.get_object('button_feed_prefs').set_sensitive(False)
-            self.gui.get_object('button_feed_del').set_sensitive(False)
-
-        all_obj = [x[Column.API] for x in model 
-                   if x[Column.GROUP].decode('utf-8') == self.group]
-        page = all_obj.index(self.api_obj)
-
-        notebook = mainwindow.column[self.group]
-        notebook.reorder_child(self.api_obj.view, page) # FIXME
-
-        new_page = model.get_group_page(self.group)
-
-        if self.old_page != new_page:
-            mainwindow.column.hbox.reorder_child(notebook, new_page)
 
 class ComboboxTheme(object):
 
