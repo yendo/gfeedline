@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 01:50+0900\n"
-"PO-Revision-Date: 2012-02-29 01:50+0900\n"
+"POT-Creation-Date: 2012-02-29 10:03+0900\n"
+"PO-Revision-Date: 2012-02-29 10:03+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -22,7 +22,7 @@ msgstr "本文"
 
 #: ../lib/filterliststore.py:93
 msgid "Sender"
-msgstr "差出人"
+msgstr "送信者"
 
 #: ../lib/filterliststore.py:112
 msgid "days"
@@ -76,8 +76,7 @@ msgstr "リストタイムライン"
 msgid "Mentions"
 msgstr "メンション"
 
-#. add_markup is global
-#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:32
+#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:49
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
@@ -370,16 +369,6 @@ msgstr "いまどうしてる?"
 #: ../share/update.glade.h:2
 msgid "_Tweet"
 msgstr "ツイート(_T)"
-
-#~ msgid "User"
-#~ msgstr "送信者"
-
-#, fuzzy
-#~ msgid "Target:"
-#~ msgstr "ターゲット(_T):"
-
-#~ msgid "140"
-#~ msgstr "140"
 
 #~ msgid "<b>Plugins</b>"
 #~ msgstr "<b>プラグイン</b>"

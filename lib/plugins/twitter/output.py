@@ -53,11 +53,25 @@ class TwitterOutputBase(object):
     def check_entry(self, entry, text, *args):
         pass_rt = text.startswith('RT @') and not self.api.include_rt
 
-        has_bad = bool([row for row in self.filters
-               if text.find(row[FilterColumn.WORD].decode('utf-8')) >= 0])
+        TARGET, WORD = FilterColumn.TARGET, FilterColumn.WORD
+        is_bad_body = bool([
+                row for row in self.filters
+                if text.lower().find(row[WORD].decode('utf-8').lower()) >= 0
+                and row[TARGET].decode('utf-8') == _('Body')
+                ])
 
-        if pass_rt or has_bad:
-            #print "Del: ", text
+        sender = self._get_entry_class(entry)(entry).get_sender_name(self.api)
+        is_bad_sender = bool([
+                row for row in self.filters
+                if sender.lower().find(row[WORD].decode('utf-8').lower()) >= 0
+                and row[TARGET].decode('utf-8') == _('Sender')
+                ])
+
+        if is_bad_sender:
+            print text
+
+        if pass_rt or is_bad_body or is_bad_sender:
+            # print "Del: ", text
             pass
         else:
             self.buffer_entry(entry, args)

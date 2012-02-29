@@ -29,7 +29,7 @@ class TweetEntry(object):
         time = TwitterTime(entry.created_at)
         body_string = self._get_body(entry.text)
         body = add_markup.convert(body_string) # add_markup is global
-        user = entry.sender if api.name == _('Direct Messages') else entry.user
+        user = self._get_sender(api)
 
         text = dict(
             date_time=time.get_local_time(),
@@ -44,6 +44,15 @@ class TweetEntry(object):
             )
 
         return text
+
+    def get_sender_name(self, api):
+        sender = self._get_sender(api)
+        return sender.screen_name
+
+    def _get_sender(self, api):
+        sender = self.entry.sender if api.name == _('Direct Messages') \
+            else self.entry.user
+        return sender
 
     def _get_body(self, text):
         return text
@@ -79,7 +88,7 @@ class SearchTweetEntry(TweetEntry):
         body_string = self._get_body(entry.title)
         body = add_markup.convert(body_string) # add_markup is global
 
-        name = entry.author.name.split(' ')[0]
+        name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
 
         text = dict(
@@ -93,6 +102,12 @@ class SearchTweetEntry(TweetEntry):
             popup_body=body_string)
 
         return text
+
+    def get_sender_name(self, api=None):
+        return self.entry.author.name.split(' ')[0]
+
+    def _get_sender(self, api):
+        pass
 
 class DictObj(object):
 
