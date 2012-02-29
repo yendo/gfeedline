@@ -8,6 +8,7 @@ class FeedSourceDialog(DialogBase):
     """Feed Source Dialog"""
 
     WIDGET = 'feedsource.glade'
+    DIALOG = 'feed_source'
 
     def _setup_ui(self):
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
@@ -19,9 +20,6 @@ class FeedSourceDialog(DialogBase):
         self.on_comboboxtext_target_changed()
 
     def run(self):
-        dialog = self.gui.get_object('feed_source')
-        dialog.set_transient_for(self.parent)
-
         #source_widget = SourceComboBox(self.gui, source_list, self.data)
 
         if self.liststore_row:
@@ -37,7 +35,7 @@ class FeedSourceDialog(DialogBase):
             checkbutton_notification.set_active(status)
 
         # run
-        response_id = dialog.run()
+        response_id = self.dialog.run()
 
         v = { 
 #            'source'  : source_widget.get_active_text(),
@@ -50,7 +48,7 @@ class FeedSourceDialog(DialogBase):
         }
 
         # print v
-        dialog.destroy()
+        self.dialog.destroy()
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
         return response_id , v

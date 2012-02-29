@@ -11,6 +11,7 @@ class FilterDialog(DialogBase):
     """Filter Dialog"""
 
     WIDGET = 'filters.glade'
+    DIALOG = 'filter_dialog'
 
     def _setup_ui(self):
         self.combobox_target = ComboboxTarget(self.gui)
@@ -19,10 +20,6 @@ class FilterDialog(DialogBase):
         self.combobox_expire_unit = ComboboxExpireUnit(self.gui)
 
     def run(self):
-        dialog = self.gui.get_object('filter_dialog')
-        if self.parent:
-            dialog.set_transient_for(self.parent)
-
         if self.text:
             self.entry_word.set_text(self.text)
 
@@ -40,7 +37,7 @@ class FilterDialog(DialogBase):
                 self.liststore_row[FilterColumn.EXPIRE_UNIT])
 
         # run
-        response_id = dialog.run()
+        response_id = self.dialog.run()
 
         expire = ExpireValues(self.spinbutton_expiry.get_value_as_int(), 
                               self.combobox_expire_unit)
@@ -54,7 +51,7 @@ class FilterDialog(DialogBase):
         ]
 
 #        print v
-        dialog.destroy()
+        self.dialog.destroy()
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
         return response_id , v

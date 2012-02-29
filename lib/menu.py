@@ -117,7 +117,7 @@ class AddFilterMenuItem(PopupMenuItem):
 
         filter_liststore = self.parent.liststore.filter_liststore
 
-        dialog = FilterDialog(text=text)
+        dialog = FilterDialog(None, text=text)
         response_id, v = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:
