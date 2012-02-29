@@ -37,12 +37,12 @@ class FeedView(FeedScrolledWindow):
 
         self.name = name
         self.liststore = liststore
-        window = liststore.window
-        self.theme = window.theme
+        self.window = liststore.window # access from RetweetMenuItem
+        self.theme = self.window.theme
 
         self.append(notebook, page)
         self.webview = FeedWebView(self, api)
-        self.notification = window.notification
+        self.notification = self.window.notification
 
     def append(self, notebook, page=-1):
         self.notebook = notebook
