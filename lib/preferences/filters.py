@@ -2,31 +2,21 @@ import time
 from datetime import datetime, timedelta
 
 from gi.repository import Gtk
-from ..constants import SHARED_DATA_FILE
+
 from ..filterliststore import FilterColumn
-from feedsource import FeedSourceAction
+from ui import *
 
 
-class FilterDialog(object):
+class FilterDialog(DialogBase):
     """Filter Dialog"""
 
-    def __init__(self, parent=None, liststore_row=None, text=None):
-        self.gui = Gtk.Builder()
-        self.gui.add_from_file(SHARED_DATA_FILE('filters.glade'))
+    WIDGET = 'filters.glade'
 
-        self.parent = parent
-        self.liststore_row = liststore_row
-        self.text = text
-
+    def _setup_ui(self):
         self.combobox_target = ComboboxTarget(self.gui)
         self.entry_word = self.gui.get_object('entry_word')
         self.spinbutton_expiry = self.gui.get_object('spinbutton_expiry')
         self.combobox_expire_unit = ComboboxExpireUnit(self.gui)
-
-        self.button_ok = self.gui.get_object('button_ok')
-        self.button_ok.set_sensitive(False)
-
-        self.gui.connect_signals(self)
 
     def run(self):
         dialog = self.gui.get_object('filter_dialog')
@@ -68,10 +58,6 @@ class FilterDialog(object):
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
         return response_id , v
-
-    def on_entry_word_changed(self, entry, *args):
-        has_entry = entry.get_text_length() > 0
-        self.button_ok.set_sensitive(has_entry)
 
 class ExpireValues(object):
 
@@ -120,22 +106,16 @@ class ComboboxExpireUnit(ComboboxTarget):
 
     WIDGET = 'comboboxtext_expire_unit'
 
-class FilterTreeview(object):
+class FilterTreeview(TreeviewBase):
+
+    WIDGET = 'filter_treeview'
 
     def __init__(self, gui, mainwindow):
-        self.gui = gui
-        self.liststore = mainwindow.liststore
-        self.liststore.filter_liststore.update_expire_info()
+        super(FilterTreeview, self).__init__(
+            gui, mainwindow.liststore.filter_liststore)
+        mainwindow.liststore.filter_liststore.update_expire_info()
 
-        self.treeview = treeview = gui.get_object('filter_treeview')
-        treeview.set_model(self.liststore.filter_liststore)
-
-    def set_cursor_to(self, iter):
-        model = self.treeview.get_model()
-        row = model.get_path(iter)
-        self.treeview.set_cursor(row, None, False)
-
-class FilterAction(FeedSourceAction):
+class FilterAction(ActionBase):
 
     DIALOG = FilterDialog
     TREEVIEW = FilterTreeview

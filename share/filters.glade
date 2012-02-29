@@ -137,7 +137,7 @@
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="invisible_char">●</property>
-                <signal name="changed" handler="on_entry_word_changed" swapped="no"/>
+                <signal name="changed" handler="on_entry_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>

@@ -1,30 +1,22 @@
 from gi.repository import Gtk
 
 from ..plugins.twitter.api import TwitterAPIDict
-from ..constants import SHARED_DATA_FILE, Column
+from ..constants import Column
+from ui import *
 
-
-class FeedSourceDialog(object):
+class FeedSourceDialog(DialogBase):
     """Feed Source Dialog"""
 
-    def __init__(self, parent, liststore_row=None):
-        self.gui = Gtk.Builder()
-        self.gui.add_from_file(SHARED_DATA_FILE('feedsource.glade'))
+    WIDGET = 'feedsource.glade'
 
-        self.parent = parent
-        self.liststore_row = liststore_row
-
+    def _setup_ui(self):
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
         self.entry_name = self.gui.get_object('entry_name')
         self.label_argument = self.gui.get_object('label_argument')
         self.entry_argument = ArgumentEntry(self.gui, self.combobox_target)
         self.entry_group = self.gui.get_object('entry_group')
 
-        self.button_ok = self.gui.get_object('button_ok')
-        self.button_ok.set_sensitive(False)
-
         self.on_comboboxtext_target_changed()
-        self.gui.connect_signals(self)
 
     def run(self):
         dialog = self.gui.get_object('feed_source')
@@ -69,10 +61,6 @@ class FeedSourceDialog(object):
         self.entry_argument.set_sensitive(status)
         self.button_ok.set_sensitive(not status)
 
-    def on_entry_argument_changed(self, entry, *args):
-        has_entry = entry.get_text_length() > 0
-        self.button_ok.set_sensitive(has_entry)
-
 class TargetCombobox(object):
 
     def __init__(self, gui, feedliststore):
@@ -115,26 +103,19 @@ class ArgumentEntry(object):
     def set_sensitive(self, status):
         self.widget.set_sensitive(status)
 
-class FeedSourceTreeview(object):
+class FeedSourceTreeview(TreeviewBase):
+
+    WIDGET = 'feedsourcetreeview'
 
     def __init__(self, gui, mainwindow):
-        self.gui = gui
-        self.liststore = mainwindow.liststore
+        super(FeedSourceTreeview, self).__init__(gui, mainwindow.liststore)
 
-        self.treeview = treeview = gui.get_object('feedsourcetreeview')
-        treeview.set_model(self.liststore)
-
-        treeview.set_headers_clickable(False) # Builder bug?
-        treeview.connect("drag-begin", self.on_drag_begin)
-        treeview.connect("drag-end", self.on_drag_end, mainwindow)
+        self.treeview.set_headers_clickable(False) # Builder bug?
+        self.treeview.connect("drag-begin", self.on_drag_begin)
+        self.treeview.connect("drag-end", self.on_drag_end, mainwindow)
 
     def get_selection(self):
         return self.treeview.get_selection()
-
-    def set_cursor_to(self, iter):
-        model = self.treeview.get_model()
-        row = model.get_path(iter)
-        self.treeview.set_cursor(row, None, False)
 
     def on_drag_begin(self, treeview, dragcontext):
         treeselection = treeview.get_selection()
@@ -164,52 +145,9 @@ class FeedSourceTreeview(object):
         if self.old_page != new_page:
             mainwindow.column.hbox.reorder_child(notebook, new_page)
 
-class FeedSourceAction(object):
+class FeedSourceAction(ActionBase):
 
     DIALOG = FeedSourceDialog
     TREEVIEW = FeedSourceTreeview
     BUTTON_PREFS = 'button_feed_prefs'
     BUTTON_DEL = 'button_feed_del'
-
-    def __init__(self, gui, mainwindow, liststore, preferences):
-        self.liststore = liststore
-        self.preferences = preferences
-        self.feedsource_treeview = self.TREEVIEW(gui, mainwindow)
-
-        self.button_prefs = gui.get_object(self.BUTTON_PREFS)
-        self.button_del = gui.get_object(self.BUTTON_DEL)
-
-    def on_button_feed_new_clicked(self, button):
-        dialog = self.DIALOG(self.preferences)
-        response_id, v = dialog.run()
-
-        if response_id == Gtk.ResponseType.OK:
-            new_iter = self.liststore.append(v)
-            self.feedsource_treeview.set_cursor_to(new_iter)
-
-    def on_button_feed_prefs_clicked(self, treeselection):
-        model, iter = treeselection.get_selected()
-
-        dialog = self.DIALOG(self.preferences, model[iter])
-        response_id, v = dialog.run()
-
-        if response_id == Gtk.ResponseType.OK:
-            new_iter = self.liststore.update(v, iter)
-            self.feedsource_treeview.set_cursor_to(new_iter)
-
-    def on_button_feed_del_clicked(self, treeselection):
-        model, iter = treeselection.get_selected()
-        model.remove(iter)
-
-        self.button_prefs.set_sensitive(False)
-        self.button_del.set_sensitive(False)
-
-    def on_feedsource_treeview_query_tooltip(self, treeview, *args):
-        pass
-
-    def on_feedsource_treeview_cursor_changed(self, treeselection):
-        model, iter = treeselection.get_selected()
-        if iter:
-            self.button_prefs.set_sensitive(True)
-            self.button_del.set_sensitive(True)
-
