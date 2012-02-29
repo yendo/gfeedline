@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 10:03+0900\n"
-"PO-Revision-Date: 2012-02-29 10:03+0900\n"
+"POT-Creation-Date: 2012-03-01 00:23+0900\n"
+"PO-Revision-Date: 2012-03-01 00:23+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../lib/filterliststore.py:93
+#: ../lib/filterliststore.py:85
 msgid "Body"
 msgstr "本文"
 
-#: ../lib/filterliststore.py:93
+#: ../lib/filterliststore.py:85
 msgid "Sender"
 msgstr "送信者"
 
-#: ../lib/filterliststore.py:112
+#: ../lib/filterliststore.py:104
 msgid "days"
 msgstr "日間"
 
-#: ../lib/filterliststore.py:112
+#: ../lib/filterliststore.py:104
 msgid "hours"
 msgstr "時間"
 
@@ -76,7 +76,7 @@ msgstr "リストタイムライン"
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:49
+#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:53
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
@@ -157,7 +157,7 @@ msgstr "なし"
 msgid "Feed Source"
 msgstr "フィードソース"
 
-#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:14
+#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:13
 msgid "General"
 msgstr "全般"
 
@@ -315,24 +315,24 @@ msgid "Expiry"
 msgstr "有効期間"
 
 #: ../share/preferences.glade.h:11
-msgid "Feed Line Preferences"
-msgstr "フィードラインの設定"
-
-#: ../share/preferences.glade.h:12
 msgid "Feeds"
 msgstr "フィード"
 
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:12
 msgid "Filters"
 msgstr "フィルター"
 
-#: ../share/preferences.glade.h:15
+#: ../share/preferences.glade.h:14
 msgid "Group"
 msgstr "グループ"
 
-#: ../share/preferences.glade.h:16
+#: ../share/preferences.glade.h:15
 msgid "Name"
 msgstr "名前"
+
+#: ../share/preferences.glade.h:16
+msgid "Preferences"
+msgstr "設定"
 
 #: ../share/preferences.glade.h:18
 msgid "Target"
