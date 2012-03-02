@@ -30,6 +30,10 @@ class TweetEntry(object):
         body_string = self._get_body(entry.text)
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
+        print  type(user.protected), user.protected #.lower()
+
+        key = '' if user.protected == 'false' or not user.protected \
+            else "<img src='key.png' width='10' height='13'>"
 
         entry_dict = dict(
             date_time=time.get_local_time(),
@@ -39,6 +43,7 @@ class TweetEntry(object):
             user_name=user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
+            protected=key,
 
             status_body=body,
             popup_body=body_string,
@@ -102,6 +107,8 @@ class SearchTweetEntry(TweetEntry):
             user_name=name,
             full_name=self.get_full_name(entry),
             user_color=user_color.get(name),
+            protected='',
+
             status_body=body,
             popup_body=body_string)
 

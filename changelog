@@ -1,5 +1,6 @@
 2012-03-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* key.png, key.svg: Added a protected icon.
 	* twitter/tweetentry.py: Added support for full user name.
 
 2012-02-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
