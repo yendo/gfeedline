@@ -30,7 +30,6 @@ class TweetEntry(object):
         body_string = self._get_body(entry.text)
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
-        print  type(user.protected), user.protected #.lower()
 
         key = '' if user.protected == 'false' or not user.protected \
             else "<img class='protected' src='key.png' width='10' height='13'>"

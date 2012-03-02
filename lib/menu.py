@@ -42,12 +42,14 @@ class PopupMenuItem(Gtk.MenuItem):
         user_name = _get_first_class('username').get_inner_text()
         body = _get_first_class('body').get_inner_text()
         date_time = _get_first_class('datetime').get_inner_text()
+        is_protected = bool(_get_first_class('protected'))
 
         entry_dict = dict(
             date_time=date_time,
             id=entry_id,
             image_uri=img_url,
             user_name=user_name,
+            is_protected=is_protected,
             status_body=body
             )
 
