@@ -33,7 +33,7 @@ class TweetEntry(object):
         print  type(user.protected), user.protected #.lower()
 
         key = '' if user.protected == 'false' or not user.protected \
-            else "<img src='key.png' width='10' height='13'>"
+            else "<img class='protected' src='key.png' width='10' height='13'>"
 
         entry_dict = dict(
             date_time=time.get_local_time(),
