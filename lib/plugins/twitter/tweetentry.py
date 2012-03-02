@@ -37,6 +37,7 @@ class TweetEntry(object):
             image_uri=user.profile_image_url,
             retweet=self.retweet_icon,
             user_name=user.screen_name,
+            full_name=user.name,
             user_color=user_color.get(user.screen_name),
 
             status_body=body,
@@ -99,6 +100,7 @@ class SearchTweetEntry(TweetEntry):
             image_uri=entry.image,
             retweet='',
             user_name=name,
+            full_name=self.get_full_name(entry),
             user_color=user_color.get(name),
             status_body=body,
             popup_body=body_string)
@@ -107,6 +109,9 @@ class SearchTweetEntry(TweetEntry):
 
     def get_sender_name(self, api=None):
         return self.entry.author.name.split(' ')[0]
+
+    def get_full_name(self, entry):
+        return entry.author.name.split(' ')[1][1:-1] # removed parentheses
 
     def _get_sender(self, api):
         pass

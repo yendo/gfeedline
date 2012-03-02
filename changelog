@@ -1,3 +1,7 @@
+2012-03-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py: Added support for full user name.
+
 2012-02-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* menu.py: Added a menu item for adding filters.
