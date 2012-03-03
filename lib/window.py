@@ -5,7 +5,7 @@
 # Licence: GPL3
 
 from twisted.internet import reactor
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from preferences.preferences import Preferences
 from view import Theme
@@ -28,6 +28,13 @@ class MainWindow(object):
         self.theme = Theme()
         self.notification = StatusNotification('GFeedLine')
 
+        dnd_list = [Gtk.TargetEntry.new("text/x-moz-url", 0, 4)]
+        window.drag_dest_set(Gtk.DestDefaults.ALL, dnd_list, Gdk.DragAction.COPY)
+        target = Gtk.TargetList.new([])
+        target.add(Gdk.Atom.intern("text/x-moz-url", False), 0, 4)
+        window.drag_dest_set_target_list(target)
+        window.connect("drag-data-received", self.on_drag_data_received)
+
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
         self.on_settings_sticky_change(SETTINGS, 'window-sticky')
 
@@ -47,6 +54,14 @@ class MainWindow(object):
         window.show()
 
         gui.connect_signals(self)
+
+    def on_drag_data_received(self, widget, context, x, y, selection, info, time):
+        if info == 4:
+            uri, title = selection.get_data().decode('utf16', 'replace').split('\n')
+            text = "%s - %s" % (title, uri) if title else uri
+
+            updatewindow = UpdateWindow(self)
+            updatewindow.text_buffer.set_text(text)
 
     def get_notebook(self, group_name):
         if not SETTINGS.get_boolean('multi-column'):

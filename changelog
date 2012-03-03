@@ -1,3 +1,7 @@
+2012-03-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py, view.py: Added support for D&D URI links.
+
 2012-03-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* key.png, key.svg, updatewindow.py: Added a protected icon.

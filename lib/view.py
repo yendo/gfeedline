@@ -15,6 +15,7 @@ from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS
 from constants import SHARED_DATA_FILE
+from updatewindow import UpdateWindow
 
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
@@ -89,11 +90,26 @@ class FeedWebView(WebKit.WebView):
         self.connect("hovering-over-link", self.on_hovering_over_link)
         self.connect('scroll-event', self.on_scroll_event)
         self.connect("document-load-finished", self.on_load_finished)
+
+        self.connect("drag-data-received", self.on_drag_data_received)
+        self.connect("drag-drop", self.on_drag_drop)
+
         SETTINGS.connect("changed::theme", self.on_load_finished)
 
         scrolled_window.add(self)
         self.show_all()
 
+    def on_drag_drop(self, widget, context, x, y, time, *args):
+        if self.text:
+            updatewindow = UpdateWindow(self)
+            updatewindow.text_buffer.set_text(self.text)
+            self.text = ""
+
+    def on_drag_data_received(self, widget, context, x, y, selection, info, time):
+        if info == 4:
+            uri, title = selection.get_data().split('\n')
+            self.text = "%s - %s" % (title, uri) if title else uri
+ 
     def update(self, text=None):
         text = text.replace('\n', '')
         is_descend_js = self._bool_js(self.theme.is_descend())
@@ -150,7 +166,9 @@ class FeedWebView(WebKit.WebView):
             uri = decode_html_entities(urllib.unquote(uri))
             uri = uri.replace('#', '%23') # for Twitter hash tags
 
-        webbrowser.open(uri)
+        if button >= 0:
+            webbrowser.open(uri)
+
         return True
 
     def on_load_finished(self, view, *args):
