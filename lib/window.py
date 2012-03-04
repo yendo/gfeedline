@@ -8,7 +8,7 @@ from twisted.internet import reactor
 from gi.repository import Gtk, Gdk
 
 from preferences.preferences import Preferences
-from view import Theme
+from theme import Theme
 from updatewindow import UpdateWindow
 from notification import StatusNotification
 from utils.settings import SETTINGS, SETTINGS_GEOMETRY

@@ -10,7 +10,7 @@ from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..utils.settings import SETTINGS, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE, Column
-from ..view import Theme
+from ..theme import Theme
 from feedsource import FeedSourceDialog, FeedSourceAction
 from filters import FilterDialog, FilterAction
 
