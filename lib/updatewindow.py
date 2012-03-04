@@ -47,7 +47,7 @@ class UpdateWindow(UpdateWidgetBase):
         gui.connect_signals(self)
 
         if entry:
-            if not entry['is_protected']:
+            if not entry['protected']:
                 gui.get_object('image_secret').hide()
 
             self._download_user_icon_with_callback(gui, entry)

@@ -49,7 +49,7 @@ class PopupMenuItem(Gtk.MenuItem):
             id=entry_id,
             image_uri=img_url,
             user_name=user_name,
-            is_protected=is_protected,
+            protected=is_protected,
             status_body=body
             )
 
