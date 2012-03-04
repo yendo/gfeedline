@@ -83,7 +83,7 @@ class MainWindow(object):
             view.append(notebook, -1)
 
         timeout = reactor.callLater(0.1, self._jump_all_tabs_to_bottom, 
-                                    self.theme.is_descend())
+                                    self.theme.is_ascending())
 
     def _jump_all_tabs_to_bottom(self, is_bottom=True):
         for notebook in self.column.values():
@@ -147,7 +147,7 @@ class MainWindow(object):
         top = self.gui.get_object('menuitem_top')
         bottom = self.gui.get_object('menuitem_bottom')
 
-        if not self.theme.is_descend():
+        if not self.theme.is_ascending():
             top, bottom = bottom, top
 
         top.hide()

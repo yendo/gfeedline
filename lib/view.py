@@ -112,15 +112,15 @@ class FeedWebView(WebKit.WebView):
  
     def update(self, text=None):
         text = text.replace('\n', '')
-        is_descend_js = self._bool_js(self.theme.is_descend())
+        is_ascending_js = self._bool_js(self.theme.is_ascending())
         is_paused_js = self._bool_js(self.scroll.is_paused)
 
-        js = 'append("%s", %s, %s)' % (text, is_descend_js, is_paused_js)
+        js = 'append("%s", %s, %s)' % (text, is_ascending_js, is_paused_js)
         # print js
         self.execute_script(js)
 
         if not self.scroll.is_paused:
-            js = 'scrollToBottom(%s)' % is_descend_js
+            js = 'scrollToBottom(%s)' % is_ascending_js
             reactor.callLater(0.2, self.execute_script, js)
 
     def jump_to_bottom(self, is_bottom=True):
@@ -232,10 +232,10 @@ class Theme(object):
                 self.all_themes.setdefault(name, {})
                 self.all_themes[name][ext] = os.path.join(root, file)
 
-    def is_descend(self):
+    def is_ascending(self):
         theme_name = self._get_theme_name()
-        is_descend = True if theme_name == 'Chat' else False
-        return is_descend
+        is_ascending = True if theme_name == 'Chat' else False
+        return is_ascending
 
     def get_all_list(self):
         return self.all_themes.keys()
