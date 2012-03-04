@@ -218,9 +218,6 @@ import os
 class Theme(object):
 
     def __init__(self):
-        SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
-        self.on_setting_theme_changed(SETTINGS, 'theme')
-
         self.all_themes = {}
         path = SHARED_DATA_FILE('html/theme/')
 
@@ -232,17 +229,27 @@ class Theme(object):
                 self.all_themes.setdefault(name, {})
                 self.all_themes[name][ext] = os.path.join(root, file)
 
+                if file.find('Ascending') > 0:
+                    self.all_themes[name]['is_ascending'] = True
+
+        SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
+        self.on_setting_theme_changed(SETTINGS, 'theme')
+
     def is_ascending(self):
         theme_name = self._get_theme_name()
-        is_ascending = True if theme_name == 'Chat' else False
-        return is_ascending
+        is_ascending = self.all_themes[theme_name].get('is_ascending')
+        return bool(is_ascending)
 
     def get_all_list(self):
         return self.all_themes.keys()
 
     def get_css_file(self):
         theme_name = self._get_theme_name()
-        css_file = SHARED_DATA_FILE('html/theme/%s.css' % theme_name)
+        css_file = self.all_themes[theme_name].get('css')
+
+        if not os.path.isfile(css_file):
+            css_file_old = SHARED_DATA_FILE('html/theme/Twitter.css')
+
         return css_file
 
     def _get_theme_name(self):
@@ -250,7 +257,7 @@ class Theme(object):
 
     def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
-        template_file = SHARED_DATA_FILE('html/theme/%s.html' % theme_name)
+        template_file = self.all_themes[theme_name].get('html')
 
         if not os.path.isfile(template_file):
             template_file = SHARED_DATA_FILE('html/theme/Twitter.html')
