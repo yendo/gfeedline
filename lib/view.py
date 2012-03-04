@@ -213,16 +213,32 @@ class FeedWebViewScroll(object):
         # print "play!"
         self.is_paused = False
 
+import os
+
 class Theme(object):
 
     def __init__(self):
         SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
         self.on_setting_theme_changed(SETTINGS, 'theme')
 
+        self.all_themes = {}
+        path = SHARED_DATA_FILE('html/theme/')
+
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                name = file.split('.')[0]
+                ext = os.path.splitext(file)[1][1:]
+
+                self.all_themes.setdefault(name, {})
+                self.all_themes[name][ext] = os.path.join(root, file)
+
     def is_descend(self):
         theme_name = self._get_theme_name()
-        is_descend = True if theme_name == 'chat' else False
+        is_descend = True if theme_name == 'Chat' else False
         return is_descend
+
+    def get_all_list(self):
+        return self.all_themes.keys()
 
     def get_css_file(self):
         theme_name = self._get_theme_name()
@@ -230,11 +246,14 @@ class Theme(object):
         return css_file
 
     def _get_theme_name(self):
-        return SETTINGS.get_string('theme').lower()
+        return SETTINGS.get_string('theme')
 
     def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
         template_file = SHARED_DATA_FILE('html/theme/%s.html' % theme_name)
+
+        if not os.path.isfile(template_file):
+            template_file = SHARED_DATA_FILE('html/theme/Twitter.html')
 
         with open(template_file, 'r') as fh:
             file = fh.read()

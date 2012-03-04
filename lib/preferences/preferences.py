@@ -10,6 +10,7 @@ from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..utils.settings import SETTINGS, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE, Column
+from ..view import Theme
 from feedsource import FeedSourceDialog, FeedSourceAction
 from filters import FilterDialog, FilterAction
 
@@ -119,16 +120,17 @@ class ComboboxTheme(object):
 
     def __init__(self, gui, liststore):
         self.liststore = liststore
-        self.themes = ['Twitter', 'Chat']
+        theme = Theme()
+        self.labels = theme.get_all_list()
 
         self.combobox = gui.get_object('comboboxtext_theme')
-        theme = SETTINGS.get_string('theme')
-        num = self.themes.index(theme.decode('utf-8'))
+        selected_theme = SETTINGS.get_string('theme')
+        num = self.labels.index(selected_theme.decode('utf-8'))
         self.combobox.set_active(num)
 
     def check_active(self):
         old = SETTINGS.get_string('theme')
-        new = self.themes[self.combobox.get_active()]
+        new = self.labels[self.combobox.get_active()]
 
         if old != new:
             SETTINGS.set_string('theme', new)

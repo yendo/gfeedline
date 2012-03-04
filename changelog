@@ -1,3 +1,7 @@
+2012-03-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py: Added support for dynamic loading of themes.
+
 2012-03-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* window.py, view.py: Added support for D&D URI links.
