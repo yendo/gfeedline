@@ -52,15 +52,20 @@ class TwitterOutputBase(object):
 
     def check_entry(self, entry, text, *args):
         pass_rt = text.startswith('RT @') and not self.api.include_rt
-
         is_bad_body = self._check_filter(text, _('Body'), self.filters)
-        sender = self._get_entry_obj(entry).get_sender_name(self.api)
+
+        entry_obj = self._get_entry_obj(entry)
+
+        sender = entry_obj.get_sender_name(self.api)
         is_bad_sender = self._check_filter(sender, _('Sender'), self.filters)
+
+        source = entry_obj.get_source_name()
+        is_bad_source = self._check_filter(source, _('Source'), self.filters)
 
 #        if is_bad_sender:
 #            print text
 
-        if pass_rt or is_bad_body or is_bad_sender:
+        if pass_rt or is_bad_body or is_bad_sender or is_bad_source:
             # print "Del: ", text
             pass
         else:

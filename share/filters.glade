@@ -122,6 +122,7 @@
                 <items>
                   <item translatable="yes">Body</item>
                   <item translatable="yes">Sender</item>
+                  <item translatable="yes">Source</item>
                 </items>
               </object>
               <packing>

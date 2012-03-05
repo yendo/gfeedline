@@ -3,6 +3,7 @@ import time
 from datetime import datetime, timedelta
 from xml.sax.saxutils import escape
 
+from BeautifulSoup import BeautifulSoup
 import dateutil.parser
 
 from ...utils.usercolor import UserColor
@@ -26,6 +27,8 @@ class TweetEntry(object):
     def get_dict(self, api):
         entry = self.entry
 
+#        print entry.favorited, entry.in_reply_to_screen_name
+
         time = TwitterTime(entry.created_at)
         body_string = self._get_body(entry.text)
         body = add_markup.convert(body_string) # add_markup is global
@@ -41,10 +44,12 @@ class TweetEntry(object):
             styles=styles,
             image_uri=user.profile_image_url,
             retweet=self.retweet_icon,
+
             user_name=user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
             protected=key,
+            source=entry.source,
 
             status_body=body,
             popup_body=body_string,
@@ -60,6 +65,17 @@ class TweetEntry(object):
         sender = self.entry.sender if api.name == _('Direct Messages') \
             else self.entry.user
         return sender
+
+    def get_source_name(self):
+        return self._parse_source_html(self.entry.source)
+
+    def _parse_source_html(self, source):
+        source = decode_html_entities(source)
+
+        if source.find('http') > 0:
+            soup = BeautifulSoup(source)
+            source = [x.contents[0] for x in soup('a')][0]
+        return source
 
     def _get_style_own_message(self, api, name):
         styles = 'mine' if api.account.user_name == name else ''
@@ -111,10 +127,12 @@ class SearchTweetEntry(TweetEntry):
             styles=styles,
             image_uri=entry.image,
             retweet='',
+
             user_name=name,
             full_name=self.get_full_name(entry),
             user_color=user_color.get(name),
             protected='',
+            source=entry.twitter_source,
 
             status_body=body,
             popup_body=body_string)
@@ -129,6 +147,9 @@ class SearchTweetEntry(TweetEntry):
 
     def _get_sender(self, api):
         pass
+
+    def get_source_name(self):
+        return self._parse_source_html(self.entry.twitter_source)
 
 class DictObj(object):
 

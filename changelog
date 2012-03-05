@@ -1,6 +1,7 @@
 2012-03-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* tweetentry.py: Adds 'mine' class for user own messages.
+	* twitter/output.py: Added source filters.
+	* twitter/tweetentry.py: Adds 'mine' class for user own messages.
 	* view.py: Added support for dynamic loading of themes.
 
 2012-03-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
