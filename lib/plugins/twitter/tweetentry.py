@@ -27,13 +27,17 @@ class TweetEntry(object):
     def get_dict(self, api):
         entry = self.entry
 
-#        print entry.favorited, entry.in_reply_to_screen_name
-
         time = TwitterTime(entry.created_at)
         body_string = self._get_body(entry.text)
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
-        styles = self._get_style_own_message(api, user.screen_name)
+
+        styles = [
+            self._get_style_own_message(api, user.screen_name),
+            self._get_style_reply(api),
+            self._get_style_favorited(),
+            ]
+        styles = " ".join([x for x in styles if x])
 
         key = '' if user.protected == 'false' or not user.protected \
             else "<img class='protected' src='key.png' width='10' height='13'>"
@@ -78,8 +82,22 @@ class TweetEntry(object):
         return source
 
     def _get_style_own_message(self, api, name):
-        styles = 'mine' if api.account.user_name == name else ''
-        return styles
+        style = 'mine' if api.account.user_name == name else ''
+        return style
+
+    def _get_style_reply(self, api):
+        style = 'reply' \
+            if self.entry.in_reply_to_screen_name == api.account.user_name \
+            else ''
+        return style
+
+    def _get_style_favorited(self):
+        fav = self.entry.favorited 
+        style = '' if fav == 'false' or not fav else 'favorited'
+        return style
+
+    def _get_style_retweet(self):
+        pass
 
     def _get_body(self, text):
         return text
