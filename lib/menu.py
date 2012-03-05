@@ -20,11 +20,12 @@ class PopupMenuItem(Gtk.MenuItem):
 
     LABEL = ''
 
-    def __init__(self, uri=None, scrolled_window=None):
+    def __init__(self, uri=None, api=None, scrolled_window=None):
         super(PopupMenuItem, self).__init__()
 
         self.uri = uri
         self.user, entry_id = uri.split('/')[3:6:2] if uri else [None]*2
+        self.api = api
         self.parent = scrolled_window
 
         self.set_label(self.LABEL)
@@ -71,6 +72,7 @@ class ReplyMenuItem(PopupMenuItem):
     def on_activate(self, menuitem, entry_id):
         if CAN_ACCESS_DOM:
             entry_dict = self._get_entry_from_dom(entry_id)
+            # print api.account.user_name # use account obj?
             update_window = UpdateWindow(None, entry_dict)
         else:
             entry_dict = {'id': entry_id, 'user_name': self.user}
@@ -80,15 +82,16 @@ class RetweetMenuItem(PopupMenuItem):
 
     LABEL = _('Re_tweet')
 
-    def __init__(self, uri=None, scrolled_window=None):
-        super(RetweetMenuItem, self).__init__(uri, scrolled_window)
+    def __init__(self, uri=None, api=None, scrolled_window=None):
+        super(RetweetMenuItem, self).__init__(uri, api, scrolled_window)
   
         if CAN_ACCESS_DOM:
             entry_id = uri.split('/')[-1]
             dom = self.parent.webview.dom.get_element_by_id(entry_id)
             is_protected = bool(dom.get_elements_by_class_name('protected').item(0))
+            is_mine = dom.get_attribute('class').find('mine') >= 0
 
-            self.set_sensitive(not is_protected)
+            self.set_sensitive(not is_protected and not is_mine)
 
     def on_activate(self, menuitem, entry_id):
         if CAN_ACCESS_DOM:
@@ -103,11 +106,11 @@ class RetweetMenuItem(PopupMenuItem):
 class FavMenuItem(PopupMenuItem):
 
     LABEL = _('_Favorite')
-        
+
     def on_activate(self, menuitem, entry_id):
-        twitter_account = AuthorizedTwitterAccount()
+        twitter_account = AuthorizedTwitterAccount() # FIXME
         twitter_account.api.fav(entry_id)
-            
+
 class SearchMenuItem(PopupMenuItem):
 
     LABEL = _('_Search')

@@ -25,9 +25,13 @@ class AuthorizedTwitterAccount(GObject.GObject):
         self.emit("update-credential", None)
 
     def _get_token(self):
-        key = SETTINGS_TWITTER.get_string('access-token')
-        secret = SETTINGS_TWITTER.get_string('access-secret')
+        get_string = SETTINGS_TWITTER.get_string
+
+        key = get_string('access-token')
+        secret = get_string('access-secret')
         token = oauth.OAuthToken(key, secret) if key and secret else None
+        self.user_name = get_string('user-name') if token else None
+
         return token
 
 class Twitter(twitter.Twitter):

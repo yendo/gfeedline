@@ -144,7 +144,7 @@ class FeedWebView(WebKit.WebView):
             for x in default_menu.get_children():
                 default_menu.remove(x) 
             for menuitem in ENTRY_POPUP_MENU():
-                default_menu.append(menuitem(self.link_on_webview.uri,
+                default_menu.append(menuitem(self.link_on_webview.uri, api,
                                              self.scrolled_window))
         elif not self.link_on_webview.is_hovering and self.can_copy_clipboard():
             menuitem = SearchMenuItem()

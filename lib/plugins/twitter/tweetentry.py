@@ -34,9 +34,14 @@ class TweetEntry(object):
         key = '' if user.protected == 'false' or not user.protected \
             else "<img class='protected' src='key.png' width='10' height='13'>"
 
+        # FIXME
+        styles = 'mine' if api.account.user_name == user.screen_name \
+            else ''
+
         entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry.id,
+            styles=styles,
             image_uri=user.profile_image_url,
             retweet=self.retweet_icon,
             user_name=user.screen_name,
@@ -98,9 +103,14 @@ class SearchTweetEntry(TweetEntry):
         name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
 
+
+        styles = 'mine' if api.account.user_name == name \
+            else ''
+
         entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry_id,
+            styles=styles,
             image_uri=entry.image,
             retweet='',
             user_name=name,
