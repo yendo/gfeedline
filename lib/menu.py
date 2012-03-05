@@ -88,10 +88,12 @@ class RetweetMenuItem(PopupMenuItem):
         if CAN_ACCESS_DOM:
             entry_id = uri.split('/')[-1]
             dom = self.parent.webview.dom.get_element_by_id(entry_id)
-            is_protected = bool(dom.get_elements_by_class_name('protected').item(0))
-            is_mine = dom.get_attribute('class').find('mine') >= 0
+            self.set_sensitive(self._is_enabled(dom))
 
-            self.set_sensitive(not is_protected and not is_mine)
+    def _is_enabled(self, dom):
+        is_mine = dom.get_attribute('class').find('mine') >= 0
+        is_protected = bool(dom.get_elements_by_class_name('protected').item(0))
+        return not is_mine and not is_protected
 
     def on_activate(self, menuitem, entry_id):
         if CAN_ACCESS_DOM:
@@ -103,9 +105,13 @@ class RetweetMenuItem(PopupMenuItem):
 
         dialog.run(entry_dict, self.parent.window.window)
 
-class FavMenuItem(PopupMenuItem):
+class FavMenuItem(RetweetMenuItem):
 
     LABEL = _('_Favorite')
+
+    def _is_enabled(self, dom):
+        is_mine = dom.get_attribute('class').find('mine') >= 0
+        return not is_mine
 
     def on_activate(self, menuitem, entry_id):
         twitter_account = AuthorizedTwitterAccount() # FIXME
