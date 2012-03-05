@@ -1,1 +1,4 @@
+body { margin: 4 4; }
+div.status { padding: 2 4 0 4;}
+div.mine { background-color: MistyRose;} 
 div.status img { -webkit-border-radius : 3px; }
