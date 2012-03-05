@@ -114,7 +114,7 @@ class FavMenuItem(RetweetMenuItem):
         return not is_mine
 
     def on_activate(self, menuitem, entry_id):
-        twitter_account = AuthorizedTwitterAccount() # FIXME
+        twitter_account = self.api.account
         twitter_account.api.fav(entry_id)
 
 class SearchMenuItem(PopupMenuItem):

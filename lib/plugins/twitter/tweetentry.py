@@ -30,13 +30,10 @@ class TweetEntry(object):
         body_string = self._get_body(entry.text)
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
+        styles = self._get_style_own_message(api, user.screen_name)
 
         key = '' if user.protected == 'false' or not user.protected \
             else "<img class='protected' src='key.png' width='10' height='13'>"
-
-        # FIXME
-        styles = 'mine' if api.account.user_name == user.screen_name \
-            else ''
 
         entry_dict = dict(
             date_time=time.get_local_time(),
@@ -63,6 +60,10 @@ class TweetEntry(object):
         sender = self.entry.sender if api.name == _('Direct Messages') \
             else self.entry.user
         return sender
+
+    def _get_style_own_message(self, api, name):
+        styles = 'mine' if api.account.user_name == name else ''
+        return styles
 
     def _get_body(self, text):
         return text
@@ -102,10 +103,7 @@ class SearchTweetEntry(TweetEntry):
 
         name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
-
-
-        styles = 'mine' if api.account.user_name == name \
-            else ''
+        styles = self._get_style_own_message(api, name)
 
         entry_dict = dict(
             date_time=time.get_local_time(),
