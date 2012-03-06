@@ -21,7 +21,6 @@ class TweetEntry(object):
 
     def __init__(self, entry):
         self.retweet_icon = ''
-
         self.entry=entry
 
     def get_dict(self, api):
@@ -32,13 +31,8 @@ class TweetEntry(object):
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
 
-        styles = [
-            self._get_style_own_message(api, user.screen_name),
-            self._get_style_reply(api),
-            self._get_style_favorited(),
-            ]
-        styles = " ".join([x for x in styles if x])
-
+        self.style_obj = EntryStyles()
+        styles = self.style_obj.get(api, user.screen_name, entry)
         key = '' if user.protected == 'false' or not user.protected \
             else "<img class='protected' src='key.png' width='10' height='13'>"
 
@@ -81,32 +75,40 @@ class TweetEntry(object):
             source = [x.contents[0] for x in soup('a')][0]
         return source
 
+    def _get_body(self, text):
+        return text
+
+class EntryStyles(object):
+
+    def get(self, api, screen_name, entry=None):
+
+        styles = [ self._get_style_own_message(api, screen_name) ]
+
+        if entry:
+            styles.append(self._get_style_reply(entry, api))
+            styles.append(self._get_style_favorited(entry) )
+
+        styles_string = " ".join([x for x in styles if x])
+        return styles_string
+
     def _get_style_own_message(self, api, name):
-        style = 'mine' if api.account.user_name == name else ''
-        return style
+        return 'mine' if api.account.user_name == name else ''
 
-    def _get_style_reply(self, api):
-        style = 'reply' \
-            if self.entry.in_reply_to_screen_name == api.account.user_name \
-            else ''
-        return style
+    def _get_style_reply(self, entry, api):
+        return 'reply' \
+            if entry.in_reply_to_screen_name == api.account.user_name else ''
 
-    def _get_style_favorited(self):
-        fav = self.entry.favorited 
-        style = '' if fav == 'false' or not fav else 'favorited'
-        return style
+    def _get_style_favorited(self, entry):
+        fav = entry.favorited 
+        return '' if fav == 'false' or not fav else 'favorited'
 
     def _get_style_retweet(self):
         pass
-
-    def _get_body(self, text):
-        return text
 
 class RestRetweetEntry(TweetEntry):
 
     def __init__(self, entry):
         self.retweet_icon = "<img src='retweet.png' width='18' height='14'>"
-
         self.entry=entry.retweeted_status
 
     def _get_body(self, text):
@@ -137,7 +139,9 @@ class SearchTweetEntry(TweetEntry):
 
         name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
-        styles = self._get_style_own_message(api, name)
+
+        self.style_obj = EntryStyles()
+        styles = self.style_obj.get(api, name)
 
         entry_dict = dict(
             date_time=time.get_local_time(),
