@@ -6,6 +6,7 @@
 
 import os
 import webbrowser
+import base64
 import cPickle as pickle
 
 from constants import TMP_DIR
@@ -27,7 +28,7 @@ class StatusNotification(Notification):
         urlget = UrlGetWithAutoProxy(icon_uri)
         d = urlget.downloadPage(icon_uri, self.icon_file).\
             addCallback(self._notify, entry).addErrback(self._error, entry)
- 
+
     def _notify(self, unknown, entry):
         super(StatusNotification, self).notify(
             self.icon_file, entry['user_name'], entry['popup_body'], entry)
@@ -38,8 +39,9 @@ class StatusNotification(Notification):
 
             action_array = action_string.split(' ')
             action = action_array[0]
-            entry_pickle = ' '.join(action_array[1:])
-            if entry_pickle: # for a GNOME Classic bug
+            entry_base64 = ' '.join(action_array[1:])
+            if entry_base64: # for a GNOME Classic bug
+                entry_pickle = base64.b64decode(entry_base64)
                 entry_dict = pickle.loads(entry_pickle)
 
             if action == 'reply':
@@ -54,8 +56,10 @@ class StatusNotification(Notification):
         #print entry
         if self.has_actions:
             entry_pickle = pickle.dumps(entry)
-            actions = ['reply %s' % entry_pickle, _('Reply'),
-                       'open %s'  % entry_pickle, _('Open')]
+            entry_base64 = base64.b64encode(entry_pickle)
+
+            actions = ['reply %s' % entry_base64, _('Reply'),
+                       'open %s'  % entry_base64, _('Open')]
         else:
             actions = []
 
