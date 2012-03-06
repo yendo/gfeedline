@@ -1,4 +1,4 @@
-function append(text, is_append, is_scroll_paused) {
+function append(text, is_append, is_scroll_paused, margin) {
     var parent = document.getElementById("messages");
     var entry = document.createElement("div");
     entry.innerHTML = text;
@@ -10,8 +10,9 @@ function append(text, is_append, is_scroll_paused) {
         parent.insertBefore(entry, parent.childNodes[0]);
 
         if (is_scroll_paused) {
+            if (typeof margin === 'undefined') margin = 0;
             var body = $('body');
-            body.scrollTop(body.scrollTop() + $(entry).height() + 10); 
+            body.scrollTop(body.scrollTop() + $(entry).height() + margin); 
         }
         else {
             $(entry).hide().slideDown(300);
