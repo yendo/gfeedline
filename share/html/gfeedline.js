@@ -37,3 +37,8 @@ function changeCSS(css) {
 function clearBuffer() {
     document.getElementById("messages").innerHTML = ""
 }
+
+function changeFont(font, size) {
+    $('body').css("font-family", font);
+    $('body').css("font-size", '%spt' % size);
+}

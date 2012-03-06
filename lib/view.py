@@ -177,6 +177,14 @@ class FeedWebView(WebKit.WebView):
         js = 'changeCSS("%s");' % css_file
         self.execute_script(js)
 
+        self.change_font()
+
+    def change_font(self, font=0, size=0):
+        font = "Sans"
+        size = 11
+        js = 'changeFont("%s", %s)' % (font, size)
+        self.execute_script(js)
+
     def _bool_js(self, value):
         return 'true' if value else 'false' 
 
