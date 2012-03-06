@@ -11,6 +11,16 @@
       <summary>FeedView Theme</summary>
       <description>FeedView Theme</description>
     </key>
+    <key name="timeline-order" type="i">
+      <default>0</default>
+      <summary>Timeline order</summary>
+      <description>Determines the Timeline order, 0: Default, 1: Ascending, 2: Descending.</description>
+    </key>
+    <key name="font" type="s">
+      <default>'Sans 10'</default>
+      <summary>Timeline Font</summary>
+      <description>Timeline Font</description>
+    </key>
     <key name="window-sticky" type="b">
       <default>false</default>
       <summary>Window sticky mode</summary>

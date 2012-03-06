@@ -4,6 +4,7 @@ lib/notification.py
 lib/plugins/twitter/api.py
 lib/plugins/twitter/assistant.py
 lib/plugins/twitter/tweetentry.py
+lib/preferences/preferences.py
 lib/updatewindow.py
 share/assistant_twitter.glade
 share/feedsource.glade

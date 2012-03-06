@@ -40,6 +40,8 @@ class Preferences(object):
             gui, mainwindow, self.liststore.filter_liststore, self.preferences)
 
         self.combobox_theme = ComboboxTheme(gui, self.liststore)
+        self.combobox_order = ComboboxTimelineOrder(gui)
+
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
 
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
@@ -67,7 +69,11 @@ class Preferences(object):
         page = notebook.get_current_page()
         SETTINGS.set_int('preferences-recent-page', page)
 
-        self.combobox_theme.check_active()
+        is_theme_changed = self.combobox_theme.check_active()
+        is_order_changed = self.combobox_order.check_active()
+        if is_theme_changed or is_order_changed:
+            self.combobox_theme.update_theme()
+
         self.liststore.save_settings()
         self.liststore.filter_liststore.save_settings()
         self.preferences.destroy()
@@ -130,10 +136,30 @@ class ComboboxTheme(object):
 
     def check_active(self):
         old = SETTINGS.get_string('theme')
-        new = self.labels[self.combobox.get_active()]
+        self.new = self.labels[self.combobox.get_active()]
+        return old != self.new
 
-        if old != new:
-            SETTINGS.set_string('theme', new)
+    def update_theme(self):
+        SETTINGS.set_string('theme', self.new)
+
+dummy = [_('Default'), _('Ascending'), _('Descending')] # for intltool 0.41.1 bug
+
+class ComboboxTimelineOrder(object):
+
+    def __init__(self, gui):
+        self.combobox = gui.get_object('comboboxtext_order')
+        num = SETTINGS.get_int('timeline-order')
+        self.combobox.set_active(num)
+
+    def check_active(self):
+        num = self.combobox.get_active()
+
+        theme = Theme()
+        old = theme.is_ascending()
+        new = theme.is_ascending(num)
+
+        SETTINGS.set_int('timeline-order', num)
+        return old != new
 
 class AutoStartWithCheckButton(AutoStart):
 

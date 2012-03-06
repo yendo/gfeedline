@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-01 00:23+0900\n"
-"PO-Revision-Date: 2012-03-01 00:23+0900\n"
+"POT-Creation-Date: 2012-03-07 01:34+0900\n"
+"PO-Revision-Date: 2012-03-07 01:38+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -32,35 +32,35 @@ msgstr "日間"
 msgid "hours"
 msgstr "時間"
 
-#: ../lib/menu.py:59
+#: ../lib/menu.py:62
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:67
+#: ../lib/menu.py:70
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:79
+#: ../lib/menu.py:83
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:93
+#: ../lib/menu.py:110
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:101
+#: ../lib/menu.py:122
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../lib/menu.py:112
+#: ../lib/menu.py:133
 msgid "_Add Filter"
 msgstr "フィルターに追加(_A)"
 
-#: ../lib/notification.py:57
+#: ../lib/notification.py:61
 msgid "Reply"
 msgstr "返信"
 
-#: ../lib/notification.py:58
+#: ../lib/notification.py:62
 msgid "Open"
 msgstr "開く"
 
@@ -76,7 +76,7 @@ msgstr "リストタイムライン"
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:53
+#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:63
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
@@ -108,7 +108,19 @@ msgstr "PIN の入力"
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/updatewindow.py:59 ../lib/updatewindow.py:136
+#: ../lib/preferences/preferences.py:145
+msgid "Default"
+msgstr "デフォルト"
+
+#: ../lib/preferences/preferences.py:145
+msgid "Ascending"
+msgstr "昇順"
+
+#: ../lib/preferences/preferences.py:145
+msgid "Descending"
+msgstr "降順"
+
+#: ../lib/updatewindow.py:62 ../lib/updatewindow.py:139
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
@@ -149,7 +161,7 @@ msgid ""
 "Click \"Apply\" to save your settings."
 msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
 
-#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:23
+#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:25
 msgid "none"
 msgstr "なし"
 
@@ -339,18 +351,26 @@ msgid "Target"
 msgstr "ターゲット"
 
 #: ../share/preferences.glade.h:19
+msgid "Timeline _order:"
+msgstr "タイムラインの表示順(_O):"
+
+#: ../share/preferences.glade.h:20
 msgid "Word"
 msgstr "単語"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:21
 msgid "_Authorization"
 msgstr "認証(_A)"
 
-#: ../share/preferences.glade.h:21
+#: ../share/preferences.glade.h:22
 msgid "_Auto Start"
 msgstr "ログイン時に自動起動する(_A)"
 
-#: ../share/preferences.glade.h:22
+#: ../share/preferences.glade.h:23
+msgid "_Font:"
+msgstr "フォント(_F):"
+
+#: ../share/preferences.glade.h:24
 msgid "_Theme:"
 msgstr "テーマ(_T):"
 

@@ -31,10 +31,17 @@ class Theme(object):
         SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
         self.on_setting_theme_changed(SETTINGS, 'theme')
 
-    def is_ascending(self):
-        theme_name = self._get_theme_name()
-        is_ascending = self.all_themes[theme_name].get('is_ascending')
-        return bool(is_ascending)
+    def is_ascending(self, save_value=None):
+        if save_value == None:
+            save_value = SETTINGS.get_int('timeline-order')
+
+        if save_value == 0: # default
+            theme_name = self._get_theme_name()
+            is_ascending = bool(self.all_themes[theme_name].get('is_ascending'))
+        else:
+            is_ascending = save_value == 1
+
+        return is_ascending
 
     def get_all_list(self):
         return self.all_themes.keys()

@@ -1,3 +1,7 @@
+2012-03-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences.py: Added an option for the Timeline order.
+
 2012-03-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/output.py: Added source filters.
