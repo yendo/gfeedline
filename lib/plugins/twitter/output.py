@@ -38,8 +38,8 @@ class TwitterOutputBase(object):
         self.filters = filters
 
         self.all_entries = []
-        self.last_id = 0
-        self.LAST = options.get('last_id') or 0
+        self.since_id = 0
+        self.last_id = options.get('last_id') or 0
         self.params = {}
         self.counter = 0
 
@@ -48,7 +48,7 @@ class TwitterOutputBase(object):
 
     def got_entry(self, entry, *args):
         entry.text = decode_html_entities(entry.text)
-        self._set_last_id(entry.id)
+        self._set_since_id(entry.id)
         self.check_entry(entry, entry.text, args)
 
     def check_entry(self, entry, text, *args):
@@ -84,9 +84,9 @@ class TwitterOutputBase(object):
     def print_entry(self, entry, is_first_call=False):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)
 
-        is_new_update = self.LAST < entry_dict['id']
+        is_new_update = self.last_id < entry_dict['id']
         if is_new_update:
-            self.LAST = entry_dict['id']
+            self.last_id = entry_dict['id']
 
         self.view.update(entry_dict, self.options.get('notification'), 
                          is_first_call, is_new_update)
@@ -94,12 +94,11 @@ class TwitterOutputBase(object):
     def _get_entry_obj(self, entry):
         return TweetEntry(entry)
 
-    def _set_last_id(self, entry_id):
+    def _set_since_id(self, entry_id):
         entry_id = int(entry_id)
 
-        if self.last_id < entry_id:
-            self.last_id = entry_id
-        # print self.last_id, type(self.last_id)
+        if self.since_id < entry_id:
+            self.since_id = entry_id
 
     def exit(self):
         # print "exit!"
@@ -157,8 +156,8 @@ class TwitterRestOutput(TwitterOutputBase):
             return
 
         self.params.clear()
-        if self.last_id and self.counter:
-            self.params['since_id'] = str(self.last_id)
+        if self.since_id:
+            self.params['since_id'] = str(self.since_id)
 
         params = self.api.get_options(self.argument)
         self.params.update(params)
@@ -197,7 +196,7 @@ class TwitterRestOutput(TwitterOutputBase):
     def _on_restart_theme_changed(self, *args):
         self.view.clear_buffer()
         self.disconnect()
-        self.last_id = 0
+        self.since_id = 0
         self.counter = 0
         self.start()
 
@@ -212,7 +211,7 @@ class TwitterSearchOutput(TwitterRestOutput):
 
     def got_entry(self, entry, *args):
         entry.title = decode_html_entities(entry.title)
-        self._set_last_id( entry.id.split(':')[2] )
+        self._set_since_id( entry.id.split(':')[2] )
         self.check_entry(entry, entry.title, args)
 
     def _get_entry_obj(self, entry):

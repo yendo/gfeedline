@@ -117,8 +117,7 @@ class MainWindow(object):
 
     def on_stop(self, *args):
         for row in self.liststore:
-            row[Column.OPTIONS]['last_id'] = row[Column.API].LAST
-
+            row[Column.OPTIONS]['last_id'] = row[Column.API].last_id
         self.liststore.save_settings()
 
         reactor.stop()
