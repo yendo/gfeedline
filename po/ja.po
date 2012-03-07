@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-07 01:34+0900\n"
-"PO-Revision-Date: 2012-03-07 01:38+0900\n"
+"POT-Creation-Date: 2012-03-07 23:01+0900\n"
+"PO-Revision-Date: 2012-03-07 23:02+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -108,15 +108,15 @@ msgstr "PIN の入力"
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/preferences/preferences.py:145
+#: ../lib/preferences/preferences.py:151
 msgid "Default"
 msgstr "デフォルト"
 
-#: ../lib/preferences/preferences.py:145
+#: ../lib/preferences/preferences.py:151
 msgid "Ascending"
 msgstr "昇順"
 
-#: ../lib/preferences/preferences.py:145
+#: ../lib/preferences/preferences.py:151
 msgid "Descending"
 msgstr "降順"
 
@@ -267,22 +267,26 @@ msgid "_File"
 msgstr "ファイル(_F)"
 
 #: ../share/gfeedline.glade.h:15
+msgid "_Fullscreen"
+msgstr "フルスクリーン(_F)"
+
+#: ../share/gfeedline.glade.h:16
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../share/gfeedline.glade.h:16
+#: ../share/gfeedline.glade.h:17
 msgid "_Multi-Column"
 msgstr "マルチカラム(_M)"
 
-#: ../share/gfeedline.glade.h:17
+#: ../share/gfeedline.glade.h:18
 msgid "_Update"
 msgstr "投稿(_U)"
 
-#: ../share/gfeedline.glade.h:18
+#: ../share/gfeedline.glade.h:19
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../share/gfeedline.glade.h:19
+#: ../share/gfeedline.glade.h:20
 msgid "translator-credits"
 msgstr "Yoshizumi Endo <y-endo@ceres.dti.ne.jp>"
 

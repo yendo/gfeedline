@@ -146,6 +146,12 @@ class MainWindow(object):
     def on_menuitem_bottom_activate(self, menuitem=None):
         self._jump_all_tabs_to_bottom()
 
+    def on_menuitem_fullscreen_activate(self, menuitem):
+        if menuitem.get_active():
+            self.window.fullscreen()
+        else:
+            self.window.unfullscreen()
+
     def on_menuitem_zoom_in_activate(self, menuitem):
         font_css = self.font.zoom_in()
         self.change_font(font_css)
