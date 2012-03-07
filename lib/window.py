@@ -116,6 +116,11 @@ class MainWindow(object):
             SETTINGS_GEOMETRY.set_int('window-height', h)
 
     def on_stop(self, *args):
+        for row in self.liststore:
+            row[Column.OPTIONS]['last_id'] = row[Column.API].LAST
+
+        self.liststore.save_settings()
+
         reactor.stop()
         #self.window.destroy()
 

@@ -39,6 +39,7 @@ class TwitterOutputBase(object):
 
         self.all_entries = []
         self.last_id = 0
+        self.LAST = options.get('last_id') or 0
         self.params = {}
         self.counter = 0
 
@@ -82,7 +83,13 @@ class TwitterOutputBase(object):
 
     def print_entry(self, entry, is_first_call=False):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)
-        self.view.update(entry_dict, self.options.get('notification'), is_first_call)
+
+        is_new_update = self.LAST < entry_dict['id']
+        if is_new_update:
+            self.LAST = entry_dict['id']
+
+        self.view.update(entry_dict, self.options.get('notification'), 
+                         is_first_call, is_new_update)
 
     def _get_entry_obj(self, entry):
         return TweetEntry(entry)
@@ -150,7 +157,7 @@ class TwitterRestOutput(TwitterOutputBase):
             return
 
         self.params.clear()
-        if self.last_id:
+        if self.last_id and self.counter:
             self.params['since_id'] = str(self.last_id)
 
         params = self.api.get_options(self.argument)

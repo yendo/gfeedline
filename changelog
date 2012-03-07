@@ -1,5 +1,6 @@
 2012-03-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/output.py, window.py: Save last IDs for cheking unread.
 	* theme.py, view.py: Added an option for the Timeline font.
 	* preferences.py: Added an option for the Timeline order.
 
