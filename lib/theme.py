@@ -74,36 +74,33 @@ class Theme(object):
 class FontSet(object):
 
     def __init__(self):
-        self.family, self.size, self.style, self.weight = self.get_default()
+        self.font_template, self.size = self._get_default()
 
     def zoom_in(self):
-        self.size = int(self.size * 1.2)
-        css = "%s %s %spt '%s'" % (self.style, self.weight, self.size,
-                                    self.family)
+        self.size = int(round(self.size * 1.2))
+        css = self.font_template % self.size
         return css
 
     def zoom_out(self):
-        self.size = int(self.size / 1.2)
-        css = "%s %s %spt '%s'" % (self.style, self.weight, self.size,
-                                    self.family)
+        self.size = int(round(self.size / 1.2))
+        css = self.font_template % self.size
         return css
 
     def zoom_default(self):
-        self.family, self.size, self.style, self.weight = self.get_default()
-        css = "%s %s %spt '%s'" % (self.style, self.weight, self.size,
-                                    self.family)
+        self.font_template, self.size = self._get_default()
+        css = self.font_template % self.size
         return css
 
-    @classmethod
-    def get_default(self):
-        font_array = SETTINGS.get_string('font').split(' ')
-        size = int(font_array[-1])
-
+    def _get_default(self):
         font_name = SETTINGS.get_string('font')
-        obj = Pango.font_description_from_string(font_name)
+        pango_font = Pango.font_description_from_string(font_name)
 
-        style = obj.get_style().value_nick
-        weight = obj.get_weight().value_nick
-        family = obj.get_family()
+        size = int(font_name.rpartition(' ')[-1])
+        style = pango_font.get_style().value_nick
+        weight = pango_font.get_weight().real
+        family = pango_font.get_family()
 
-        return family, size, style, weight
+        font_template = "%s %s %%spt '%s'" % (style, weight, family)
+        #print font_template
+
+        return font_template, size
