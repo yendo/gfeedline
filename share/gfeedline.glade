@@ -198,6 +198,7 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <accelerator key="plus" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_menuitem_zoom_in_activate" swapped="no"/>
                       </object>
                     </child>
@@ -209,7 +210,20 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <accelerator key="minus" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_menuitem_zoom_out_activate" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="menuitem-zoom-default">
+                        <property name="label">gtk-zoom-100</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <accelerator key="0" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_menuitem_zoom_default_activate" swapped="no"/>
                       </object>
                     </child>
                   </object>

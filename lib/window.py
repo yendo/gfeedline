@@ -148,6 +148,9 @@ class MainWindow(object):
     def on_menuitem_zoom_out_activate(self, menuitem):
         self.font.zoom_out()
 
+    def on_menuitem_zoom_default_activate(self, menuitem):
+        self.font.zoom_default()
+
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
             self.window.stick()

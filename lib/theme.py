@@ -76,16 +76,16 @@ class FontSet(object):
         self.family, self.size = self.get_default()
 
     def zoom_in(self):
-        self.size *= 1.2
-        self.window.change_font(self.family, int(self.size))
+        self.size = int(self.size * 1.2)
+        self.window.change_font(self.family, self.size)
 
     def zoom_out(self):
-        self.size /= 1.2
-        self.window.change_font(self.family, int(self.size))
+        self.size = int(self.size / 1.2)
+        self.window.change_font(self.family, self.size)
 
     def zoom_default(self):
-        family, size = self.get_default()
-        self.window.change_font(family, int(size))
+        self.family, self.size = self.get_default()
+        self.window.change_font(self.family, self.size)
 
     def get_default(self):
         font_array = SETTINGS.get_string('font').split(' ')
