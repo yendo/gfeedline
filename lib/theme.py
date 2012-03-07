@@ -71,21 +71,20 @@ class Theme(object):
 
 class FontSet(object):
 
-    def __init__(self, window):
-        self.window = window
+    def __init__(self):
         self.family, self.size = self.get_default()
 
     def zoom_in(self):
         self.size = int(self.size * 1.2)
-        self.window.change_font(self.family, self.size)
+        return self.family, self.size
 
     def zoom_out(self):
         self.size = int(self.size / 1.2)
-        self.window.change_font(self.family, self.size)
+        return self.family, self.size
 
     def zoom_default(self):
         self.family, self.size = self.get_default()
-        self.window.change_font(self.family, self.size)
+        return self.family, self.size
 
     @classmethod
     def get_default(self):

@@ -26,7 +26,7 @@ class MainWindow(object):
         self.window = window = gui.get_object('main_window')
         self.column = MultiColumnDict(gui) # multi-columns for Notebooks
         self.theme = Theme()
-        self.font = FontSet(self)
+        self.font = FontSet()
         self.notification = StatusNotification('GFeedLine')
 
         dnd_list = [Gtk.TargetEntry.new("text/x-moz-url", 0, 4)]
@@ -143,13 +143,16 @@ class MainWindow(object):
         self._jump_all_tabs_to_bottom()
 
     def on_menuitem_zoom_in_activate(self, menuitem):
-        self.font.zoom_in()
+        family, size = self.font.zoom_in()
+        self.change_font(family, size)
 
     def on_menuitem_zoom_out_activate(self, menuitem):
-        self.font.zoom_out()
+        family, size = self.font.zoom_out()
+        self.change_font(family, size)
 
     def on_menuitem_zoom_default_activate(self, menuitem):
-        self.font.zoom_default()
+        family, size = self.font.zoom_default()
+        self.change_font(family, size)
 
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
