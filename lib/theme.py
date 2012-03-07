@@ -7,6 +7,8 @@
 import os
 from string import Template
 
+from gi.repository import Pango
+
 from constants import SHARED_DATA_FILE
 from utils.settings import SETTINGS
 
@@ -72,23 +74,36 @@ class Theme(object):
 class FontSet(object):
 
     def __init__(self):
-        self.family, self.size = self.get_default()
+        self.family, self.size, self.style, self.weight = self.get_default()
 
     def zoom_in(self):
         self.size = int(self.size * 1.2)
-        return self.family, self.size
+        css = "%s %s %spt '%s'" % (self.style, self.weight, self.size,
+                                    self.family)
+        return css
 
     def zoom_out(self):
         self.size = int(self.size / 1.2)
-        return self.family, self.size
+        css = "%s %s %spt '%s'" % (self.style, self.weight, self.size,
+                                    self.family)
+        return css
 
     def zoom_default(self):
-        self.family, self.size = self.get_default()
-        return self.family, self.size
+        self.family, self.size, self.style, self.weight = self.get_default()
+        css = "%s %s %spt '%s'" % (self.style, self.weight, self.size,
+                                    self.family)
+        return css
 
     @classmethod
     def get_default(self):
         font_array = SETTINGS.get_string('font').split(' ')
-        family = " ".join(font_array[:-1])
         size = int(font_array[-1])
-        return family, size
+
+        font_name = SETTINGS.get_string('font')
+        obj = Pango.font_description_from_string(font_name)
+
+        style = obj.get_style().value_nick
+        weight = obj.get_weight().value_nick
+        family = obj.get_family()
+
+        return family, size, style, weight

@@ -143,16 +143,16 @@ class MainWindow(object):
         self._jump_all_tabs_to_bottom()
 
     def on_menuitem_zoom_in_activate(self, menuitem):
-        family, size = self.font.zoom_in()
-        self.change_font(family, size)
+        font_css = self.font.zoom_in()
+        self.change_font(font_css)
 
     def on_menuitem_zoom_out_activate(self, menuitem):
-        family, size = self.font.zoom_out()
-        self.change_font(family, size)
+        font_css = self.font.zoom_out()
+        self.change_font(font_css)
 
     def on_menuitem_zoom_default_activate(self, menuitem):
-        family, size = self.font.zoom_default()
-        self.change_font(family, size)
+        font_css = self.font.zoom_default()
+        self.change_font(font_css)
 
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):

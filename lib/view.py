@@ -133,9 +133,9 @@ class FeedWebView(WebKit.WebView):
 
     def change_font(self, family=None, size=None):
         if not family and not size:
-            family, size = FontSet.get_default()
+            family = FontSet().zoom_default()
 
-        js = 'changeFont("%s", "%s")' % (family, size)
+        js = 'changeFont("%s")' % family
         self.execute_script(js)
 
     def on_hovering_over_link(self, webview, title, uri):

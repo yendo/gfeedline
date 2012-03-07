@@ -185,8 +185,8 @@ class TimeLineFontButton(object):
         SETTINGS.set_string('font', font_name)
 
     def on_settings_font_change(self, settings, key):
-        family, size = self.window.font.zoom_default()
-        self.window.change_font(family, size)
+        font_css = self.window.font.zoom_default()
+        self.window.change_font(font_css)
 
 class AutoStartWithCheckButton(AutoStart):
 

@@ -38,7 +38,6 @@ function clearBuffer() {
     document.getElementById("messages").innerHTML = ""
 }
 
-function changeFont(font, size) {
-    $('body').css("font-family", font);
-    $('body').css("font-size", size+"pt");
+function changeFont(font) {
+     $('body').css("font", font);
 }
