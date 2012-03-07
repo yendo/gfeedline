@@ -132,10 +132,8 @@ class FeedWebView(WebKit.WebView):
         self.execute_script('clearBuffer()')
 
     def change_font(self, family=None, size=None):
-
         if not family and not size:
-            font=FontSet()
-            family, size = font.get_default()
+            family, size = FontSet.get_default()
 
         js = 'changeFont("%s", "%s")' % (family, size)
         self.execute_script(js)

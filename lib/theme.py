@@ -71,7 +71,7 @@ class Theme(object):
 
 class FontSet(object):
 
-    def __init__(self, window=None):
+    def __init__(self, window):
         self.window = window
         self.family, self.size = self.get_default()
 
@@ -87,6 +87,7 @@ class FontSet(object):
         self.family, self.size = self.get_default()
         self.window.change_font(self.family, self.size)
 
+    @classmethod
     def get_default(self):
         font_array = SETTINGS.get_string('font').split(' ')
         family = " ".join(font_array[:-1])

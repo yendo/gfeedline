@@ -22,27 +22,25 @@ class Preferences(object):
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('preferences.glade'))
         self.preferences = gui.get_object('preferences')
-        self.preferences.show_all()
 
         notebook = gui.get_object('notebook1')
         notebook.remove_page(1)
         recent_page = SETTINGS.get_int('preferences-recent-page')
         notebook.set_current_page(recent_page)
 
+        # account
+
         self.label_username = gui.get_object('label_confirm_username')
         self.on_setting_username_changed()
         SETTINGS_TWITTER.connect("changed::user-name", 
                                  self.on_setting_username_changed)
 
-        self.feedsource_action = FeedSourceAction(
-            gui, mainwindow, self.liststore, self.preferences)
-        self.filter_action = FilterAction(
-            gui, mainwindow, self.liststore.filter_liststore, self.preferences)
+        # view & desktop
 
         self.combobox_theme = ComboboxTheme(gui)
         self.combobox_order = ComboboxTimelineOrder(gui)
         self.fontbutton = TimeLineFontButton(gui, mainwindow)
-
+ 
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
 
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
@@ -51,7 +49,15 @@ class Preferences(object):
         checkbutton_sticky = gui.get_object('checkbutton_sticky')
         checkbutton_sticky.set_active(sticky)
 
+        # feeds & filters
+        
+        self.feedsource_action = FeedSourceAction(
+            gui, mainwindow, self.liststore, self.preferences)
+        self.filter_action = FilterAction(
+            gui, mainwindow, self.liststore.filter_liststore, self.preferences)
+
         gui.connect_signals(self)
+        self.preferences.show_all()
 
     def on_setting_username_changed(self, *args):
         user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'
@@ -180,14 +186,6 @@ class TimeLineFontButton(object):
 
     def on_settings_font_change(self, settings, key):
         self.window.font.zoom_default()
-#        font_array = settings.get_string(key).split(' ')
-#        font_family = " ".join(font_array[:-1])
-#        font_size = font_array[-1]
-#        
-#        print font_family
-#        print font_size
-#        
-#        self.window.change_font(font_family, font_size)
 
 class AutoStartWithCheckButton(AutoStart):
 
