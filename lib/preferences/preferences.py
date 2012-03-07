@@ -39,8 +39,9 @@ class Preferences(object):
         self.filter_action = FilterAction(
             gui, mainwindow, self.liststore.filter_liststore, self.preferences)
 
-        self.combobox_theme = ComboboxTheme(gui, self.liststore)
+        self.combobox_theme = ComboboxTheme(gui)
         self.combobox_order = ComboboxTimelineOrder(gui)
+        self.fontbutton = TimeLineFontButton(gui, mainwindow)
 
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
 
@@ -124,8 +125,7 @@ class Preferences(object):
 
 class ComboboxTheme(object):
 
-    def __init__(self, gui, liststore):
-        self.liststore = liststore
+    def __init__(self, gui):
         theme = Theme()
         self.labels = theme.get_all_list()
 
@@ -160,6 +160,34 @@ class ComboboxTimelineOrder(object):
 
         SETTINGS.set_int('timeline-order', num)
         return old != new
+
+class TimeLineFontButton(object):
+
+    def __init__(self, gui, window):
+        self.window = window
+        self.widget = gui.get_object('fontbutton')
+        font_name = SETTINGS.get_string('font')
+        self.widget.set_font_name(font_name)
+
+        SETTINGS.connect("changed::font", self.on_settings_font_change)
+        #self.on_settings_font_change(SETTINGS, 'window-sticky')
+
+        self.widget.connect('font-set', self.on_button_font_set)
+
+    def on_button_font_set(self, button, *args):
+        font_name = button.get_font_name()
+        SETTINGS.set_string('font', font_name)
+
+    def on_settings_font_change(self, settings, key):
+        self.window.font.zoom_default()
+#        font_array = settings.get_string(key).split(' ')
+#        font_family = " ".join(font_array[:-1])
+#        font_size = font_array[-1]
+#        
+#        print font_family
+#        print font_size
+#        
+#        self.window.change_font(font_family, font_size)
 
 class AutoStartWithCheckButton(AutoStart):
 

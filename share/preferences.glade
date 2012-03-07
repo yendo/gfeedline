@@ -218,9 +218,8 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <property name="font">Sans 12</property>
+                                    <property name="font">Sans 10</property>
                                     <property name="preview_text"></property>
-                                    <property name="show_preview_entry">False</property>
                                     <property name="font_name">Sans 10</property>
                                   </object>
                                   <packing>

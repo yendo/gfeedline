@@ -15,7 +15,7 @@ from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS
 from constants import SHARED_DATA_FILE
 from updatewindow import UpdateWindow
-
+from theme import FontSet
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
@@ -69,6 +69,9 @@ class FeedView(FeedScrolledWindow):
 
     def jump_to_bottom(self, is_bottom=True):
         self.webview.jump_to_bottom(is_bottom)
+
+    def change_font(self, font, size):
+        self.webview.change_font(font, size)
 
     def clear_buffer(self):
         self.webview.clear_buffer()
@@ -128,6 +131,15 @@ class FeedWebView(WebKit.WebView):
     def clear_buffer(self):
         self.execute_script('clearBuffer()')
 
+    def change_font(self, family=None, size=None):
+
+        if not family and not size:
+            font=FontSet()
+            family, size = font.get_default()
+
+        js = 'changeFont("%s", "%s")' % (family, size)
+        self.execute_script(js)
+
     def on_hovering_over_link(self, webview, title, uri):
         self.link_on_webview.change(uri)
 
@@ -178,12 +190,6 @@ class FeedWebView(WebKit.WebView):
         self.execute_script(js)
 
         self.change_font()
-
-    def change_font(self, font=0, size=0):
-        font = "Sans"
-        size = 11
-        js = 'changeFont("%s", %s)' % (font, size)
-        self.execute_script(js)
 
     def _bool_js(self, value):
         return 'true' if value else 'false' 

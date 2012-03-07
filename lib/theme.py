@@ -68,3 +68,27 @@ class Theme(object):
         with open(template_file, 'r') as fh:
             file = fh.read()
         self.template = Template(unicode(file, 'utf-8', 'ignore'))
+
+class FontSet(object):
+
+    def __init__(self, window=None):
+        self.window = window
+        self.family, self.size = self.get_default()
+
+    def zoom_in(self):
+        self.size *= 1.2
+        self.window.change_font(self.family, int(self.size))
+
+    def zoom_out(self):
+        self.size /= 1.2
+        self.window.change_font(self.family, int(self.size))
+
+    def zoom_default(self):
+        family, size = self.get_default()
+        self.window.change_font(family, int(size))
+
+    def get_default(self):
+        font_array = SETTINGS.get_string('font').split(' ')
+        family = " ".join(font_array[:-1])
+        size = int(font_array[-1])
+        return family, size

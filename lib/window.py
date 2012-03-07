@@ -8,7 +8,7 @@ from twisted.internet import reactor
 from gi.repository import Gtk, Gdk
 
 from preferences.preferences import Preferences
-from theme import Theme
+from theme import Theme, FontSet
 from updatewindow import UpdateWindow
 from notification import StatusNotification
 from utils.settings import SETTINGS, SETTINGS_GEOMETRY
@@ -26,6 +26,7 @@ class MainWindow(object):
         self.window = window = gui.get_object('main_window')
         self.column = MultiColumnDict(gui) # multi-columns for Notebooks
         self.theme = Theme()
+        self.font = FontSet(self)
         self.notification = StatusNotification('GFeedLine')
 
         dnd_list = [Gtk.TargetEntry.new("text/x-moz-url", 0, 4)]
@@ -89,6 +90,10 @@ class MainWindow(object):
         for notebook in self.column.values():
             notebook.jump_all_tabs_to_bottom(is_bottom)
 
+    def change_font(self, font=None, size=None):
+        for notebook in self.column.values():
+            notebook.change_font(font, size)
+
     def _get_geometry_from_settings(self):
         x = SETTINGS_GEOMETRY.get_int('window-x')
         y = SETTINGS_GEOMETRY.get_int('window-y')
@@ -136,6 +141,12 @@ class MainWindow(object):
 
     def on_menuitem_bottom_activate(self, menuitem=None):
         self._jump_all_tabs_to_bottom()
+
+    def on_menuitem_zoom_in_activate(self, menuitem):
+        self.font.zoom_in()
+
+    def on_menuitem_zoom_out_activate(self, menuitem):
+        self.font.zoom_out()
 
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
@@ -212,6 +223,10 @@ class FeedNotebook(Gtk.Notebook):
     def jump_all_tabs_to_bottom(self, is_bottom=True):
         for feedview in self.get_children():
             feedview.jump_to_bottom(is_bottom)
+
+    def change_font(self, font, size):
+        for feedview in self.get_children():
+            feedview.change_font(font, size)
 
 class AboutDialog(object):
 
