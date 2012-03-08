@@ -53,6 +53,13 @@ class Twitter(twitter.Twitter):
     def unfav(self, status_id):
         return self.__post('/favorites/destroy/%s.xml' % status_id)
 
+    def update_with_image(self, status, image_file):
+        return self.__postMultipart(
+            'https://upload.twitter.com/1/statuses/update_with_media.xml',
+            fields=( ('status', status), 
+                     ('media[]', open(image_file, 'rb').read()) )
+            )
+
     def update_token(self, token):
         self.use_auth = True
         self.use_oauth = True

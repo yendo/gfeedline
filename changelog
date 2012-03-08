@@ -1,3 +1,8 @@
+2012-03-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/account.py, twittytwister/twitter.py: Added support for
+	  'update_with_image'.
+
 2012-03-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* window.py: Added support for fullscreen mode.
