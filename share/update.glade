@@ -37,6 +37,8 @@
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
@@ -65,13 +67,27 @@
       <action-widget response="1">button1</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkFileFilter" id="filefilter1"/>
   <object class="GtkFileFilter" id="image_filefilter">
     <mime-types>
       <mime-type>image/png</mime-type>
       <mime-type>image/jpeg</mime-type>
       <mime-type>image/gif</mime-type>
     </mime-types>
+  </object>
+  <object class="GtkMenu" id="popupmenu_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem_remove">
+        <property name="label">gtk-remove</property>
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+        <signal name="activate" handler="on_menuitem_remove_activate" swapped="no"/>
+      </object>
+    </child>
   </object>
   <object class="GtkTextBuffer" id="textbuffer">
     <signal name="changed" handler="on_textbuffer_changed" swapped="no"/>
@@ -124,6 +140,7 @@
                 <property name="can_focus">False</property>
                 <property name="margin_top">6</property>
                 <property name="margin_bottom">6</property>
+                <signal name="button-press-event" handler="on_eventbox_button_press_event" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image_attached">
                     <property name="visible">True</property>

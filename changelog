@@ -1,5 +1,6 @@
 2012-03-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* updatewindow.py: Added support for image uploading.
 	* twitter/account.py, twittytwister/twitter.py: Added support for
 	  'update_with_image'.
 

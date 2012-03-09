@@ -30,8 +30,9 @@ class UpdateWindow(UpdateWidgetBase):
 
     def __init__(self, mainwindow, entry=None):
         self.entry = entry
+        self.media_file = None
 
-        gui = Gtk.Builder()
+        self.gui = gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
@@ -44,6 +45,7 @@ class UpdateWindow(UpdateWidgetBase):
         self.text_buffer = self.text_view.get_buffer()
         self.on_textbuffer_changed(self.text_buffer)
 
+        self.button_image = gui.get_object('button_image')
         self.image = gui.get_object('image_attached')
         self.ebox = gui.get_object('eventbox_attached')
         self.ebox.hide()
@@ -78,22 +80,49 @@ class UpdateWindow(UpdateWidgetBase):
             if self.entry else {}
 
         twitter_account = AuthorizedTwitterAccount()
-        twitter_account.api.update(status, params=params)
+
+        if self.media_file:
+            #print "update with media"
+            twitter_account.api.update_with_media(
+                status.encode('utf-8'), self.media_file, params=params)
+        else:
+            #print "normal update"
+            twitter_account.api.update(status, params=params)
 
         self.update_window.destroy()
 
     def on_button_image_clicked(self, button):
         dialog = FileChooserDialog()
-        filename = dialog.run(self.update_window)
+        self.media_file = dialog.run(self.update_window)
 
-        if filename:
+        if self.media_file:
+            self.button_image.set_sensitive(False)
             self.ebox.show()
+            self.on_textbuffer_changed(self.text_buffer)
+
             w = h = 80
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, w, h)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.media_file, w, h)
             self.image.set_from_pixbuf(pixbuf)
 
+
+    def on_eventbox_button_press_event(self, widget, event):
+        if event.button == 3:
+            image_menu = self.gui.get_object('popupmenu_image')
+            image_menu.popup(None, None, None, None, event.button, event.time)
+
+    def on_menuitem_remove_activate(self, menuitem):
+        self.media_file = None
+
+        self.ebox.hide()
+        self.button_image.set_sensitive(True)
+        self.on_textbuffer_changed(self.text_buffer)
+
+    def on_file_activated(self, *args):
+        print args
+
     def on_textbuffer_changed(self, text_buffer):
-        num = 140 - text_buffer.get_char_count()
+        media_link_letters = 21 if self.media_file else 0
+        num = 140 - text_buffer.get_char_count() - media_link_letters
         self.label_num.set_text(str(num))
 
         status = bool(num != 140)
@@ -118,7 +147,7 @@ class FileChooserDialog(object):
         response_id = dialog.run()
         filename = dialog.get_filename() if response_id else None
 
-        print dialog.get_current_folder()
+        # print dialog.get_current_folder()
         dialog.destroy()
 
         return filename

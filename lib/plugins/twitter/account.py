@@ -44,6 +44,7 @@ class Twitter(twitter.Twitter):
         if params is None: 
             params = {}
         params['result_type'] = 'recent'
+
         return self.__doDownloadPage(self.search_url + '?' + self._urlencode(params),
             txml.Feed(delegate, extra_args), agent=self.agent)
 
@@ -53,7 +54,11 @@ class Twitter(twitter.Twitter):
     def unfav(self, status_id):
         return self.__post('/favorites/destroy/%s.xml' % status_id)
 
-    def update_with_image(self, status, image_file):
+    def update_with_media(self, status, image_file, params=None):
+        if params is None: 
+            params = {} #FIXME
+
+        a = open(image_file, 'rb').read()
         return self.__postMultipart(
             'https://upload.twitter.com/1/statuses/update_with_media.xml',
             fields=( ('status', status), 
