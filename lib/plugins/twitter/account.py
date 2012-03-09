@@ -55,15 +55,16 @@ class Twitter(twitter.Twitter):
         return self.__post('/favorites/destroy/%s.xml' % status_id)
 
     def update_with_media(self, status, image_file, params=None):
-        if params is None: 
-            params = {} #FIXME
+        with open(image_file, 'rb') as fh:
+            image_binary = fh.read()
 
-        a = open(image_file, 'rb').read()
+        fields = [('status', status), ('media[]', image_binary)]
+        if params:
+            fields += params.items()
+
         return self.__postMultipart(
             'https://upload.twitter.com/1/statuses/update_with_media.xml',
-            fields=( ('status', status), 
-                     ('media[]', open(image_file, 'rb').read()) )
-            )
+            fields=tuple(fields))
 
     def update_token(self, token):
         self.use_auth = True
