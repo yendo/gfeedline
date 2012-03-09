@@ -1,5 +1,5 @@
 import os
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib, GdkPixbuf
 
 from constants import SHARED_DATA_FILE, TMP_DIR
 from plugins.twitter.account import AuthorizedTwitterAccount
@@ -42,8 +42,12 @@ class UpdateWindow(UpdateWidgetBase):
         self.label_num = gui.get_object('label_num')
         self.button_tweet = gui.get_object('button_tweet')
         self.text_buffer = self.text_view.get_buffer()
-
         self.on_textbuffer_changed(self.text_buffer)
+
+        self.image = gui.get_object('image_attached')
+        self.ebox = gui.get_object('eventbox_attached')
+        self.ebox.hide()
+
         gui.connect_signals(self)
 
         if entry:
@@ -78,12 +82,46 @@ class UpdateWindow(UpdateWidgetBase):
 
         self.update_window.destroy()
 
+    def on_button_image_clicked(self, button):
+        dialog = FileChooserDialog()
+        filename = dialog.run(self.update_window)
+
+        if filename:
+            self.ebox.show()
+            w = h = 80
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, w, h)
+            self.image.set_from_pixbuf(pixbuf)
+
     def on_textbuffer_changed(self, text_buffer):
         num = 140 - text_buffer.get_char_count()
         self.label_num.set_text(str(num))
 
         status = bool(num != 140)
         self.button_tweet.set_sensitive(status)
+
+class FileChooserDialog(object):
+
+    def run(self, parent):
+        gui = Gtk.Builder()
+        gui.add_from_file(SHARED_DATA_FILE('update.glade'))
+
+        dialog = gui.get_object('filechooserdialog1')
+        dialog.set_transient_for(parent)
+
+        folder = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)
+        dialog.set_current_folder(folder)
+
+        filefilter = gui.get_object('image_filefilter')
+        filefilter.set_name(_('Supported image files'))
+        dialog.add_filter(filefilter)
+
+        response_id = dialog.run()
+        filename = dialog.get_filename() if response_id else None
+
+        print dialog.get_current_folder()
+        dialog.destroy()
+
+        return filename
 
 class RetweetDialog(UpdateWidgetBase):
 
