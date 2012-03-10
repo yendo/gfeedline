@@ -32,25 +32,19 @@ class UpdateWindow(UpdateWidgetBase):
 
     def __init__(self, mainwindow, entry=None):
         self.entry = entry
-        self.media_file = None
 
-        self.gui = gui = Gtk.Builder()
+        gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
+        self.media = MediaFile(gui, photo_size_limit=3145728)
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')
         self.update_window.set_keep_above(is_above)
 
-        self.text_view = gui.get_object('textview')
         self.label_num = gui.get_object('label_num')
         self.button_tweet = gui.get_object('button_tweet')
-        self.text_buffer = self.text_view.get_buffer()
+        self.text_buffer = gui.get_object('textbuffer')
         self.on_textbuffer_changed(self.text_buffer)
-
-        self.button_image = gui.get_object('button_image')
-        self.image = gui.get_object('image_attached')
-        self.ebox = gui.get_object('eventbox_attached')
-        self.ebox.hide()
 
         gui.connect_signals(self)
 
@@ -73,79 +67,104 @@ class UpdateWindow(UpdateWidgetBase):
         self.update_window.present()
 
     def on_button_tweet_clicked(self, button):
-        text_buffer = self.text_view.get_buffer()
-
-        start, end = text_buffer.get_bounds()
-        status = text_buffer.get_text(start, end, False).decode('utf-8')
+        start, end = self.text_buffer.get_bounds()
+        status = self.text_buffer.get_text(start, end, False).decode('utf-8')
 
         params = {'in_reply_to_status_id': self.entry.get('id')} \
             if self.entry else {}
 
         twitter_account = AuthorizedTwitterAccount()
 
-        if self.media_file:
-            #print "update with media"
-            photo_size_limit = 3145728
+        if self.media.file: # update with media
+            is_shrink = True
+            size = 1024
 
-            if photo_size_limit > os.path.getsize(self.media_file):
-                upload_file = self.media_file
-            else:
-                # print "need shrink!"
-                temp = tempfile.NamedTemporaryFile()
-                upload_file = temp.name
-
-                image_type = 'jpeg' if Gio.content_type_guess(
-                    self.media_file, None)[0] == 'image/jpeg' else 'png'
-
-                w = h = 1024
-                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                    self.media_file, w, h)
-                pixbuf.savev(upload_file, image_type, [], [])
-
+            upload_file = self.media.get_upload_file_obj(is_shrink, size)
             twitter_account.api.update_with_media(
-                status.encode('utf-8'), upload_file, params=params)
+                status.encode('utf-8'), upload_file.name, params=params)
 
-        else:
-            #print "normal update"
+        else: # normal update
             twitter_account.api.update(status, params=params)
 
         self.update_window.destroy()
 
     def on_button_image_clicked(self, button):
         dialog = FileChooserDialog()
-        self.media_file = dialog.run(self.update_window)
+        self.media.set(dialog.run(self.update_window))
+        self.on_textbuffer_changed(self.text_buffer)
 
-        if self.media_file:
-            self.button_image.set_sensitive(False)
-            self.ebox.show()
-            self.on_textbuffer_changed(self.text_buffer)
-
-            w = h = 80
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.media_file, w, h)
-            self.image.set_from_pixbuf(pixbuf)
-
-    def on_eventbox_button_press_event(self, widget, event):
+    def on_eventbox_attached_press_event(self, image_menu, event):
         if event.button == 3:
-            image_menu = self.gui.get_object('popupmenu_image')
             image_menu.popup(None, None, None, None, event.button, event.time)
 
     def on_menuitem_remove_activate(self, menuitem):
-        self.media_file = None
-
-        self.ebox.hide()
-        self.button_image.set_sensitive(True)
+        self.media.clear()
         self.on_textbuffer_changed(self.text_buffer)
 
     def on_file_activated(self, *args):
         print args
 
     def on_textbuffer_changed(self, text_buffer):
-        media_link_letters = 21 if self.media_file else 0
-        num = 140 - text_buffer.get_char_count() - media_link_letters
+        num = 140 - text_buffer.get_char_count() - self.media.get_link_letters()
         self.label_num.set_text(str(num))
 
         status = bool(num != 140)
         self.button_tweet.set_sensitive(status)
+
+class MediaFile(object):
+
+    def __init__(self, gui, photo_size_limit=3145728):
+        self.file = None
+        self.photo_size_limit = photo_size_limit
+
+        self.button_image = gui.get_object('button_image')
+        self.image = gui.get_object('image_attached')
+        self.ebox = gui.get_object('eventbox_attached')
+        self.ebox.hide()
+
+    def set(self, media_file):
+        self.file = media_file
+
+        if self.file:
+            self.ebox.show()
+            self.button_image.set_sensitive(False)
+
+            size = 80
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.file, size, size)
+            self.image.set_from_pixbuf(pixbuf)
+
+    def clear(self):
+        self.file = None
+        self.ebox.hide()
+        self.button_image.set_sensitive(True)
+
+    def get_upload_file_obj(self, is_shrink=False, size=1024):
+
+        class FileObject(object):
+            def __init__(self, name):
+                self.name = name
+
+        upload_file = self._get_shrink_image_file(self.file, size) \
+            if is_shrink else FileObject(self.file)
+
+        if os.path.getsize(upload_file.name) > self.photo_size_limit:
+            upload_file = self._get_shrink_image_file(upload_file.name, 1024)
+
+        return upload_file
+
+    def get_link_letters(self):
+        media_link_letters = 21 
+        return media_link_letters if self.file else 0
+
+    def _get_shrink_image_file(self, image_file, size):
+        temp = tempfile.NamedTemporaryFile()
+        image_type = 'jpeg' if Gio.content_type_guess(
+            image_file, None)[0] == 'image/jpeg' else 'png'
+
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(image_file, size, size)
+        pixbuf.savev(temp.name, image_type, [], [])
+
+        return temp
 
 class FileChooserDialog(object):
 
@@ -204,17 +223,17 @@ class UpdateWindowOLD(UpdateWindow):
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
+        self.media = MediaFile(gui, photo_size_limit=3145728)
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')
         self.update_window.set_keep_above(is_above)
 
-        self.text_view = gui.get_object('textview')
         self.label_num = gui.get_object('label_num')
         self.button_tweet = gui.get_object('button_tweet')
-        self.text_buffer = self.text_view.get_buffer()
-
+        self.text_buffer = gui.get_object('textbuffer')
         self.on_textbuffer_changed(self.text_buffer)
+
         gui.connect_signals(self)
 
 # from: for ubuntu oneiric
