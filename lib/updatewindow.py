@@ -1,5 +1,7 @@
 import os
-from gi.repository import Gtk, GLib, GdkPixbuf
+import tempfile
+
+from gi.repository import Gtk, GLib, Gio, GdkPixbuf
 
 from constants import SHARED_DATA_FILE, TMP_DIR
 from plugins.twitter.account import AuthorizedTwitterAccount
@@ -83,8 +85,26 @@ class UpdateWindow(UpdateWidgetBase):
 
         if self.media_file:
             #print "update with media"
+            photo_size_limit = 3145728
+
+            if photo_size_limit > os.path.getsize(self.media_file):
+                upload_file = self.media_file
+            else:
+                # print "need shrink!"
+                temp = tempfile.NamedTemporaryFile()
+                upload_file = temp.name
+
+                image_type = 'jpeg' if Gio.content_type_guess(
+                    self.media_file, None)[0] == 'image/jpeg' else 'png'
+
+                w = h = 1024
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                    self.media_file, w, h)
+                pixbuf.savev(upload_file, image_type, [], [])
+
             twitter_account.api.update_with_media(
-                status.encode('utf-8'), self.media_file, params=params)
+                status.encode('utf-8'), upload_file, params=params)
+
         else:
             #print "normal update"
             twitter_account.api.update(status, params=params)
@@ -103,7 +123,6 @@ class UpdateWindow(UpdateWidgetBase):
             w = h = 80
             pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.media_file, w, h)
             self.image.set_from_pixbuf(pixbuf)
-
 
     def on_eventbox_button_press_event(self, widget, event):
         if event.button == 3:
