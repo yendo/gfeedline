@@ -115,7 +115,7 @@ class FeedWebView(WebKit.WebView):
             self.dnd.clear()
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
-        self.dnd.set(info, selection.get_data())
+        self.dnd.set(info, selection)
 
     def update(self, text=None):
         text = text.replace('\n', '')
@@ -238,16 +238,35 @@ class DnDFile(object):
         self.file = None
         self.text = None
 
-    def set(self, info, data):
+    def set(self, info, selection):
+        #text, image_file = self.parse_dnd_object(info, selection)
+        text, image_file = DnDSelection.parse(info, selection)
+
+        if info == 1:
+            self.file = image_file
+        elif info == 4 and selection.get_data():
+            self.text = text
+
+class DnDSelection(object):
+
+    @classmethod
+    def parse(self, info, selection, need_decode=False):
+        text = image_file = None
+        data = selection.get_data()
+
         if info == 1:
             uri = data.rstrip()
             filename = uri.replace('file://', '')
             mime_type = Gio.content_type_guess(filename, None)[0]
 
-            self.file = filename \
-                if mime_type in ('image/jpeg', 'image/png', 'image/gif') \
-                else None
+            target = ('image/jpeg', 'image/png', 'image/gif')
+            image_file = filename if mime_type in target else None
 
         elif info == 4 and data:
+            if need_decode:
+                data = data.decode('utf16', 'replace')
+
             uri, title = data.split('\n')
-            self.text = "%s - %s" % (title, uri) if title else uri
+            text = "%s - %s" % (title, uri) if title else uri
+
+        return text, image_file

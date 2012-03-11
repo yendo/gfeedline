@@ -13,6 +13,7 @@ from updatewindow import UpdateWindow
 from notification import StatusNotification
 from utils.settings import SETTINGS, SETTINGS_GEOMETRY
 from constants import VERSION, SHARED_DATA_FILE, Column
+from view import DnDSelection
 
 
 class MainWindow(object):
@@ -34,8 +35,8 @@ class MainWindow(object):
         window.drag_dest_set(Gtk.DestDefaults.ALL, dnd_list, Gdk.DragAction.COPY)
 
         target = Gtk.TargetList.new([])
-        target.add(Gdk.Atom.intern("text/uri-list", False), 0, 1)
         target.add(Gdk.Atom.intern("text/x-moz-url", False), 0, 4)
+        target.add(Gdk.Atom.intern("text/uri-list", False), 0, 1)
         
         window.drag_dest_set_target_list(target)
         window.connect("drag-data-received", self.on_drag_data_received)
@@ -61,28 +62,15 @@ class MainWindow(object):
         gui.connect_signals(self)
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
+        text, image_file = DnDSelection.parse(info, selection, True)
 
-        if info == 1:
-            data = selection.get_data()
-
-            uri = data.rstrip()
-            filename = uri.replace('file://', '')
-            mime_type = Gio.content_type_guess(filename, None)[0]
-
-            image_file = filename \
-                if mime_type in ('image/jpeg', 'image/png', 'image/gif') \
-                else None
-
-            if image_file:
-                updatewindow = UpdateWindow(self)
-                updatewindow.set_upload_media(image_file)
-
-        elif info == 4:
-            uri, title = selection.get_data().decode('utf16', 'replace').split('\n')
-            text = "%s - %s" % (title, uri) if title else uri
-
+        if text or image_file:
             updatewindow = UpdateWindow(self)
-            updatewindow.text_buffer.set_text(text)
+
+            if text:
+                updatewindow.text_buffer.set_text(text)
+            else:
+                updatewindow.set_upload_media(image_file)
 
     def get_notebook(self, group_name):
         if not SETTINGS.get_boolean('multi-column'):
