@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-07 23:01+0900\n"
-"PO-Revision-Date: 2012-03-07 23:02+0900\n"
+"POT-Creation-Date: 2012-03-09 17:54+0900\n"
+"PO-Revision-Date: 2012-03-09 17:55+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -120,10 +120,14 @@ msgstr "昇順"
 msgid "Descending"
 msgstr "降順"
 
-#: ../lib/updatewindow.py:62 ../lib/updatewindow.py:139
+#: ../lib/updatewindow.py:68 ../lib/updatewindow.py:206
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
+
+#: ../lib/updatewindow.py:144
+msgid "Supported image files"
+msgstr "サポートされている画像ファイル"
 
 #: ../share/assistant_twitter.glade.h:1
 msgid "PIN:"
@@ -387,10 +391,14 @@ msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
 #: ../share/update.glade.h:1
+msgid "Add an image"
+msgstr "画像を追加します"
+
+#: ../share/update.glade.h:2
 msgid "What are you doing?"
 msgstr "いまどうしてる?"
 
-#: ../share/update.glade.h:2
+#: ../share/update.glade.h:3
 msgid "_Tweet"
 msgstr "ツイート(_T)"
 
