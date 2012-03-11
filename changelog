@@ -1,3 +1,7 @@
+2012-03-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py, window.py: Added support for Drag and Drop image files.
+
 2012-03-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py: Added support for image uploading.

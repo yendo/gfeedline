@@ -5,7 +5,7 @@
 # Licence: GPL3
 
 from twisted.internet import reactor
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk, Gio
 
 from preferences.preferences import Preferences
 from theme import Theme, FontSet
@@ -29,10 +29,14 @@ class MainWindow(object):
         self.font = FontSet()
         self.notification = StatusNotification('GFeedLine')
 
-        dnd_list = [Gtk.TargetEntry.new("text/x-moz-url", 0, 4)]
+        dnd_list = [Gtk.TargetEntry.new("text/uri-list", 0, 1),
+                    Gtk.TargetEntry.new("text/x-moz-url", 0, 4),]
         window.drag_dest_set(Gtk.DestDefaults.ALL, dnd_list, Gdk.DragAction.COPY)
+
         target = Gtk.TargetList.new([])
+        target.add(Gdk.Atom.intern("text/uri-list", False), 0, 1)
         target.add(Gdk.Atom.intern("text/x-moz-url", False), 0, 4)
+        
         window.drag_dest_set_target_list(target)
         window.connect("drag-data-received", self.on_drag_data_received)
 
@@ -57,7 +61,23 @@ class MainWindow(object):
         gui.connect_signals(self)
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
-        if info == 4:
+
+        if info == 1:
+            data = selection.get_data()
+
+            uri = data.rstrip()
+            filename = uri.replace('file://', '')
+            mime_type = Gio.content_type_guess(filename, None)[0]
+
+            image_file = filename \
+                if mime_type in ('image/jpeg', 'image/png', 'image/gif') \
+                else None
+
+            if image_file:
+                updatewindow = UpdateWindow(self)
+                updatewindow.set_upload_media(image_file)
+
+        elif info == 4:
             uri, title = selection.get_data().decode('utf16', 'replace').split('\n')
             text = "%s - %s" % (title, uri) if title else uri
 

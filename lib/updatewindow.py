@@ -66,6 +66,10 @@ class UpdateWindow(UpdateWidgetBase):
 
         self.update_window.present()
 
+    def set_upload_media(self, file):
+        self.media.set(file)
+        self.on_textbuffer_changed(self.text_buffer)
+
     def on_button_tweet_clicked(self, button):
         start, end = self.text_buffer.get_bounds()
         status = self.text_buffer.get_text(start, end, False).decode('utf-8')
@@ -90,8 +94,8 @@ class UpdateWindow(UpdateWidgetBase):
 
     def on_button_image_clicked(self, button):
         dialog = FileChooserDialog()
-        self.media.set(dialog.run(self.update_window))
-        self.on_textbuffer_changed(self.text_buffer)
+        file = dialog.run(self.update_window)
+        self.set_upload_media(file)
 
     def on_eventbox_attached_press_event(self, image_menu, event):
         if event.button == 3:

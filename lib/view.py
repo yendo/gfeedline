@@ -8,7 +8,7 @@ import urllib
 import webbrowser
 
 from twisted.internet import reactor
-from gi.repository import Gtk, WebKit
+from gi.repository import Gtk, Gio, WebKit
 
 from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU
 from utils.htmlentities import decode_html_entities
@@ -86,6 +86,7 @@ class FeedWebView(WebKit.WebView):
         self.link_on_webview = FeedWebViewLink()
         self.scrolled_window = scrolled_window
         self.theme = scrolled_window.theme
+        self.dnd = DnDFile()
 
         self.load_uri("file://%s" % SHARED_DATA_FILE('html/base.html')) 
         self.connect("navigation-policy-decision-requested", self.on_click_link)
@@ -103,16 +104,19 @@ class FeedWebView(WebKit.WebView):
         self.show_all()
 
     def on_drag_drop(self, widget, context, x, y, time, *args):
-        if self.text:
+        if self.dnd.text or self.dnd.file:
             updatewindow = UpdateWindow(self)
-            updatewindow.text_buffer.set_text(self.text)
-            self.text = ""
+
+            if self.dnd.text:
+                updatewindow.text_buffer.set_text(self.dnd.text)
+            elif self.dnd.file:
+                updatewindow.set_upload_media(self.dnd.file)
+
+            self.dnd.clear()
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
-        if info == 4:
-            uri, title = selection.get_data().split('\n')
-            self.text = "%s - %s" % (title, uri) if title else uri
- 
+        self.dnd.set(info, selection.get_data())
+
     def update(self, text=None):
         text = text.replace('\n', '')
         is_ascending_js = self._bool_js(self.theme.is_ascending())
@@ -224,3 +228,26 @@ class FeedWebViewScroll(object):
     def _resume(self):
         # print "play!"
         self.is_paused = False
+
+class DnDFile(object):
+
+    def __init__(self):
+        self.clear()
+
+    def clear(self):
+        self.file = None
+        self.text = None
+
+    def set(self, info, data):
+        if info == 1:
+            uri = data.rstrip()
+            filename = uri.replace('file://', '')
+            mime_type = Gio.content_type_guess(filename, None)[0]
+
+            self.file = filename \
+                if mime_type in ('image/jpeg', 'image/png', 'image/gif') \
+                else None
+
+        elif info == 4 and data:
+            uri, title = data.split('\n')
+            self.text = "%s - %s" % (title, uri) if title else uri
