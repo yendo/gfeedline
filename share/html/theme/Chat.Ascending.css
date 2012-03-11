@@ -1,3 +1,4 @@
-body { margin: 4 4; }
-div.status { padding: 2 4 0 4;}
+body { margin: 0; }
+div.status { padding: 2 8 0 8;
+             border-bottom: 1px solid #FFF; }
 div.status img { -webkit-border-radius : 3px; }
