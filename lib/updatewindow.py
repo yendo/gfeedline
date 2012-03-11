@@ -145,32 +145,28 @@ class MediaFile(object):
         self.button_image.set_sensitive(True)
 
     def get_upload_file_obj(self, is_shrink=False, size=1024):
+        temp = tempfile.NamedTemporaryFile()
+        image_type = 'jpeg' if Gio.content_type_guess(
+            self.file, None)[0] == 'image/jpeg' else 'png'
 
-        class FileObject(object):
-            def __init__(self, name):
-                self.name = name
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(self.file)
+        w, h = pixbuf.get_width(), pixbuf.get_height()
+        new_size = size if is_shrink and (w > size or h > size) else None
 
-        upload_file = self._get_shrink_image_file(self.file, size) \
-            if is_shrink else FileObject(self.file)
+        pixbuf_creator = RotatedPixbufCreator(self.file, new_size)
+        pixbuf = pixbuf_creator.get()
+        pixbuf.savev(temp.name, image_type, [], [])
 
-        if os.path.getsize(upload_file.name) > self.photo_size_limit:
-            upload_file = self._get_shrink_image_file(upload_file.name, 1024)
+        if os.path.getsize(temp.name) > self.photo_size_limit:
+            pixbuf_creator = RotatedPixbufCreator(self.file, 1024)
+            pixbuf = pixbuf_creator.get()
+            pixbuf.savev(temp.name, image_type, [], [])
 
-        return upload_file
+        return temp
 
     def get_link_letters(self):
         media_link_letters = 21 
         return media_link_letters if self.file else 0
-
-    def _get_shrink_image_file(self, image_file, size):
-        temp = tempfile.NamedTemporaryFile()
-        image_type = 'jpeg' if Gio.content_type_guess(
-            image_file, None)[0] == 'image/jpeg' else 'png'
-
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(image_file, size, size)
-        pixbuf.savev(temp.name, image_type, [], [])
-
-        return temp
 
 class FileChooserDialog(object):
 
@@ -215,8 +211,10 @@ class FileChooserDialog(object):
 
 class RotatedPixbufCreator(object):
 
-    def __init__(self, filename, size):
-        self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, size, size)
+    def __init__(self, filename, size=None):
+        self.pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename) if not size \
+            else GdkPixbuf.Pixbuf.new_from_file_at_size(filename, size, size)
+
         orientation = self.pixbuf.get_option('orientation')
         rotation = self._get_orientation(orientation)
 
