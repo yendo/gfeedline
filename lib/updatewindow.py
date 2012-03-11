@@ -130,7 +130,9 @@ class MediaFile(object):
             self.button_image.set_sensitive(False)
 
             size = 80
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.file, size, size)
+            pixbuf_creator = RotatedPixbufCreator(self.file, size)
+            pixbuf = pixbuf_creator.get()
+
             self.image.set_from_pixbuf(pixbuf)
 
     def clear(self):
@@ -182,6 +184,9 @@ class FileChooserDialog(object):
         filefilter.set_name(_('Supported image files'))
         dialog.add_filter(filefilter)
 
+        preview = gui.get_object('preview_image')
+        dialog.connect("update-preview", self.on_update_preview, preview)
+
         response_id = dialog.run()
         filename = dialog.get_filename() if response_id else None
 
@@ -189,6 +194,45 @@ class FileChooserDialog(object):
         dialog.destroy()
 
         return filename
+
+    def on_update_preview(self, filechooser, preview):
+        try:
+            filename = filechooser.get_preview_filename()
+
+            pixbuf_creator = RotatedPixbufCreator(filename, 128)
+            pixbuf = pixbuf_creator.get()
+
+            preview.set_from_pixbuf(pixbuf)
+            has_preview = True
+        except:
+            has_preview = False
+
+        filechooser.set_preview_widget_active(has_preview)
+
+class RotatedPixbufCreator(object):
+
+    def __init__(self, filename, size):
+        self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, size, size)
+        orientation = self.pixbuf.get_option('orientation')
+        rotation = self._get_orientation(orientation)
+
+        if rotation != 1:
+            self.pixbuf = self.pixbuf.rotate_simple(rotation)
+
+    def get(self):
+        return self.pixbuf
+
+    def _get_orientation(self, orientation=1):
+        orientation = int(orientation) if orientation else 1
+
+        if orientation == 6:
+            rotate = 270
+        elif orientation == 8:
+            rotate = 90
+        else:
+            rotate = 0
+
+        return rotate
 
 class RetweetDialog(UpdateWidgetBase):
 

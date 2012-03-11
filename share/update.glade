@@ -6,6 +6,7 @@
     <property name="border_width">5</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
+    <property name="preview_widget">preview_image</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="filechooserdialog-vbox1">
         <property name="can_focus">False</property>
@@ -88,6 +89,11 @@
         <signal name="activate" handler="on_menuitem_remove_activate" swapped="no"/>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="preview_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
   </object>
   <object class="GtkTextBuffer" id="textbuffer">
     <signal name="changed" handler="on_textbuffer_changed" swapped="no"/>
