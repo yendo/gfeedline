@@ -35,7 +35,7 @@ class UpdateWindow(UpdateWidgetBase):
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
-        self.media = MediaFile(gui, photo_size_limit=3145728)
+        self.media = MediaFile(gui)
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')
@@ -117,9 +117,9 @@ class UpdateWindow(UpdateWidgetBase):
 
 class MediaFile(object):
 
-    def __init__(self, gui, photo_size_limit=3145728):
+    def __init__(self, gui):
         self.file = None
-        self.photo_size_limit = photo_size_limit
+        self.config = AuthorizedTwitterAccount.CONFIG
 
         self.button_image = gui.get_object('button_image')
         self.image = gui.get_object('image_attached')
@@ -157,7 +157,7 @@ class MediaFile(object):
         pixbuf = pixbuf_creator.get()
         pixbuf.savev(temp.name, image_type, [], [])
 
-        if os.path.getsize(temp.name) > self.photo_size_limit:
+        if os.path.getsize(temp.name) > int(self.config.photo_size_limit):
             pixbuf_creator = RotatedPixbufCreator(self.file, 1024)
             pixbuf = pixbuf_creator.get()
             pixbuf.savev(temp.name, image_type, [], [])
@@ -165,7 +165,7 @@ class MediaFile(object):
         return temp
 
     def get_link_letters(self):
-        media_link_letters = 21 
+        media_link_letters = int(self.config.characters_reserved_per_media)
         return media_link_letters if self.file else 0
 
 class FileChooserDialog(object):
@@ -269,7 +269,7 @@ class UpdateWindowOLD(UpdateWindow):
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
-        self.media = MediaFile(gui, photo_size_limit=3145728)
+        self.media = MediaFile(gui)
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')

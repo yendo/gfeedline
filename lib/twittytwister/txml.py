@@ -190,6 +190,12 @@ class DirectMessage(PredefinedXMLHandler):
         'sender_screen_name', 'recipient_screen_name']
     COMPLEX_PROPS = [SenderUser, RecipientUser]
 
+class Configuration(PredefinedXMLHandler):
+    MY_TAG = 'configuration'
+    SIMPLE_PROPS = ['characters_reserved_per_media',
+                    'max_media_per_upload', 'photo_size_limit',
+                    'short_url_length', 'short_url_length_https', ]
+    COMPLEX_PROPS = []
 
 ### simple object list handlers:
 
@@ -232,6 +238,9 @@ class IDList(SimpleListHandler):
     ITEM_TYPE = XMLStringHandler
     ITEM_TAG = 'id'
 
+class ConfigurationList(SimpleListHandler):
+    MY_TAG = 'configuration'
+    ITEM_TYPE = Configuration
 
 class ListPage(PredefinedXMLHandler):
     """Base class for the classes of paging items"""
@@ -325,6 +334,7 @@ Statuses = simpleListFactory(StatusList)
 
 HoseFeed = simpleListFactory(StatusList)
 
+Config   = simpleListFactory(ConfigurationList)
 
 class Pager:
     """Able to create parsers that support paging, and parsers that don't"""

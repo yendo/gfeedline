@@ -493,6 +493,16 @@ class Twitter(object):
 
         return d
 
+    def configuration(self):
+
+        url = '/1/help/configuration.xml'
+        d = defer.Deferred()
+
+        self.__downloadPage(url, txml.Config(lambda u: d.callback(u))) \
+            .addErrback(lambda e: d.errback(e))
+
+        return d
+
     def search(self, query, delegate, args=None, extra_args=None):
         """Perform a search query.
 
