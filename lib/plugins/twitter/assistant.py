@@ -85,9 +85,9 @@ class TwitterAuthAssistant(Gtk.Assistant):
             self.label_screen_name.set_text(self.result['screen-name'])
 
     def on_apply_button_clicked(self, assistant):
+        SETTINGS_TWITTER.set_string('user-name', self.result['screen-name'])
         SETTINGS_TWITTER.set_string('access-token', self.result['access-token'])
         SETTINGS_TWITTER.set_string('access-secret', self.result['access-secret'])
-        SETTINGS_TWITTER.set_string('user-name', self.result['screen-name'])
 
         # print "apply"
 

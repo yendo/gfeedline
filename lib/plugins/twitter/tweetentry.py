@@ -165,7 +165,7 @@ class SearchTweetEntry(TweetEntry):
         return self.entry.author.name.split(' ')[0]
 
     def get_full_name(self, entry):
-        return entry.author.name.split(' ')[1][1:-1] # removed parentheses
+        return entry.author.name.partition(' ')[2][1:-1] # removed parentheses
 
     def _get_sender(self, api):
         pass
