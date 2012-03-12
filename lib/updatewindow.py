@@ -3,7 +3,7 @@ import tempfile
 
 from gi.repository import Gtk, GLib, Gio, GdkPixbuf
 
-from constants import SHARED_DATA_FILE, TMP_DIR
+from constants import SHARED_DATA_FILE
 from plugins.twitter.account import AuthorizedTwitterAccount
 from utils.settings import SETTINGS
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
@@ -16,17 +16,17 @@ class UpdateWidgetBase(object):
 
     def _download_user_icon_with_callback(self, gui, entry):
         icon_uri = str(entry['image_uri'])
-        entry['icon_path'] = os.path.join(TMP_DIR, 'profile_image.jpg')
+        icon = tempfile.NamedTemporaryFile()
 
         urlget = UrlGetWithAutoProxy(icon_uri)
-        d = urlget.downloadPage(icon_uri, entry['icon_path']).\
-            addCallback(self._run, gui, entry).addErrback(self._on_error)
+        d = urlget.downloadPage(icon_uri, icon.name).\
+            addCallback(self._run, gui, entry, icon).addErrback(self._on_error)
 
-
-    def _set_ui(self, gui, entry):
+    def _set_ui(self, gui, entry, icon):
         gui.get_object('label_user').set_markup('<b>%s</b>' % entry['user_name'])
         gui.get_object('label_body').set_text(entry['status_body'])
-        gui.get_object('image_usericon').set_from_file(entry['icon_path'])
+        gui.get_object('image_usericon').set_from_file(icon.name) 
+        print icon.name
 
 class UpdateWindow(UpdateWidgetBase):
 
@@ -57,11 +57,11 @@ class UpdateWindow(UpdateWidgetBase):
             gui.get_object('grid_entry').destroy()
             self.update_window.present()
 
-    def _run(self, unknown, gui, entry, *args):
-        self._set_ui(gui, entry)
+    def _run(self, unknown, gui, entry, icon, *args):
+        self._set_ui(gui, entry, icon)
 
         user = entry['user_name']
-        self.update_window.set_title(_('Reply to %s') % user)
+        self.update_window.set_title(_('Reply to %s') % user.decode('utf-8'))
         self.text_buffer.set_text('@%s '% user)
 
         self.update_window.present()
@@ -245,8 +245,8 @@ class RetweetDialog(UpdateWidgetBase):
         gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
         self._download_user_icon_with_callback(gui, entry)
 
-    def _run(self, unknown, gui, entry, *args):
-        self._set_ui(gui, entry)
+    def _run(self, unknown, gui, entry, icon, *args):
+        self._set_ui(gui, entry, icon)
 
         dialog = gui.get_object('messagedialog')
         dialog.set_transient_for(self.parent)
