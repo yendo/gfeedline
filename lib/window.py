@@ -5,7 +5,7 @@
 # Licence: GPL3
 
 from twisted.internet import reactor
-from gi.repository import Gtk, Gdk, Gio
+from gi.repository import Gtk, Gdk
 
 from preferences.preferences import Preferences
 from theme import Theme, FontSet
@@ -91,8 +91,8 @@ class MainWindow(object):
             view.remove()
             view.append(notebook, -1)
 
-        timeout = reactor.callLater(0.1, self._jump_all_tabs_to_bottom, 
-                                    self.theme.is_ascending())
+        reactor.callLater(0.1, self._jump_all_tabs_to_bottom, 
+                          self.theme.is_ascending())
 
     def _jump_all_tabs_to_bottom(self, is_bottom=True):
         for notebook in self.column.values():
@@ -135,10 +135,10 @@ class MainWindow(object):
         self.on_stop()
 
     def on_menuitem_update_activate(self, menuitem):
-        prefs = UpdateWindow(self)
+        UpdateWindow(self)
 
     def on_menuitem_prefs_activate(self, menuitem):
-        prefs = Preferences(self)
+        Preferences(self)
 
     def on_menuitem_multicolumn_toggled(self, menuitem):
         is_multi_column = menuitem.get_active()
@@ -146,7 +146,7 @@ class MainWindow(object):
         self.toggle_multicolumn_mode()
 
     def on_menuitem_about_activate(self, menuitem):
-        about = AboutDialog(self.window)
+        AboutDialog(self.window)
 
     def on_menuitem_top_activate(self, menuitem=None):
         self._jump_all_tabs_to_bottom(False)

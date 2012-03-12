@@ -53,7 +53,7 @@ class Theme(object):
         css_file = self.all_themes[theme_name].get('css')
 
         if not os.path.isfile(css_file):
-            css_file_old = SHARED_DATA_FILE('html/theme/Twitter.css')
+            css_file = SHARED_DATA_FILE('html/theme/Twitter.css')
 
         return css_file
 

@@ -4,15 +4,15 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..utils.settings import SETTINGS, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
-from ..constants import SHARED_DATA_FILE, Column
+from ..constants import SHARED_DATA_FILE
 from ..theme import Theme
-from feedsource import FeedSourceDialog, FeedSourceAction
-from filters import FilterDialog, FilterAction
+from feedsource import FeedSourceAction
+from filters import FilterAction
 
 class Preferences(object):
 
@@ -70,7 +70,7 @@ class Preferences(object):
             self.preferences.unstick()
 
     def on_button_twitter_auth_clicked(self, button):
-        assistant = TwitterAuthAssistant(self.preferences) 
+        TwitterAuthAssistant(self.preferences) 
 
     def on_button_close_clicked(self, notebook):
         page = notebook.get_current_page()

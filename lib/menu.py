@@ -2,7 +2,6 @@ import webbrowser
 
 from gi.repository import Gtk, Gdk
 
-from plugins.twitter.account import AuthorizedTwitterAccount
 from updatewindow import UpdateWindow, RetweetDialog
 from preferences.filters import FilterDialog
 
@@ -73,10 +72,10 @@ class ReplyMenuItem(PopupMenuItem):
         if CAN_ACCESS_DOM:
             entry_dict = self._get_entry_from_dom(entry_id)
             # print api.account.user_name # use account obj?
-            update_window = UpdateWindow(None, entry_dict)
+            UpdateWindow(None, entry_dict)
         else:
             entry_dict = {'id': entry_id, 'user_name': self.user}
-            update_window = UpdateWindowOLD(None, entry_dict)
+            UpdateWindowOLD(None, entry_dict)
 
 class RetweetMenuItem(PopupMenuItem):
 
@@ -142,4 +141,4 @@ class AddFilterMenuItem(PopupMenuItem):
         response_id, v = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:
-            new_iter = filter_liststore.append(v)
+            filter_liststore.append(v)

@@ -1,5 +1,4 @@
 import re
-import time
 from datetime import datetime, timedelta
 from xml.sax.saxutils import escape
 

@@ -26,8 +26,8 @@ class StatusNotification(Notification):
         icon_uri = str(entry['image_uri'])
 
         urlget = UrlGetWithAutoProxy(icon_uri)
-        d = urlget.downloadPage(icon_uri, self.icon_file).\
-            addCallback(self._notify, entry).addErrback(self._error, entry)
+        d = urlget.downloadPage(icon_uri, self.icon_file)
+        d.addCallback(self._notify, entry).addErrback(self._error, entry)
 
     def _notify(self, unknown, entry):
         super(StatusNotification, self).notify(
@@ -46,7 +46,7 @@ class StatusNotification(Notification):
 
             if action == 'reply':
                 entry_dict['status_body'] = entry_dict['popup_body']
-                update_window = UpdateWindow(None, entry_dict)
+                UpdateWindow(None, entry_dict)
             elif action == 'open':
                 uri = 'https://twitter.com/%s/status/%s' % (
                     entry_dict['user_name'], entry_dict['id'])
