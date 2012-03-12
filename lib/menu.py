@@ -40,7 +40,7 @@ class PopupMenuItem(Gtk.MenuItem):
             return dom.get_elements_by_class_name(cls_name).item(0)
 
         img_url = _get_first_class('usericon').get_attribute('src')
-        user_name = _get_first_class('username').get_inner_text()
+        user_name = _get_first_class('username').get_attribute('data-user')
         body = _get_first_class('body').get_inner_text()
         date_time = _get_first_class('datetime').get_inner_text()
         is_protected = bool(_get_first_class('protected'))
