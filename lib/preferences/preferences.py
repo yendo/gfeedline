@@ -136,6 +136,9 @@ class ComboboxTheme(object):
         self.labels = theme.get_all_list()
 
         self.combobox = gui.get_object('comboboxtext_theme')
+        for text in self.labels:
+            self.combobox.append_text(text)
+
         selected_theme = SETTINGS_VIEW.get_string('theme')
         num = self.labels.index(selected_theme.decode('utf-8'))
         self.combobox.set_active(num)

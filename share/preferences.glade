@@ -167,10 +167,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="active">1</property>
-                                    <items>
-                                      <item translatable="yes">Twitter</item>
-                                      <item translatable="yes">Chat</item>
-                                    </items>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
