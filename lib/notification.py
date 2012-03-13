@@ -9,7 +9,7 @@ import webbrowser
 import base64
 import cPickle as pickle
 
-from constants import TMP_DIR
+from constants import CACHE_HOME
 from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
@@ -20,7 +20,7 @@ class StatusNotification(Notification):
     def __init__(self, notification):
         super(StatusNotification, self).__init__('GFeedLine')
         self.has_actions = 'actions' in self.get_capabilities()
-        self.icon_file = os.path.join(TMP_DIR, 'notification_icon.jpg')
+        self.icon_file = os.path.join(CACHE_HOME, 'notification_icon.jpg')
 
     def notify(self, entry):
         icon_uri = str(entry['image_uri'])
