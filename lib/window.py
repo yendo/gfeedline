@@ -148,6 +148,10 @@ class MainWindow(object):
     def on_menuitem_about_activate(self, menuitem):
         AboutDialog(self.window)
 
+    def on_menuitem_help_activate(self, menuitem):
+        Gtk.show_uri(None, 'http://code.google.com/p/gfeedline/wiki/Tips', 
+                     Gdk.CURRENT_TIME)
+
     def on_menuitem_top_activate(self, menuitem=None):
         self._jump_all_tabs_to_bottom(False)
 
