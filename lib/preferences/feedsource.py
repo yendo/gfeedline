@@ -57,7 +57,12 @@ class FeedSourceDialog(DialogBase):
         status = self.combobox_target.has_argument_entry_enabled()
         self.label_argument.set_sensitive(status)
         self.entry_argument.set_sensitive(status)
-        self.button_ok.set_sensitive(not status)
+
+        button_status = not status
+        if not button_status and self.entry_argument.get_text():
+            button_status = True
+
+        self.button_ok.set_sensitive(button_status)
 
 class TargetCombobox(object):
 
