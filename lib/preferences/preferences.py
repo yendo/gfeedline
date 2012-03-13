@@ -148,8 +148,6 @@ class ComboboxTheme(object):
     def update_theme(self):
         SETTINGS_VIEW.set_string('theme', self.new)
 
-dummy = [_('Default'), _('Ascending'), _('Descending')] # for intltool 0.41.1 bug
-
 class ComboboxTimelineOrder(object):
 
     def __init__(self, gui):

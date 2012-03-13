@@ -82,8 +82,6 @@ class SaveFilterListStore(SaveListStoreBase):
         #print save_data
         self.save_to_json(save_data)
 
-dummy = [_('Body'), _('Sender')] # for intltool 0.41.1 bug
-
 def get_expire_info(expire_epoch):
     now = datetime.now()
     future = datetime.fromtimestamp(expire_epoch)
