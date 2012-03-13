@@ -30,8 +30,8 @@ function jumpToBottom(is_bottom) {
     window.scrollTo(0, target);
 }
 
-function changeCSS(css) {
-    document.getElementById("custom").href = css
+function changeCSS(id, css) {
+    document.getElementById(id).href = css
 }
 
 function clearBuffer() {
