@@ -19,7 +19,7 @@ from twisted.internet import reactor
 
 from tweetentry import *
 from ...utils.htmlentities import decode_html_entities
-from ...utils.settings import SETTINGS
+from ...utils.settings import SETTINGS_VIEW
 from ...filterliststore import FilterColumn
 
 class TwitterOutputFactory(object):
@@ -44,7 +44,7 @@ class TwitterOutputBase(object):
         self.counter = 0
 
         api.account.connect("update_credential", self._on_reconnect_credential)
-        SETTINGS.connect_after("changed::theme", self._on_restart_theme_changed)
+        SETTINGS_VIEW.connect_after("changed::theme", self._on_restart_theme_changed)
 
     def got_entry(self, entry, *args):
         entry.text = decode_html_entities(entry.text)

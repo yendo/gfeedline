@@ -7,7 +7,7 @@
 from gi.repository import Gtk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
-from ..utils.settings import SETTINGS, SETTINGS_TWITTER
+from ..utils.settings import SETTINGS, SETTINGS_VIEW, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE
 from ..theme import Theme
@@ -136,17 +136,17 @@ class ComboboxTheme(object):
         self.labels = theme.get_all_list()
 
         self.combobox = gui.get_object('comboboxtext_theme')
-        selected_theme = SETTINGS.get_string('theme')
+        selected_theme = SETTINGS_VIEW.get_string('theme')
         num = self.labels.index(selected_theme.decode('utf-8'))
         self.combobox.set_active(num)
 
     def check_active(self):
-        old = SETTINGS.get_string('theme')
+        old = SETTINGS_VIEW.get_string('theme')
         self.new = self.labels[self.combobox.get_active()]
         return old != self.new
 
     def update_theme(self):
-        SETTINGS.set_string('theme', self.new)
+        SETTINGS_VIEW.set_string('theme', self.new)
 
 dummy = [_('Default'), _('Ascending'), _('Descending')] # for intltool 0.41.1 bug
 
@@ -154,7 +154,7 @@ class ComboboxTimelineOrder(object):
 
     def __init__(self, gui):
         self.combobox = gui.get_object('comboboxtext_order')
-        num = SETTINGS.get_int('timeline-order')
+        num = SETTINGS_VIEW.get_int('timeline-order')
         self.combobox.set_active(num)
 
     def check_active(self):
@@ -164,7 +164,7 @@ class ComboboxTimelineOrder(object):
         old = theme.is_ascending()
         new = theme.is_ascending(num)
 
-        SETTINGS.set_int('timeline-order', num)
+        SETTINGS_VIEW.set_int('timeline-order', num)
         return old != new
 
 class TimeLineFontButton(object):
@@ -172,17 +172,17 @@ class TimeLineFontButton(object):
     def __init__(self, gui, window):
         self.window = window
         self.widget = gui.get_object('fontbutton')
-        font_name = SETTINGS.get_string('font')
+        font_name = SETTINGS_VIEW.get_string('font')
         self.widget.set_font_name(font_name)
 
-        SETTINGS.connect("changed::font", self.on_settings_font_change)
+        SETTINGS_VIEW.connect("changed::font", self.on_settings_font_change)
         #self.on_settings_font_change(SETTINGS, 'window-sticky')
 
         self.widget.connect('font-set', self.on_button_font_set)
 
     def on_button_font_set(self, button, *args):
         font_name = button.get_font_name()
-        SETTINGS.set_string('font', font_name)
+        SETTINGS_VIEW.set_string('font', font_name)
 
     def on_settings_font_change(self, settings, key):
         font_css = self.window.font.zoom_default()

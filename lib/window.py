@@ -11,7 +11,7 @@ from preferences.preferences import Preferences
 from theme import Theme, FontSet
 from updatewindow import UpdateWindow
 from notification import StatusNotification
-from utils.settings import SETTINGS, SETTINGS_GEOMETRY
+from utils.settings import SETTINGS, SETTINGS_GEOMETRY, SETTINGS_VIEW
 from constants import VERSION, SHARED_DATA_FILE, Column
 from view import DnDSelection
 
@@ -44,10 +44,10 @@ class MainWindow(object):
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
         self.on_settings_sticky_change(SETTINGS, 'window-sticky')
 
-        SETTINGS.connect("changed::theme", self.on_settings_theme_change)
-        self.on_settings_theme_change(SETTINGS, 'theme')
+        SETTINGS_VIEW.connect("changed::theme", self.on_settings_theme_change)
+        self.on_settings_theme_change(SETTINGS_VIEW, 'theme')
 
-        is_multi_column = SETTINGS.get_boolean('multi-column')
+        is_multi_column = SETTINGS_VIEW.get_boolean('multi-column')
         menuitem_multicolumn = gui.get_object('menuitem_multicolumn')
         menuitem_multicolumn.set_active(is_multi_column)
 
@@ -73,7 +73,7 @@ class MainWindow(object):
                 updatewindow.set_upload_media(image_file)
 
     def get_notebook(self, group_name):
-        if not SETTINGS.get_boolean('multi-column'):
+        if not SETTINGS_VIEW.get_boolean('multi-column'):
             group_name = 'dummy for single column'
 
         if group_name in self.column:
@@ -142,7 +142,7 @@ class MainWindow(object):
 
     def on_menuitem_multicolumn_toggled(self, menuitem):
         is_multi_column = menuitem.get_active()
-        SETTINGS.set_boolean('multi-column', is_multi_column)
+        SETTINGS_VIEW.set_boolean('multi-column', is_multi_column)
         self.toggle_multicolumn_mode()
 
     def on_menuitem_about_activate(self, menuitem):

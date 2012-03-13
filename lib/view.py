@@ -13,7 +13,7 @@ from gi.repository import Gtk, Gio, WebKit
 
 from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU
 from utils.htmlentities import decode_html_entities
-from utils.settings import SETTINGS
+from utils.settings import SETTINGS_VIEW
 from constants import SHARED_DATA_FILE, CONFIG_HOME
 from updatewindow import UpdateWindow
 from theme import FontSet
@@ -99,7 +99,7 @@ class FeedWebView(WebKit.WebView):
         self.connect("drag-data-received", self.on_drag_data_received)
         self.connect("drag-drop", self.on_drag_drop)
 
-        SETTINGS.connect("changed::theme", self.on_load_finished)
+        SETTINGS_VIEW.connect("changed::theme", self.on_load_finished)
 
         scrolled_window.add(self)
         self.show_all()

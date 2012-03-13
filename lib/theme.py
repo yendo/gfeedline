@@ -10,7 +10,7 @@ from string import Template
 from gi.repository import Pango
 
 from constants import SHARED_DATA_FILE
-from utils.settings import SETTINGS
+from utils.settings import SETTINGS_VIEW
 
 
 class Theme(object):
@@ -30,12 +30,12 @@ class Theme(object):
                 if file.find('Ascending') > 0:
                     self.all_themes[name]['is_ascending'] = True
 
-        SETTINGS.connect("changed::theme", self.on_setting_theme_changed)
-        self.on_setting_theme_changed(SETTINGS, 'theme')
+        SETTINGS_VIEW.connect("changed::theme", self.on_setting_theme_changed)
+        self.on_setting_theme_changed(SETTINGS_VIEW, 'theme')
 
     def is_ascending(self, save_value=None):
         if save_value == None:
-            save_value = SETTINGS.get_int('timeline-order')
+            save_value = SETTINGS_VIEW.get_int('timeline-order')
 
         if save_value == 0: # default
             theme_name = self._get_theme_name()
@@ -58,7 +58,7 @@ class Theme(object):
         return css_file
 
     def _get_theme_name(self):
-        return SETTINGS.get_string('theme')
+        return SETTINGS_VIEW.get_string('theme')
 
     def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
@@ -92,7 +92,7 @@ class FontSet(object):
         return css
 
     def _get_default(self):
-        font_name = SETTINGS.get_string('font')
+        font_name = SETTINGS_VIEW.get_string('font')
         pango_font = Pango.font_description_from_string(font_name)
 
         size = int(font_name.rpartition(' ')[-1])
