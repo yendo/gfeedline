@@ -1,6 +1,6 @@
-# Estonian translation for gfeedline
+# Estonian translation for GFeedLine
 # Copyright (C) 2012 Yoshizumi Endo.
-# This file is distributed under the same license as the gfeedline package.
+# This file is distributed under the same license as the GFeedLine package.
 #
 # Translators:
 # Rivo Zängov <eraser@eraser.ee>, 2012.
@@ -9,23 +9,22 @@ msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-23 16:12+0900\n"
-"PO-Revision-Date: 2012-02-23 16:04+0900\n"
-"Last-Translator: Yoshizumi Endo <y-endo@ceres.dti.ne.jp>\n"
-"Language-Team: Estonian (http://www.transifex.net/projects/p/gfeedline/"
-"language/et/)\n"
-"Language: et\n"
+"PO-Revision-Date: 2012-03-13 20:35+0900\n"
+"Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/gfeedline/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../lib/menu.py:58
 msgid "_Open"
-msgstr ""
+msgstr "Ava"
 
 #: ../lib/menu.py:66
 msgid "_Reply"
-msgstr ""
+msgstr "Vasta"
 
 #: ../lib/menu.py:78
 msgid "Re_tweet"
@@ -33,11 +32,11 @@ msgstr ""
 
 #: ../lib/menu.py:92
 msgid "_Favorite"
-msgstr ""
+msgstr "Lemmik"
 
 #: ../lib/menu.py:100
 msgid "_Search"
-msgstr ""
+msgstr "Otsi"
 
 #: ../lib/notification.py:57
 msgid "Reply"
@@ -105,7 +104,7 @@ msgstr "IN:"
 msgid ""
 "Return to this dialog after you have finished the authorization process on "
 "Twitter.com and Enter your PIN below."
-msgstr ""
+msgstr "Tule siia dialoogi aknasse pärast autoriseerimise protsessi lõpetamist saidil Twitter.com tagasi ja sisesta alla oma PIN number."
 
 #: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:14
 msgid "Screen name:"
@@ -115,17 +114,15 @@ msgstr "Näidatav nimi:"
 msgid ""
 "This assistant helps you to configure Twitter account for GFeedLine.\n"
 "\n"
-"Click \"Forward\" to open a Twitter authorization page with the default "
-"browser."
-msgstr ""
+"Click \"Forward\" to open a Twitter authorization page with the default browser."
+msgstr "See aitab, sul seadistada oma Twitteri kontot GFeedLine jaoks.\n\nKliki nupule \"Edasi\", et avada oma vaikimisi veebilehitsejaga Twitteri autoriseerimisleht."
 
 #: ../share/assistant_twitter.glade.h:7
 msgid ""
-"Your configuration is complete.  You are now ready to access to Twitter with "
-"GFeedLine.\n"
+"Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
 "\n"
 "Click \"Apply\" to save your settings."
-msgstr ""
+msgstr "Seadistamine on lõpetatud. Sul on nüüd GFeedLine-ga ligipääs Twitterile.\n\nOma seadete salvestamiseks, kliki nupule \"Rakenda\"."
 
 #: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:19
 msgid "none"
@@ -145,7 +142,7 @@ msgstr ""
 
 #: ../share/feedsource.glade.h:4
 msgid "_Enable notification"
-msgstr ""
+msgstr "Luba t_eavitused"
 
 #: ../share/feedsource.glade.h:5
 msgid "_Group:"
@@ -157,24 +154,23 @@ msgstr "_Nimi:"
 
 #: ../share/feedsource.glade.h:7
 msgid "_Source:"
-msgstr ""
+msgstr "Allika_s:"
 
 #: ../share/feedsource.glade.h:8
 msgid "_Target:"
-msgstr ""
+msgstr "Sih_tkoht:"
 
 #: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:11
-#, fuzzy
 msgid "GFeedLine"
-msgstr "GNOMEi uudisvood"
+msgstr "GFeedLine"
 
 #: ../share/gfeedline.desktop.in.h:2
 msgid "Read & Write Social Feeds"
-msgstr ""
+msgstr "Loa ja kirjuta sotsiaalseid uudivooge"
 
 #: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:12
 msgid "Social Networking Client"
-msgstr ""
+msgstr "Sotsiaalvõrgustiku klient"
 
 #: ../share/gfeedline.glade.h:1
 msgid ""
@@ -182,29 +178,26 @@ msgid ""
 "\n"
 "GFeedLine is a social networking client.  It supports Twitter.\n"
 "\n"
-"You have no Twitter account configured.  To start connecting with GFeedLine, "
-"open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your "
-"account.\n"
+"You have no Twitter account configured.  To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your account.\n"
 "\n"
-"You can configured your feeds in the Feeds tab of the Preferences dialog.  "
-"To enable multi-column view, enter a group name in each feed source dialog."
+"You can configured your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
 msgstr ""
 
 #: ../share/gfeedline.glade.h:8
 msgid "All Tabs to the _Bottom"
-msgstr ""
+msgstr "Kõik vahekaardid alla"
 
 #: ../share/gfeedline.glade.h:9
 msgid "All Tabs to the _Top"
-msgstr ""
+msgstr "Kõik vahekaardid üles"
 
 #: ../share/gfeedline.glade.h:10
 msgid "Copyright © 2012 Yoshizumi Endo."
-msgstr ""
+msgstr "Kõik õigused kaitstud © 2012 Yoshizumi Endo."
 
 #: ../share/gfeedline.glade.h:13
 msgid "_Edit"
-msgstr ""
+msgstr "Muuda"
 
 #: ../share/gfeedline.glade.h:14
 msgid "_File"
@@ -212,11 +205,11 @@ msgstr "_Fail"
 
 #: ../share/gfeedline.glade.h:15
 msgid "_Help"
-msgstr ""
+msgstr "Abiinfo"
 
 #: ../share/gfeedline.glade.h:16
 msgid "_Multi-Column"
-msgstr ""
+msgstr "_Mitme veeruga"
 
 #: ../share/gfeedline.glade.h:17
 msgid "_Update"
@@ -244,7 +237,7 @@ msgstr "<b>Uudisvoogude allikad</b>"
 
 #: ../share/preferences.glade.h:4
 msgid "<b>View</b>"
-msgstr ""
+msgstr "<b>Vaade</b>"
 
 #: ../share/preferences.glade.h:5
 msgid "Account"
@@ -252,7 +245,7 @@ msgstr "Konto"
 
 #: ../share/preferences.glade.h:6
 msgid "Always on _Visible Workspace"
-msgstr ""
+msgstr "Alati nähta_val töölaual"
 
 #: ../share/preferences.glade.h:7
 msgid "Argument"
@@ -260,7 +253,7 @@ msgstr "Argument"
 
 #: ../share/preferences.glade.h:8
 msgid "Au_thentication"
-msgstr ""
+msgstr "Auden_timine"
 
 #: ../share/preferences.glade.h:9
 msgid "Feed Line Preferences"
@@ -280,7 +273,7 @@ msgstr "Nimi"
 
 #: ../share/preferences.glade.h:15
 msgid "Target"
-msgstr ""
+msgstr "Sihkoht"
 
 #: ../share/preferences.glade.h:16
 msgid "_Authorization"
@@ -309,6 +302,3 @@ msgstr "Mida sa parasjagu teed?"
 #: ../share/update.glade.h:2
 msgid "_Tweet"
 msgstr ""
-
-#~ msgid "140"
-#~ msgstr "140"

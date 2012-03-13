@@ -1,3 +1,7 @@
+2012-03-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* et.po: Updated Estonian translation.  Thanks Rivo Zängov!
+
 2012-03-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twittytwister/twitter.py, twittytwister/txml.py: Added supoort
