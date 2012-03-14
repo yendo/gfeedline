@@ -26,7 +26,7 @@ class TweetEntry(object):
         entry = self.entry
 
         time = TwitterTime(entry.created_at)
-        body_string = self._get_body(entry.text)
+        body_string = self._get_body(entry.text) # FIXME
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
 
@@ -75,6 +75,7 @@ class TweetEntry(object):
         return source
 
     def _get_body(self, text):
+        text = decode_html_entities(text) # need to decode!
         return text
 
 class EntryStyles(object):
@@ -110,10 +111,6 @@ class RestRetweetEntry(TweetEntry):
         self.retweet_icon = "<img src='retweet.png' width='18' height='14'>"
         self.entry=entry.retweeted_status
 
-    def _get_body(self, text):
-        text = decode_html_entities(text) # need to decode!
-        return text
-        
 class FeedRetweetEntry(RestRetweetEntry):
 
     def __init__(self, entry):
@@ -122,16 +119,13 @@ class FeedRetweetEntry(RestRetweetEntry):
         self.entry=DictObj(entry.raw.get('retweeted_status'))
         self.entry.user=DictObj(self.entry.user)
 
-    def _get_body(self, text):
-        return text
-
 class SearchTweetEntry(TweetEntry):
 
     def get_dict(self, api):
         entry = self.entry
 
         time = TwitterTime(entry.published)
-        body_string = self._get_body(entry.title)
+        body_string = self._get_body(entry.title) # FIXME
         body = add_markup.convert(body_string) # add_markup is global
         #body = decode_html_entities(entry.content)
         #body = body.replace('"', "'")
@@ -171,6 +165,9 @@ class SearchTweetEntry(TweetEntry):
 
     def get_source_name(self):
         return self._parse_source_html(self.entry.twitter_source)
+
+    def _get_body(self, text):
+        return text
 
 class DictObj(object):
 
