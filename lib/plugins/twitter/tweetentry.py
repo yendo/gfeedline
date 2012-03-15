@@ -50,6 +50,7 @@ class TweetEntry(object):
 
             status_body=body,
             popup_body=body_string,
+            target=''
             )
 
         return entry_dict
@@ -150,7 +151,9 @@ class SearchTweetEntry(TweetEntry):
             source=entry.twitter_source,
 
             status_body=body,
-            popup_body=body_string)
+            popup_body=body_string,
+            target=''
+            )
 
         return entry_dict
 
@@ -168,6 +171,64 @@ class SearchTweetEntry(TweetEntry):
 
     def _get_body(self, text):
         return text
+
+class FeedEventEntry(TweetEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+
+        time = TwitterTime(entry.created_at)
+        body_string = entry.event
+        body = add_markup.convert(entry.event) # add_markup is global
+
+        key = '' if entry.source.protected == 'false' or not entry.source.protected \
+            else "<img class='protected' src='key.png' width='10' height='13'>"
+
+        styles = ''
+
+        if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
+            target ="""
+  <div class='target'>
+  <span class='body'>%s</span>
+  <span class='datetime'>(%s)</span>
+  </div>
+""" % (entry.target_object.text, time.get_local_time() )
+        else:
+            target =""
+
+        try:
+            print entry.raw['target_object']['uri']
+        except:
+            pass
+
+        entry_dict = dict(
+            date_time=time.get_local_time(),
+            id='',
+            styles=styles,
+            image_uri=entry.source.profile_image_url,
+            retweet='',
+
+            user_name=entry.source.screen_name,
+            full_name=entry.source.name,
+            user_color=user_color.get(entry.source.screen_name),
+            protected=key,
+            source='',
+
+            status_body=body,
+            popup_body=body_string,
+            target=target
+)
+
+        return entry_dict
+
+    def get_sender_name(self, api=None):
+        return ''
+
+    def get_full_name(self, entry):
+        return ''
+
+    def get_source_name(self):
+        return ''
 
 class DictObj(object):
 

@@ -203,7 +203,6 @@ class TwitterStream(LengthDelimitedStream, TimeoutMixin):
         if u'text' in obj:
             obj = Status.fromDict(obj)
         elif u'event' in obj:
-            print obj
             obj = Event.fromDict(obj)
         elif u'friends' in obj:
             return

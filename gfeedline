@@ -17,8 +17,7 @@ gtk3reactor.install()
 
 from twisted.internet import reactor
 
-if os.access(
-    abspath(join(dirname(__file__), 'lib/liststore.py')), os.R_OK):
+if os.access(abspath(join(dirname(__file__), 'lib/liststore.py')), os.R_OK):
     from lib.liststore import FeedListStore
 else:
     from gfeedline.liststore import FeedListStore

@@ -2,6 +2,9 @@ body { font-size: 10pt; }
 
 div.status { line-height: 1.4; 
              word-wrap: break-word; }
+div.target { padding-left: 1em;
+             font-size: 80%; 
+             color: gray; }
 div.mine { background-color: MistyRose; } 
 div.reply { background-color: Lavender; } 
 

@@ -227,9 +227,26 @@ class TwitterFeedOutput(TwitterOutputBase):
     def buffer_entry(self, entry, *args):
         self.print_entry(entry)
 
+    def got_entry(self, entry, *args):
+
+        if hasattr(entry, 'event'):
+            print "event!"
+            print entry.event
+
+            if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
+                print entry.target_object.text
+
+            entry_dict = self._get_entry_obj(entry).get_dict(self.api)
+            self.view.update(entry_dict, self.options.get('notification'), 
+                             is_first_call=False, is_new_update=True)
+        else:
+            super(TwitterFeedOutput, self).got_entry(entry, args)
+
     def _get_entry_obj(self, entry):
         if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
             entry_class = FeedRetweetEntry 
+        elif hasattr(entry, 'event'):
+            entry_class = FeedEventEntry 
         else:
             entry_class = TweetEntry
 
