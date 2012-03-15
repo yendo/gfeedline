@@ -146,6 +146,19 @@ Status.COMPLEX_PROPS['user'] = User
 
 
 
+class Event(TwitterObject):
+    """
+    Twitter Status.
+    """
+    SIMPLE_PROPS = set(['created_at', 'event'])
+    COMPLEX_PROPS = {}
+
+# circular reference:
+Event.COMPLEX_PROPS['source'] = User
+Event.COMPLEX_PROPS['target'] = User
+Event.COMPLEX_PROPS['target_object'] = Status
+
+
 class TwitterStream(LengthDelimitedStream, TimeoutMixin):
     """
     Twitter Stream.
@@ -189,6 +202,11 @@ class TwitterStream(LengthDelimitedStream, TimeoutMixin):
 
         if u'text' in obj:
             obj = Status.fromDict(obj)
+        elif u'event' in obj:
+            print obj
+            obj = Event.fromDict(obj)
+        elif u'friends' in obj:
+            return
         else:
             log.msg('Unsupported object %r' % obj)
             return
