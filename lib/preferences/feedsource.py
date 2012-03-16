@@ -37,7 +37,7 @@ class FeedSourceDialog(DialogBase):
         # run
         response_id = self.dialog.run()
 
-        v = { 
+        v = {
 #            'source'  : source_widget.get_active_text(),
             'name' : self.entry_name.get_text().decode('utf-8'),
             'target' : self.combobox_target.get_active_text(), #.decode('utf-8'),
@@ -97,7 +97,7 @@ class ArgumentEntry(object):
         self.combobox_target = combobox_target
 
     def get_text(self):
-        has_argument = self.combobox_target.has_argument_entry_enabled() 
+        has_argument = self.combobox_target.has_argument_entry_enabled()
         return self.widget.get_text() if has_argument else ''
 
     def set_text(self, text):

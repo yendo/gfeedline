@@ -59,7 +59,7 @@ class PopupMenuItem(Gtk.MenuItem):
 class OpenMenuItem(PopupMenuItem):
 
     LABEL = _('_Open')
-        
+
     def on_activate(self, menuitem, entry_id):
         uri = self.uri.replace('gfeedline:', 'https:')
         webbrowser.open(uri)
@@ -67,7 +67,7 @@ class OpenMenuItem(PopupMenuItem):
 class ReplyMenuItem(PopupMenuItem):
 
     LABEL = _('_Reply')
-        
+
     def on_activate(self, menuitem, entry_id):
         if CAN_ACCESS_DOM:
             entry_dict = self._get_entry_from_dom(entry_id)
@@ -83,7 +83,7 @@ class RetweetMenuItem(PopupMenuItem):
 
     def __init__(self, uri=None, api=None, scrolled_window=None):
         super(RetweetMenuItem, self).__init__(uri, api, scrolled_window)
-  
+
         if CAN_ACCESS_DOM:
             entry_id = uri.split('/')[-1]
             dom = self.parent.webview.dom.get_element_by_id(entry_id)

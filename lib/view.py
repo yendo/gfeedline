@@ -158,7 +158,7 @@ class FeedWebView(WebKit.WebView):
     def on_popup(self, view, default_menu, api):
         if self.link_on_webview.is_username_link() and api.has_popup_menu:
             for x in default_menu.get_children():
-                default_menu.remove(x) 
+                default_menu.remove(x)
             for menuitem in ENTRY_POPUP_MENU():
                 default_menu.append(menuitem(self.link_on_webview.uri, api,
                                              self.scrolled_window))
@@ -198,7 +198,7 @@ class FeedWebView(WebKit.WebView):
         self.change_font()
 
     def _bool_js(self, value):
-        return 'true' if value else 'false' 
+        return 'true' if value else 'false'
 
 class FeedWebViewLink(object):
 

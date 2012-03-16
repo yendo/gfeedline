@@ -20,7 +20,7 @@ class SaveListStoreBase(object):
             return []
 
         with open(self.save_file, 'r') as f:
-            entry = json.load(f)           
+            entry = json.load(f)
 
         source_list = self._parse_entry(entry)
         return source_list
@@ -28,7 +28,7 @@ class SaveListStoreBase(object):
     def save_to_json(self, save_data):
         "for defaultsource.py"
         with open(self.save_file, mode='w') as f:
-            json.dump(save_data, f)      
+            json.dump(save_data, f)
 
     def has_save_file(self):
         "for defaultsource.py"

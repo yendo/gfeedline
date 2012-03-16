@@ -49,7 +49,7 @@ class Twitter(twitter.Twitter):
                 delegate, params, txml.Statuses, extra_args=extra_args)
 
     def search(self, delegate, params=None, extra_args=None):
-        if params is None: 
+        if params is None:
             params = {}
         params['result_type'] = 'recent'
 

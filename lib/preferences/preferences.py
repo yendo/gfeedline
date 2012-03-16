@@ -50,7 +50,7 @@ class Preferences(object):
         checkbutton_sticky.set_active(sticky)
 
         # feeds & filters
-        
+
         self.feedsource_action = FeedSourceAction(
             gui, mainwindow, self.liststore, self.preferences)
         self.filter_action = FilterAction(
@@ -70,7 +70,7 @@ class Preferences(object):
             self.preferences.unstick()
 
     def on_button_twitter_auth_clicked(self, button):
-        TwitterAuthAssistant(self.preferences) 
+        TwitterAuthAssistant(self.preferences)
 
     def on_button_close_clicked(self, notebook):
         page = notebook.get_current_page()
@@ -193,7 +193,7 @@ class AutoStartWithCheckButton(AutoStart):
 
     def __init__(self, gui, app_name):
         super(AutoStartWithCheckButton, self).__init__(app_name)
-        
+
         checkbutton = gui.get_object('checkbutton_autostart')
         checkbutton.set_sensitive(self.check_enable())
         checkbutton.set_active(self.get())

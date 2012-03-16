@@ -25,7 +25,7 @@ class UpdateWidgetBase(object):
     def _set_ui(self, gui, entry, icon):
         gui.get_object('label_user').set_markup('<b>%s</b>' % entry['user_name'])
         gui.get_object('label_body').set_text(entry['status_body'])
-        gui.get_object('image_usericon').set_from_file(icon.name) 
+        gui.get_object('image_usericon').set_from_file(icon.name)
 
 class UpdateWindow(UpdateWidgetBase):
 
@@ -254,7 +254,7 @@ class RetweetDialog(UpdateWidgetBase):
         if response_id == Gtk.ResponseType.YES:
             twitter_account = AuthorizedTwitterAccount()
             twitter_account.api.retweet(entry['id'], self._on_retweet_status)
-            
+
         dialog.destroy()
 
     def _on_retweet_status(self, *args):
@@ -298,6 +298,7 @@ class RetweetDialogOLD(RetweetDialog):
         self.parent = parent
 
         gui = Gtk.Builder()
+
         gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
 
         gui.get_object('grid1').destroy()
@@ -311,5 +312,5 @@ class RetweetDialogOLD(RetweetDialog):
         if response_id == Gtk.ResponseType.YES:
             twitter_account = AuthorizedTwitterAccount()
             twitter_account.api.retweet(entry['id'], self._on_retweet_status)
-            
+
         dialog.destroy()

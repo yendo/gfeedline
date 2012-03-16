@@ -37,7 +37,7 @@ class MainWindow(object):
         target = Gtk.TargetList.new([])
         target.add(Gdk.Atom.intern("text/x-moz-url", False), 0, 4)
         target.add(Gdk.Atom.intern("text/uri-list", False), 0, 1)
-        
+
         window.drag_dest_set_target_list(target)
         window.connect("drag-data-received", self.on_drag_data_received)
 
@@ -81,7 +81,7 @@ class MainWindow(object):
         else:
             notebook = FeedNotebook(self.column, group_name)
             self.column.add(group_name, notebook)
-        
+
         return notebook
 
     def toggle_multicolumn_mode(self):

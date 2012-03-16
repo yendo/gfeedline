@@ -39,14 +39,14 @@ class FilterDialog(DialogBase):
         # run
         response_id = self.dialog.run()
 
-        expire = ExpireValues(self.spinbutton_expiry.get_value_as_int(), 
+        expire = ExpireValues(self.spinbutton_expiry.get_value_as_int(),
                               self.combobox_expire_unit)
 
         v = [
             self.combobox_target.get_active_text(),
             self.entry_word.get_text().decode('utf-8'),
-            expire.value, 
-            expire.unit, 
+            expire.value,
+            expire.unit,
             expire.epoch,
         ]
 
@@ -77,7 +77,7 @@ class ExpireValues(object):
         now = datetime.now()
         future = now + timedelta(hours=expire_timedelta)
         expire_epoch = int(time.mktime(future.timetuple()))
-        return expire_epoch 
+        return expire_epoch
 
 class ComboboxTarget(object):
 
