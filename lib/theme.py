@@ -19,16 +19,17 @@ class Theme(object):
         self.all_themes = {}
         path = SHARED_DATA_FILE('html/theme/')
 
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                name = file.split('.')[0]
-                ext = os.path.splitext(file)[1][1:]
+        for file in os.listdir(path):
+            full_path = os.path.join(path, file)
+            if not os.path.isdir(full_path):
+                continue
 
-                self.all_themes.setdefault(name, {})
-                self.all_themes[name][ext] = os.path.join(root, file)
+            name = file.split('.')[0]
+            self.all_themes.setdefault(name, {})
+            self.all_themes[name]['dir'] = full_path
 
-                if file.find('Ascending') > 0:
-                    self.all_themes[name]['is_ascending'] = True
+            if file.find('Ascending') > 0:
+                self.all_themes[name]['is_ascending'] = True
 
         SETTINGS_VIEW.connect("changed::theme", self.on_setting_theme_changed)
         self.on_setting_theme_changed(SETTINGS_VIEW, 'theme')
@@ -50,10 +51,10 @@ class Theme(object):
 
     def get_css_file(self):
         theme_name = self._get_theme_name()
-        css_file = self.all_themes[theme_name].get('css')
+        css_file = os.path.join(self.all_themes[theme_name]['dir'], 'default.css')
 
         if not os.path.isfile(css_file):
-            css_file = SHARED_DATA_FILE('html/theme/Twitter.css')
+            css_file = SHARED_DATA_FILE('html/theme/Twitter/default.css')
 
         return css_file
 
@@ -62,10 +63,11 @@ class Theme(object):
 
     def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
-        template_file = self.all_themes[theme_name].get('html')
+        template_file = os.path.join(self.all_themes[theme_name]['dir'], 
+                                     'status.html')
 
         if not os.path.isfile(template_file):
-            template_file = SHARED_DATA_FILE('html/theme/Twitter.html')
+            template_file = SHARED_DATA_FILE('html/theme/Twitter/status.html')
 
         with open(template_file, 'r') as fh:
             file = fh.read()
