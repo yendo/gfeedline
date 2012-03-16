@@ -15,3 +15,4 @@ div.reply { background-color: Lavender; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.username { font-weight: bold; }
+a.target_datetime { color: gray; }

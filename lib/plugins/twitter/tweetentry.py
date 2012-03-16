@@ -178,38 +178,39 @@ class FeedEventEntry(TweetEntry):
     def get_dict(self, api):
         entry = self.entry
 
-        time = TwitterTime(entry.created_at)
-
         if entry.event == 'favorite':
-            body = 'favorited your Tweet'
+            body = _('favorited your Tweet')
         elif entry.event == 'unfavorite':
-            body = 'unfavorited your Tweet'
+            body = _('unfavorited your Tweet')
         elif entry.event == 'follow':
-            body = 'followed you'
+            body = _('followed you')
         elif entry.event == 'list_member_added':
-            body = 'added you to list %s'
+            body = _('added you to list %s'
+                     ) % entry.raw['target_object']['uri'][1:]
         elif entry.event == 'list_member_removed':
-            body = 'removed you from list %s'
-        elif entry.event == 'user_update':
-            body = 'user_update'
+            body = _('removed you from list %s'
+                     ) % entry.raw['target_object']['uri'][1:]
+#        elif entry.event == 'user_update':
+#            body = 'user_update'
 
         key = '' if entry.source.protected == 'false' or not entry.source.protected \
             else "<img class='protected' src='key.png' width='10' height='13'>"
 
         if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
+            target_object = entry.target_object
             target_body = entry.target_object.text
-            target_date_time = time.get_local_time()
+
+            date_time = TwitterTime(target_object.created_at).get_local_time()
+            dt_format = ("(<a href='http://twitter.com/%s/status/%s' "
+                         "class='target_datetime'>%s</a>)")
+            target_date_time = dt_format % (
+                entry.target.screen_name, target_object.id, date_time)
         else:
             target_body = ''
             target_date_time = ''
 
-        try:
-            print entry.raw['target_object']['uri']
-        except:
-            pass
-
         entry_dict = dict(
-            date_time=time.get_local_time(),
+            date_time=TwitterTime(entry.created_at).get_local_time(),
             id='',
             styles='',
             image_uri=entry.source.profile_image_url,

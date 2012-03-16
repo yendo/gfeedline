@@ -230,11 +230,10 @@ class TwitterFeedOutput(TwitterOutputBase):
     def got_entry(self, entry, *args):
 
         if hasattr(entry, 'event'):
-            print "event!"
-            print entry.event
+            print "event!", entry.event
 
-            if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
-                print entry.target_object.text
+            if entry.event == 'user_update':
+                return
 
             entry_dict = self._get_entry_obj(entry).get_dict(self.api)
             self.view.update(entry_dict, 'event', self.options.get('notification'), 

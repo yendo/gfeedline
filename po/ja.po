@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-13 22:35+0900\n"
-"PO-Revision-Date: 2012-03-13 20:08+0900\n"
+"POT-Creation-Date: 2012-03-16 17:52+0900\n"
+"PO-Revision-Date: 2012-03-16 18:45+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -68,7 +68,7 @@ msgstr "リストタイムライン"
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:62
+#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:64
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
@@ -111,6 +111,28 @@ msgstr "送信者"
 #: ../lib/plugins/twitter/output.py:64 ../share/filters.glade.h:7
 msgid "Source"
 msgstr "ソース"
+
+#: ../lib/plugins/twitter/tweetentry.py:184
+msgid "favorited your Tweet"
+msgstr "がお気に入りに登録しました"
+
+#: ../lib/plugins/twitter/tweetentry.py:186
+msgid "unfavorited your Tweet"
+msgstr "がお気に入りから削除しました"
+
+#: ../lib/plugins/twitter/tweetentry.py:188
+msgid "followed you"
+msgstr "がフォローしました"
+
+#: ../lib/plugins/twitter/tweetentry.py:192
+#, python-format
+msgid "added you to list %s"
+msgstr "のリスト %s に追加されました"
+
+#: ../lib/plugins/twitter/tweetentry.py:195
+#, python-format
+msgid "removed you from list %s"
+msgstr "のリスト %s から削除されました"
 
 #: ../lib/updatewindow.py:63 ../lib/updatewindow.py:289
 #, python-format
