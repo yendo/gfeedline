@@ -20,7 +20,6 @@ TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
 class TweetEntry(object):
 
     def __init__(self, entry):
-        self.retweet_icon = ''
         self.entry=entry
 
     def get_dict(self, api):
@@ -39,7 +38,7 @@ class TweetEntry(object):
             id=entry.id,
             styles=styles,
             image_uri=user.profile_image_url,
-            retweet=self.retweet_icon,
+            retweet=self._get_retweet_icon(),
 
             user_name=user.screen_name,
             full_name=user.name,
@@ -78,6 +77,9 @@ class TweetEntry(object):
         text = decode_html_entities(text) # need to decode!
         return text
 
+    def _get_retweet_icon(self):
+        return ''
+
     def _get_protected_icon(self, attribute):
         key = '' if attribute == 'false' or not attribute \
             else "<img class='protected' src='key.png' width='10' height='13'>"
@@ -104,7 +106,7 @@ class EntryStyles(object):
             if entry.in_reply_to_screen_name == api.account.user_name else ''
 
     def _get_style_favorited(self, entry):
-        fav = entry.favorited 
+        fav = entry.favorited
         return '' if fav == 'false' or not fav else 'favorited'
 
     def _get_style_retweet(self):
@@ -113,8 +115,15 @@ class EntryStyles(object):
 class RestRetweetEntry(TweetEntry):
 
     def __init__(self, entry):
-        self.retweet_icon = "<img src='retweet.png' width='18' height='14'>"
         self.entry=entry.retweeted_status
+        self.retweet_by = entry.user.screen_name
+
+    def _get_retweet_icon(self):
+        title = _("Retweeted by %s") % self.retweet_by
+        html = ("<a href='http://twitter.com/%s'>"
+                "<img title='%s' src='retweet.png' width='18' height='14'>"
+                "</a>") % (self.retweet_by, title)
+        return html
 
 class FeedRetweetEntry(RestRetweetEntry):
 
@@ -123,6 +132,7 @@ class FeedRetweetEntry(RestRetweetEntry):
 
         self.entry=DictObj(entry.raw.get('retweeted_status'))
         self.entry.user=DictObj(self.entry.user)
+        self.retweet_by = entry.raw['user']['screen_name'] # name
 
 class SearchTweetEntry(TweetEntry):
 
@@ -224,7 +234,7 @@ class FeedEventEntry(TweetEntry):
 
             status_body=body,
             popup_body="%s %s" % (entry.source.name, body),
-            
+
             event=body,
             target='',
 

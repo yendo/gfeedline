@@ -249,9 +249,9 @@ class TwitterFeedOutput(TwitterOutputBase):
 
     def _get_entry_obj(self, entry):
         if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
-            entry_class = FeedRetweetEntry 
+            entry_class = FeedRetweetEntry
         elif hasattr(entry, 'event'):
-            entry_class = FeedEventEntry 
+            entry_class = FeedEventEntry
         else:
             entry_class = TweetEntry
 
