@@ -33,8 +33,6 @@ class TweetEntry(object):
 
         self.style_obj = EntryStyles()
         styles = self.style_obj.get(api, user.screen_name, entry)
-        key = '' if user.protected == 'false' or not user.protected \
-            else "<img class='protected' src='key.png' width='10' height='13'>"
 
         entry_dict = dict(
             date_time=time.get_local_time(),
@@ -46,7 +44,7 @@ class TweetEntry(object):
             user_name=user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
-            protected=key,
+            protected=self._get_protected_icon(user.protected),
             source=entry.source,
 
             status_body=body,
@@ -79,6 +77,11 @@ class TweetEntry(object):
     def _get_body(self, text):
         text = decode_html_entities(text) # need to decode!
         return text
+
+    def _get_protected_icon(self, attribute):
+        key = '' if attribute == 'false' or not attribute \
+            else "<img class='protected' src='key.png' width='10' height='13'>"
+        return key
 
 class EntryStyles(object):
 
@@ -193,9 +196,6 @@ class FeedEventEntry(TweetEntry):
 #        elif entry.event == 'user_update':
 #            body = 'user_update'
 
-        key = '' if entry.source.protected == 'false' or not entry.source.protected \
-            else "<img class='protected' src='key.png' width='10' height='13'>"
-
         if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
             target_object = entry.target_object
             target_body = entry.target_object.text
@@ -219,11 +219,11 @@ class FeedEventEntry(TweetEntry):
             user_name=entry.source.screen_name,
             full_name=entry.source.name,
             user_color=user_color.get(entry.source.screen_name),
-            protected=key,
+            protected=self._get_protected_icon(user.protected),
             source='',
 
             status_body=body,
-            popup_body=body,
+            popup_body="%s %s" % (entry.source.name, body),
             
             event=body,
             target='',
@@ -238,13 +238,13 @@ class FeedEventEntry(TweetEntry):
         return entry_dict
 
     def get_sender_name(self, api=None):
-        return ''
+        pass
 
     def get_full_name(self, entry):
-        return ''
+        pass
 
     def get_source_name(self):
-        return ''
+        pass
 
 class DictObj(object):
 
