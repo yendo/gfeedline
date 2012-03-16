@@ -232,11 +232,17 @@ class TwitterFeedOutput(TwitterOutputBase):
         if hasattr(entry, 'event'):
             print "event!", entry.event
 
-            if entry.event == 'user_update':
+            if self.api.account.user_name == entry.source.screen_name:
+                print "skip user own activity"
+                return
+            elif entry.event == 'user_update':
                 return
 
             entry_dict = self._get_entry_obj(entry).get_dict(self.api)
-            self.view.update(entry_dict, 'event', self.options.get('notification'), 
+            has_notify = self.options.get('notification') or \
+                self.options.get('activity_notification')
+            has_notify = True
+            self.view.update(entry_dict, 'event', has_notify,
                              is_first_call=False, is_new_update=True)
         else:
             super(TwitterFeedOutput, self).got_entry(entry, args)
