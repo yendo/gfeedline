@@ -12,7 +12,8 @@ user_color = UserColor()
 
 """
 TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
-           \- SearchTweetEntry
+           |- SearchTweetEntry
+           \- FeedEventEntry
 """
 
 
@@ -178,23 +179,29 @@ class FeedEventEntry(TweetEntry):
         entry = self.entry
 
         time = TwitterTime(entry.created_at)
-        body_string = entry.event
-        body = add_markup.convert(entry.event) # add_markup is global
+
+        if entry.event == 'favorite':
+            body = 'favorited your Tweet'
+        elif entry.event == 'unfavorite':
+            body = 'unfavorited your Tweet'
+        elif entry.event == 'follow':
+            body = 'followed you'
+        elif entry.event == 'list_member_added':
+            body = 'added you to list %s'
+        elif entry.event == 'list_member_removed':
+            body = 'removed you from list %s'
+        elif entry.event == 'user_update':
+            body = 'user_update'
 
         key = '' if entry.source.protected == 'false' or not entry.source.protected \
             else "<img class='protected' src='key.png' width='10' height='13'>"
 
-        styles = ''
-
         if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
-            target ="""
-  <div class='target'>
-  <span class='body'>%s</span>
-  <span class='datetime'>(%s)</span>
-  </div>
-""" % (entry.target_object.text, time.get_local_time() )
+            target_body = entry.target_object.text
+            target_date_time = time.get_local_time()
         else:
-            target =""
+            target_body = ''
+            target_date_time = ''
 
         try:
             print entry.raw['target_object']['uri']
@@ -204,7 +211,7 @@ class FeedEventEntry(TweetEntry):
         entry_dict = dict(
             date_time=time.get_local_time(),
             id='',
-            styles=styles,
+            styles='',
             image_uri=entry.source.profile_image_url,
             retweet='',
 
@@ -215,9 +222,17 @@ class FeedEventEntry(TweetEntry):
             source='',
 
             status_body=body,
-            popup_body=body_string,
-            target=target
-)
+            popup_body=body,
+            
+            event=body,
+            target='',
+
+            pre_username = '',
+            post_username = ' ',
+
+            target_body=target_body,
+            target_date_time=target_date_time,
+            )
 
         return entry_dict
 

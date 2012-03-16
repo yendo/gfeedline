@@ -59,9 +59,9 @@ class FeedView(FeedScrolledWindow):
         print "removed %s page!" % page
         self.notebook.remove_page(page)
 
-    def update(self, entry_dict, has_notify=False, 
+    def update(self, entry_dict, style='status', has_notify=False, 
                is_first_call=False, is_new_update=True):
-        text = self.theme.template.substitute(entry_dict)
+        text = self.theme.template[style].substitute(entry_dict)
 
         if has_notify and not is_first_call:
             self.notification.notify(entry_dict)

@@ -5,6 +5,8 @@ div.status { line-height: 1.4;
 div.target { padding-left: 1em;
              font-size: 80%; 
              color: gray; }
+
+div.event { background-color: LightGoldenrodYellow; } 
 div.mine { background-color: MistyRose; } 
 div.reply { background-color: Lavender; } 
 

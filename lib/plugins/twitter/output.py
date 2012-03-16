@@ -88,7 +88,7 @@ class TwitterOutputBase(object):
         if is_new_update:
             self.last_id = entry_dict['id']
 
-        self.view.update(entry_dict, self.options.get('notification'), 
+        self.view.update(entry_dict, 'status', self.options.get('notification'), 
                          is_first_call, is_new_update)
 
     def _get_entry_obj(self, entry):
@@ -237,7 +237,7 @@ class TwitterFeedOutput(TwitterOutputBase):
                 print entry.target_object.text
 
             entry_dict = self._get_entry_obj(entry).get_dict(self.api)
-            self.view.update(entry_dict, self.options.get('notification'), 
+            self.view.update(entry_dict, 'event', self.options.get('notification'), 
                              is_first_call=False, is_new_update=True)
         else:
             super(TwitterFeedOutput, self).got_entry(entry, args)

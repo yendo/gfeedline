@@ -16,6 +16,8 @@ from utils.settings import SETTINGS_VIEW
 class Theme(object):
 
     def __init__(self):
+        self.template = {}
+
         self.all_themes = {}
         path = SHARED_DATA_FILE('html/theme/')
 
@@ -63,15 +65,19 @@ class Theme(object):
 
     def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
-        template_file = os.path.join(self.all_themes[theme_name]['dir'], 
-                                     'status.html')
 
-        if not os.path.isfile(template_file):
-            template_file = SHARED_DATA_FILE('html/theme/Twitter/status.html')
+        for style in ['status', 'event']:
+            template_file = os.path.join(
+                self.all_themes[theme_name]['dir'], '%s.html' % style)
 
-        with open(template_file, 'r') as fh:
-            file = fh.read()
-        self.template = Template(unicode(file, 'utf-8', 'ignore'))
+            if not os.path.isfile(template_file):
+                template_file = SHARED_DATA_FILE(
+                    'html/theme/Twitter/%s.html' % style)
+
+            with open(template_file, 'r') as fh:
+                file = fh.read()
+
+            self.template[style] = Template(unicode(file, 'utf-8', 'ignore'))
 
 class FontSet(object):
 
