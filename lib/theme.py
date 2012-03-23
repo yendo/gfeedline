@@ -9,7 +9,7 @@ from string import Template
 
 from gi.repository import Pango
 
-from constants import SHARED_DATA_FILE
+from constants import SHARED_DATA_FILE, THEME_HOME
 from utils.settings import SETTINGS_VIEW
 
 
@@ -19,18 +19,21 @@ class Theme(object):
         self.template = {}
 
         self.all_themes = {}
-        path = SHARED_DATA_FILE('html/theme/')
+        theme_system = SHARED_DATA_FILE('html/theme/')
 
-        for file in os.listdir(path):
-            full_path = os.path.join(path, file)
+        alllist = [(theme_system, p) for p in os.listdir(theme_system)] +\
+            [(THEME_HOME, p) for p in os.listdir(THEME_HOME)]
+
+        for path, filename in alllist:
+            full_path = os.path.join(path, filename)
             if not os.path.isdir(full_path):
                 continue
 
-            name = file.split('.')[0]
+            name = filename.split('.')[0]
             self.all_themes.setdefault(name, {})
             self.all_themes[name]['dir'] = full_path
 
-            if file.find('Ascending') > 0:
+            if filename.find('Ascending') > 0:
                 self.all_themes[name]['is_ascending'] = True
 
         SETTINGS_VIEW.connect("changed::theme", self.on_setting_theme_changed)

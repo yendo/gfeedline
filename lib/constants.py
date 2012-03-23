@@ -14,8 +14,9 @@ if not os.access(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'), os.R_OK):
 # DATA_HOME = os.path.join(xdg_data_home, APP_NAME)
 CACHE_HOME = os.path.join(xdg_cache_home, APP_NAME)
 CONFIG_HOME = os.path.join(xdg_config_home, APP_NAME)
+THEME_HOME = os.path.join(CONFIG_HOME, 'theme')
 
-for dir in [CACHE_HOME, CONFIG_HOME]:
+for dir in [CACHE_HOME, CONFIG_HOME, THEME_HOME]:
     if not os.path.isdir(dir):
         os.makedirs(dir, 0700)
     elif S_IMODE(os.stat(dir).st_mode) != 0700:
