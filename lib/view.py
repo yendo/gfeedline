@@ -89,7 +89,7 @@ class FeedWebView(WebKit.WebView):
         self.theme = scrolled_window.theme
         self.dnd = DnDFile()
 
-        self.load_uri("file://%s" % SHARED_DATA_FILE('html/base.html')) 
+        self.load_uri("file://%s" % SHARED_DATA_FILE('html/base.html'))
         self.connect("navigation-policy-decision-requested", self.on_click_link)
         self.connect("populate-popup", self.on_popup, api)
         self.connect("hovering-over-link", self.on_hovering_over_link)
