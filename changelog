@@ -5,6 +5,11 @@
 	* theme.py: Added support for user theme directory.
 	  (~/.config/gfeedline/theme/)
 
+2012-03-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twittytwister/streaming.py: Added support for Twitter activity
+	  streaming.
+
 2012-03-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 1.1 beta 1 release.

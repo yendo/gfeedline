@@ -11,6 +11,7 @@ class FeedSourceDialog(DialogBase):
     DIALOG = 'feed_source'
 
     def _setup_ui(self):
+        self.notebook = self.gui.get_object('notebook_feedsource')
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
         self.entry_name = self.gui.get_object('entry_name')
         self.label_argument = self.gui.get_object('label_argument')
@@ -63,6 +64,14 @@ class FeedSourceDialog(DialogBase):
             button_status = True
 
         self.button_ok.set_sensitive(button_status)
+
+        self.notebook.remove_page(1)
+
+
+class OptionPage(object):
+
+    def __init__(self, notebook):
+        
 
 class TargetCombobox(object):
 
