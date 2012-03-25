@@ -77,43 +77,56 @@ class OptionsTab(object):
     def __init__(self, gui, feedliststore):
         self.gui = gui
         self._options_child = None
-
-        self.notebook = gui.get_object('notebook_feedsource')
-        self.grid_option = gui.get_object('grid_option')
-
-        # notify events
-        if feedliststore:
-            value = feedliststore[Column.OPTIONS]
-            state = value.get('notify_events')
-        else:
-            state = True
-
-        checkbutton = self.gui.get_object('checkbutton_option')
-        checkbutton.set_label(_('_Notify activity'))
-        checkbutton.set_active(state)
+        self.feedliststore = feedliststore
 
     def change(self, target):
         if self._options_child:
-            page_num = self.notebook.page_num(self._options_child)
-            self.notebook.remove_page(page_num)
+            self._options_child.clear()
 
-        # notify events
-        if target == _('User Stream'):
-            label = Gtk.Label.new(_('Options'))
-            self.notebook.append_page(self.grid_option, label)
-            self._options_child = self.grid_option
+        child_class = OptionsTabUserStream if target == _('User Stream') \
+            else OptionsTabChild
+        self._options_child = child_class(self.gui, self.feedliststore)
 
     def get(self, target):
-        # notify events
-        checkbutton = self.gui.get_object('checkbutton_option')
-        state = checkbutton.get_active()
-        result = {'notify_events': state} if target == _('User Stream') else {}
+        return self._options_child.get()
+
+class OptionsTabChild(object):
+
+    def __init__(self, gui, feedliststore):
+        self.widget = None
+        self.notebook = gui.get_object('notebook_feedsource')
+
+    def get(self):
+        return {}
+
+    def clear(self):
+        if self.widget:
+            page_num = self.notebook.page_num(self.widget)
+            self.notebook.remove_page(page_num)
+
+class OptionsTabUserStream(OptionsTabChild):
+
+    def __init__(self, gui, feedliststore):
+        super(OptionsTabUserStream, self).__init__(gui, feedliststore)
+
+        self.widget = gui.get_object('grid_option')
+        self.checkbutton = gui.get_object('checkbutton_option')
+        self.notebook.append_page(self.widget, Gtk.Label.new(_('Options')))
+
+        state = feedliststore[Column.OPTIONS].get('notify_events') \
+            if feedliststore else True
+
+        self.checkbutton.set_label(_('_Notify events'))
+        self.checkbutton.set_active(state)
+
+    def get(self):
+        state = self.checkbutton.get_active()
+        result = {'notify_events': state}
         return result
 
 class TargetCombobox(object):
 
     def __init__(self, gui, feedliststore):
-        self.feedliststore = feedliststore
         self.widget = gui.get_object('comboboxtext_target')
 
         self.label_list = sorted([x for x in TwitterAPIDict().keys()])
