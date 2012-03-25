@@ -205,6 +205,8 @@ class FeedEventEntry(TweetEntry):
                      ) % entry.raw['target_object']['uri'][1:]
 #        elif entry.event == 'user_update':
 #            body = 'user_update'
+        else:
+            body = ''
 
         if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
             target_object = entry.target_object
@@ -229,7 +231,7 @@ class FeedEventEntry(TweetEntry):
             user_name=entry.source.screen_name,
             full_name=entry.source.name,
             user_color=user_color.get(entry.source.screen_name),
-            protected=self._get_protected_icon(user.protected),
+            protected=self._get_protected_icon(entry.source.protected),
             source='',
 
             status_body=body,
