@@ -1,5 +1,6 @@
 2012-03-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* NEWS: 1.5 beta 1 release.
 	* feedsource.py: Added an Options tab to Feed Source Dialog.
 
 2012-03-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
