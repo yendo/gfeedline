@@ -240,8 +240,7 @@ class TwitterFeedOutput(TwitterOutputBase):
 
             entry_dict = self._get_entry_obj(entry).get_dict(self.api)
             has_notify = self.options.get('notification') or \
-                self.options.get('activity_notification')
-            has_notify = True
+                self.options.get('notify_events')
             self.view.update(entry_dict, 'event', has_notify,
                              is_first_call=False, is_new_update=True)
         else:

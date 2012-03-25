@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-16 21:33+0900\n"
-"PO-Revision-Date: 2012-03-16 21:33+0900\n"
+"POT-Creation-Date: 2012-03-25 16:41+0900\n"
+"PO-Revision-Date: 2012-03-25 16:42+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -72,7 +72,9 @@ msgstr "メンション"
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:87
+#. notify events
+#: ../lib/plugins/twitter/api.py:87 ../lib/preferences/feedsource.py:101
+#: ../lib/preferences/feedsource.py:110
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
@@ -138,6 +140,14 @@ msgstr "のリスト %s に追加されました"
 #, python-format
 msgid "removed you from list %s"
 msgstr "のリスト %s から削除されました"
+
+#: ../lib/preferences/feedsource.py:92
+msgid "_Notify activity"
+msgstr "アクティビティの通知を行う"
+
+#: ../lib/preferences/feedsource.py:102
+msgid "Options"
+msgstr "オプション"
 
 #: ../lib/updatewindow.py:63 ../lib/updatewindow.py:289
 #, python-format

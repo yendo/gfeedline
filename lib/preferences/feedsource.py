@@ -11,13 +11,13 @@ class FeedSourceDialog(DialogBase):
     DIALOG = 'feed_source'
 
     def _setup_ui(self):
-        self.notebook = self.gui.get_object('notebook_feedsource')
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
         self.entry_name = self.gui.get_object('entry_name')
         self.label_argument = self.gui.get_object('label_argument')
         self.entry_argument = ArgumentEntry(self.gui, self.combobox_target)
         self.entry_group = self.gui.get_object('entry_group')
 
+        self.options_tab = OptionsTab(self.gui, self.liststore_row)
         self.on_comboboxtext_target_changed()
 
     def run(self):
@@ -48,7 +48,10 @@ class FeedSourceDialog(DialogBase):
             {'notification': checkbutton_notification.get_active()},
         }
 
-        # print v
+        target = self.combobox_target.get_active_text()
+        options = self.options_tab.get(target)
+        v['options'].update(options)
+
         self.dialog.destroy()
 #        if response_id == Gtk.ResponseType.OK:
 #            SETTINGS_RECENTS.set_string('source', v['source'])
@@ -65,13 +68,47 @@ class FeedSourceDialog(DialogBase):
 
         self.button_ok.set_sensitive(button_status)
 
-        self.notebook.remove_page(1)
+        # Options Tab
+        target = self.combobox_target.get_active_text()
+        self.options_tab.change(target)
 
+class OptionsTab(object):
 
-class OptionPage(object):
+    def __init__(self, gui, feedliststore):
+        self.gui = gui
+        self._options_child = None
 
-    def __init__(self, notebook):
-        
+        self.notebook = gui.get_object('notebook_feedsource')
+        self.grid_option = gui.get_object('grid_option')
+
+        # notify events
+        if feedliststore:
+            value = feedliststore[Column.OPTIONS]
+            state = value.get('notify_events')
+        else:
+            state = True
+
+        checkbutton = self.gui.get_object('checkbutton_option')
+        checkbutton.set_label(_('_Notify activity'))
+        checkbutton.set_active(state)
+
+    def change(self, target):
+        if self._options_child:
+            page_num = self.notebook.page_num(self._options_child)
+            self.notebook.remove_page(page_num)
+
+        # notify events
+        if target == _('User Stream'):
+            label = Gtk.Label.new(_('Options'))
+            self.notebook.append_page(self.grid_option, label)
+            self._options_child = self.grid_option
+
+    def get(self, target):
+        # notify events
+        checkbutton = self.gui.get_object('checkbutton_option')
+        state = checkbutton.get_active()
+        result = {'notify_events': state} if target == _('User Stream') else {}
+        return result
 
 class TargetCombobox(object):
 
