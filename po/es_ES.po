@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-16 21:33+0900\n"
-"PO-Revision-Date: 2012-03-19 09:40+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
+"POT-Creation-Date: 2012-03-25 23:22+0900\n"
+"PO-Revision-Date: 2012-03-25 16:59+0000\n"
+"Last-Translator: alexnmoya <alexnmoya@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.net/projects/p/gfeedline/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,7 +76,7 @@ msgstr "Menciones"
 msgid "Direct Messages"
 msgstr "Mensajes directos"
 
-#: ../lib/plugins/twitter/api.py:87
+#: ../lib/plugins/twitter/api.py:87 ../lib/preferences/feedsource.py:86
 msgid "User Stream"
 msgstr "User Stream"
 
@@ -142,6 +142,14 @@ msgstr "lo añadió a la lista %s"
 #, python-format
 msgid "removed you from list %s"
 msgstr "lo eliminó de la lista %s"
+
+#: ../lib/preferences/feedsource.py:114
+msgid "Options"
+msgstr "Opciones"
+
+#: ../lib/preferences/feedsource.py:119
+msgid "_Notify events"
+msgstr "_Notificar eventos"
 
 #: ../lib/updatewindow.py:63 ../lib/updatewindow.py:289
 #, python-format
