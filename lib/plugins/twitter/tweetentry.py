@@ -191,22 +191,17 @@ class FeedEventEntry(TweetEntry):
     def get_dict(self, api):
         entry = self.entry
 
-        if entry.event == 'favorite':
-            body = _('favorited your Tweet')
-        elif entry.event == 'unfavorite':
-            body = _('unfavorited your Tweet')
-        elif entry.event == 'follow':
-            body = _('followed you')
-        elif entry.event == 'list_member_added':
-            body = _('added you to list %s'
-                     ) % entry.raw['target_object']['uri'][1:]
-        elif entry.event == 'list_member_removed':
-            body = _('removed you from list %s'
-                     ) % entry.raw['target_object']['uri'][1:]
-#        elif entry.event == 'user_update':
-#            body = 'user_update'
-        else:
-            body = ''
+        msg_dict = {
+            'favorite': _('favorited your Tweet'),
+            'unfavorite': _('unfavorited your Tweet'),
+            'follow': _('followed you'),
+            'list_member_added': 
+            _('added you to list %s') % entry.raw['target_object']['uri'][1:],
+            'list_member_removed': 
+            _('removed you from list %s') % entry.raw['target_object']['uri'][1:],
+            # 'user_update': 'user_update',
+            }
+        body = msg_dict.get(entry.event) or ''
 
         if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
             target_object = entry.target_object
