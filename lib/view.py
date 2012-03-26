@@ -270,6 +270,7 @@ class DnDSelection(object):
                 data = data.decode('utf16', 'replace')
 
             uri, title = data.split('\n')
-            text = "%s - %s" % (title, uri) if title else uri
+            link_style = "%(title)s %(uri)s"
+            text = link_style % {'title': title, 'uri': uri} if title else uri
 
         return text, image_file
