@@ -56,7 +56,8 @@ class Theme(object):
 
     def get_css_file(self):
         theme_name = self._get_theme_name()
-        css_file = os.path.join(self.all_themes[theme_name]['dir'], 'default.css')
+        css_file = os.path.join(self.all_themes[theme_name]['dir'], 'default.css') \
+             if theme_name in self.all_themes else ''
 
         if not os.path.isfile(css_file):
             css_file = SHARED_DATA_FILE('html/theme/Twitter/default.css')
@@ -71,7 +72,8 @@ class Theme(object):
 
         for style in ['status', 'event']:
             template_file = os.path.join(
-                self.all_themes[theme_name]['dir'], '%s.html' % style)
+                self.all_themes[theme_name]['dir'], '%s.html' % style) \
+                if theme_name in self.all_themes else ''
 
             if not os.path.isfile(template_file):
                 template_file = SHARED_DATA_FILE(
