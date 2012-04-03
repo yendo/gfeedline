@@ -1,0 +1,7 @@
+body { margin: 0; }
+
+div.status { padding: 8px;
+             border-bottom: 1px solid #ccc; }
+div.icon { float: left; width: 45px; }
+div.text { margin-left: 45px; }
+div.icon img { -webkit-border-radius : 5px; }

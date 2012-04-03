@@ -1,0 +1,17 @@
+lib/filterliststore.py
+lib/menu.py
+lib/notification.py
+lib/plugins/twitter/api.py
+lib/plugins/twitter/assistant.py
+lib/plugins/twitter/output.py
+lib/plugins/twitter/tweetentry.py
+lib/preferences/feedsource.py
+lib/updatewindow.py
+share/assistant_twitter.glade
+share/feedsource.glade
+share/filters.glade
+share/gfeedline.desktop.in
+share/gfeedline.glade
+share/preferences.glade
+share/retweet.glade
+share/update.glade
