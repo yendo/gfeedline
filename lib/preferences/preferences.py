@@ -133,7 +133,7 @@ class ComboboxTheme(object):
 
     def __init__(self, gui):
         theme = Theme()
-        self.labels = theme.get_all_list()
+        self.labels = sorted(theme.get_all_list())
 
         self.combobox = gui.get_object('comboboxtext_theme')
         for text in self.labels:
