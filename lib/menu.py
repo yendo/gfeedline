@@ -90,7 +90,7 @@ class RetweetMenuItem(PopupMenuItem):
             self.set_sensitive(self._is_enabled(dom))
 
     def _is_enabled(self, dom):
-        is_mine = dom.get_attribute('class').find('mine') >= 0
+        is_mine = dom.get_attribute('class').count('mine')
         is_protected = bool(dom.get_elements_by_class_name('protected').item(0))
         return not is_mine and not is_protected
 
@@ -109,7 +109,7 @@ class FavMenuItem(RetweetMenuItem):
     LABEL = _('_Favorite')
 
     def _is_enabled(self, dom):
-        is_mine = dom.get_attribute('class').find('mine') >= 0
+        is_mine = dom.get_attribute('class').count('mine')
         return not is_mine
 
     def on_activate(self, menuitem, entry_id):

@@ -33,7 +33,7 @@ class Theme(object):
             self.all_themes.setdefault(name, {})
             self.all_themes[name]['dir'] = full_path
 
-            if filename.find('Ascending') > 0:
+            if filename.count('Ascending'):
                 self.all_themes[name]['is_ascending'] = True
 
         SETTINGS_VIEW.connect("changed::theme", self.on_setting_theme_changed)

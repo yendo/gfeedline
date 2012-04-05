@@ -76,7 +76,7 @@ class TwitterOutputBase(object):
         TARGET, WORD = FilterColumn.TARGET, FilterColumn.WORD
         is_bad = bool([
                 row for row in filters
-                if text.lower().find(row[WORD].decode('utf-8').lower()) >= 0
+                if text.lower().count(row[WORD].decode('utf-8').lower())
                 and row[TARGET].decode('utf-8') == target
                 ])
         return is_bad

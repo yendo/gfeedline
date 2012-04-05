@@ -68,7 +68,7 @@ class TweetEntry(object):
     def _parse_source_html(self, source):
         source = decode_html_entities(source)
 
-        if source.find('http') > 0:
+        if source.startswith('<a href='):
             soup = BeautifulSoup(source)
             source = [x.contents[0] for x in soup('a')][0]
         return source
