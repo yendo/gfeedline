@@ -195,13 +195,14 @@ class FeedEventEntry(TweetEntry):
             'favorite': _('favorited your Tweet'),
             'unfavorite': _('unfavorited your Tweet'),
             'follow': _('followed you'),
-            'list_member_added': 
-            _('added you to list %s') % entry.raw['target_object']['uri'][1:],
-            'list_member_removed': 
-            _('removed you from list %s') % entry.raw['target_object']['uri'][1:],
+            'list_member_added': _('added you to list %s'),
+            'list_member_removed': _('removed you from list %s'),
             # 'user_update': 'user_update',
             }
+
         body = msg_dict.get(entry.event) or ''
+        if entry.event.startswith('list_member'):
+            body = body % entry.raw['target_object']['uri'][1:]
 
         if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
             target_object = entry.target_object
