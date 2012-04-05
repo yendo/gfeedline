@@ -1,3 +1,8 @@
+2012-04-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py (FeedEventEntry.get_dict): Fixed a bug
+	  that prevented showing user stream events.
+
 2012-04-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 1.5 release.
