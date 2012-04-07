@@ -44,7 +44,7 @@ class TweetEntry(object):
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
             protected=self._get_protected_icon(user.protected),
-            source=entry.source,
+            source=self._decode_source_html_entities(entry.source),
 
             status_body=body,
             popup_body=body_string,
@@ -84,6 +84,9 @@ class TweetEntry(object):
         key = '' if attribute == 'false' or not attribute \
             else "<img class='protected' src='key.png' width='10' height='13'>"
         return key
+
+    def _decode_source_html_entities(self, source_html):
+        return decode_html_entities(source_html).replace('"', "'")
 
 class EntryStyles(object):
 
@@ -162,7 +165,7 @@ class SearchTweetEntry(TweetEntry):
             full_name=self.get_full_name(entry),
             user_color=user_color.get(name),
             protected='',
-            source=entry.twitter_source,
+            source=self._decode_source_html_entities(entry.twitter_source),
 
             status_body=body,
             popup_body=body_string,
