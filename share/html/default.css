@@ -10,7 +10,7 @@ div.event { background-color: LightGoldenrodYellow; }
 div.mine { background-color: MistyRose; } 
 div.reply { background-color: Lavender; } 
 
-.datetime { color: #606060 }
+.datetime, .datetime a { color: #606060 }
 
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
