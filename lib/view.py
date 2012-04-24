@@ -120,6 +120,8 @@ class FeedWebView(WebKit.WebView):
 
     def update(self, text=None):
         text = text.replace('\n', '')
+        text = text.replace('\\', '\\\\')
+
         is_ascending_js = self._bool_js(self.theme.is_ascending())
         is_paused_js = self._bool_js(self.scroll.is_paused)
 
