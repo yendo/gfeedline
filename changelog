@@ -1,3 +1,8 @@
+2012-04-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/output.py, twitter/tweetentry.py: Show retweeting user
+	  info (event) for my tweets.
+
 2012-04-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* view.py (FeedWebView): Fixed a backslash escaping (issue #2).

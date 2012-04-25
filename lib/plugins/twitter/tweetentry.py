@@ -133,9 +133,47 @@ class FeedRetweetEntry(RestRetweetEntry):
     def __init__(self, entry):
         super(FeedRetweetEntry, self).__init__(entry)
 
+        self.original_entry = entry
         self.entry=DictObj(entry.raw.get('retweeted_status'))
         self.entry.user=DictObj(self.entry.user)
         self.retweet_by = entry.raw['user']['screen_name'] # name
+
+class MyFeedRetweetEntry(FeedRetweetEntry):
+    
+    def get_dict(self, api):
+        retweeted_dict = super(FeedRetweetEntry, self).get_dict(api)
+
+        user = self.original_entry.raw['user']
+        created_at = self.original_entry.created_at
+        body = _('retweeted your Tweet')
+
+        entry_dict = dict(
+            date_time=TwitterTime(created_at).get_local_time(),
+            id='',
+            styles='',
+
+            image_uri=user['profile_image_url'],
+            retweet='',
+
+            user_name=user['screen_name'],
+            full_name=user['name'],
+            user_color=user_color.get(user['screen_name']),
+            protected=self._get_protected_icon(user['protected']),
+            source=self.original_entry.source,
+
+            status_body=body,
+            popup_body="%s %s" % (user['name'], body),
+
+            event=body,
+            target='',
+
+            pre_username = '',
+            post_username = ' ',
+
+            target_body=retweeted_dict['status_body'],
+            target_date_time=retweeted_dict['date_time'],)
+
+        return entry_dict
 
 class SearchTweetEntry(TweetEntry):
 

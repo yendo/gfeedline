@@ -88,7 +88,14 @@ class TwitterOutputBase(object):
         if is_new_update:
             self.last_id = entry_dict['id']
 
-        self.view.update(entry_dict, 'status', self.options.get('notification'), 
+        has_notify = self.options.get('notification') 
+        if 'event' in entry_dict:
+            style = 'event'
+            has_notify = has_notify or self.options.get('notify_events')
+        else:
+            style = 'status'
+
+        self.view.update(entry_dict, style, has_notify, 
                          is_first_call, is_new_update)
 
     def _get_entry_obj(self, entry):
@@ -248,7 +255,10 @@ class TwitterFeedOutput(TwitterOutputBase):
 
     def _get_entry_obj(self, entry):
         if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
-            entry_class = FeedRetweetEntry
+            retweeted_user = entry.raw['retweeted_status']['user']['screen_name']
+            account_user = self.api.account.user_name 
+            entry_class = MyFeedRetweetEntry \
+                if retweeted_user == account_user else FeedRetweetEntry
         elif hasattr(entry, 'event'):
             entry_class = FeedEventEntry
         else:
