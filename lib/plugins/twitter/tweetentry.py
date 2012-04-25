@@ -88,6 +88,17 @@ class TweetEntry(object):
     def _decode_source_html_entities(self, source_html):
         return decode_html_entities(source_html).replace('"', "'")
 
+    def _get_target_date_time(self, target_object, original_screen_name):
+        "Get the datetime of retweeted original post not retweeting post."
+
+        date_time = TwitterTime(target_object.created_at).get_local_time()
+        dt_format = ("(<a href='http://twitter.com/%s/status/%s' "
+                     "class='target_datetime'>%s</a>)")
+        target_date_time = dt_format % (
+            original_screen_name, target_object.id, date_time)
+
+        return target_date_time
+
 class EntryStyles(object):
 
     def get(self, api, screen_name, entry=None):
@@ -139,13 +150,15 @@ class FeedRetweetEntry(RestRetweetEntry):
         self.retweet_by = entry.raw['user']['screen_name'] # name
 
 class MyFeedRetweetEntry(FeedRetweetEntry):
-    
+
     def get_dict(self, api):
         retweeted_dict = super(FeedRetweetEntry, self).get_dict(api)
 
         user = self.original_entry.raw['user']
         created_at = self.original_entry.created_at
         body = _('retweeted your Tweet')
+        target_date_time = self._get_target_date_time(
+            self.entry, self.entry.user.screen_name)
 
         entry_dict = dict(
             date_time=TwitterTime(created_at).get_local_time(),
@@ -171,7 +184,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             post_username = ' ',
 
             target_body=retweeted_dict['status_body'],
-            target_date_time=retweeted_dict['date_time'],)
+            target_date_time=target_date_time,)
 
         return entry_dict
 
@@ -246,14 +259,9 @@ class FeedEventEntry(TweetEntry):
             body = body % entry.raw['target_object']['uri'][1:]
 
         if hasattr(entry, 'target_object') and hasattr(entry.target_object, 'text'):
-            target_object = entry.target_object
             target_body = entry.target_object.text
-
-            date_time = TwitterTime(target_object.created_at).get_local_time()
-            dt_format = ("(<a href='http://twitter.com/%s/status/%s' "
-                         "class='target_datetime'>%s</a>)")
-            target_date_time = dt_format % (
-                entry.target.screen_name, target_object.id, date_time)
+            target_date_time = self._get_target_date_time(
+                entry.target_object, entry.target.screen_name)
         else:
             target_body = ''
             target_date_time = ''
