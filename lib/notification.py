@@ -54,7 +54,7 @@ class StatusNotification(Notification):
 
     def _get_actions(self, entry):
         #print entry
-        if self.has_actions:
+        if self.has_actions and entry.get('id'):
             entry_pickle = pickle.dumps(entry)
             entry_base64 = base64.b64encode(entry_pickle)
 
