@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-25 23:20+0900\n"
-"PO-Revision-Date: 2012-03-25 23:20+0900\n"
+"POT-Creation-Date: 2012-04-26 00:36+0900\n"
+"PO-Revision-Date: 2012-04-26 00:37+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -112,29 +112,33 @@ msgstr "送信者"
 msgid "Source"
 msgstr "ソース"
 
-#: ../lib/plugins/twitter/tweetentry.py:122
+#: ../lib/plugins/twitter/tweetentry.py:125
 #, python-format
 msgid "Retweeted by %s"
 msgstr "%s がリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:195
+#: ../lib/plugins/twitter/tweetentry.py:148
+msgid "retweeted your Tweet"
+msgstr "がリツイートしました"
+
+#: ../lib/plugins/twitter/tweetentry.py:236
 msgid "favorited your Tweet"
 msgstr "がお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:197
+#: ../lib/plugins/twitter/tweetentry.py:237
 msgid "unfavorited your Tweet"
 msgstr "がお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:199
+#: ../lib/plugins/twitter/tweetentry.py:238
 msgid "followed you"
 msgstr "がフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:201
+#: ../lib/plugins/twitter/tweetentry.py:239
 #, python-format
 msgid "added you to list %s"
 msgstr "のリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:204
+#: ../lib/plugins/twitter/tweetentry.py:240
 #, python-format
 msgid "removed you from list %s"
 msgstr "のリスト %s から削除されました"
