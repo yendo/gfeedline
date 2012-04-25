@@ -10,7 +10,8 @@ TwitterOutputBase --- TwitterRestOutput --- TwitterSearchOutput
                    \- TwitterFeedOutput
 
 Rest: got_entry-> check_entry-> buffer_entry : print_all_entries-> print_entry
-Feed: got_entry-> check_entry-> buffer_entry->                     print_entry
+Feed: got_entry-> check_entry-> buffer_entry---------------------> print_entry
+              \-> (events)--------------------------------------/
 """
 
 import time
@@ -83,17 +84,19 @@ class TwitterOutputBase(object):
 
     def print_entry(self, entry, is_first_call=False):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)
-
-        is_new_update = self.last_id < entry_dict['id']
-        if is_new_update:
-            self.last_id = entry_dict['id']
-
         has_notify = self.options.get('notification') 
+
         if 'event' in entry_dict:
             style = 'event'
+            is_new_update = True
+
             has_notify = has_notify or self.options.get('notify_events')
         else:
             style = 'status'
+            is_new_update = self.last_id < entry_dict['id']
+
+            if is_new_update:
+                self.last_id = entry_dict['id']
 
         self.view.update(entry_dict, style, has_notify, 
                          is_first_call, is_new_update)
@@ -235,7 +238,6 @@ class TwitterFeedOutput(TwitterOutputBase):
         self.print_entry(entry)
 
     def got_entry(self, entry, *args):
-
         if hasattr(entry, 'event'):
             print "event!", entry.event
 
@@ -245,11 +247,7 @@ class TwitterFeedOutput(TwitterOutputBase):
             elif entry.event == 'user_update':
                 return
 
-            entry_dict = self._get_entry_obj(entry).get_dict(self.api)
-            has_notify = self.options.get('notification') or \
-                self.options.get('notify_events')
-            self.view.update(entry_dict, 'event', has_notify,
-                             is_first_call=False, is_new_update=True)
+            self.print_entry(entry)
         else:
             super(TwitterFeedOutput, self).got_entry(entry, args)
 
