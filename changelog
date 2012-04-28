@@ -1,3 +1,7 @@
+2012-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* es_ES.po: Updated Spanish translation.  Thanks alexnmoya!
+
 2012-04-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* filterliststore.py: Fixed a filter expiration bug.
