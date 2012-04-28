@@ -1,5 +1,6 @@
 2012-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* NEWS: 1.6 beta 1 release.
 	* twitter/output.py, twitter/api.py: Show user own reply messages
 	  on reply tabs.
 	* es_ES.po: Updated Spanish translation.  Thanks alexnmoya!
