@@ -22,6 +22,7 @@ from tweetentry import *
 from ...utils.htmlentities import decode_html_entities
 from ...utils.settings import SETTINGS_VIEW
 from ...filterliststore import FilterColumn
+from ...constants import Column
 
 class TwitterOutputFactory(object):
 
@@ -100,6 +101,13 @@ class TwitterOutputBase(object):
 
         self.view.update(entry_dict, style, has_notify, 
                          is_first_call, is_new_update)
+
+        other_view = self.api.print_to_other_view(entry_dict)
+        if other_view:
+            mention_views = [x[Column.API].view for x in self.view.liststore 
+                             if x[Column.TARGET].decode('utf-8') == other_view]
+            for view in mention_views:
+                view.update(entry_dict, style, is_new_update=is_new_update)
 
     def _get_entry_obj(self, entry):
         return TweetEntry(entry)

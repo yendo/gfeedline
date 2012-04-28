@@ -1,5 +1,7 @@
 2012-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/output.py, twitter/api.py: Show user own reply messages
+	  on reply tabs.
 	* es_ES.po: Updated Spanish translation.  Thanks alexnmoya!
 
 2012-04-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>

@@ -38,6 +38,8 @@ class TwitterAPIBase(object):
     def get_options(self, argument):
         return {}
 
+    def print_to_other_view(self, entry_dict):
+        return None
 
 class TwitterFeedAPIBase(TwitterAPIBase):
 
@@ -88,6 +90,13 @@ class TwitterAPIUserStream(TwitterFeedAPIBase):
 
     def _get_api(self):
         return self.account.api.userstream
+
+    def print_to_other_view(self, entry_dict):
+        is_my_tweet = entry_dict['user_name'] ==  self.account.user_name
+        count = entry_dict['status_body'].count('@')
+
+        view = _('Mentions') if is_my_tweet and count else None
+        return view
 
 class TwitterAPITrack(TwitterFeedAPIBase):
 
