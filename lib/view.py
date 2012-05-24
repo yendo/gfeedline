@@ -150,7 +150,9 @@ class FeedWebView(WebKit.WebView):
         self.link_on_webview.change(uri)
 
         if uri:
-            self.scroll.is_paused = True
+            # FIXME
+            # self.scroll.is_paused = True
+            self.scroll.pause(delay=30)
         else:
             self.scroll.pause(delay=3)
 

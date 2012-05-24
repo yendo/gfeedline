@@ -1,3 +1,9 @@
+2012-05-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.6 rc 1 release.
+	* view.py (FeedWebView.on_hovering_over_link): Fixed a scroll lock
+	  problem.
+
 2012-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 1.6 beta 1 release.
