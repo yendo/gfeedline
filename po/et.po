@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-23 16:12+0900\n"
-"PO-Revision-Date: 2012-03-13 20:35+0900\n"
+"POT-Creation-Date: 2012-04-26 00:36+0900\n"
+"PO-Revision-Date: 2012-06-07 13:27+0000\n"
 "Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
 "Language-Team: Estonian (http://www.transifex.net/projects/p/gfeedline/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -18,31 +18,43 @@ msgstr ""
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../lib/menu.py:58
+#: ../lib/filterliststore.py:102 ../share/filters.glade.h:8
+msgid "days"
+msgstr "päeva"
+
+#: ../lib/filterliststore.py:102 ../share/filters.glade.h:9
+msgid "hours"
+msgstr "tundi"
+
+#: ../lib/menu.py:61
 msgid "_Open"
 msgstr "Ava"
 
-#: ../lib/menu.py:66
+#: ../lib/menu.py:69
 msgid "_Reply"
 msgstr "Vasta"
 
-#: ../lib/menu.py:78
+#: ../lib/menu.py:82
 msgid "Re_tweet"
 msgstr ""
 
-#: ../lib/menu.py:92
+#: ../lib/menu.py:109
 msgid "_Favorite"
 msgstr "Lemmik"
 
-#: ../lib/menu.py:100
+#: ../lib/menu.py:121
 msgid "_Search"
 msgstr "Otsi"
 
-#: ../lib/notification.py:57
+#: ../lib/menu.py:132
+msgid "_Add Filter"
+msgstr "Lis_a filter"
+
+#: ../lib/notification.py:61
 msgid "Reply"
 msgstr "Vasta"
 
-#: ../lib/notification.py:58
+#: ../lib/notification.py:62
 msgid "Open"
 msgstr "Ava"
 
@@ -58,12 +70,11 @@ msgstr "Nimekirja ajatelg"
 msgid "Mentions"
 msgstr "Mainimised"
 
-#. add_markup is global
-#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:32
+#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:61
 msgid "Direct Messages"
 msgstr "Otsesed sõnumid"
 
-#: ../lib/plugins/twitter/api.py:87
+#: ../lib/plugins/twitter/api.py:87 ../lib/preferences/feedsource.py:86
 msgid "User Stream"
 msgstr "Kasutaja voog"
 
@@ -91,76 +102,143 @@ msgstr "Sisesta PIN"
 msgid "Confirm"
 msgstr "Kinnita"
 
-#: ../lib/updatewindow.py:59 ../lib/updatewindow.py:136
+#: ../lib/plugins/twitter/output.py:56 ../share/filters.glade.h:5
+msgid "Body"
+msgstr "Sisu"
+
+#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:6
+msgid "Sender"
+msgstr "Saatja"
+
+#: ../lib/plugins/twitter/output.py:64 ../share/filters.glade.h:7
+msgid "Source"
+msgstr "Allikas"
+
+#: ../lib/plugins/twitter/tweetentry.py:125
+#, python-format
+msgid "Retweeted by %s"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:148
+msgid "retweeted your Tweet"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:236
+msgid "favorited your Tweet"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:237
+msgid "unfavorited your Tweet"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:238
+msgid "followed you"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:239
+#, python-format
+msgid "added you to list %s"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:240
+#, python-format
+msgid "removed you from list %s"
+msgstr ""
+
+#: ../lib/preferences/feedsource.py:114
+msgid "Options"
+msgstr "Valikud"
+
+#: ../lib/preferences/feedsource.py:119
+msgid "_Notify events"
+msgstr "Teavita sündmustest"
+
+#: ../lib/updatewindow.py:63 ../lib/updatewindow.py:289
 #, python-format
 msgid "Reply to %s"
 msgstr "Vasta %s"
 
-#: ../share/assistant_twitter.glade.h:1
-msgid "PIN:"
-msgstr "IN:"
+#: ../lib/updatewindow.py:183
+msgid "Supported image files"
+msgstr "Toetatud pildifailid"
 
-#: ../share/assistant_twitter.glade.h:2
+#: ../share/assistant_twitter.glade.h:1
 msgid ""
 "Return to this dialog after you have finished the authorization process on "
 "Twitter.com and Enter your PIN below."
 msgstr "Tule siia dialoogi aknasse pärast autoriseerimise protsessi lõpetamist saidil Twitter.com tagasi ja sisesta alla oma PIN number."
 
-#: ../share/assistant_twitter.glade.h:3 ../share/preferences.glade.h:14
-msgid "Screen name:"
-msgstr "Näidatav nimi:"
+#: ../share/assistant_twitter.glade.h:2
+msgid "PIN:"
+msgstr "IN:"
 
-#: ../share/assistant_twitter.glade.h:4
-msgid ""
-"This assistant helps you to configure Twitter account for GFeedLine.\n"
-"\n"
-"Click \"Forward\" to open a Twitter authorization page with the default browser."
-msgstr "See aitab, sul seadistada oma Twitteri kontot GFeedLine jaoks.\n\nKliki nupule \"Edasi\", et avada oma vaikimisi veebilehitsejaga Twitteri autoriseerimisleht."
-
-#: ../share/assistant_twitter.glade.h:7
+#: ../share/assistant_twitter.glade.h:3
 msgid ""
 "Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
 "\n"
 "Click \"Apply\" to save your settings."
 msgstr "Seadistamine on lõpetatud. Sul on nüüd GFeedLine-ga ligipääs Twitterile.\n\nOma seadete salvestamiseks, kliki nupule \"Rakenda\"."
 
-#: ../share/assistant_twitter.glade.h:10 ../share/preferences.glade.h:19
+#: ../share/assistant_twitter.glade.h:6 ../share/preferences.glade.h:2
+msgid "Screen name:"
+msgstr "Näidatav nimi:"
+
+#: ../share/assistant_twitter.glade.h:7 ../share/preferences.glade.h:3
 msgid "none"
 msgstr "pole"
+
+#: ../share/assistant_twitter.glade.h:8
+msgid ""
+"This assistant helps you to configure Twitter account for GFeedLine.\n"
+"\n"
+"Click \"Forward\" to open a Twitter authorization page with the default browser."
+msgstr "See aitab, sul seadistada oma Twitteri kontot GFeedLine jaoks.\n\nKliki nupule \"Edasi\", et avada oma vaikimisi veebilehitsejaga Twitteri autoriseerimisleht."
 
 #: ../share/feedsource.glade.h:1
 msgid "Feed Source"
 msgstr "Uudisvoo allikas"
 
-#: ../share/feedsource.glade.h:2 ../share/preferences.glade.h:11
-msgid "General"
-msgstr "Üldine"
+#: ../share/feedsource.glade.h:2
+msgid "_Source:"
+msgstr "Allika_s:"
 
 #: ../share/feedsource.glade.h:3
 msgid "_Argument:"
 msgstr ""
 
-#: ../share/feedsource.glade.h:4
-msgid "_Enable notification"
-msgstr "Luba t_eavitused"
-
-#: ../share/feedsource.glade.h:5
-msgid "_Group:"
-msgstr "_Grupp:"
-
-#: ../share/feedsource.glade.h:6
-msgid "_Name:"
-msgstr "_Nimi:"
-
-#: ../share/feedsource.glade.h:7
-msgid "_Source:"
-msgstr "Allika_s:"
-
-#: ../share/feedsource.glade.h:8
+#: ../share/feedsource.glade.h:4 ../share/filters.glade.h:2
 msgid "_Target:"
 msgstr "Sih_tkoht:"
 
-#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:11
+#: ../share/feedsource.glade.h:5
+msgid "_Name:"
+msgstr "_Nimi:"
+
+#: ../share/feedsource.glade.h:6
+msgid "_Enable notification"
+msgstr "Luba t_eavitused"
+
+#: ../share/feedsource.glade.h:7
+msgid "_Group:"
+msgstr "_Grupp:"
+
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:16
+msgid "General"
+msgstr "Üldine"
+
+#: ../share/filters.glade.h:1
+msgid "Add Filter"
+msgstr "Lisa filter"
+
+#: ../share/filters.glade.h:3
+msgid "_Word:"
+msgstr "_Sõna:"
+
+#: ../share/filters.glade.h:4
+msgid "_Expiry:"
+msgstr "A_egumine:"
+
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
 msgid "GFeedLine"
 msgstr "GFeedLine"
 
@@ -168,11 +246,59 @@ msgstr "GFeedLine"
 msgid "Read & Write Social Feeds"
 msgstr "Loa ja kirjuta sotsiaalseid uudivooge"
 
-#: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:12
+#: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:2
 msgid "Social Networking Client"
 msgstr "Sotsiaalvõrgustiku klient"
 
 #: ../share/gfeedline.glade.h:1
+msgid "Copyright © 2012 Yoshizumi Endo."
+msgstr "Kõik õigused kaitstud © 2012 Yoshizumi Endo."
+
+#: ../share/gfeedline.glade.h:3
+msgid "translator-credits"
+msgstr "tõlkijad"
+
+#: ../share/gfeedline.glade.h:5
+msgid "_File"
+msgstr "_Fail"
+
+#: ../share/gfeedline.glade.h:6
+msgid "_Update"
+msgstr "_Uuenda"
+
+#: ../share/gfeedline.glade.h:7
+msgid "_Edit"
+msgstr "Muuda"
+
+#: ../share/gfeedline.glade.h:8
+msgid "All Tabs to the _Top"
+msgstr "Kõik vahekaardid üles"
+
+#: ../share/gfeedline.glade.h:9
+msgid "All Tabs to the _Bottom"
+msgstr "Kõik vahekaardid alla"
+
+#: ../share/gfeedline.glade.h:10
+msgid "_View"
+msgstr "_Vaade"
+
+#: ../share/gfeedline.glade.h:11
+msgid "_Multi-Column"
+msgstr "_Mitme veeruga"
+
+#: ../share/gfeedline.glade.h:12
+msgid "_Fullscreen"
+msgstr "Täisekraan"
+
+#: ../share/gfeedline.glade.h:13
+msgid "_Help"
+msgstr "Abiinfo"
+
+#: ../share/gfeedline.glade.h:14
+msgid "_Contents"
+msgstr "Sisu"
+
+#: ../share/gfeedline.glade.h:15
 msgid ""
 "<big><b>Welcome to GFeedLine!</b></big>\n"
 "\n"
@@ -183,109 +309,105 @@ msgid ""
 "You can configured your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
 msgstr ""
 
-#: ../share/gfeedline.glade.h:8
-msgid "All Tabs to the _Bottom"
-msgstr "Kõik vahekaardid alla"
-
-#: ../share/gfeedline.glade.h:9
-msgid "All Tabs to the _Top"
-msgstr "Kõik vahekaardid üles"
-
-#: ../share/gfeedline.glade.h:10
-msgid "Copyright © 2012 Yoshizumi Endo."
-msgstr "Kõik õigused kaitstud © 2012 Yoshizumi Endo."
-
-#: ../share/gfeedline.glade.h:13
-msgid "_Edit"
-msgstr "Muuda"
-
-#: ../share/gfeedline.glade.h:14
-msgid "_File"
-msgstr "_Fail"
-
-#: ../share/gfeedline.glade.h:15
-msgid "_Help"
-msgstr "Abiinfo"
-
-#: ../share/gfeedline.glade.h:16
-msgid "_Multi-Column"
-msgstr "_Mitme veeruga"
-
-#: ../share/gfeedline.glade.h:17
-msgid "_Update"
-msgstr "_Uuenda"
-
-#: ../share/gfeedline.glade.h:18
-msgid "_View"
-msgstr "_Vaade"
-
-#: ../share/gfeedline.glade.h:19
-msgid "translator-credits"
-msgstr "tõlkijad"
-
 #: ../share/preferences.glade.h:1
-msgid "<b>Account</b>"
-msgstr "<b>Konto</b>"
-
-#: ../share/preferences.glade.h:2
-msgid "<b>Desktop</b>"
-msgstr "<b>Töölaud</b>"
-
-#: ../share/preferences.glade.h:3
-msgid "<b>Feed Sources</b>"
-msgstr "<b>Uudisvoogude allikad</b>"
+msgid "Preferences"
+msgstr "Eelistused"
 
 #: ../share/preferences.glade.h:4
-msgid "<b>View</b>"
-msgstr "<b>Vaade</b>"
-
-#: ../share/preferences.glade.h:5
-msgid "Account"
-msgstr "Konto"
-
-#: ../share/preferences.glade.h:6
-msgid "Always on _Visible Workspace"
-msgstr "Alati nähta_val töölaual"
-
-#: ../share/preferences.glade.h:7
-msgid "Argument"
-msgstr "Argument"
-
-#: ../share/preferences.glade.h:8
-msgid "Au_thentication"
-msgstr "Auden_timine"
-
-#: ../share/preferences.glade.h:9
-msgid "Feed Line Preferences"
-msgstr "Uudisvoogude eelistused"
-
-#: ../share/preferences.glade.h:10
-msgid "Feeds"
-msgstr "Uudisvood"
-
-#: ../share/preferences.glade.h:12
-msgid "Group"
-msgstr "Grupp"
-
-#: ../share/preferences.glade.h:13
-msgid "Name"
-msgstr "Nimi"
-
-#: ../share/preferences.glade.h:15
-msgid "Target"
-msgstr "Sihkoht"
-
-#: ../share/preferences.glade.h:16
 msgid "_Authorization"
 msgstr "_Authoriseermine"
 
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:5
+msgid "<b>Account</b>"
+msgstr "<b>Konto</b>"
+
+#: ../share/preferences.glade.h:6
+msgid "_Theme:"
+msgstr "_Teema:"
+
+#: ../share/preferences.glade.h:7
+msgid "Timeline _order:"
+msgstr ""
+
+#: ../share/preferences.glade.h:8
+msgid "_Font:"
+msgstr "Kiri:"
+
+#: ../share/preferences.glade.h:9
+msgid "Default"
+msgstr "Vaikeväärtus"
+
+#: ../share/preferences.glade.h:10
+msgid "Ascending"
+msgstr "Kasvavalt"
+
+#: ../share/preferences.glade.h:11
+msgid "Descending"
+msgstr "Kahanevalt"
+
+#: ../share/preferences.glade.h:12
+msgid "<b>View</b>"
+msgstr "<b>Vaade</b>"
+
+#: ../share/preferences.glade.h:13
+msgid "Always on _Visible Workspace"
+msgstr "Alati nähta_val töölaual"
+
+#: ../share/preferences.glade.h:14
 msgid "_Auto Start"
 msgstr "_Automaatne käivitamine"
 
+#: ../share/preferences.glade.h:15
+msgid "<b>Desktop</b>"
+msgstr "<b>Töölaud</b>"
+
+#: ../share/preferences.glade.h:17
+msgid "Name"
+msgstr "Nimi"
+
 #: ../share/preferences.glade.h:18
-msgid "_Theme:"
-msgstr "_Teema:"
+msgid "Account"
+msgstr "Konto"
+
+#: ../share/preferences.glade.h:19
+msgid "Au_thentication"
+msgstr "Auden_timine"
+
+#: ../share/preferences.glade.h:20
+msgid "Target"
+msgstr "Sihkoht"
+
+#: ../share/preferences.glade.h:21
+msgid "Argument"
+msgstr "Argument"
+
+#: ../share/preferences.glade.h:22
+msgid "Group"
+msgstr "Grupp"
+
+#: ../share/preferences.glade.h:23
+msgid "<b>Feed Sources</b>"
+msgstr "<b>Uudisvoogude allikad</b>"
+
+#: ../share/preferences.glade.h:24
+msgid "Feeds"
+msgstr "Uudisvood"
+
+#: ../share/preferences.glade.h:25
+msgid "Word"
+msgstr "Sõna"
+
+#: ../share/preferences.glade.h:26
+msgid "Expiry"
+msgstr "Aegub"
+
+#: ../share/preferences.glade.h:27
+msgid "<b>Filters</b>"
+msgstr "<b>Filtrid</b>"
+
+#: ../share/preferences.glade.h:28
+msgid "Filters"
+msgstr "Filtrid"
 
 #: ../share/retweet.glade.h:1
 msgid "<big><b>Retweet?</b></big>"
@@ -300,5 +422,9 @@ msgid "What are you doing?"
 msgstr "Mida sa parasjagu teed?"
 
 #: ../share/update.glade.h:2
+msgid "Add an image"
+msgstr "Lisa pilt"
+
+#: ../share/update.glade.h:3
 msgid "_Tweet"
 msgstr ""
