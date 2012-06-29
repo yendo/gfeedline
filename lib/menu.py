@@ -109,8 +109,7 @@ class FavMenuItem(RetweetMenuItem):
     LABEL = _('_Favorite')
 
     def _is_enabled(self, dom):
-        is_mine = dom.get_attribute('class').count('mine')
-        return not is_mine
+        return True
 
     def on_activate(self, menuitem, entry_id):
         twitter_account = self.api.account

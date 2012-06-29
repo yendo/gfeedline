@@ -1,5 +1,6 @@
 2012-06-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* menu.py (FavMenuItem._is_enabled): Added support for self-favouring.
 	* gfeedline.glade: Improved the welcome message.
 
 2012-06-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
