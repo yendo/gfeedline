@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-26 00:36+0900\n"
-"PO-Revision-Date: 2012-04-26 00:37+0900\n"
+"POT-Creation-Date: 2012-06-14 16:28+0900\n"
+"PO-Revision-Date: 2012-06-14 16:37+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -56,31 +56,31 @@ msgstr "返信"
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/plugins/twitter/api.py:52
+#: ../lib/plugins/twitter/api.py:54
 msgid "Home TimeLine"
 msgstr "ホームタイムライン"
 
-#: ../lib/plugins/twitter/api.py:59
+#: ../lib/plugins/twitter/api.py:61
 msgid "List TimeLine"
 msgstr "リストタイムライン"
 
-#: ../lib/plugins/twitter/api.py:72
+#: ../lib/plugins/twitter/api.py:74 ../lib/plugins/twitter/api.py:98
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:61
+#: ../lib/plugins/twitter/api.py:81 ../lib/plugins/twitter/tweetentry.py:61
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:87 ../lib/preferences/feedsource.py:86
+#: ../lib/plugins/twitter/api.py:89 ../lib/preferences/feedsource.py:86
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
-#: ../lib/plugins/twitter/api.py:94
+#: ../lib/plugins/twitter/api.py:103
 msgid "Track"
 msgstr "トラック"
 
-#: ../lib/plugins/twitter/api.py:108
+#: ../lib/plugins/twitter/api.py:117
 msgid "Search"
 msgstr "検索"
 
@@ -100,45 +100,45 @@ msgstr "PIN の入力"
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/plugins/twitter/output.py:56 ../share/filters.glade.h:5
+#: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:5
 msgid "Body"
 msgstr "本文"
 
-#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:6
+#: ../lib/plugins/twitter/output.py:63 ../share/filters.glade.h:6
 msgid "Sender"
 msgstr "送信者"
 
-#: ../lib/plugins/twitter/output.py:64 ../share/filters.glade.h:7
+#: ../lib/plugins/twitter/output.py:66 ../share/filters.glade.h:7
 msgid "Source"
 msgstr "ソース"
 
-#: ../lib/plugins/twitter/tweetentry.py:125
+#: ../lib/plugins/twitter/tweetentry.py:136
 #, python-format
 msgid "Retweeted by %s"
 msgstr "%s がリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:148
+#: ../lib/plugins/twitter/tweetentry.py:159
 msgid "retweeted your Tweet"
 msgstr "がリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:236
+#: ../lib/plugins/twitter/tweetentry.py:249
 msgid "favorited your Tweet"
 msgstr "がお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:237
+#: ../lib/plugins/twitter/tweetentry.py:250
 msgid "unfavorited your Tweet"
 msgstr "がお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:238
+#: ../lib/plugins/twitter/tweetentry.py:251
 msgid "followed you"
 msgstr "がフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:239
+#: ../lib/plugins/twitter/tweetentry.py:252
 #, python-format
 msgid "added you to list %s"
 msgstr "のリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:240
+#: ../lib/plugins/twitter/tweetentry.py:253
 #, python-format
 msgid "removed you from list %s"
 msgstr "のリスト %s から削除されました"
@@ -310,24 +310,20 @@ msgid ""
 "\n"
 "GFeedLine is a social networking client.  It supports Twitter.\n"
 "\n"
-"You have no Twitter account configured.  To start connecting with GFeedLine, "
-"open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your "
-"account.\n"
+"To start connecting with GFeedLine, open the Preferences dialog from "
+"<b>Edit  ▸ Preference</b> to configure your account.\n"
 "\n"
-"You can configured your feeds in the Feeds tab of the Preferences dialog.  "
-"To enable multi-column view, enter a group name in each feed source dialog."
+"Then you have to configure your feeds in the Feeds tab of the Preferences "
+"dialog.  To enable multi-column view, enter a group name in each feed source "
+"dialog."
 msgstr ""
 "<big><b>GFeedLine へようこそ!</b></big>\n"
 "\n"
-"GFeedLine はソーシャルネットワーキングクライアントです。Twitter をサポートし"
-"ています。\n"
+"GFeedLine はソーシャルネットワーキングクライアントです。Twitter をサポートしています。\n"
 "\n"
-"まだ Twitter アカウントが設定されていません。GFeedLine でアクセスするために、"
-"メニューの<b>ファイル ▸ 設定</b>から設定ダイアログを開き、アカウントを設定し"
-"てください。\n"
+"GFeedLine でアクセスするために、まずはメニューの<b>ファイル ▸ 設定</b>から設定ダイアログを開き、アカウントを設定してください。\n"
 "\n"
-"また、同じ設定ダイアログのフィードタブでは複数のフィードが設定でき、各フィー"
-"ドでグループ名を指定するとマルチカラム表示が可能です。"
+"その上で、同じ設定ダイアログのフィードタブでフィードを追加・設定してください。なお、各フィードでグループ名を指定するとマルチカラム表示が可能です。"
 
 #: ../share/preferences.glade.h:1
 msgid "Preferences"
