@@ -66,7 +66,13 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
 
     def get_options(self, argument):
         list_name = argument.split('/')
-        params = {'owner_screen_name': list_name[0], 'slug': list_name[1]}
+
+        if len(list_name) == 2:
+            params = {'owner_screen_name': list_name[0], 'slug': list_name[1]}
+        else:
+            print "Error: Invalid list name."
+            params = {}
+
         return params
 
 class TwitterAPIMentions(TwitterAPIBase):
