@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-26 00:36+0900\n"
-"PO-Revision-Date: 2012-04-29 00:24+0900\n"
-"Last-Translator: alexnmoya <alexnmoya@gmail.com>\n"
-"Language-Team: Spanish (Spain) (http://www.transifex.net/projects/p/gfeedline/language/es_ES/)\n"
+"POT-Creation-Date: 2012-06-30 15:35+0900\n"
+"PO-Revision-Date: 2012-06-30 13:51+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
+"Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/gfeedline/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -44,11 +44,11 @@ msgstr "Re_twittear"
 msgid "_Favorite"
 msgstr "_Favorito"
 
-#: ../lib/menu.py:121
+#: ../lib/menu.py:120
 msgid "_Search"
 msgstr "_Buscar"
 
-#: ../lib/menu.py:132
+#: ../lib/menu.py:131
 msgid "_Add Filter"
 msgstr "_Añadir filtro"
 
@@ -60,31 +60,31 @@ msgstr "Responder"
 msgid "Open"
 msgstr "Abrir"
 
-#: ../lib/plugins/twitter/api.py:52
+#: ../lib/plugins/twitter/api.py:54
 msgid "Home TimeLine"
 msgstr "Cronología"
 
-#: ../lib/plugins/twitter/api.py:59
+#: ../lib/plugins/twitter/api.py:61
 msgid "List TimeLine"
 msgstr "Cronología de las listas"
 
-#: ../lib/plugins/twitter/api.py:72
+#: ../lib/plugins/twitter/api.py:80 ../lib/plugins/twitter/api.py:104
 msgid "Mentions"
 msgstr "Menciones"
 
-#: ../lib/plugins/twitter/api.py:79 ../lib/plugins/twitter/tweetentry.py:61
+#: ../lib/plugins/twitter/api.py:87 ../lib/plugins/twitter/tweetentry.py:61
 msgid "Direct Messages"
 msgstr "Mensajes directos"
 
-#: ../lib/plugins/twitter/api.py:87 ../lib/preferences/feedsource.py:86
+#: ../lib/plugins/twitter/api.py:95 ../lib/preferences/feedsource.py:86
 msgid "User Stream"
 msgstr "User Stream"
 
-#: ../lib/plugins/twitter/api.py:94
+#: ../lib/plugins/twitter/api.py:109
 msgid "Track"
 msgstr "Pista"
 
-#: ../lib/plugins/twitter/api.py:108
+#: ../lib/plugins/twitter/api.py:123
 msgid "Search"
 msgstr "Buscar"
 
@@ -104,45 +104,45 @@ msgstr "Introduce el PIN"
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: ../lib/plugins/twitter/output.py:56 ../share/filters.glade.h:5
+#: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:5
 msgid "Body"
 msgstr "Cuerpo"
 
-#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:6
+#: ../lib/plugins/twitter/output.py:63 ../share/filters.glade.h:6
 msgid "Sender"
 msgstr "Remitente"
 
-#: ../lib/plugins/twitter/output.py:64 ../share/filters.glade.h:7
+#: ../lib/plugins/twitter/output.py:66 ../share/filters.glade.h:7
 msgid "Source"
 msgstr "Fuente"
 
-#: ../lib/plugins/twitter/tweetentry.py:125
+#: ../lib/plugins/twitter/tweetentry.py:136
 #, python-format
 msgid "Retweeted by %s"
 msgstr "Retwitteado por %s"
 
-#: ../lib/plugins/twitter/tweetentry.py:148
+#: ../lib/plugins/twitter/tweetentry.py:159
 msgid "retweeted your Tweet"
 msgstr "te hizo retweet."
 
-#: ../lib/plugins/twitter/tweetentry.py:236
+#: ../lib/plugins/twitter/tweetentry.py:249
 msgid "favorited your Tweet"
 msgstr "marcó su tweet como favorito"
 
-#: ../lib/plugins/twitter/tweetentry.py:237
+#: ../lib/plugins/twitter/tweetentry.py:250
 msgid "unfavorited your Tweet"
 msgstr "desmarcó su tweet como favorito"
 
-#: ../lib/plugins/twitter/tweetentry.py:238
+#: ../lib/plugins/twitter/tweetentry.py:251
 msgid "followed you"
 msgstr "lo sigue"
 
-#: ../lib/plugins/twitter/tweetentry.py:239
+#: ../lib/plugins/twitter/tweetentry.py:252
 #, python-format
 msgid "added you to list %s"
 msgstr "lo añadió a la lista %s"
 
-#: ../lib/plugins/twitter/tweetentry.py:240
+#: ../lib/plugins/twitter/tweetentry.py:253
 #, python-format
 msgid "removed you from list %s"
 msgstr "lo eliminó de la lista %s"
@@ -258,7 +258,7 @@ msgstr "Copyright © 2012 Yoshizumi Endo."
 
 #: ../share/gfeedline.glade.h:3
 msgid "translator-credits"
-msgstr "alexnmoya\nQA: Fitoschido <fitoschido@gmail.com>, 2012"
+msgstr "alexnmoya\nAdolfo Jayme Barrientos <fitoschido@gmail.com>, 2012"
 
 #: ../share/gfeedline.glade.h:5
 msgid "_File"
@@ -306,10 +306,10 @@ msgid ""
 "\n"
 "GFeedLine is a social networking client.  It supports Twitter.\n"
 "\n"
-"You have no Twitter account configured.  To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your account.\n"
+"To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your account.\n"
 "\n"
-"You can configured your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
-msgstr "<big><b>¡Bienvenido a GFeedLine!</b></big>\n\nGFeedLine es un cliente de redes sociales.  Actualmente soporta a Twitter.\n\nNo has configurado ninguna cuenta de Twitter.  Para comenzar a usar GFeedLine, abre el diálogo de Preferencias desde <b>Editar  ▸ Preferencias</b> para configurar tu cuenta.\n\nPuedes configurar tus fuentes desde la pestaña de Fuentes en el diálogo de Preferencias.  Para activar la vista de multicolumna, introduce el nombre de un grupo en cada diálogo de orígenes de fuentes."
+"Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
+msgstr "<big><b>Bienvenido/a a GFeedLine.</b></big>\n\nGFeedLine es un cliente de redes sociales.  Es compatible con Twitter.\n\nPara iniciar la conexión con GFeedLine, abra el diálogo de Preferencias en <b>Editar  ▸ Preferencias</b> para configurar su cuenta.\n\nLuego, debe configurar sus canales en la pestaña Canales del diálogo de Preferencias. Para activar la vista de columnas múltiples, introduzca un nombre de grupo en cada diálogo de origen del canal."
 
 #: ../share/preferences.glade.h:1
 msgid "Preferences"
