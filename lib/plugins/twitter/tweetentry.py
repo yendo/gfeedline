@@ -1,6 +1,6 @@
 import re
 from datetime import datetime, timedelta
-from xml.sax.saxutils import escape
+from xml.sax.saxutils import escape, unescape
 
 from BeautifulSoup import BeautifulSoup
 import dateutil.parser
@@ -336,6 +336,7 @@ class AddedHtmlMarkup(object):
             u'(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
 
     def convert(self, text):
+        text = unescape(text)
         text = escape(text, {"'": '&apos;'}) # Important!
 
         text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)

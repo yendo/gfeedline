@@ -1,3 +1,8 @@
+2012-07-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py (AddedHtmlMarkup.convert): Fixed character
+	  escaping problems.
+
 2012-06-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/api.py (TwitterAPIListTimeLine.get_options): Added
