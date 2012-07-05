@@ -1,3 +1,8 @@
+2012-07-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py (TweetEntry._decode_source_html_entities):
+	  Fixed an escapeing problem of client info links.
+
 2012-07-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme

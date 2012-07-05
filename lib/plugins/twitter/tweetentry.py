@@ -86,6 +86,7 @@ class TweetEntry(object):
         return key
 
     def _decode_source_html_entities(self, source_html):
+        source_html = unescape(source_html)
         return decode_html_entities(source_html).replace('"', "'")
 
     def _get_target_date_time(self, target_object, original_screen_name):
