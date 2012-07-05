@@ -334,7 +334,9 @@ class AddedHtmlMarkup(object):
             re.IGNORECASE | re.DOTALL)
         self.nick_pattern = re.compile("\B@([A-Za-z0-9_]+|@[A-Za-z0-9_]$)")
         self.hash_pattern = re.compile(
-            u'(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
+            u'(?:#|\uFF03)([a-zA-Z0-9_'
+            u'\u3041-\u3094\u3099-\u309C\u30A1-\u30FF\u3400-\uD7FF'
+            u'\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
 
     def convert(self, text):
         text = unescape(text)
