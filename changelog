@@ -1,3 +1,7 @@
+2012-07-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/pt.po: Added new Portuguese translation.  Thanks Valter Asensio!
+
 2012-07-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/tweetentry.py: Fixed an escapeing problem of client info
