@@ -1,0 +1,452 @@
+# Japanese translation for gfeedline
+# Copyright (C) 2012 Yoshizumi Endo.
+# This file is distributed under the same license as the gfeedline package.
+# Yoshizumi Endo <y-endo@ceres.dti.ne.jp>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-14 16:28+0900\n"
+"PO-Revision-Date: 2012-06-14 16:37+0900\n"
+"Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../lib/filterliststore.py:102 ../share/filters.glade.h:8
+msgid "days"
+msgstr "日間"
+
+#: ../lib/filterliststore.py:102 ../share/filters.glade.h:9
+msgid "hours"
+msgstr "時間"
+
+#: ../lib/menu.py:61
+msgid "_Open"
+msgstr "開く(_O)"
+
+#: ../lib/menu.py:69
+msgid "_Reply"
+msgstr "返信(_R)"
+
+#: ../lib/menu.py:82
+msgid "Re_tweet"
+msgstr "リツイート(_T)"
+
+#: ../lib/menu.py:109
+msgid "_Favorite"
+msgstr "お気に入り(_F)"
+
+#: ../lib/menu.py:121
+msgid "_Search"
+msgstr "検索(_S)"
+
+#: ../lib/menu.py:132
+msgid "_Add Filter"
+msgstr "フィルターに追加(_A)"
+
+#: ../lib/notification.py:61
+msgid "Reply"
+msgstr "返信"
+
+#: ../lib/notification.py:62
+msgid "Open"
+msgstr "開く"
+
+#: ../lib/plugins/twitter/api.py:54
+msgid "Home TimeLine"
+msgstr "ホームタイムライン"
+
+#: ../lib/plugins/twitter/api.py:61
+msgid "List TimeLine"
+msgstr "リストタイムライン"
+
+#: ../lib/plugins/twitter/api.py:74 ../lib/plugins/twitter/api.py:98
+msgid "Mentions"
+msgstr "メンション"
+
+#: ../lib/plugins/twitter/api.py:81 ../lib/plugins/twitter/tweetentry.py:61
+msgid "Direct Messages"
+msgstr "ダイレクトメッセージ"
+
+#: ../lib/plugins/twitter/api.py:89 ../lib/preferences/feedsource.py:86
+msgid "User Stream"
+msgstr "ユーザーストリーム"
+
+#: ../lib/plugins/twitter/api.py:103
+msgid "Track"
+msgstr "トラック"
+
+#: ../lib/plugins/twitter/api.py:117
+msgid "Search"
+msgstr "検索"
+
+#: ../lib/plugins/twitter/assistant.py:29
+msgid "Twitter Account Setup"
+msgstr "Twitter アカウントの設定"
+
+#: ../lib/plugins/twitter/assistant.py:45
+msgid "Intro"
+msgstr "説明"
+
+#: ../lib/plugins/twitter/assistant.py:53
+msgid "Enter PIN"
+msgstr "PIN の入力"
+
+#: ../lib/plugins/twitter/assistant.py:61
+msgid "Confirm"
+msgstr "確認"
+
+#: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:5
+msgid "Body"
+msgstr "本文"
+
+#: ../lib/plugins/twitter/output.py:63 ../share/filters.glade.h:6
+msgid "Sender"
+msgstr "送信者"
+
+#: ../lib/plugins/twitter/output.py:66 ../share/filters.glade.h:7
+msgid "Source"
+msgstr "ソース"
+
+#: ../lib/plugins/twitter/tweetentry.py:136
+#, python-format
+msgid "Retweeted by %s"
+msgstr "%s がリツイート"
+
+#: ../lib/plugins/twitter/tweetentry.py:159
+msgid "retweeted your Tweet"
+msgstr "がリツイートしました"
+
+#: ../lib/plugins/twitter/tweetentry.py:249
+msgid "favorited your Tweet"
+msgstr "がお気に入りに登録しました"
+
+#: ../lib/plugins/twitter/tweetentry.py:250
+msgid "unfavorited your Tweet"
+msgstr "がお気に入りから削除しました"
+
+#: ../lib/plugins/twitter/tweetentry.py:251
+msgid "followed you"
+msgstr "がフォローしました"
+
+#: ../lib/plugins/twitter/tweetentry.py:252
+#, python-format
+msgid "added you to list %s"
+msgstr "のリスト %s に追加されました"
+
+#: ../lib/plugins/twitter/tweetentry.py:253
+#, python-format
+msgid "removed you from list %s"
+msgstr "のリスト %s から削除されました"
+
+#: ../lib/preferences/feedsource.py:114
+msgid "Options"
+msgstr "オプション"
+
+#: ../lib/preferences/feedsource.py:119
+msgid "_Notify events"
+msgstr "イベントの通知を行う"
+
+#: ../lib/updatewindow.py:63 ../lib/updatewindow.py:289
+#, python-format
+msgid "Reply to %s"
+msgstr "%s への返信"
+
+#: ../lib/updatewindow.py:183
+msgid "Supported image files"
+msgstr "サポートされている画像ファイル"
+
+#: ../share/assistant_twitter.glade.h:1
+msgid ""
+"Return to this dialog after you have finished the authorization process on "
+"Twitter.com and Enter your PIN below."
+msgstr ""
+"ブラウザ上で Twitter.com での認証を完了したらこのウィンドウに戻り、この下にあ"
+"る入力欄に PIN を入力してください。"
+
+#: ../share/assistant_twitter.glade.h:2
+msgid "PIN:"
+msgstr "PIN:"
+
+#: ../share/assistant_twitter.glade.h:3
+msgid ""
+"Your configuration is complete.  You are now ready to access to Twitter with "
+"GFeedLine.\n"
+"\n"
+"Click \"Apply\" to save your settings."
+msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
+
+#: ../share/assistant_twitter.glade.h:6 ../share/preferences.glade.h:2
+msgid "Screen name:"
+msgstr "スクリーンネーム:"
+
+#: ../share/assistant_twitter.glade.h:7 ../share/preferences.glade.h:3
+msgid "none"
+msgstr "なし"
+
+#: ../share/assistant_twitter.glade.h:8
+msgid ""
+"This assistant helps you to configure Twitter account for GFeedLine.\n"
+"\n"
+"Click \"Forward\" to open a Twitter authorization page with the default "
+"browser."
+msgstr ""
+"この設定アシスタントでは GFeedLine で利用するアカウントの設定を行います。\n"
+"\n"
+"[進む] ボタンをクリックすると、ブラウザで Twitter の認証ページを開き、認証作"
+"業を開始します。"
+
+#: ../share/feedsource.glade.h:1
+msgid "Feed Source"
+msgstr "フィードソース"
+
+#: ../share/feedsource.glade.h:2
+msgid "_Source:"
+msgstr "ソース(_S):"
+
+#: ../share/feedsource.glade.h:3
+msgid "_Argument:"
+msgstr "引数(_A):"
+
+#: ../share/feedsource.glade.h:4 ../share/filters.glade.h:2
+msgid "_Target:"
+msgstr "ターゲット(_T):"
+
+#: ../share/feedsource.glade.h:5
+msgid "_Name:"
+msgstr "名前(_N):"
+
+#: ../share/feedsource.glade.h:6
+msgid "_Enable notification"
+msgstr "通知機能を使う(_E)"
+
+#: ../share/feedsource.glade.h:7
+msgid "_Group:"
+msgstr "グループ(_G):"
+
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:16
+msgid "General"
+msgstr "全般"
+
+#: ../share/filters.glade.h:1
+msgid "Add Filter"
+msgstr "フィルターの追加"
+
+#: ../share/filters.glade.h:3
+msgid "_Word:"
+msgstr "単語(_W):"
+
+#: ../share/filters.glade.h:4
+msgid "_Expiry:"
+msgstr "有効期間(_E):"
+
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
+msgid "GFeedLine"
+msgstr "GFeedLine"
+
+#: ../share/gfeedline.desktop.in.h:2
+msgid "Read & Write Social Feeds"
+msgstr "ソーシャルフィードの読み書きを行います"
+
+#: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:2
+msgid "Social Networking Client"
+msgstr "ソーシャルネットワーキングクライアント"
+
+#: ../share/gfeedline.glade.h:1
+msgid "Copyright © 2012 Yoshizumi Endo."
+msgstr "Copyright © 2012 Yoshizumi Endo."
+
+#: ../share/gfeedline.glade.h:3
+msgid "translator-credits"
+msgstr "Yoshizumi Endo <y-endo@ceres.dti.ne.jp>"
+
+#: ../share/gfeedline.glade.h:5
+msgid "_File"
+msgstr "ファイル(_F)"
+
+#: ../share/gfeedline.glade.h:6
+msgid "_Update"
+msgstr "投稿(_U)"
+
+#: ../share/gfeedline.glade.h:7
+msgid "_Edit"
+msgstr "編集(_E)"
+
+#: ../share/gfeedline.glade.h:8
+msgid "All Tabs to the _Top"
+msgstr "すべてのタブで先頭行に移動(_T)"
+
+#: ../share/gfeedline.glade.h:9
+msgid "All Tabs to the _Bottom"
+msgstr "すべてのタブで最終行に移動(_B)"
+
+#: ../share/gfeedline.glade.h:10
+msgid "_View"
+msgstr "表示(_V)"
+
+#: ../share/gfeedline.glade.h:11
+msgid "_Multi-Column"
+msgstr "マルチカラム(_M)"
+
+#: ../share/gfeedline.glade.h:12
+msgid "_Fullscreen"
+msgstr "フルスクリーン(_F)"
+
+#: ../share/gfeedline.glade.h:13
+msgid "_Help"
+msgstr "ヘルプ(_H)"
+
+#: ../share/gfeedline.glade.h:14
+msgid "_Contents"
+msgstr "目次(_C)"
+
+#: ../share/gfeedline.glade.h:15
+msgid ""
+"<big><b>Welcome to GFeedLine!</b></big>\n"
+"\n"
+"GFeedLine is a social networking client.  It supports Twitter.\n"
+"\n"
+"To start connecting with GFeedLine, open the Preferences dialog from "
+"<b>Edit  ▸ Preference</b> to configure your account.\n"
+"\n"
+"Then you have to configure your feeds in the Feeds tab of the Preferences "
+"dialog.  To enable multi-column view, enter a group name in each feed source "
+"dialog."
+msgstr ""
+"<big><b>GFeedLine へようこそ!</b></big>\n"
+"\n"
+"GFeedLine はソーシャルネットワーキングクライアントです。Twitter をサポートしています。\n"
+"\n"
+"GFeedLine でアクセスするために、まずはメニューの<b>ファイル ▸ 設定</b>から設定ダイアログを開き、アカウントを設定してください。\n"
+"\n"
+"その上で、同じ設定ダイアログのフィードタブでフィードを追加・設定してください。なお、各フィードでグループ名を指定するとマルチカラム表示が可能です。"
+
+#: ../share/preferences.glade.h:1
+msgid "Preferences"
+msgstr "設定"
+
+#: ../share/preferences.glade.h:4
+msgid "_Authorization"
+msgstr "認証(_A)"
+
+#: ../share/preferences.glade.h:5
+msgid "<b>Account</b>"
+msgstr "<b>アカウント</b>"
+
+#: ../share/preferences.glade.h:6
+msgid "_Theme:"
+msgstr "テーマ(_T):"
+
+#: ../share/preferences.glade.h:7
+msgid "Timeline _order:"
+msgstr "タイムラインの表示順(_O):"
+
+#: ../share/preferences.glade.h:8
+msgid "_Font:"
+msgstr "フォント(_F):"
+
+#: ../share/preferences.glade.h:9
+msgid "Default"
+msgstr "デフォルト"
+
+#: ../share/preferences.glade.h:10
+msgid "Ascending"
+msgstr "昇順"
+
+#: ../share/preferences.glade.h:11
+msgid "Descending"
+msgstr "降順"
+
+#: ../share/preferences.glade.h:12
+msgid "<b>View</b>"
+msgstr "<b>表示</b>"
+
+#: ../share/preferences.glade.h:13
+msgid "Always on _Visible Workspace"
+msgstr "すべてのワークスペースに配置する(_V)"
+
+#: ../share/preferences.glade.h:14
+msgid "_Auto Start"
+msgstr "ログイン時に自動起動する(_A)"
+
+#: ../share/preferences.glade.h:15
+msgid "<b>Desktop</b>"
+msgstr "<b>デスクトップ</b>"
+
+#: ../share/preferences.glade.h:17
+msgid "Name"
+msgstr "名前"
+
+#: ../share/preferences.glade.h:18
+msgid "Account"
+msgstr "アカウント"
+
+#: ../share/preferences.glade.h:19
+msgid "Au_thentication"
+msgstr "認証(_U)"
+
+#: ../share/preferences.glade.h:20
+msgid "Target"
+msgstr "ターゲット"
+
+#: ../share/preferences.glade.h:21
+msgid "Argument"
+msgstr "引数"
+
+#: ../share/preferences.glade.h:22
+msgid "Group"
+msgstr "グループ"
+
+#: ../share/preferences.glade.h:23
+msgid "<b>Feed Sources</b>"
+msgstr "<b>フィードソース</b>"
+
+#: ../share/preferences.glade.h:24
+msgid "Feeds"
+msgstr "フィード"
+
+#: ../share/preferences.glade.h:25
+msgid "Word"
+msgstr "単語"
+
+#: ../share/preferences.glade.h:26
+msgid "Expiry"
+msgstr "有効期間"
+
+#: ../share/preferences.glade.h:27
+msgid "<b>Filters</b>"
+msgstr "<b>フィルター</b>"
+
+#: ../share/preferences.glade.h:28
+msgid "Filters"
+msgstr "フィルター"
+
+#: ../share/retweet.glade.h:1
+msgid "<big><b>Retweet?</b></big>"
+msgstr "<big><b>リツイートしますか?</b></big>"
+
+#: ../share/retweet.glade.h:2
+msgid "Retweet this to your followers?"
+msgstr "あなたのフォロワーにこれをリツイートしますか?"
+
+#: ../share/update.glade.h:1
+msgid "What are you doing?"
+msgstr "いまどうしてる?"
+
+#: ../share/update.glade.h:2
+msgid "Add an image"
+msgstr "画像を追加します"
+
+#: ../share/update.glade.h:3
+msgid "_Tweet"
+msgstr "ツイート(_T)"
+
+#~ msgid "<b>Plugins</b>"
+#~ msgstr "<b>プラグイン</b>"
+
+#~ msgid "Plugins"
+#~ msgstr "プラグイン"

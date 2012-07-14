@@ -1,0 +1,5 @@
+include changelog
+include COPYING
+include GPL
+recursive-include share *.in *.png *.svg
+recursive-include po *.in *.po
