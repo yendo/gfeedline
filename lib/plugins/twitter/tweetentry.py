@@ -30,8 +30,7 @@ class TweetEntry(object):
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
 
-        self.style_obj = EntryStyles()
-        styles = self.style_obj.get(api, user.screen_name, entry)
+        styles = self._get_styles(api, user.screen_name, entry)
 
         entry_dict = dict(
             date_time=time.get_local_time(),
@@ -44,7 +43,7 @@ class TweetEntry(object):
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
             protected=self._get_protected_icon(user.protected),
-            source=self._decode_source_html_entities(entry.source),
+            source=self._get_source(entry),
 
             status_body=body,
             popup_body=body_string,
@@ -53,13 +52,19 @@ class TweetEntry(object):
 
         return entry_dict
 
+    def _get_styles(self, api, screen_name, entry=None):
+        style_obj = EntryStyles()
+        return style_obj.get(api, screen_name, entry)
+
+    def _get_source(self, entry):
+        return self._decode_source_html_entities(entry.source)
+
     def get_sender_name(self, api):
         sender = self._get_sender(api)
         return sender.screen_name
 
     def _get_sender(self, api):
-        sender = self.entry.sender if api.name == _('Direct Messages') \
-            else self.entry.user
+        sender = self.entry.user
         return sender
 
     def get_source_name(self):
@@ -126,6 +131,20 @@ class EntryStyles(object):
 
     def _get_style_retweet(self):
         pass
+
+class DirectMessageEntry(TweetEntry):
+
+    def _get_sender(self, api):
+        return self.entry.sender
+
+    def _get_styles(self, api, screen_name, entry):
+        return ''
+
+    def _get_source(self, entry):
+        return ''
+
+    def get_source_name(self):
+        return ''
 
 class RestRetweetEntry(TweetEntry):
 
@@ -203,8 +222,7 @@ class SearchTweetEntry(TweetEntry):
         name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
 
-        self.style_obj = EntryStyles()
-        styles = self.style_obj.get(api, name)
+        styles = self._get_styles(api, name)
 
         entry_dict = dict(
             date_time=time.get_local_time(),

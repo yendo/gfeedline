@@ -163,6 +163,8 @@ class TwitterRestOutput(TwitterOutputBase):
     def _get_entry_obj(self, entry):
         if hasattr(entry, 'retweeted_status') and entry.retweeted_status:
             entry_class = RestRetweetEntry
+        elif entry.tag_name == 'direct_message':
+            entry_class = DirectMessageEntry
         else:
             entry_class = TweetEntry
         return entry_class(entry)

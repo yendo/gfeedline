@@ -1,3 +1,9 @@
+2012-08-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py, twitter/output.py: Fixed a bug that
+	prevents showing Direct Messages. (issue #7) Added new
+	DirectMessageEntry class.
+
 2012-08-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* po/de_DE.po: Added new German translation.  Thanks t_bb_!
