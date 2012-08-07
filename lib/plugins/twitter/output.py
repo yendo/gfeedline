@@ -87,6 +87,10 @@ class TwitterOutputBase(object):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)
         has_notify = self.options.get('notification') 
 
+        # FIXME
+        entry_dict['source'] = _('via %s') % entry_dict['source'] \
+            if entry_dict['source'] else ''
+
         if 'event' in entry_dict:
             style = 'event'
             is_new_update = True
