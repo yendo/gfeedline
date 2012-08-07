@@ -1,5 +1,6 @@
 2012-08-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* share/html/theme/RTL/: Added new RTL theme (issue #5).
 	* twitter/tweetentry.py, twitter/output.py: Fixed a bug that
 	prevents showing Direct Messages. (issue #7) Added new
 	DirectMessageEntry class.
