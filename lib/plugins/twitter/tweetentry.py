@@ -21,7 +21,8 @@ class TweetEntry(object):
 
     def __init__(self, entry):
         self.entry = entry
-        self.retweet_by = ''
+        self.retweet_by_screen_name = ''
+        self.retweet_by_name = ''
 
     def get_dict(self, api):
         entry = self.entry
@@ -38,7 +39,10 @@ class TweetEntry(object):
             id=entry.id,
             styles=styles,
             image_uri=user.profile_image_url,
-            retweet=self.retweet_by,
+
+            retweet='',
+            retweet_by_screen_name=self.retweet_by_screen_name,
+            retweet_by_name=self.retweet_by_name,
 
             user_name=user.screen_name,
             full_name=user.name,
@@ -146,7 +150,8 @@ class RestRetweetEntry(TweetEntry):
 
     def __init__(self, entry):
         self.entry=entry.retweeted_status
-        self.retweet_by = entry.user.screen_name
+        self.retweet_by_screen_name = entry.user.screen_name
+        self.retweet_by_name = entry.user.name
 
 class FeedRetweetEntry(RestRetweetEntry):
 
@@ -156,7 +161,9 @@ class FeedRetweetEntry(RestRetweetEntry):
         self.original_entry = entry
         self.entry=DictObj(entry.raw.get('retweeted_status'))
         self.entry.user=DictObj(self.entry.user)
-        self.retweet_by = entry.raw['user']['screen_name'] # name
+
+        self.retweet_by_screen_name = entry.raw['user']['screen_name']
+        self.retweet_by_name = entry.raw['user']['name']
 
 class MyFeedRetweetEntry(FeedRetweetEntry):
 

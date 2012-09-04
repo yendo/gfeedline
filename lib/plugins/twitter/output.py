@@ -94,12 +94,16 @@ class TwitterOutputBase(object):
             if entry_dict['source'] else ''
 
         # retweet template
-        if entry_dict['retweet']:
-            retweet_by = entry_dict['retweet']
-            title = _("Retweeted by %s") % retweet_by
+        if entry_dict.get('retweet_by_name'):
+            text = _("Retweeted by %s")
+            retweet_by_screen_name = entry_dict['retweet_by_screen_name']
+            title_by_screen_name = text % entry_dict['retweet_by_screen_name']
+            title_by_name = text % entry_dict['retweet_by_name']
 
             template = self.theme.template['retweet']
-            key_dict = {'retweet_by': 'retweet_by', 'title': title}
+            key_dict = {'retweet_by_screen_name': retweet_by_screen_name,
+                        'title_by_screen_name': title_by_screen_name, 
+                        'title_by_name': title_by_name}
             entry_dict['retweet'] = template.substitute(key_dict)
 
         # protected icon template

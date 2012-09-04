@@ -2,6 +2,8 @@
 
 	* theme.py, twitter/output.py, twitter/tweetentry.py:
 	  Added new templates: retweet.html and protected.html.
+	  Added substitution keywords (retweet_by_screen_name,
+	  title_by_name & title_by_screen_name).
 
 2012-08-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
