@@ -91,6 +91,19 @@ class TwitterOutputBase(object):
         entry_dict['source'] = _('via %s') % entry_dict['source'] \
             if entry_dict['source'] else ''
 
+
+        entry_dict['protected'] = "<img class='protected' src='key.png' width='10' height='13'>"\
+            if entry_dict['protected'] else ''
+
+        if entry_dict['retweet']:
+            retweet_by = entry_dict['retweet']
+            title = _("Retweeted by %s") % retweet_by
+            html = ("<a href='http://twitter.com/%s'>"
+                    "<img title='%s' src='retweet.png' width='18' height='14'>"
+                    "</a>") % (retweet_by, title)
+
+            entry_dict['retweet'] = html
+
         if 'event' in entry_dict:
             style = 'event'
             is_new_update = True

@@ -20,7 +20,8 @@ TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
 class TweetEntry(object):
 
     def __init__(self, entry):
-        self.entry=entry
+        self.entry = entry
+        self.retweet_by = ''
 
     def get_dict(self, api):
         entry = self.entry
@@ -37,7 +38,7 @@ class TweetEntry(object):
             id=entry.id,
             styles=styles,
             image_uri=user.profile_image_url,
-            retweet=self._get_retweet_icon(),
+            retweet=self.retweet_by,
 
             user_name=user.screen_name,
             full_name=user.name,
@@ -82,13 +83,8 @@ class TweetEntry(object):
         text = decode_html_entities(text) # need to decode!
         return text
 
-    def _get_retweet_icon(self):
-        return ''
-
     def _get_protected_icon(self, attribute):
-        key = '' if attribute == 'false' or not attribute \
-            else "<img class='protected' src='key.png' width='10' height='13'>"
-        return key
+        return attribute and attribute != 'false'
 
     def _decode_source_html_entities(self, source_html):
         source_html = unescape(source_html)
@@ -151,13 +147,6 @@ class RestRetweetEntry(TweetEntry):
     def __init__(self, entry):
         self.entry=entry.retweeted_status
         self.retweet_by = entry.user.screen_name
-
-    def _get_retweet_icon(self):
-        title = _("Retweeted by %s") % self.retweet_by
-        html = ("<a href='http://twitter.com/%s'>"
-                "<img title='%s' src='retweet.png' width='18' height='14'>"
-                "</a>") % (self.retweet_by, title)
-        return html
 
 class FeedRetweetEntry(RestRetweetEntry):
 
