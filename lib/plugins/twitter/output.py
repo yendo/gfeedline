@@ -23,6 +23,7 @@ from ...utils.htmlentities import decode_html_entities
 from ...utils.settings import SETTINGS_VIEW
 from ...filterliststore import FilterColumn
 from ...constants import Column
+from ...theme import Theme
 
 class TwitterOutputFactory(object):
 
@@ -38,6 +39,7 @@ class TwitterOutputBase(object):
         self.argument = argument
         self.options = options
         self.filters = filters
+        self.theme = Theme()
 
         self.all_entries = []
         self.since_id = 0
@@ -91,18 +93,19 @@ class TwitterOutputBase(object):
         entry_dict['source'] = _('via %s') % entry_dict['source'] \
             if entry_dict['source'] else ''
 
-
-        entry_dict['protected'] = "<img class='protected' src='key.png' width='10' height='13'>"\
-            if entry_dict['protected'] else ''
-
+        # retweet template
         if entry_dict['retweet']:
             retweet_by = entry_dict['retweet']
             title = _("Retweeted by %s") % retweet_by
-            html = ("<a href='http://twitter.com/%s'>"
-                    "<img title='%s' src='retweet.png' width='18' height='14'>"
-                    "</a>") % (retweet_by, title)
 
-            entry_dict['retweet'] = html
+            template = self.theme.template['retweet']
+            key_dict = {'retweet_by': 'retweet_by', 'title': title}
+            entry_dict['retweet'] = template.substitute(key_dict)
+
+        # protected icon template
+        if entry_dict['protected']:
+            template = self.theme.template['protected']
+            entry_dict['protected'] = template.substitute({})
 
         if 'event' in entry_dict:
             style = 'event'

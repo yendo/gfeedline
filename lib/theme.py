@@ -70,7 +70,7 @@ class Theme(object):
     def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
 
-        for style in ['status', 'event']:
+        for style in ['status', 'event', 'retweet', 'protected']:
             template_file = os.path.join(
                 self.all_themes[theme_name]['dir'], '%s.html' % style) \
                 if theme_name in self.all_themes else ''

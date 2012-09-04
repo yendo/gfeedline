@@ -1,6 +1,7 @@
 2012-09-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* twitter/output.py, twitter/tweetentry.py: Code refactoring.
+	* theme.py, twitter/output.py, twitter/tweetentry.py:
+	  Added new templates: retweet.html and protected.html.
 
 2012-08-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
