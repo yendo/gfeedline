@@ -389,7 +389,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="shadow_type">etched-in</property>
                                 <child>
-                                  <object class="GtkTreeView" id="plugin_treeview">
+                                  <object class="GtkTreeView" id="account_treeview">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <signal name="cursor-changed" handler="on_plugin_treeview_cursor_changed" swapped="no"/>
@@ -585,6 +585,9 @@
                                         </child>
                                         <child>
                                           <object class="GtkCellRendererText" id="cellrenderertext_2"/>
+                                          <attributes>
+                                            <attribute name="text">2</attribute>
+                                          </attributes>
                                         </child>
                                       </object>
                                     </child>

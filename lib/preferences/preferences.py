@@ -11,6 +11,7 @@ from ..utils.settings import SETTINGS, SETTINGS_VIEW, SETTINGS_TWITTER
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE
 from ..theme import Theme
+from accounts import AccountAction
 from feedsource import FeedSourceAction
 from filters import FilterAction
 
@@ -50,6 +51,8 @@ class Preferences(object):
 
         # feeds & filters
 
+        self.account_action = AccountAction(
+            gui, mainwindow, self.liststore, self.preferences)
         self.feedsource_action = FeedSourceAction(
             gui, mainwindow, self.liststore, self.preferences)
         self.filter_action = FilterAction(

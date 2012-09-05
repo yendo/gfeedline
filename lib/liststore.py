@@ -9,6 +9,7 @@ from gi.repository import GdkPixbuf
 from window import MainWindow
 from view import FeedView
 from constants import Column
+from accountliststore import AccountListStore
 from filterliststore import FilterListStore
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 from plugins.twitter.api import TwitterAPIDict
@@ -29,6 +30,8 @@ class FeedListStore(ListStoreBase):
             str, GdkPixbuf.Pixbuf, str, str, str, str, object, object, object)
         self.window = MainWindow(self)
         self.api_dict = TwitterAPIDict()
+
+        self.account_liststore = AccountListStore()
         self.filter_liststore = FilterListStore()
         self.twitter_account = AuthorizedTwitterAccount()
 

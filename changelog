@@ -1,5 +1,7 @@
 2012-09-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* accountliststore.py, preferences/accounts.py: Started
+	  implementation for multi-account.
 	* feedsource.glade, preferences.glade: Added interfaces for
 	  multi-account support.
 

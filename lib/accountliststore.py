@@ -52,7 +52,7 @@ class SaveAccountListStore(SaveListStoreBase):
         for row in liststore:
             save_temp = {'source': row[AccountColumn.SOURCE],
                          'id': row[AccountColumn.ID],
-                         'token': row[AccountColumn.TOKEN]
+                         'token': row[AccountColumn.TOKEN],
                          'secret': row[AccountColumn.SECRET]
                          }
 
