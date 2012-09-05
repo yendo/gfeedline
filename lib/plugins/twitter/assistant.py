@@ -14,7 +14,7 @@ from ...constants import SHARED_DATA_FILE
 
 class TwitterAuthAssistant(Gtk.Assistant):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, cb=None):
         super(TwitterAuthAssistant, self).__init__()
 
         gui = Gtk.Builder()
@@ -33,7 +33,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
 #        if parent:
 #            self.set_transient_for(parent)
 
-        self.connect('apply', self.on_apply_button_clicked)
+        self.connect('apply', self.on_apply_button_clicked, cb)
         self.connect('cancel', self.on_cancel_button_clicked)
         self.connect('prepare', self.on_prepare)
         self.connect('close', self.on_close)
@@ -84,12 +84,17 @@ class TwitterAuthAssistant(Gtk.Assistant):
 
             self.label_screen_name.set_text(self.result['screen-name'])
 
-    def on_apply_button_clicked(self, assistant):
-        SETTINGS_TWITTER.set_string('user-name', self.result['screen-name'])
-        SETTINGS_TWITTER.set_string('access-token', self.result['access-token'])
-        SETTINGS_TWITTER.set_string('access-secret', self.result['access-secret'])
-
+    def on_apply_button_clicked(self, assistant, cb):
         # print "apply"
+
+        account = [
+            'Twitter',
+            self.result['screen-name'],
+            self.result['access-token'],
+            self.result['access-secret']
+            ]
+
+        cb(account)
 
     def on_cancel_button_clicked(self, assistant):
         self.destroy()
@@ -97,4 +102,3 @@ class TwitterAuthAssistant(Gtk.Assistant):
     def on_close(self, assistant):
         # print "close"
         self.destroy()
-

@@ -53,6 +53,8 @@ class ActionBase(object):
 
     DIALOG = None
     TREEVIEW = None
+
+    BUTTON_NEW = ''
     BUTTON_PREFS = ''
     BUTTON_DEL = ''
 

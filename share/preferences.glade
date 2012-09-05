@@ -402,14 +402,11 @@
                                         <property name="sort_column_id">2</property>
                                         <child>
                                           <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
-                                          <attributes>
-                                            <attribute name="pixbuf">1</attribute>
-                                          </attributes>
                                         </child>
                                         <child>
                                           <object class="GtkCellRendererText" id="cellrenderertext1"/>
                                           <attributes>
-                                            <attribute name="text">2</attribute>
+                                            <attribute name="text">0</attribute>
                                           </attributes>
                                         </child>
                                       </object>
@@ -421,7 +418,7 @@
                                         <child>
                                           <object class="GtkCellRendererText" id="cellrenderertext2"/>
                                           <attributes>
-                                            <attribute name="text">3</attribute>
+                                            <attribute name="text">1</attribute>
                                           </attributes>
                                         </child>
                                       </object>
@@ -442,7 +439,7 @@
                                 <property name="spacing">6</property>
                                 <property name="layout_style">end</property>
                                 <child>
-                                  <object class="GtkButton" id="button_new">
+                                  <object class="GtkButton" id="button_account_new">
                                     <property name="label">gtk-new</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
@@ -451,6 +448,7 @@
                                     <property name="use_action_appearance">False</property>
                                     <property name="use_underline">True</property>
                                     <property name="use_stock">True</property>
+                                    <signal name="clicked" handler="on_button_account_new_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -459,7 +457,7 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="button_prefs">
+                                  <object class="GtkButton" id="button_account_prefs">
                                     <property name="label">gtk-preferences</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
@@ -468,6 +466,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="use_stock">True</property>
+                                    <signal name="clicked" handler="on_button_account_prefs_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -476,7 +475,7 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="button_del">
+                                  <object class="GtkButton" id="button_account_del">
                                     <property name="label">gtk-delete</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
@@ -484,6 +483,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="use_stock">True</property>
+                                    <signal name="clicked" handler="on_button_account_del_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>

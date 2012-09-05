@@ -85,6 +85,8 @@ class Preferences(object):
 
         self.liststore.save_settings()
         self.liststore.filter_liststore.save_settings()
+        self.liststore.account_liststore.save_settings()
+
         self.preferences.destroy()
 
     def on_checkbutton_sticky_toggled(self, button):
@@ -94,6 +96,16 @@ class Preferences(object):
     def on_checkbutton_autostart_toggled(self, button):
         state = button.get_active()
         self.autostart.set(state)
+
+
+    def on_button_account_new_clicked(self, button):
+        self.account_action.on_button_feed_new_clicked(button)
+
+    def on_button_account_prefs_clicked(self, treeselection):
+        self.account_action.on_button_feed_prefs_clicked(treeselection)
+
+    def on_button_account_del_clicked(self, treeselection):
+        self.account_action.on_button_feed_del_clicked(treeselection)
 
 
     def on_button_feed_new_clicked(self, button):
