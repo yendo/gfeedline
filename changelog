@@ -1,3 +1,8 @@
+2012-09-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* feedsource.glade, preferences.glade: Added interfaces for
+	  multi-account support.
+
 2012-09-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* theme.py, twitter/output.py, twitter/tweetentry.py:

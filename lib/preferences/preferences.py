@@ -24,7 +24,6 @@ class Preferences(object):
         self.preferences = gui.get_object('preferences')
 
         notebook = gui.get_object('notebook1')
-        notebook.remove_page(1)
         recent_page = SETTINGS.get_int('preferences-recent-page')
         notebook.set_current_page(recent_page)
 
