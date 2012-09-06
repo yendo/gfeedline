@@ -14,26 +14,29 @@ from filterliststore import FilterListStore
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.output import TwitterOutputFactory
-from plugins.twitter.account import AuthorizedTwitterAccount
+from plugins.twitter.account import AuthorizedTwitterAccount, AuthorizedTwitterAccount_old
 
 
 class FeedListStore(ListStoreBase):
 
     """ListStore for Feed Sources.
 
-    0,     1,    2,      3,    4,      5,        6,            7,           8
-    group, icon, source, name, target, argument, options_dict, account_obj, api_obj
+    0,     1,    2,      3,        4,    5,      6,
+    group, icon, source, username, name, target, argument,
+
+    7,            8,           9
+    options_dict, account_obj, api_obj
     """
 
     def __init__(self):
         super(FeedListStore, self).__init__(
-            str, GdkPixbuf.Pixbuf, str, str, str, str, object, object, object)
+            str, GdkPixbuf.Pixbuf, str, str, str, str, str, object, object, object)
         self.window = MainWindow(self)
         self.api_dict = TwitterAPIDict()
 
         self.account_liststore = AccountListStore()
         self.filter_liststore = FilterListStore()
-        self.twitter_account = AuthorizedTwitterAccount()
+        self.twitter_account = AuthorizedTwitterAccount_old() # FIXME
 
         self.save = SaveListStore()
         for entry in self.save.load():
@@ -44,7 +47,10 @@ class FeedListStore(ListStoreBase):
         if not api_class:
             return
 
-        api = api_class(self.twitter_account)
+        account_obj = self.account_liststore.get_account_obj(
+            source.get('source'), source.get('username'))
+
+        api = api_class(account_obj)
         notebook = self.window.get_notebook(source.get('group'))
 
         page = int(str(self.get_path(iter))) if iter else -1
@@ -59,11 +65,12 @@ class FeedListStore(ListStoreBase):
         list = [source.get('group'),
                 GdkPixbuf.Pixbuf(),
                 source.get('source'),
+                source.get('username'),
                 source.get('name'),
                 source['target'], # API 
                 source.get('argument'), 
                 source.get('options'),
-                self.twitter_account, # account_obj
+                account_obj,
                 api_obj]
 
         new_iter = self.insert_before(iter, list)
@@ -139,11 +146,12 @@ class SaveListStore(SaveListStoreBase):
 
         for dir in entry:
             data = { 'name' : '', 'target' : '', 'argument' : '',
-                     'source' : 'Twitter', 
+                     'source' : 'Twitter', 'username': '',
                      'options' : {} }
 
             for key, value in dir.items():
-                if key in ['group', 'source', 'name', 'target', 'argument']:
+                if key in ['group', 'source', 'username', 
+                           'name', 'target', 'argument']:
                     data[key] = value
                 else:
                     data['options'][key] = value
@@ -154,7 +162,7 @@ class SaveListStore(SaveListStoreBase):
         return source_list
 
     def save(self, liststore):
-        data_list = ['source', 'name', 'target', 'argument']
+        data_list = ['source', 'username', 'name', 'target', 'argument']
         save_data = []
 
         for i, row in enumerate(liststore):

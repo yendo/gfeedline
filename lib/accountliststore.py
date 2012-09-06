@@ -1,20 +1,21 @@
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
+from plugins.twitter.account import AuthorizedTwitterAccount
 
 
 class AccountColumn(object):
 
-    (SOURCE, ID, TOKEN, SECRET) = range(4)
+    (SOURCE, ID, TOKEN, SECRET, ACCOUNT) = range(5)
 
 class AccountListStore(ListStoreBase):
 
     """ListStore for Accounts.
 
-    0,      1,  2,     3,
-    source, id, token, secret
+    0,      1,  2,     3,      4
+    source, id, token, secret, account_pbj
     """
 
     def __init__(self):
-        super(AccountListStore, self).__init__(str, str, str, str)
+        super(AccountListStore, self).__init__(str, str, str, str, object)
 
         self.save = SaveAccountListStore()
         for entry in self.save.load():
@@ -29,6 +30,12 @@ class AccountListStore(ListStoreBase):
         self.remove(iter)
         return new_iter
 
+    def get_account_obj(self, source, userid):
+        for row in self:
+            row_data = [x for x in row]
+            if row_data[AccountColumn.ID] == userid:
+                return row_data[AccountColumn.ACCOUNT]
+
 class SaveAccountListStore(SaveListStoreBase):
 
     SAVE_FILE = 'accounts.json'
@@ -37,10 +44,14 @@ class SaveAccountListStore(SaveListStoreBase):
         source_list = []
 
         for row in entry:
+            account = AuthorizedTwitterAccount(
+                row['id'], row['token'], row['secret'])
+
             data = [row['source'],
                     row['id'],
                     row['token'],
-                    row['secret']
+                    row['secret'],
+                    account
                     ]
             source_list.append(data)
 

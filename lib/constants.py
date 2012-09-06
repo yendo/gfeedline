@@ -27,5 +27,5 @@ def SHARED_DATA_FILE(file):
 
 class Column(object):
 
-    (GROUP, ICON, SOURCE, NAME, TARGET, ARGUMENT, 
-     OPTIONS, ACCOUNT, API) = range(9)
+    (GROUP, ICON, SOURCE, USERNAME, NAME, TARGET, ARGUMENT, 
+     OPTIONS, ACCOUNT, API) = range(10)

@@ -5,7 +5,7 @@ from gi.repository import GObject
 from getauthtoken import CONSUMER
 from ...utils.settings import SETTINGS_TWITTER
 
-class AuthorizedTwitterAccount(GObject.GObject):
+class AuthorizedTwitterAccount_old(GObject.GObject):
 
     __gsignals__ = {
         'update-credential': (GObject.SignalFlags.RUN_LAST, None, (object, )),
@@ -14,7 +14,7 @@ class AuthorizedTwitterAccount(GObject.GObject):
     CONFIG = None
 
     def __init__(self):
-        super(AuthorizedTwitterAccount, self).__init__()
+        super(AuthorizedTwitterAccount_old, self).__init__()
 
         token = self._get_token()
         self.api = TwitterFeed(consumer=CONSUMER, token=token)
@@ -25,7 +25,7 @@ class AuthorizedTwitterAccount(GObject.GObject):
             self.api.configuration().addCallback(self._on_get_configuration)
 
     def _on_get_configuration(self, data):
-        AuthorizedTwitterAccount.CONFIG = data
+        AuthorizedTwitterAccount_old.CONFIG = data
 
     def _on_update_credential(self, account, unknown):
         token = self._get_token()
@@ -39,6 +39,39 @@ class AuthorizedTwitterAccount(GObject.GObject):
         secret = get_string('access-secret')
         token = oauth.OAuthToken(key, secret) if key and secret else None
         self.user_name = get_string('user-name') if token else None
+
+        return token
+
+class AuthorizedTwitterAccount(GObject.GObject):
+
+    __gsignals__ = {
+        'update-credential': (GObject.SignalFlags.RUN_LAST, None, (object, )),
+        }
+
+    CONFIG = None
+
+    def __init__(self, user_name, key, secret):
+        super(AuthorizedTwitterAccount, self).__init__()
+
+        token = self._get_token(user_name, key, secret)
+        self.api = TwitterFeed(consumer=CONSUMER, token=token)
+        #SETTINGS_TWITTER.connect("changed::access-secret", 
+        #                         self._on_update_credential)
+
+        if not AuthorizedTwitterAccount.CONFIG:
+            self.api.configuration().addCallback(self._on_get_configuration)
+
+    def _on_get_configuration(self, data):
+        AuthorizedTwitterAccount.CONFIG = data
+
+    def _on_update_credential(self, account, unknown):
+        token = self._get_token()
+        self.api.update_token(token)
+        self.emit("update-credential", None)
+
+    def _get_token(self, user_name, key, secret):
+        token = oauth.OAuthToken(key, secret) if key and secret else None
+        self.user_name = user_name if token else None
 
         return token
 

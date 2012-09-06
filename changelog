@@ -1,3 +1,7 @@
+2012-09-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* accountliststore.py, liststore.py: Added multi-account support.
+
 2012-09-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* accountliststore.py, preferences/accounts.py: Started

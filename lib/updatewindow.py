@@ -4,7 +4,7 @@ import tempfile
 from gi.repository import Gtk, GLib, Gio, GdkPixbuf
 
 from constants import SHARED_DATA_FILE
-from plugins.twitter.account import AuthorizedTwitterAccount
+from plugins.twitter.account import AuthorizedTwitterAccount_old
 from utils.settings import SETTINGS
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
 
@@ -76,7 +76,7 @@ class UpdateWindow(UpdateWidgetBase):
         params = {'in_reply_to_status_id': self.entry.get('id')} \
             if self.entry else {}
 
-        twitter_account = AuthorizedTwitterAccount()
+        twitter_account = AuthorizedTwitterAccount_old()
 
         if self.media.file: # update with media
             is_shrink = True
@@ -118,7 +118,7 @@ class MediaFile(object):
 
     def __init__(self, gui):
         self.file = None
-        self.config = AuthorizedTwitterAccount.CONFIG
+        self.config = AuthorizedTwitterAccount_old.CONFIG
 
         self.button_image = gui.get_object('button_image')
         self.image = gui.get_object('image_attached')
@@ -252,7 +252,7 @@ class RetweetDialog(UpdateWidgetBase):
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
-            twitter_account = AuthorizedTwitterAccount()
+            twitter_account = AuthorizedTwitterAccount_old()
             twitter_account.api.retweet(entry['id'], self._on_retweet_status)
 
         dialog.destroy()
@@ -310,7 +310,7 @@ class RetweetDialogOLD(RetweetDialog):
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
-            twitter_account = AuthorizedTwitterAccount()
+            twitter_account = AuthorizedTwitterAccount_old()
             twitter_account.api.retweet(entry['id'], self._on_retweet_status)
 
         dialog.destroy()
