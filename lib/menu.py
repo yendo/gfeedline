@@ -132,12 +132,12 @@ class AddFilterMenuItem(PopupMenuItem):
 
     def on_activate(self, menuitem, entry_id):
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
-        text = clipboard.wait_for_text()
+        clipboard_text = clipboard.wait_for_text()
 
         filter_liststore = self.parent.liststore.filter_liststore
 
-        dialog = FilterDialog(None, text=text)
-        response_id, v = dialog.run()
+        dialog = FilterDialog(None)
+        response_id, v = dialog.run(clipboard_text)
 
         if response_id == Gtk.ResponseType.OK:
             filter_liststore.append(v)

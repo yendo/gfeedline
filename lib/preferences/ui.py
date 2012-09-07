@@ -7,13 +7,12 @@ class DialogBase(object):
     GLADED = ''
     DIALOG = ''
 
-    def __init__(self, parent, liststore_row=None, text=None):
+    def __init__(self, parent, liststore_row=None):
         self.gui = Gtk.Builder()
         self.gui.add_from_file(SHARED_DATA_FILE(self.GLADE))
 
         self.parent = parent
-        self.liststore_row = liststore_row
-        self.text = text
+        self.liststore_row = liststore_row # each liststore's row
 
         self.button_ok = self.gui.get_object('button_ok')
         self.button_ok.set_sensitive(False)
