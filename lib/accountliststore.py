@@ -22,6 +22,12 @@ class AccountListStore(ListStoreBase):
             self.append(entry)
 
     def append(self, entry, iter=None):
+        account_obj = AuthorizedTwitterAccount(
+            entry[AccountColumn.ID], 
+            entry[AccountColumn.TOKEN], 
+            entry[AccountColumn.SECRET])
+        entry.append(account_obj)
+
         new_iter = self.insert_before(iter, entry)
         return new_iter
 
@@ -44,14 +50,10 @@ class SaveAccountListStore(SaveListStoreBase):
         source_list = []
 
         for row in entry:
-            account = AuthorizedTwitterAccount(
-                row['id'], row['token'], row['secret'])
-
             data = [row['source'],
                     row['id'],
                     row['token'],
                     row['secret'],
-                    account
                     ]
             source_list.append(data)
 

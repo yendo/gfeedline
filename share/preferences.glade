@@ -466,7 +466,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="use_stock">True</property>
-                                    <signal name="clicked" handler="on_button_account_prefs_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_button_account_prefs_clicked" object="treeview-selection1" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -483,7 +483,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="use_stock">True</property>
-                                    <signal name="clicked" handler="on_button_account_del_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_button_account_del_clicked" object="treeview-selection1" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
