@@ -11,7 +11,7 @@ class AccountListStore(ListStoreBase):
     """ListStore for Accounts.
 
     0,      1,  2,     3,      4
-    source, id, token, secret, account_pbj
+    source, id, token, secret, account_obj
     """
 
     def __init__(self):

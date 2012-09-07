@@ -7,12 +7,13 @@ class DialogBase(object):
     GLADED = ''
     DIALOG = ''
 
-    def __init__(self, parent, liststore_row=None):
+    def __init__(self, parent, liststore_row=None, liststore=None):
         self.gui = Gtk.Builder()
         self.gui.add_from_file(SHARED_DATA_FILE(self.GLADE))
 
         self.parent = parent
         self.liststore_row = liststore_row # each liststore's row
+        self.liststore = liststore # main liststore
 
         self.button_ok = self.gui.get_object('button_ok')
         self.button_ok.set_sensitive(False)
@@ -66,7 +67,7 @@ class ActionBase(object):
         self.button_del = gui.get_object(self.BUTTON_DEL)
 
     def on_button_feed_new_clicked(self, button):
-        dialog = self.DIALOG(self.preferences)
+        dialog = self.DIALOG(self.preferences, liststore=self.liststore)
         response_id, v = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:
@@ -76,7 +77,7 @@ class ActionBase(object):
     def on_button_feed_prefs_clicked(self, treeselection):
         model, iter = treeselection.get_selected()
 
-        dialog = self.DIALOG(self.preferences, model[iter])
+        dialog = self.DIALOG(self.preferences, model[iter], liststore=self.liststore)
         response_id, v = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:

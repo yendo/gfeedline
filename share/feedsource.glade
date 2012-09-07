@@ -31,6 +31,9 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkCellRendererText" id="cellrenderertext_name"/>
+                      <attributes>
+                        <attribute name="text">1</attribute>
+                      </attributes>
                     </child>
                     <child>
                       <object class="GtkCellRendererPixbuf" id="cellrenderertext_pixbuf"/>
@@ -289,4 +292,5 @@
       </packing>
     </child>
   </object>
+  <object class="GtkListStore" id="liststore1"/>
 </interface>

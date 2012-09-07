@@ -2,6 +2,7 @@ from gi.repository import Gtk
 
 from ..plugins.twitter.api import TwitterAPIDict
 from ..constants import Column
+from ..accountliststore import AccountColumn
 from ui import *
 
 class FeedSourceDialog(DialogBase):
@@ -11,6 +12,8 @@ class FeedSourceDialog(DialogBase):
     DIALOG = 'feed_source'
 
     def _setup_ui(self):
+        self.combobox_source = SourceCombobox(self.gui, self.liststore_row, 
+                                              self.liststore)
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
         self.entry_name = self.gui.get_object('entry_name')
         self.label_argument = self.gui.get_object('label_argument')
@@ -38,8 +41,11 @@ class FeedSourceDialog(DialogBase):
         # run
         response_id = self.dialog.run()
 
+        source, username = self.combobox_source.get_active_account()
+
         v = {
-#            'source'  : source_widget.get_active_text(),
+            'source' : source,
+            'username': username,
             'name' : self.entry_name.get_text().decode('utf-8'),
             'target' : self.combobox_target.get_active_text(), #.decode('utf-8'),
             'argument' : self.entry_argument.get_text().decode('utf-8'),
@@ -123,6 +129,27 @@ class OptionsTabUserStream(OptionsTabChild):
         state = self.checkbutton.get_active()
         result = {'notify_events': state}
         return result
+
+class SourceCombobox(object):
+
+    def __init__(self, gui, feedliststore, liststore):
+        self.widget = gui.get_object('combobox_source')
+        self.widget.set_model(liststore.account_liststore)
+        
+        num = 0
+        if feedliststore:
+            for i, v in enumerate(liststore.account_liststore):
+                if v[AccountColumn.SOURCE] == feedliststore[Column.SOURCE] and \
+                        v[AccountColumn.ID] == feedliststore[Column.USERNAME]:
+                    num = i
+
+        self.widget.set_active(num)
+
+    def get_active_account(self):
+        account = self.widget.get_model()[self.widget.get_active()]
+        source, user_name = account[AccountColumn.SOURCE], \
+            account[AccountColumn.ID]
+        return source, user_name
 
 class TargetCombobox(object):
 

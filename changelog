@@ -1,3 +1,7 @@
+2012-09-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* feedsource.py, feedsource.glade: Added UI for multi-account support.
+
 2012-09-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* accountliststore.py, liststore.py: Added multi-account support.
