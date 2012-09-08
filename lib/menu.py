@@ -71,11 +71,10 @@ class ReplyMenuItem(PopupMenuItem):
     def on_activate(self, menuitem, entry_id):
         if CAN_ACCESS_DOM:
             entry_dict = self._get_entry_from_dom(entry_id)
-            # print api.account.user_name # use account obj?
-            UpdateWindow(self.parent, entry_dict)
+            UpdateWindow(self.parent, entry_dict, self.api.account)
         else:
             entry_dict = {'id': entry_id, 'user_name': self.user}
-            UpdateWindowOLD(self.parent, entry_dict)
+            UpdateWindowOLD(self.parent, entry_dict, self.api.account)
 
 class RetweetMenuItem(PopupMenuItem):
 
@@ -83,6 +82,7 @@ class RetweetMenuItem(PopupMenuItem):
 
     def __init__(self, uri=None, api=None, scrolled_window=None):
         super(RetweetMenuItem, self).__init__(uri, api, scrolled_window)
+        self.account = api.account
 
         if CAN_ACCESS_DOM:
             entry_id = uri.split('/')[-1]
@@ -97,10 +97,10 @@ class RetweetMenuItem(PopupMenuItem):
     def on_activate(self, menuitem, entry_id):
         if CAN_ACCESS_DOM:
             entry_dict = self._get_entry_from_dom(entry_id)
-            dialog = RetweetDialog()
+            dialog = RetweetDialog(self.account)
         else:
             entry_dict = {'id': entry_id, 'user_name': self.user}
-            dialog = RetweetDialogOLD()
+            dialog = RetweetDialogOLD(self.account)
 
         dialog.run(entry_dict, self.parent.window.window)
 

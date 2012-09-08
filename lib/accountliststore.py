@@ -42,6 +42,12 @@ class AccountListStore(ListStoreBase):
             if row_data[AccountColumn.ID] == userid:
                 return row_data[AccountColumn.ACCOUNT]
 
+    def get_account_row_num(self, source, userid):
+        for i, row in enumerate(self):
+            row_data = [x for x in row]
+            if row_data[AccountColumn.ID] == userid:
+                return i
+
 class SaveAccountListStore(SaveListStoreBase):
 
     SAVE_FILE = 'accounts.json'
