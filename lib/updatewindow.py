@@ -35,12 +35,18 @@ class AccountCombobox(object):
         self.combobox_account = gui.get_object('combobox_account')
         self.combobox_account.set_model(self.account_liststore)
 
-        self.active_num = self.account_liststore.get_account_row_num(
-            'Twitter', account.user_name) if account else 0
+        if account:
+            self.active_num = self.account_liststore.get_account_row_num(
+            'Twitter', account.user_name) 
+            self.combobox_account.set_sensitive(False)
+        else:
+            self.active_num = 0
+
         self.combobox_account.set_active(self.active_num)
 
     def get_account_obj(self):
-        return self.account_liststore[self.active_num][AccountColumn.ACCOUNT]
+        active_num = self.combobox_account.get_active()
+        return self.account_liststore[active_num][AccountColumn.ACCOUNT]
 
 class UpdateWindow(UpdateWidgetBase):
 
