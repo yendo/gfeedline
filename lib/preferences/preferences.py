@@ -28,13 +28,6 @@ class Preferences(object):
         recent_page = SETTINGS.get_int('preferences-recent-page')
         notebook.set_current_page(recent_page)
 
-        # account
-
-        self.label_username = gui.get_object('label_confirm_username')
-        self.on_setting_username_changed()
-        SETTINGS_TWITTER.connect("changed::user-name", 
-                                 self.on_setting_username_changed)
-
         # view & desktop
 
         self.combobox_theme = ComboboxTheme(gui)
@@ -61,18 +54,11 @@ class Preferences(object):
         gui.connect_signals(self)
         self.preferences.show_all()
 
-    def on_setting_username_changed(self, *args):
-        user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'
-        self.label_username.set_text(user_name)
-
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
             self.preferences.stick()
         else:
             self.preferences.unstick()
-
-    def on_button_twitter_auth_clicked(self, button):
-        TwitterAuthAssistant(self.preferences)
 
     def on_button_close_clicked(self, notebook):
         page = notebook.get_current_page()
