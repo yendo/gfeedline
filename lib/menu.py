@@ -72,10 +72,10 @@ class ReplyMenuItem(PopupMenuItem):
         if CAN_ACCESS_DOM:
             entry_dict = self._get_entry_from_dom(entry_id)
             # print api.account.user_name # use account obj?
-            UpdateWindow(None, entry_dict)
+            UpdateWindow(self.parent, entry_dict)
         else:
             entry_dict = {'id': entry_id, 'user_name': self.user}
-            UpdateWindowOLD(None, entry_dict)
+            UpdateWindowOLD(self.parent, entry_dict)
 
 class RetweetMenuItem(PopupMenuItem):
 

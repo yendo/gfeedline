@@ -4,6 +4,7 @@ import tempfile
 from gi.repository import Gtk, GLib, Gio, GdkPixbuf
 
 from constants import SHARED_DATA_FILE
+from accountliststore import AccountColumn
 from plugins.twitter.account import AuthorizedTwitterAccount_old
 from utils.settings import SETTINGS
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
@@ -27,6 +28,19 @@ class UpdateWidgetBase(object):
         gui.get_object('label_body').set_text(entry['status_body'])
         gui.get_object('image_usericon').set_from_file(icon.name)
 
+class AccountCombobox(object):
+
+    def __init__(self, gui, liststore):
+        self.account_liststore = liststore.account_liststore
+        self.combobox_account = gui.get_object('combobox_account')
+        self.combobox_account.set_model(self.account_liststore)
+
+        self.active_num = 0
+        self.combobox_account.set_active(self.active_num)
+
+    def get_account_obj(self):
+        return self.account_liststore[self.active_num][AccountColumn.ACCOUNT]
+
 class UpdateWindow(UpdateWidgetBase):
 
     def __init__(self, mainwindow, entry=None):
@@ -35,6 +49,8 @@ class UpdateWindow(UpdateWidgetBase):
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
         self.media = MediaFile(gui)
+
+        self.account_combobox = AccountCombobox(gui, mainwindow.liststore)
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')
@@ -76,7 +92,7 @@ class UpdateWindow(UpdateWidgetBase):
         params = {'in_reply_to_status_id': self.entry.get('id')} \
             if self.entry else {}
 
-        twitter_account = AuthorizedTwitterAccount_old()
+        twitter_account = self.account_combobox.get_account_obj()
 
         if self.media.file: # update with media
             is_shrink = True
