@@ -44,11 +44,11 @@ class FeedListStore(ListStoreBase):
 
     def append(self, source, iter=None):
         api_class = self.api_dict.get(source['target'])
-        if not api_class:
-            return
-
         account_obj = self.account_liststore.get_account_obj(
             source.get('source'), source.get('username'))
+
+        if not api_class or not account_obj:
+            return
 
         api = api_class(account_obj)
         notebook = self.window.get_notebook(source.get('group'))
