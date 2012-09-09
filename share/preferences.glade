@@ -298,7 +298,7 @@
                                   <object class="GtkTreeView" id="account_treeview">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <signal name="cursor-changed" handler="on_plugin_treeview_cursor_changed" swapped="no"/>
+                                    <signal name="cursor-changed" handler="on_account_treeview_cursor_changed" object="treeview-selection1" swapped="no"/>
                                     <child internal-child="selection">
                                       <object class="GtkTreeSelection" id="treeview-selection1"/>
                                     </child>
@@ -366,10 +366,9 @@
                                   <object class="GtkButton" id="button_account_prefs">
                                     <property name="label">gtk-preferences</property>
                                     <property name="use_action_appearance">False</property>
-                                    <property name="visible">True</property>
-                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
+                                    <property name="no_show_all">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="use_stock">True</property>
                                     <signal name="clicked" handler="on_button_account_prefs_clicked" object="treeview-selection1" swapped="no"/>

@@ -93,6 +93,9 @@ class Preferences(object):
     def on_button_account_del_clicked(self, treeselection):
         self.account_action.on_button_feed_del_clicked(treeselection)
 
+    def on_account_treeview_cursor_changed(self, treeselection):
+        self.account_action.on_feedsource_treeview_cursor_changed(treeselection)
+
 
     def on_button_feed_new_clicked(self, button):
         self.feedsource_action.on_button_feed_new_clicked(button)
