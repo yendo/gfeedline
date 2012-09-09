@@ -102,7 +102,7 @@ class RetweetMenuItem(PopupMenuItem):
             entry_dict = {'id': entry_id, 'user_name': self.user}
             dialog = RetweetDialogOLD(self.account)
 
-        dialog.run(entry_dict, self.parent.window.window)
+        dialog.run(entry_dict, self.parent.window)
 
 class FavMenuItem(RetweetMenuItem):
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-05 11:11+0900\n"
-"PO-Revision-Date: 2012-09-05 11:12+0900\n"
+"POT-Creation-Date: 2012-09-09 21:25+0900\n"
+"PO-Revision-Date: 2012-09-09 21:24+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -32,7 +32,7 @@ msgstr "開く(_O)"
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:82
+#: ../lib/menu.py:81
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
@@ -72,7 +72,7 @@ msgstr "メンション"
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:95 ../lib/preferences/feedsource.py:86
+#: ../lib/plugins/twitter/api.py:95 ../lib/preferences/feedsource.py:92
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
@@ -109,7 +109,7 @@ msgid "Sender"
 msgstr "送信者"
 
 #: ../lib/plugins/twitter/output.py:68 ../share/filters.glade.h:7
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:13
 msgid "Source"
 msgstr "ソース"
 
@@ -150,22 +150,31 @@ msgstr "さんのリスト %s に追加されました"
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
 
-#: ../lib/preferences/feedsource.py:114
+#: ../lib/preferences/feedsource.py:120
 msgid "Options"
 msgstr "オプション"
 
-#: ../lib/preferences/feedsource.py:119
+#: ../lib/preferences/feedsource.py:125
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
-#: ../lib/updatewindow.py:63 ../lib/updatewindow.py:289
+#: ../lib/updatewindow.py:87 ../lib/updatewindow.py:323
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:183
+#: ../lib/updatewindow.py:207
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
+
+#: ../lib/updatewindow.py:279
+#, python-format
+msgid "Retweet this to your (%s's) followers?"
+msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
+
+#: ../lib/updatewindow.py:281
+msgid "Retweet this to your followers?"
+msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
 #: ../share/assistant_twitter.glade.h:1
 msgid ""
@@ -187,11 +196,11 @@ msgid ""
 "Click \"Apply\" to save your settings."
 msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
 
-#: ../share/assistant_twitter.glade.h:6 ../share/preferences.glade.h:2
+#: ../share/assistant_twitter.glade.h:6
 msgid "Screen name:"
 msgstr "スクリーンネーム:"
 
-#: ../share/assistant_twitter.glade.h:7 ../share/preferences.glade.h:3
+#: ../share/assistant_twitter.glade.h:7
 msgid "none"
 msgstr "なし"
 
@@ -235,7 +244,7 @@ msgstr "通知機能を使う(_E)"
 msgid "_Group:"
 msgstr "グループ(_G):"
 
-#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:16
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:12
 msgid "General"
 msgstr "全般"
 
@@ -339,113 +348,101 @@ msgstr ""
 msgid "Preferences"
 msgstr "設定"
 
-#: ../share/preferences.glade.h:4
-msgid "_Authorization"
-msgstr "認証(_A)"
-
-#: ../share/preferences.glade.h:5
-msgid "<b>Account</b>"
-msgstr "<b>アカウント</b>"
-
-#: ../share/preferences.glade.h:6
+#: ../share/preferences.glade.h:2
 msgid "_Theme:"
 msgstr "テーマ(_T):"
 
-#: ../share/preferences.glade.h:7
+#: ../share/preferences.glade.h:3
 msgid "Timeline _order:"
 msgstr "タイムラインの表示順(_O):"
 
-#: ../share/preferences.glade.h:8
+#: ../share/preferences.glade.h:4
 msgid "_Font:"
 msgstr "フォント(_F):"
 
-#: ../share/preferences.glade.h:9
+#: ../share/preferences.glade.h:5
 msgid "Default"
 msgstr "デフォルト"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:6
 msgid "Ascending"
 msgstr "昇順"
 
-#: ../share/preferences.glade.h:11
+#: ../share/preferences.glade.h:7
 msgid "Descending"
 msgstr "降順"
 
-#: ../share/preferences.glade.h:12
+#: ../share/preferences.glade.h:8
 msgid "<b>View</b>"
 msgstr "<b>表示</b>"
 
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:9
 msgid "Always on _Visible Workspace"
 msgstr "すべてのワークスペースに配置する(_V)"
 
-#: ../share/preferences.glade.h:14
+#: ../share/preferences.glade.h:10
 msgid "_Auto Start"
 msgstr "ログイン時に自動起動する(_A)"
 
-#: ../share/preferences.glade.h:15
+#: ../share/preferences.glade.h:11
 msgid "<b>Desktop</b>"
 msgstr "<b>デスクトップ</b>"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:14
 msgid "User ID"
 msgstr "ユーザ ID"
 
-#: ../share/preferences.glade.h:19
+#: ../share/preferences.glade.h:15
 msgid "<b>Accounts</b>"
 msgstr "<b>アカウント</b>"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:16
 msgid "Accounts"
 msgstr "アカウント"
 
-#: ../share/preferences.glade.h:21
+#: ../share/preferences.glade.h:17
 msgid "Name"
 msgstr "名前"
 
-#: ../share/preferences.glade.h:22
+#: ../share/preferences.glade.h:18
 msgid "Target"
 msgstr "ターゲット"
 
-#: ../share/preferences.glade.h:23
+#: ../share/preferences.glade.h:19
 msgid "Argument"
 msgstr "引数"
 
-#: ../share/preferences.glade.h:24
+#: ../share/preferences.glade.h:20
 msgid "Group"
 msgstr "グループ"
 
-#: ../share/preferences.glade.h:25
+#: ../share/preferences.glade.h:21
 msgid "<b>Feed Sources</b>"
 msgstr "<b>フィードソース</b>"
 
-#: ../share/preferences.glade.h:26
+#: ../share/preferences.glade.h:22
 msgid "Feeds"
 msgstr "フィード"
 
-#: ../share/preferences.glade.h:27
+#: ../share/preferences.glade.h:23
 msgid "Word"
 msgstr "単語"
 
-#: ../share/preferences.glade.h:28
+#: ../share/preferences.glade.h:24
 msgid "Expiry"
 msgstr "有効期間"
 
-#: ../share/preferences.glade.h:29
+#: ../share/preferences.glade.h:25
 msgid "<b>Filters</b>"
 msgstr "<b>フィルター</b>"
 
-#: ../share/preferences.glade.h:30
+#: ../share/preferences.glade.h:26
 msgid "Filters"
 msgstr "フィルター"
 
 #: ../share/retweet.glade.h:1
 msgid "<big><b>Retweet?</b></big>"
 msgstr "<big><b>リツイートしますか?</b></big>"
-
-#: ../share/retweet.glade.h:2
-msgid "Retweet this to your followers?"
-msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
 #: ../share/update.glade.h:1
 msgid "What are you doing?"

@@ -10,7 +10,7 @@
     <property name="buttons">yes-no</property>
     <property name="text" translatable="yes">&lt;big&gt;&lt;b&gt;Retweet?&lt;/b&gt;&lt;/big&gt;</property>
     <property name="use_markup">True</property>
-    <property name="secondary_text" translatable="yes">Retweet this to your followers?</property>
+    <property name="secondary_text">Retweet this to your followers?</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="messagedialog-vbox">
         <property name="can_focus">False</property>

@@ -265,7 +265,8 @@ class RetweetDialog(UpdateWidgetBase):
         self.twitter_account = account
 
     def run(self, entry, parent):
-        self.parent = parent
+        self.parent = parent.window
+        self.has_multi_account = len(parent.liststore.account_liststore) > 1
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
@@ -275,6 +276,11 @@ class RetweetDialog(UpdateWidgetBase):
         self._set_ui(gui, entry, icon)
 
         dialog = gui.get_object('messagedialog')
+        screen_name = self.twitter_account.user_name
+        text = _("Retweet this to your (%s's) followers?") % screen_name \
+            if self.has_multi_account else _("Retweet this to your followers?") 
+
+        dialog.format_secondary_text(text)
         dialog.set_transient_for(self.parent)
         response_id = dialog.run()
 
