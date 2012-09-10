@@ -12,27 +12,14 @@ from theme import Theme, FontSet
 from updatewindow import UpdateWindow
 from notification import StatusNotification
 from utils.settings import SETTINGS, SETTINGS_GEOMETRY, SETTINGS_VIEW
+from utils.commonui import MultiAccountSensitiveWidget
 from constants import VERSION, SHARED_DATA_FILE, Column
 from view import DnDSelection
 
 
-class MenuItemUpdate(object):
+class MenuItemUpdate(MultiAccountSensitiveWidget):
 
-    def __init__(self, gui, liststore):
-        self.menuitem = gui.get_object('menuitem_update')
-
-        has_multi_account = len(liststore.account_liststore) > 0
-        self.menuitem.set_sensitive(has_multi_account)
-
-        liststore.account_liststore.connect("row-inserted", self._add_account)
-        liststore.account_liststore.connect("row-deleted", self._del_account)
-
-    def _add_account(self, liststore, treepath, treeiter):
-        self.menuitem.set_sensitive(True)
-
-    def _del_account(self, liststore, treepath):
-        if len(liststore) < 1:
-            self.menuitem.set_sensitive(False)
+    WIDGET = 'menuitem_update'
 
 class MainWindow(object):
 

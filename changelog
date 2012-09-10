@@ -1,7 +1,7 @@
 2012-09-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* window.py: Disable sensitiveness of update menu item without
-	  any account configured.
+	* window.py, feedsource.py: Disable sensitiveness of update menu
+	  item & feed new button without any account configured.
 	* utils/iconimage.py: Added icons to account liststore.
 
 2012-09-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>

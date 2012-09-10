@@ -3,6 +3,7 @@ from gi.repository import Gtk
 from ..plugins.twitter.api import TwitterAPIDict
 from ..constants import Column
 from ..accountliststore import AccountColumn
+from ..utils.commonui import MultiAccountSensitiveWidget
 from ui import *
 
 class FeedSourceDialog(DialogBase):
@@ -192,6 +193,10 @@ class ArgumentEntry(object):
     def set_sensitive(self, status):
         self.widget.set_sensitive(status)
 
+class ButtonFeedNew(MultiAccountSensitiveWidget):
+
+    WIDGET = 'button_feed_new'
+
 class FeedSourceTreeview(TreeviewBase):
 
     WIDGET = 'feedsourcetreeview'
@@ -202,6 +207,8 @@ class FeedSourceTreeview(TreeviewBase):
         self.treeview.set_headers_clickable(False) # Builder bug?
         self.treeview.connect("drag-begin", self.on_drag_begin)
         self.treeview.connect("drag-end", self.on_drag_end, mainwindow)
+
+        button_feed_new = ButtonFeedNew(gui, mainwindow.liststore)
 
     def get_selection(self):
         return self.treeview.get_selection()
