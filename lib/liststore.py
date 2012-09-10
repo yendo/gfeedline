@@ -31,11 +31,12 @@ class FeedListStore(ListStoreBase):
     def __init__(self):
         super(FeedListStore, self).__init__(
             str, GdkPixbuf.Pixbuf, str, str, str, str, str, object, object, object)
-        self.window = MainWindow(self)
-        self.api_dict = TwitterAPIDict()
 
         self.account_liststore = AccountListStore()
         self.filter_liststore = FilterListStore()
+
+        self.window = MainWindow(self)
+        self.api_dict = TwitterAPIDict()
 
         self.save = SaveListStore()
         for entry in self.save.load():

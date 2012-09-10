@@ -16,6 +16,24 @@ from constants import VERSION, SHARED_DATA_FILE, Column
 from view import DnDSelection
 
 
+class MenuItemUpdate(object):
+
+    def __init__(self, gui, liststore):
+        self.menuitem = gui.get_object('menuitem_update')
+
+        has_multi_account = len(liststore.account_liststore) > 0
+        self.menuitem.set_sensitive(has_multi_account)
+
+        liststore.account_liststore.connect("row-inserted", self._add_account)
+        liststore.account_liststore.connect("row-deleted", self._del_account)
+
+    def _add_account(self, liststore, treepath, treeiter):
+        self.menuitem.set_sensitive(True)
+
+    def _del_account(self, liststore, treepath):
+        if len(liststore) < 1:
+            self.menuitem.set_sensitive(False)
+
 class MainWindow(object):
 
     def __init__(self, liststore):
@@ -50,6 +68,8 @@ class MainWindow(object):
         is_multi_column = SETTINGS_VIEW.get_boolean('multi-column')
         menuitem_multicolumn = gui.get_object('menuitem_multicolumn')
         menuitem_multicolumn.set_active(is_multi_column)
+
+        menuitem_update = MenuItemUpdate(gui, liststore)
 
         x, y, w, h = self._get_geometry_from_settings()
 
