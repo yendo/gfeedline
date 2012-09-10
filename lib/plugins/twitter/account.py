@@ -4,6 +4,14 @@ from oauth import oauth
 from gi.repository import GObject
 from getauthtoken import CONSUMER
 from ...utils.settings import SETTINGS_TWITTER
+from ...utils.iconimage import WebIconImage
+
+
+class TwitterIcon(WebIconImage):
+
+    def __init__(self):
+        self.icon_name = 'twitter.ico'
+        self.icon_url = 'http://www.twitter.com/favicon.ico'
 
 class AuthorizedTwitterAccount(GObject.GObject):
 
@@ -20,6 +28,8 @@ class AuthorizedTwitterAccount(GObject.GObject):
         self.api = TwitterFeed(consumer=CONSUMER, token=token)
         #SETTINGS_TWITTER.connect("changed::access-secret", 
         #                         self._on_update_credential)
+
+        self.icon = TwitterIcon()
 
         if not AuthorizedTwitterAccount.CONFIG:
             self.api.configuration().addCallback(self._on_get_configuration)

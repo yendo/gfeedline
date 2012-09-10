@@ -1,21 +1,24 @@
+from gi.repository import GdkPixbuf
+
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 from plugins.twitter.account import AuthorizedTwitterAccount
 
 
 class AccountColumn(object):
 
-    (SOURCE, ID, TOKEN, SECRET, ACCOUNT) = range(5)
+    (SOURCE, ID, TOKEN, SECRET, ICON, ACCOUNT) = range(6)
 
 class AccountListStore(ListStoreBase):
 
     """ListStore for Accounts.
 
-    0,      1,  2,     3,      4
-    source, id, token, secret, account_obj
+    0,      1,  2,     3,      4,    5
+    source, id, token, secret, icon, account_obj
     """
 
     def __init__(self):
-        super(AccountListStore, self).__init__(str, str, str, str, object)
+        super(AccountListStore, self).__init__(
+            str, str, str, str, GdkPixbuf.Pixbuf, object)
 
         self.save = SaveAccountListStore()
         for entry in self.save.load():
@@ -26,6 +29,8 @@ class AccountListStore(ListStoreBase):
             entry[AccountColumn.ID], 
             entry[AccountColumn.TOKEN], 
             entry[AccountColumn.SECRET])
+
+        entry.append(account_obj.icon.get_pixbuf())
         entry.append(account_obj)
 
         new_iter = self.insert_before(iter, entry)

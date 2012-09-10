@@ -187,6 +187,9 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf_account"/>
+                      <attributes>
+                        <attribute name="pixbuf">4</attribute>
+                      </attributes>
                     </child>
                     <child>
                       <object class="GtkCellRendererText" id="cellrenderertext_account"/>

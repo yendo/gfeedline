@@ -62,7 +62,7 @@ class FeedListStore(ListStoreBase):
                                      self.filter_liststore)
 
         list = [source.get('group'),
-                GdkPixbuf.Pixbuf(),
+                account_obj.icon.get_pixbuf(),
                 source.get('source'),
                 source.get('username'),
                 source.get('name'),

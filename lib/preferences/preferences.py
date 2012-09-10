@@ -42,7 +42,7 @@ class Preferences(object):
         checkbutton_sticky = gui.get_object('checkbutton_sticky')
         checkbutton_sticky.set_active(sticky)
 
-        # feeds & filters
+        # accounts, feeds & filters
 
         self.account_action = AccountAction(
             gui, mainwindow, self.liststore, self.preferences)
