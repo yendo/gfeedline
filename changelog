@@ -1,5 +1,6 @@
 2012-09-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* utils/commonui.py: Added a new module.
 	* accountliststore.py: Added account migration from GSettings.
 	* window.py, feedsource.py: Disable sensitiveness of update menu
 	  item & feed new button without any account configured.
