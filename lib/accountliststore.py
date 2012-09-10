@@ -43,6 +43,8 @@ class AccountListStore(ListStoreBase):
         for i, row in enumerate(self):
             if row[AccountColumn.ID] == userid:
                 return i, row[AccountColumn.ACCOUNT]
+        
+        return None, None
 
 class SaveAccountListStore(SaveListStoreBase):
 
