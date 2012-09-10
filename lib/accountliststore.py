@@ -1,6 +1,7 @@
 from gi.repository import GdkPixbuf
 
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
+from utils.settings import SETTINGS_TWITTER
 from plugins.twitter.account import AuthorizedTwitterAccount
 
 
@@ -23,6 +24,18 @@ class AccountListStore(ListStoreBase):
         self.save = SaveAccountListStore()
         for entry in self.save.load():
             self.append(entry)
+
+        # Account migration from GSettings
+        if len(self) < 1 and SETTINGS_TWITTER.get_string('user-name'):
+            entry = ['Twitter',
+                     SETTINGS_TWITTER.get_string('user-name'),
+                     SETTINGS_TWITTER.get_string('access-token'),
+                     SETTINGS_TWITTER.get_string('access-secret')]
+            self.append(entry)
+
+            SETTINGS_TWITTER.reset('user-name')
+            SETTINGS_TWITTER.reset('access-token')
+            SETTINGS_TWITTER.reset('access-secret')
 
     def append(self, entry, iter=None):
         account_obj = AuthorizedTwitterAccount(
