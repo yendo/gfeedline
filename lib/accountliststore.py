@@ -31,22 +31,18 @@ class AccountListStore(ListStoreBase):
         new_iter = self.insert_before(iter, entry)
         return new_iter
 
-    def update(self, entry, iter):
-        new_iter = self.append(entry, iter)
-        self.remove(iter)
-        return new_iter
-
     def get_account_obj(self, source, userid):
-        for row in self:
-            row_data = [x for x in row]
-            if row_data[AccountColumn.ID] == userid:
-                return row_data[AccountColumn.ACCOUNT]
+        num, obj = self._get_matched_account(source, userid)
+        return obj
 
     def get_account_row_num(self, source, userid):
+        num, obj = self._get_matched_account(source, userid)
+        return num
+
+    def _get_matched_account(self, source, userid):
         for i, row in enumerate(self):
-            row_data = [x for x in row]
-            if row_data[AccountColumn.ID] == userid:
-                return i
+            if row[AccountColumn.ID] == userid:
+                return i, row[AccountColumn.ACCOUNT]
 
 class SaveAccountListStore(SaveListStoreBase):
 

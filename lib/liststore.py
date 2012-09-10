@@ -14,7 +14,7 @@ from filterliststore import FilterListStore
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.output import TwitterOutputFactory
-from plugins.twitter.account import AuthorizedTwitterAccount, AuthorizedTwitterAccount_old
+from plugins.twitter.account import AuthorizedTwitterAccount
 
 
 class FeedListStore(ListStoreBase):
@@ -36,7 +36,6 @@ class FeedListStore(ListStoreBase):
 
         self.account_liststore = AccountListStore()
         self.filter_liststore = FilterListStore()
-        self.twitter_account = AuthorizedTwitterAccount_old() # FIXME
 
         self.save = SaveListStore()
         for entry in self.save.load():

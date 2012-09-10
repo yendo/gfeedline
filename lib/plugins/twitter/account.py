@@ -5,43 +5,6 @@ from gi.repository import GObject
 from getauthtoken import CONSUMER
 from ...utils.settings import SETTINGS_TWITTER
 
-class AuthorizedTwitterAccount_old(GObject.GObject):
-
-    __gsignals__ = {
-        'update-credential': (GObject.SignalFlags.RUN_LAST, None, (object, )),
-        }
-
-    CONFIG = None
-
-    def __init__(self):
-        super(AuthorizedTwitterAccount_old, self).__init__()
-
-        token = self._get_token()
-        self.api = TwitterFeed(consumer=CONSUMER, token=token)
-        SETTINGS_TWITTER.connect("changed::access-secret", 
-                                 self._on_update_credential)
-
-        if not AuthorizedTwitterAccount.CONFIG:
-            self.api.configuration().addCallback(self._on_get_configuration)
-
-    def _on_get_configuration(self, data):
-        AuthorizedTwitterAccount_old.CONFIG = data
-
-    def _on_update_credential(self, account, unknown):
-        token = self._get_token()
-        self.api.update_token(token)
-        self.emit("update-credential", None)
-
-    def _get_token(self):
-        get_string = SETTINGS_TWITTER.get_string
-
-        key = get_string('access-token')
-        secret = get_string('access-secret')
-        token = oauth.OAuthToken(key, secret) if key and secret else None
-        self.user_name = get_string('user-name') if token else None
-
-        return token
-
 class AuthorizedTwitterAccount(GObject.GObject):
 
     __gsignals__ = {

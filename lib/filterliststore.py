@@ -25,15 +25,6 @@ class FilterListStore(ListStoreBase):
             self.append(entry)
         self.expire()
 
-    def append(self, entry, iter=None):
-        new_iter = self.insert_before(iter, entry)
-        return new_iter
-
-    def update(self, entry, iter):
-        new_iter = self.append(entry, iter)
-        self.remove(iter)
-        return new_iter
-
     def update_expire_info(self):
         for i, entry in enumerate(self):
             epoch = entry[FilterColumn.EXPIRE_EPOCH]
