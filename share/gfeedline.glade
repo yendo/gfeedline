@@ -295,7 +295,7 @@
 
 GFeedLine is a social networking client.  It supports Twitter.
 
-To start connecting with GFeedLine, open the Preferences dialog from &lt;b&gt;Edit  ▸ Preference&lt;/b&gt; to configure your account.
+To start connecting with GFeedLine, open the Preferences dialog from &lt;b&gt;Edit  ▸ Preference&lt;/b&gt; to configure your accounts in the Accounts tab.
 
 Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog.</property>
             <property name="use_markup">True</property>

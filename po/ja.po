@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-09 21:25+0900\n"
-"PO-Revision-Date: 2012-09-09 21:24+0900\n"
+"POT-Creation-Date: 2012-09-10 12:05+0900\n"
+"PO-Revision-Date: 2012-09-10 12:08+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../lib/filterliststore.py:102 ../share/filters.glade.h:8
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:8
 msgid "days"
 msgstr "日間"
 
-#: ../lib/filterliststore.py:102 ../share/filters.glade.h:9
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
 msgid "hours"
 msgstr "時間"
 
@@ -167,7 +167,7 @@ msgstr "%s への返信"
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:279
+#: ../lib/updatewindow.py:280
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
@@ -327,7 +327,7 @@ msgid ""
 "GFeedLine is a social networking client.  It supports Twitter.\n"
 "\n"
 "To start connecting with GFeedLine, open the Preferences dialog from "
-"<b>Edit  ▸ Preference</b> to configure your account.\n"
+"<b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
 "\n"
 "Then you have to configure your feeds in the Feeds tab of the Preferences "
 "dialog.  To enable multi-column view, enter a group name in each feed source "
@@ -339,7 +339,7 @@ msgstr ""
 "ています。\n"
 "\n"
 "GFeedLine でアクセスするために、まずはメニューの<b>編集 ▸ 設定</b>から設定ダ"
-"イアログを開き、アカウントを設定してください。\n"
+"イアログを開き、そのアカウントタブでアカウントを設定してください。\n"
 "\n"
 "その上で、同じ設定ダイアログのフィードタブでフィードを追加・設定してくださ"
 "い。なお、各フィードでグループ名を指定するとマルチカラム表示が可能です。"
