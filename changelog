@@ -1,3 +1,8 @@
+2012-09-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* com.googlecode.gfeedline.gschema.xml.in: Added a new gsettings
+	  key 'recent-account'.
+
 2012-09-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* utils/commonui.py: Added a new module.
