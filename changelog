@@ -1,5 +1,6 @@
 2012-09-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* share/html/theme/: Added a new attribute 'data-inreplyto'.
 	* plugins/twitter/: Added support for unofficial related_results API.
 	* twittytwister/twitter.py, twittytwister/tjson.py: Added support
 	  for JSON format in REST API.
