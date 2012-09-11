@@ -1,6 +1,7 @@
 2012-09-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py: Added support for recent account.
+	  Added recipient full name to retweet & reply dialogs.
 	* menu.py, view.py, twitter/output.py, twitter/tweetentry.py:
 	  Added a new pop-up menu item 'View Conversation'.
 	* share/html/theme/: Added a new attribute 'data-inreplyto'.

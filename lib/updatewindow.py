@@ -24,7 +24,8 @@ class UpdateWidgetBase(object):
         d.addCallback(self._run, gui, entry, icon).addErrback(self._on_error)
 
     def _set_ui(self, gui, entry, icon):
-        gui.get_object('label_user').set_markup('<b>%s</b>' % entry['user_name'])
+        gui.get_object('label_user').set_markup('<b>%s</b> <small>@%s</small>' % (
+                entry['full_name'], entry['user_name']))
         gui.get_object('label_body').set_text(entry['status_body'])
         gui.get_object('image_usericon').set_from_file(icon.name)
 
