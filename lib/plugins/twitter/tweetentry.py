@@ -35,9 +35,6 @@ class TweetEntry(object):
 
         styles = self._get_styles(api, user.screen_name, entry)
 
-        in_reply_to_status_id = entry.in_reply_to_status_id \
-            if entry.in_reply_to_status_id else ''
-
         entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry.id,
@@ -48,7 +45,7 @@ class TweetEntry(object):
             retweet_by_screen_name=self.retweet_by_screen_name,
             retweet_by_name=self.retweet_by_name,
 
-            in_reply_to=in_reply_to_status_id,
+            in_reply_to=self._get_in_reply_to_status_id(entry),
 
             user_name=user.screen_name,
             full_name=user.name,
@@ -88,6 +85,9 @@ class TweetEntry(object):
             soup = BeautifulSoup(source)
             source = [x.contents[0] for x in soup('a')][0]
         return source
+
+    def _get_in_reply_to_status_id(self, entry):
+        return entry.in_reply_to_status_id if entry.in_reply_to_status_id else ''
 
     def _get_body(self, text):
         text = decode_html_entities(text) # need to decode!
@@ -150,6 +150,9 @@ class DirectMessageEntry(TweetEntry):
         return ''
 
     def get_source_name(self):
+        return ''
+
+    def _get_in_reply_to_status_id(self, entry):
         return ''
 
 class RestRetweetEntry(TweetEntry):
