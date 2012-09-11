@@ -87,9 +87,11 @@ class ActionBase(object):
     def on_button_feed_del_clicked(self, treeselection):
         model, iter = treeselection.get_selected()
         model.remove(iter)
+        model, iter = treeselection.get_selected()
 
-        self.button_prefs.set_sensitive(False)
-        self.button_del.set_sensitive(False)
+        if not iter:
+            self.button_prefs.set_sensitive(False)
+            self.button_del.set_sensitive(False)
 
     def on_feedsource_treeview_query_tooltip(self, treeview, *args):
         pass
