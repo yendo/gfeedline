@@ -1,5 +1,7 @@
 2012-09-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twittytwister/twitter.py, twittytwister/tjson.py: Added support
+	  for JSON format in REST API.
 	* com.googlecode.gfeedline.gschema.xml.in: Added a new gsettings
 	  key 'recent-account'.
 

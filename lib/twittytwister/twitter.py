@@ -19,6 +19,7 @@ from twisted.web import client, error, http_headers
 
 import streaming
 import txml
+import tjson
 
 SIGNATURE_METHOD = oauth.OAuthSignatureMethod_HMAC_SHA1()
 
@@ -294,6 +295,10 @@ class Twitter(object):
 
     def __get(self, path, delegate, params, parser_factory=txml.Feed, extra_args=None):
         parser = parser_factory(delegate, extra_args)
+        return self.__downloadPage(path, parser, params)
+
+    def __get_json(self, path, delegate, params, parser_factory=tjson.Parser, extra_args=None):
+        parser = parser_factory(delegate)
         return self.__downloadPage(path, parser, params)
 
     def verify_credentials(self, delegate=None):
