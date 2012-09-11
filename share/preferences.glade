@@ -208,7 +208,7 @@
                                 <signal name="toggled" handler="on_checkbutton_sticky_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
+                                <property name="expand">False</property>
                                 <property name="fill">False</property>
                                 <property name="position">0</property>
                               </packing>
@@ -228,7 +228,7 @@
                                 <signal name="toggled" handler="on_checkbutton_autostart_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
+                                <property name="expand">False</property>
                                 <property name="fill">False</property>
                                 <property name="position">1</property>
                               </packing>
