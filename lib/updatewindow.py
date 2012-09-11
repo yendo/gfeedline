@@ -40,7 +40,9 @@ class AccountCombobox(object):
             'Twitter', account.user_name) 
             self.combobox_account.set_sensitive(False)
         else:
-            self.active_num = 0
+            recent = SETTINGS.get_int('recent-account')
+            self.active_num = recent \
+                if len(self.account_liststore) > recent else 0
 
         self.combobox_account.set_active(self.active_num)
 
@@ -112,6 +114,10 @@ class UpdateWindow(UpdateWidgetBase):
 
         else: # normal update
             twitter_account.api.update(status, params=params)
+
+        if not self.entry:
+            num = self.account_combobox.combobox_account.get_active()
+            SETTINGS.set_int('recent-account', num)
 
         self.update_window.destroy()
 
