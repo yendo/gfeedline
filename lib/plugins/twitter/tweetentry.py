@@ -369,6 +369,10 @@ class AddedHtmlMarkup(object):
         text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
         text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 
                                      text)
+
+#        screen_name_re = r"<a href='gfeedlinereply://%s'>@\1</a>" % 120
+#        text = self.nick_pattern.sub(screen_name_re, text)
+
         text = self.hash_pattern.sub(
             r"<a href='https://twitter.com/search?q=%23\1'>#\1</a>", text)
 
