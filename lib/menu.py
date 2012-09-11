@@ -12,7 +12,7 @@ CAN_ACCESS_DOM = WebKit.MAJOR_VERSION >= 1 and WebKit.MINOR_VERSION >= 6
 
 
 def ENTRY_POPUP_MENU():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
+    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, RelatedResultsMenuItem]
 
 
 class PopupMenuItem(Gtk.MenuItem):
@@ -114,6 +114,26 @@ class FavMenuItem(RetweetMenuItem):
     def on_activate(self, menuitem, entry_id):
         twitter_account = self.api.account
         twitter_account.api.fav(entry_id)
+
+class RelatedResultsMenuItem(RetweetMenuItem):
+
+    LABEL = _('View _Conversation')
+
+    def _is_enabled(self, dom):
+        return bool(dom.get_attribute('data-inreplyto')) if CAN_ACCESS_DOM else True
+
+    def on_activate(self, menuitem, entry_id):
+        group = self.parent.webview.group_name
+
+        source = {'source': 'Twitter',
+                  'argument': entry_id,
+                  'target': _('Related Results'),
+                  'username': self.api.account.user_name,
+                  'group': group,
+                  'name': '@%s' % self.user,
+                  'options': {}
+                  }
+        self.parent.liststore.append(source)
 
 class SearchMenuItem(PopupMenuItem):
 

@@ -266,6 +266,10 @@ class TwitterRelatedResultsOutput(TwitterRestOutput):
     def got_entry(self, all_entries, *args):
         new_entries = []
 
+        if len(all_entries) < 1:
+            print "no entries."
+            return
+
         for raw_entry in all_entries[0]['results']:
             entry = raw_entry['value']
 

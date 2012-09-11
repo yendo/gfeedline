@@ -35,6 +35,9 @@ class TweetEntry(object):
 
         styles = self._get_styles(api, user.screen_name, entry)
 
+        in_reply_to_status_id = entry.in_reply_to_status_id \
+            if entry.in_reply_to_status_id else ''
+
         entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry.id,
@@ -44,6 +47,8 @@ class TweetEntry(object):
             retweet='',
             retweet_by_screen_name=self.retweet_by_screen_name,
             retweet_by_name=self.retweet_by_name,
+
+            in_reply_to=in_reply_to_status_id,
 
             user_name=user.screen_name,
             full_name=user.name,
@@ -184,6 +189,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
 
             image_uri=user['profile_image_url'],
             retweet='',
+            in_reply_to = '',
 
             user_name=user['screen_name'],
             full_name=user['name'],
@@ -227,6 +233,7 @@ class SearchTweetEntry(TweetEntry):
             styles=styles,
             image_uri=entry.image,
             retweet='',
+            in_reply_to = True, # FIXME
 
             user_name=name,
             full_name=self.get_full_name(entry),
@@ -297,6 +304,7 @@ class FeedEventEntry(TweetEntry):
             styles='',
             image_uri=entry.source.profile_image_url,
             retweet='',
+            in_reply_to = '',
 
             user_name=entry.source.screen_name,
             full_name=entry.source.name,

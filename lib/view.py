@@ -42,7 +42,7 @@ class FeedView(FeedScrolledWindow):
         self.theme = self.window.theme
 
         self.append(notebook, page)
-        self.webview = FeedWebView(self, api)
+        self.webview = FeedWebView(self, api, notebook.group_name)
         self.notification = self.window.notification
 
     def append(self, notebook, page=-1):
@@ -81,8 +81,9 @@ class FeedView(FeedScrolledWindow):
 
 class FeedWebView(WebKit.WebView):
 
-    def __init__(self, scrolled_window, api):
+    def __init__(self, scrolled_window, api, group_name):
         super(FeedWebView, self).__init__()
+        self.group_name = group_name
         self.scroll = FeedWebViewScroll()
         self.link_on_webview = FeedWebViewLink()
         self.scrolled_window = scrolled_window
