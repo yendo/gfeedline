@@ -13,6 +13,7 @@ user_color = UserColor()
 """
 TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
            |- SearchTweetEntry
+           |- RelatedResultsEntry
            \- FeedEventEntry
 """
 
@@ -254,6 +255,15 @@ class SearchTweetEntry(TweetEntry):
 
     def _get_body(self, text):
         return text
+
+class RelatedResultsEntry(TweetEntry):
+
+    def __init__(self, entry):
+        super(RelatedResultsEntry, self).__init__(entry)
+
+        self.original_entry = entry
+        self.entry=DictObj(entry)
+        self.entry.user=DictObj(self.entry.user)
 
 class FeedEventEntry(TweetEntry):
 

@@ -62,6 +62,11 @@ class Twitter(twitter.Twitter):
         return self.__doDownloadPage(self.search_url + '?' + self._urlencode(params),
             txml.Feed(delegate, extra_args), agent=self.agent)
 
+    def related_results(self, delegate, params={}, extra_args=None):
+        statusid = params['id']
+        return self.__get_json('/1/related_results/show/%s.json' % statusid,
+                delegate, params, extra_args=extra_args)
+
     def fav(self, status_id):
         return self.__post('/favorites/create/%s.xml' % status_id)
 

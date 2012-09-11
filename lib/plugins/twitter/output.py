@@ -261,6 +261,24 @@ class TwitterSearchOutput(TwitterRestOutput):
     def _get_entry_obj(self, entry):
         return SearchTweetEntry(entry)
 
+class TwitterRelatedResultsOutput(TwitterRestOutput):
+
+    def got_entry(self, all_entries, *args):
+        new_entries = []
+
+        for raw_entry in all_entries[0]['results']:
+            entry = raw_entry['value']
+
+            if entry['id'] > self.since_id:
+                self._set_since_id(entry['id'])
+                new_entries.append(entry)
+
+        for entry in reversed(new_entries):
+            self.check_entry(entry, entry['text'], args)
+
+    def _get_entry_obj(self, entry):
+        return RelatedResultsEntry(entry)
+
 class TwitterFeedOutput(TwitterOutputBase):
 
     def __init__(self, api, view=None, argument='', options={}, filters=None):
