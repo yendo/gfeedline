@@ -7,7 +7,7 @@
 from gi.repository import Gtk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
-from ..utils.settings import SETTINGS, SETTINGS_VIEW, SETTINGS_TWITTER
+from ..utils.settings import SETTINGS, SETTINGS_VIEW, SETTINGS_GEOMETRY
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE
 from ..theme import Theme
@@ -52,7 +52,19 @@ class Preferences(object):
             gui, mainwindow, self.liststore.filter_liststore, self.preferences)
 
         gui.connect_signals(self)
+
+        self._load_prefs_size(self.preferences)
         self.preferences.show_all()
+
+    def _load_prefs_size(self, preferences):
+        w = SETTINGS_GEOMETRY.get_int('prefs-width')
+        h = SETTINGS_GEOMETRY.get_int('prefs-height')
+        preferences.resize(w, h)
+
+    def _save_prefs_size(self, preferences):
+        w, h = preferences.get_size()
+        SETTINGS_GEOMETRY.set_int('prefs-width', w)
+        SETTINGS_GEOMETRY.set_int('prefs-height', h)
 
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
@@ -73,6 +85,7 @@ class Preferences(object):
         self.liststore.filter_liststore.save_settings()
         self.liststore.account_liststore.save_settings()
 
+        self._save_prefs_size(self.preferences)
         self.preferences.destroy()
 
     def on_checkbutton_sticky_toggled(self, button):
