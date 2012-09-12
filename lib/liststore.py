@@ -128,14 +128,16 @@ class FeedListStore(ListStoreBase):
         super(FeedListStore, self).remove(iter)
 
     def get_group_page(self, target_group):
-        all_group =[]
+        return self.get_group_list().index(target_group)
+
+    def get_group_list(self):
+        group_list =[]
         for x in self:
             group = x[Column.GROUP].decode('utf-8')
-            if group not in all_group:
-                all_group.append(group)
-
-        page = all_group.index(target_group)
-        return page
+            if group not in group_list:
+                group_list.append(group)
+        
+        return group_list
 
 class SaveListStore(SaveListStoreBase):
 
