@@ -34,6 +34,10 @@ class Preferences(object):
         self.combobox_order = ComboboxTimelineOrder(gui)
         self.fontbutton = TimeLineFontButton(gui, mainwindow)
  
+        is_other_column = SETTINGS_VIEW.get_boolean('conversation-other-column')
+        checkbutton_conversation = gui.get_object('checkbutton_conversation')
+        checkbutton_conversation.set_active(is_other_column)
+
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
 
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
@@ -87,6 +91,10 @@ class Preferences(object):
 
         self._save_prefs_size(self.preferences)
         self.preferences.destroy()
+
+    def on_checkbutton_conversation_toggled(self, button):
+        is_other_column = button.get_active()
+        SETTINGS_VIEW.set_boolean('conversation-other-column', is_other_column)
 
     def on_checkbutton_sticky_toggled(self, button):
         sticky = button.get_active()

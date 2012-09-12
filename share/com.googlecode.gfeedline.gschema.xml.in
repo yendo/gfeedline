@@ -47,6 +47,11 @@
       <summary>Timeline Font</summary>
       <description>Timeline Font</description>
     </key>
+    <key name="conversation-other-column" type="b">
+      <default>false</default>
+      <summary>Conversation view mode</summary>
+      <description>Open conversation tab in other column.</description>
+    </key>
   </schema>
 
   <schema id="com.googlecode.gfeedline.geometry" path="/apps/gfeedline/geometry/">

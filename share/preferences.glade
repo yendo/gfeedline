@@ -54,6 +54,7 @@
                                 <property name="can_focus">False</property>
                                 <property name="row_spacing">6</property>
                                 <property name="column_spacing">12</property>
+                                <property name="row_homogeneous">True</property>
                                 <child>
                                   <object class="GtkLabel" id="label7">
                                     <property name="visible">True</property>
@@ -147,6 +148,26 @@
                                     <property name="left_attach">1</property>
                                     <property name="top_attach">1</property>
                                     <property name="width">1</property>
+                                    <property name="height">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckButton" id="checkbutton_conversation">
+                                    <property name="label" translatable="yes">Open _conversation tab in next column</property>
+                                    <property name="use_action_appearance">False</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="use_action_appearance">False</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="draw_indicator">True</property>
+                                    <signal name="toggled" handler="on_checkbutton_conversation_toggled" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">3</property>
+                                    <property name="width">2</property>
                                     <property name="height">1</property>
                                   </packing>
                                 </child>
