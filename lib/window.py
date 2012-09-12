@@ -87,7 +87,7 @@ class MainWindow(object):
         if group_name in self.column:
             notebook = self.column.get(group_name)
         else:
-            notebook = FeedNotebook(self.column, group_name)
+            notebook = FeedNotebook(self.column, group_name, self.liststore)
             self.column.add(group_name, notebook)
 
         return notebook
@@ -218,18 +218,22 @@ class MultiColumnDict(dict):
         if not self:
             self.welcome.show()
 
+    def get_notebook_object(self, group_name):
+        return self.get(group_name) or self.get('dummy for single column')
+
 class FeedNotebook(Gtk.Notebook):
 
-    def __init__(self, column, group_name):
+    def __init__(self, column, group_name, liststore):
         self.column = column
         self.group_name = group_name
 
         super(FeedNotebook, self).__init__()
         self.set_scrollable(True)
-        self.popup_enable()
+        self.popup_disable()
+        self.popup_menu = NotebookPopUpMenu(liststore, group_name)
 
         self.connect('switch-page', self.on_update_tablabel_sensitive)
-        self.connect('button-press-event', self.on_update_tablabel_sensitive)
+        self.connect('button-press-event', self.on_notebook_button_press_event)
         # self.connect('page-reordered', self.on_page_reordered)
 
         self.show()
@@ -239,6 +243,12 @@ class FeedNotebook(Gtk.Notebook):
         feedview = notebook.get_nth_page(page) # get child
         if hasattr(feedview, 'tab_label'):
             feedview.tab_label.set_sensitive(False)
+
+    def on_notebook_button_press_event(self, notebook, event):
+        if event.button == 1:
+            self.on_update_tablabel_sensitive(notebook, event)
+        elif event.button == 3:
+            self.popup_menu.start(notebook, event)
 
     def append_page(self, child, name, page=-1):
         super(FeedNotebook, self).append_page(
@@ -263,6 +273,38 @@ class FeedNotebook(Gtk.Notebook):
     def change_font(self, font, size):
         for feedview in self.get_children():
             feedview.change_font(font, size)
+
+class NotebookPopUpMenu(object):
+
+    def __init__(self, liststore, group_name):
+        self.liststore = liststore
+        self.group_name = group_name
+
+        self.gui = Gtk.Builder()
+        self.gui.add_from_file(SHARED_DATA_FILE('notebook_popup_menu.glade'))
+        self.gui.connect_signals(self)
+
+    def start(self, widget, event):
+        menu = self.gui.get_object('notebook_popup_menu')
+        menu.popup(None, None, None, None, event.button, event.time)
+        self.page = widget.get_current_page()
+
+
+    def on_menuitem_close_tab_activate(self, menuitem):
+        c = self.page
+
+        if SETTINGS_VIEW.get_boolean('multi-column'):
+            for i, v in enumerate(self.liststore):
+                if v[0] == self.group_name:
+                    c -= 1
+                    if c < 0:
+                        break
+        else:
+            i = c
+
+        path = Gtk.TreePath(i)
+        treeiter = self.liststore.get_iter(path)
+        self.liststore.remove(treeiter)
 
 class AboutDialog(object):
 

@@ -128,7 +128,10 @@ class FeedListStore(ListStoreBase):
         super(FeedListStore, self).remove(iter)
 
     def get_group_page(self, target_group):
-        return self.get_group_list().index(target_group)
+        group_list = self.get_group_list()
+
+        return group_list.index(target_group) \
+            if target_group in group_list else 0
 
     def get_group_list(self):
         group_list =[]

@@ -154,7 +154,7 @@ class RelatedResultsMenuItem(RetweetMenuItem):
                   }
         self.parent.liststore.append(source)
 
-        notebook = self.parent.window.column[group_name]
+        notebook = self.parent.window.column.get_notebook_object(group_name)
         notebook.set_current_page(-1)
 
 class SearchMenuItem(PopupMenuItem):
