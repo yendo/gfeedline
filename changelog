@@ -1,5 +1,6 @@
 2012-09-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* window.py: Fixed a wrong position problem when auto-start.
 	* notification.py: Fixed a bug for auto-start.
 
 2012-09-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
