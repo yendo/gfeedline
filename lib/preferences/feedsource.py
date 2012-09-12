@@ -4,6 +4,7 @@ from ..plugins.twitter.api import TwitterAPIDict
 from ..constants import Column
 from ..accountliststore import AccountColumn
 from ..utils.commonui import MultiAccountSensitiveWidget
+from ..utils.settings import SETTINGS_TWITTER
 from ui import *
 
 class FeedSourceDialog(DialogBase):
@@ -43,25 +44,26 @@ class FeedSourceDialog(DialogBase):
         response_id = self.dialog.run()
 
         source, username = self.combobox_source.get_active_account()
+        target = self.combobox_target.get_active_text()
 
         v = {
             'source' : source,
             'username': username,
             'name' : self.entry_name.get_text().decode('utf-8'),
-            'target' : self.combobox_target.get_active_text(), #.decode('utf-8'),
+            'target' : target, #.decode('utf-8'),
             'argument' : self.entry_argument.get_text().decode('utf-8'),
             'group': self.entry_group.get_text().decode('utf-8'),
             'options' : 
             {'notification': checkbutton_notification.get_active()},
         }
 
-        target = self.combobox_target.get_active_text()
         options = self.options_tab.get(target)
         v['options'].update(options)
 
+        if response_id == Gtk.ResponseType.OK:
+            self.combobox_target.set_recent()
         self.dialog.destroy()
-#        if response_id == Gtk.ResponseType.OK:
-#            SETTINGS_RECENTS.set_string('source', v['source'])
+
         return response_id , v
 
     def on_comboboxtext_target_changed(self, *args):
@@ -163,12 +165,17 @@ class TargetCombobox(object):
             self.widget.append_text(text)
 
         num = self.label_list.index(
-            feedliststore[Column.TARGET].decode('utf-8')) if feedliststore else 0
+            feedliststore[Column.TARGET].decode('utf-8')) \
+            if feedliststore else SETTINGS_TWITTER.get_int('recent-target')
         self.widget.set_active(num)
 
     def get_active_text(self):
         label = self.label_list[self.widget.get_active()]
         return label
+
+    def set_recent(self):
+        num = self.widget.get_active()
+        SETTINGS_TWITTER.set_int('recent-target', num)
 
     def has_argument_entry_enabled(self):
         api_name = self.get_active_text()

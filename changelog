@@ -1,5 +1,6 @@
 2012-09-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* feedsource.py: Added a new GSettings key 'recent-target'.
 	* window.py: Fixed a wrong position problem when auto-start.
 	* notification.py: Fixed a bug for auto-start.
 
