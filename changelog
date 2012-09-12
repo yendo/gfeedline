@@ -1,3 +1,7 @@
+2012-09-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* notification.py: Fixed a bug for auto-start.
+
 2012-09-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py: Added support for recent account.
