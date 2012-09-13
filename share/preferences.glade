@@ -511,9 +511,6 @@
                                         <property name="title" translatable="yes">Source</property>
                                         <child>
                                           <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf_1"/>
-                                          <attributes>
-                                            <attribute name="pixbuf">1</attribute>
-                                          </attributes>
                                         </child>
                                         <child>
                                           <object class="GtkCellRendererText" id="cellrenderertext_2"/>
