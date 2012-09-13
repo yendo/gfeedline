@@ -99,7 +99,7 @@
 
   <schema id="com.googlecode.gfeedline.plugins.twitter" path="/apps/gfeedline/plugins/twitter/">
     <key name="recent-target" type="i">
-      <default>4</default>
+      <default>-1</default>
       <summary>Recent Twitter target</summary>
       <description>Recent used Twitter API for target combobox on feedsource dialog.</description>
     </key>

@@ -164,9 +164,11 @@ class TargetCombobox(object):
         for text in self.label_list:
             self.widget.append_text(text)
 
-        num = self.label_list.index(
-            feedliststore[Column.TARGET].decode('utf-8')) \
-            if feedliststore else SETTINGS_TWITTER.get_int('recent-target')
+        recent = SETTINGS_TWITTER.get_int('recent-target')
+        num = self.label_list.index(feedliststore[Column.TARGET].decode('utf-8')) \
+            if feedliststore else recent if recent >= 0 else \
+            self.label_list.index(_("User Stream"))
+
         self.widget.set_active(num)
 
     def get_active_text(self):
