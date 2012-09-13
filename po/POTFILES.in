@@ -12,6 +12,7 @@ share/feedsource.glade
 share/filters.glade
 share/gfeedline.desktop.in
 share/gfeedline.glade
+share/notebook_popup_menu.glade
 share/preferences.glade
 share/retweet.glade
 share/update.glade

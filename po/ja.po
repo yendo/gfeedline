@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-11 16:17+0900\n"
-"PO-Revision-Date: 2012-09-11 16:20+0900\n"
+"POT-Creation-Date: 2012-09-13 09:46+0900\n"
+"PO-Revision-Date: 2012-09-13 09:47+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -24,43 +24,43 @@ msgstr "日間"
 msgid "hours"
 msgstr "時間"
 
-#: ../lib/menu.py:61
+#: ../lib/menu.py:64
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:69
+#: ../lib/menu.py:72
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:81
+#: ../lib/menu.py:84
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:109
+#: ../lib/menu.py:112
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:120
+#: ../lib/menu.py:123
 msgid "View _Conversation"
 msgstr "会話を表示(_C)"
 
-#: ../lib/menu.py:130 ../lib/plugins/twitter/api.py:137
+#: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:137
 msgid "Related Results"
 msgstr "関連ツイート"
 
-#: ../lib/menu.py:140
+#: ../lib/menu.py:162
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../lib/menu.py:151
+#: ../lib/menu.py:173
 msgid "_Add Filter"
 msgstr "フィルターに追加(_A)"
 
-#: ../lib/notification.py:61
+#: ../lib/notification.py:63
 msgid "Reply"
 msgstr "返信"
 
-#: ../lib/notification.py:62
+#: ../lib/notification.py:64
 msgid "Open"
 msgstr "開く"
 
@@ -80,7 +80,7 @@ msgstr "メンション"
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:96 ../lib/preferences/feedsource.py:93
+#: ../lib/plugins/twitter/api.py:96 ../lib/preferences/feedsource.py:95
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
@@ -117,7 +117,7 @@ msgid "Sender"
 msgstr "送信者"
 
 #: ../lib/plugins/twitter/output.py:68 ../share/filters.glade.h:7
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "ソース"
 
@@ -132,55 +132,55 @@ msgstr "via %s"
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:181
+#: ../lib/plugins/twitter/tweetentry.py:184
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:281
+#: ../lib/plugins/twitter/tweetentry.py:284
 msgid "favorited your Tweet"
 msgstr "さんがお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:282
+#: ../lib/plugins/twitter/tweetentry.py:285
 msgid "unfavorited your Tweet"
 msgstr "さんがお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:283
+#: ../lib/plugins/twitter/tweetentry.py:286
 msgid "followed you"
 msgstr "さんがフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:284
+#: ../lib/plugins/twitter/tweetentry.py:287
 #, python-format
 msgid "added you to list %s"
 msgstr "さんのリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:285
+#: ../lib/plugins/twitter/tweetentry.py:288
 #, python-format
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
 
-#: ../lib/preferences/feedsource.py:121
+#: ../lib/preferences/feedsource.py:123
 msgid "Options"
 msgstr "オプション"
 
-#: ../lib/preferences/feedsource.py:126
+#: ../lib/preferences/feedsource.py:128
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
-#: ../lib/updatewindow.py:87 ../lib/updatewindow.py:323
+#: ../lib/updatewindow.py:90 ../lib/updatewindow.py:330
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:207
+#: ../lib/updatewindow.py:214
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:280
+#: ../lib/updatewindow.py:287
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:281
+#: ../lib/updatewindow.py:288
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
@@ -252,7 +252,7 @@ msgstr "通知機能を使う(_E)"
 msgid "_Group:"
 msgstr "グループ(_G):"
 
-#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:12
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
 msgid "General"
 msgstr "全般"
 
@@ -352,6 +352,10 @@ msgstr ""
 "その上で、同じ設定ダイアログのフィードタブでフィードを追加・設定してくださ"
 "い。なお、各フィードでグループ名を指定するとマルチカラム表示が可能です。"
 
+#: ../share/notebook_popup_menu.glade.h:1
+msgid "_Close Tab"
+msgstr "タブを閉じる(_C)"
+
 #: ../share/preferences.glade.h:1
 msgid "Preferences"
 msgstr "設定"
@@ -381,70 +385,74 @@ msgid "Descending"
 msgstr "降順"
 
 #: ../share/preferences.glade.h:8
+msgid "Open _conversation tab in other column"
+msgstr "会話を別のカラムに表示"
+
+#: ../share/preferences.glade.h:9
 msgid "<b>View</b>"
 msgstr "<b>表示</b>"
 
-#: ../share/preferences.glade.h:9
+#: ../share/preferences.glade.h:10
 msgid "Always on _Visible Workspace"
 msgstr "すべてのワークスペースに配置する(_V)"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:11
 msgid "_Auto Start"
 msgstr "ログイン時に自動起動する(_A)"
 
-#: ../share/preferences.glade.h:11
+#: ../share/preferences.glade.h:12
 msgid "<b>Desktop</b>"
 msgstr "<b>デスクトップ</b>"
 
-#: ../share/preferences.glade.h:14
+#: ../share/preferences.glade.h:15
 msgid "User ID"
 msgstr "ユーザ ID"
 
-#: ../share/preferences.glade.h:15
+#: ../share/preferences.glade.h:16
 msgid "<b>Accounts</b>"
 msgstr "<b>アカウント</b>"
 
-#: ../share/preferences.glade.h:16
+#: ../share/preferences.glade.h:17
 msgid "Accounts"
 msgstr "アカウント"
 
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:18
 msgid "Name"
 msgstr "名前"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:19
 msgid "Target"
 msgstr "ターゲット"
 
-#: ../share/preferences.glade.h:19
+#: ../share/preferences.glade.h:20
 msgid "Argument"
 msgstr "引数"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:21
 msgid "Group"
 msgstr "グループ"
 
-#: ../share/preferences.glade.h:21
+#: ../share/preferences.glade.h:22
 msgid "<b>Feed Sources</b>"
 msgstr "<b>フィードソース</b>"
 
-#: ../share/preferences.glade.h:22
+#: ../share/preferences.glade.h:23
 msgid "Feeds"
 msgstr "フィード"
 
-#: ../share/preferences.glade.h:23
+#: ../share/preferences.glade.h:24
 msgid "Word"
 msgstr "単語"
 
-#: ../share/preferences.glade.h:24
+#: ../share/preferences.glade.h:25
 msgid "Expiry"
 msgstr "有効期間"
 
-#: ../share/preferences.glade.h:25
+#: ../share/preferences.glade.h:26
 msgid "<b>Filters</b>"
 msgstr "<b>フィルター</b>"
 
-#: ../share/preferences.glade.h:26
+#: ../share/preferences.glade.h:27
 msgid "Filters"
 msgstr "フィルター"
 
