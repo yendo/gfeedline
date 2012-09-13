@@ -107,7 +107,7 @@ class FeedWebView(WebKit.WebView):
 
     def on_drag_drop(self, widget, context, x, y, time, *args):
         if self.dnd.text or self.dnd.file:
-            updatewindow = UpdateWindow(self)
+            updatewindow = UpdateWindow(self.scrolled_window)
 
             if self.dnd.text:
                 updatewindow.text_buffer.set_text(self.dnd.text)
