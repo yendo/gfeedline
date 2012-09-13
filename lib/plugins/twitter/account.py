@@ -54,6 +54,10 @@ class Twitter(twitter.Twitter):
         return self.__get('/1/lists/statuses.xml',
                 delegate, params, txml.Statuses, extra_args=extra_args)
 
+    def user_timeline(self, delegate, params={}, extra_args=None):
+        return self.__get('/statuses/user_timeline.xml', delegate, params,
+                          txml.Statuses, extra_args=extra_args)
+
     def search(self, delegate, params=None, extra_args=None):
         if params is None:
             params = {}

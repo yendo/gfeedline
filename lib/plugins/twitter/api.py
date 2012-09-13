@@ -12,6 +12,7 @@ class TwitterAPIDict(dict):
     def __init__(self):
         all_api = [
              TwitterAPIHomeTimeLine,
+             TwitterAPIUserTimeLine,
              TwitterAPIListTimeLine,
              TwitterAPIMentions,
              TwitterAPIDirectMessages,
@@ -56,6 +57,17 @@ class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     def _get_api(self):
         return self.account.api.home_timeline
+
+class TwitterAPIUserTimeLine(TwitterAPIBase):
+
+    name = _('User TimeLine')
+    has_argument = True
+
+    def _get_api(self):
+        return self.account.api.user_timeline
+
+    def get_options(self, argument):
+        return {'screen_name': argument}
 
 class TwitterAPIListTimeLine(TwitterAPIBase):
 

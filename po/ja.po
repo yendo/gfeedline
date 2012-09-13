@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 09:46+0900\n"
-"PO-Revision-Date: 2012-09-13 09:47+0900\n"
+"POT-Creation-Date: 2012-09-13 14:28+0900\n"
+"PO-Revision-Date: 2012-09-13 14:29+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -44,7 +44,7 @@ msgstr "お気に入り(_F)"
 msgid "View _Conversation"
 msgstr "会話を表示(_C)"
 
-#: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:137
+#: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:149
 msgid "Related Results"
 msgstr "関連ツイート"
 
@@ -64,31 +64,35 @@ msgstr "返信"
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/plugins/twitter/api.py:55
+#: ../lib/plugins/twitter/api.py:56
 msgid "Home TimeLine"
 msgstr "ホームタイムライン"
 
-#: ../lib/plugins/twitter/api.py:62
+#: ../lib/plugins/twitter/api.py:63
+msgid "User TimeLine"
+msgstr "ユーザータイムライン"
+
+#: ../lib/plugins/twitter/api.py:74
 msgid "List TimeLine"
 msgstr "リストタイムライン"
 
-#: ../lib/plugins/twitter/api.py:81 ../lib/plugins/twitter/api.py:105
+#: ../lib/plugins/twitter/api.py:93 ../lib/plugins/twitter/api.py:117
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:88
+#: ../lib/plugins/twitter/api.py:100
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:96 ../lib/preferences/feedsource.py:95
+#: ../lib/plugins/twitter/api.py:108 ../lib/preferences/feedsource.py:95
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
-#: ../lib/plugins/twitter/api.py:110
+#: ../lib/plugins/twitter/api.py:122
 msgid "Track"
 msgstr "トラック"
 
-#: ../lib/plugins/twitter/api.py:124
+#: ../lib/plugins/twitter/api.py:136
 msgid "Search"
 msgstr "検索"
 

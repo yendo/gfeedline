@@ -1,5 +1,6 @@
 2012-09-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/: Added support for 'User Timeline' API.
 	* window.py: Added a notebook context menu for removing tabs.
 
 2012-09-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
