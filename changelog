@@ -1,5 +1,6 @@
 2012-09-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* po/de_DE.po: Updated German translation.  Thanks t_bb_!
 	* twitter/: Added support for 'User Timeline' API.
 	* window.py: Added a notebook context menu for removing tabs.
 
