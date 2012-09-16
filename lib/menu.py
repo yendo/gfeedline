@@ -4,6 +4,7 @@ from gi.repository import Gtk, Gdk
 
 from updatewindow import UpdateWindow, RetweetDialog
 from preferences.filters import FilterDialog
+from utils.settings import SETTINGS_VIEW
 
 # for old WebKit (<= 1.6)
 from gi.repository import WebKit
@@ -12,7 +13,7 @@ CAN_ACCESS_DOM = WebKit.MAJOR_VERSION >= 1 and WebKit.MINOR_VERSION >= 6
 
 
 def ENTRY_POPUP_MENU():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
+    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, RelatedResultsMenuItem]
 
 
 class PopupMenuItem(Gtk.MenuItem):
@@ -40,6 +41,7 @@ class PopupMenuItem(Gtk.MenuItem):
 
         img_url = _get_first_class('usericon').get_attribute('src')
         user_name = _get_first_class('username').get_attribute('data-user')
+        full_name = _get_first_class('username').get_attribute('data-fullname')
         body = _get_first_class('body').get_inner_text()
         date_time = _get_first_class('datetime').get_inner_text()
         is_protected = bool(_get_first_class('protected'))
@@ -49,6 +51,7 @@ class PopupMenuItem(Gtk.MenuItem):
             id=entry_id,
             image_uri=img_url,
             user_name=user_name,
+            full_name=full_name,
             protected=is_protected,
             status_body=body
             )
@@ -71,11 +74,10 @@ class ReplyMenuItem(PopupMenuItem):
     def on_activate(self, menuitem, entry_id):
         if CAN_ACCESS_DOM:
             entry_dict = self._get_entry_from_dom(entry_id)
-            # print api.account.user_name # use account obj?
-            UpdateWindow(None, entry_dict)
+            UpdateWindow(self.parent, entry_dict, self.api.account)
         else:
             entry_dict = {'id': entry_id, 'user_name': self.user}
-            UpdateWindowOLD(None, entry_dict)
+            UpdateWindowOLD(self.parent, entry_dict, self.api.account)
 
 class RetweetMenuItem(PopupMenuItem):
 
@@ -83,6 +85,7 @@ class RetweetMenuItem(PopupMenuItem):
 
     def __init__(self, uri=None, api=None, scrolled_window=None):
         super(RetweetMenuItem, self).__init__(uri, api, scrolled_window)
+        self.account = api.account
 
         if CAN_ACCESS_DOM:
             entry_id = uri.split('/')[-1]
@@ -97,12 +100,12 @@ class RetweetMenuItem(PopupMenuItem):
     def on_activate(self, menuitem, entry_id):
         if CAN_ACCESS_DOM:
             entry_dict = self._get_entry_from_dom(entry_id)
-            dialog = RetweetDialog()
+            dialog = RetweetDialog(self.account)
         else:
             entry_dict = {'id': entry_id, 'user_name': self.user}
-            dialog = RetweetDialogOLD()
+            dialog = RetweetDialogOLD(self.account)
 
-        dialog.run(entry_dict, self.parent.window.window)
+        dialog.run(entry_dict, self.parent.window)
 
 class FavMenuItem(RetweetMenuItem):
 
@@ -114,6 +117,45 @@ class FavMenuItem(RetweetMenuItem):
     def on_activate(self, menuitem, entry_id):
         twitter_account = self.api.account
         twitter_account.api.fav(entry_id)
+
+class RelatedResultsMenuItem(RetweetMenuItem):
+
+    LABEL = _('View _Conversation')
+
+    def _is_enabled(self, dom):
+        return bool(dom.get_attribute('data-inreplyto')) if CAN_ACCESS_DOM else True
+
+    def _get_group_name(self):
+        current_group_name = self.parent.webview.group_name
+
+        if not SETTINGS_VIEW.get_boolean('conversation-other-column'):
+            return current_group_name
+
+        group_list = self.parent.liststore.get_group_list()
+        page = self.parent.liststore.get_group_page(current_group_name)
+
+        if page >= len(group_list) -1:
+            page -= 1
+        else:
+            page += 1
+
+        return group_list[page]
+
+    def on_activate(self, menuitem, entry_id):
+        group_name = self._get_group_name()
+
+        source = {'source': 'Twitter',
+                  'argument': entry_id,
+                  'target': _('Related Results'),
+                  'username': self.api.account.user_name,
+                  'group': group_name,
+                  'name': '@%s' % self.user,
+                  'options': {}
+                  }
+        self.parent.liststore.append(source)
+
+        notebook = self.parent.window.column.get_notebook_object(group_name)
+        notebook.set_current_page(-1)
 
 class SearchMenuItem(PopupMenuItem):
 
@@ -132,12 +174,12 @@ class AddFilterMenuItem(PopupMenuItem):
 
     def on_activate(self, menuitem, entry_id):
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
-        text = clipboard.wait_for_text()
+        clipboard_text = clipboard.wait_for_text()
 
         filter_liststore = self.parent.liststore.filter_liststore
 
-        dialog = FilterDialog(None, text=text)
-        response_id, v = dialog.run()
+        dialog = FilterDialog(None)
+        response_id, v = dialog.run(clipboard_text)
 
         if response_id == Gtk.ResponseType.OK:
             filter_liststore.append(v)

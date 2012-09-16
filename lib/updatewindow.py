@@ -4,6 +4,7 @@ import tempfile
 from gi.repository import Gtk, GLib, Gio, GdkPixbuf
 
 from constants import SHARED_DATA_FILE
+from accountliststore import AccountColumn
 from plugins.twitter.account import AuthorizedTwitterAccount
 from utils.settings import SETTINGS
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
@@ -23,18 +24,44 @@ class UpdateWidgetBase(object):
         d.addCallback(self._run, gui, entry, icon).addErrback(self._on_error)
 
     def _set_ui(self, gui, entry, icon):
-        gui.get_object('label_user').set_markup('<b>%s</b>' % entry['user_name'])
+        gui.get_object('label_user').set_markup('<b>%s</b> <small>@%s</small>' % (
+                entry['full_name'], entry['user_name']))
         gui.get_object('label_body').set_text(entry['status_body'])
         gui.get_object('image_usericon').set_from_file(icon.name)
 
+class AccountCombobox(object):
+
+    def __init__(self, gui, liststore, account):
+        self.account_liststore = liststore.account_liststore
+        self.combobox_account = gui.get_object('combobox_account')
+        self.combobox_account.set_model(self.account_liststore)
+
+        if account:
+            self.active_num = self.account_liststore.get_account_row_num(
+            'Twitter', account.user_name) 
+            self.combobox_account.set_sensitive(False)
+        else:
+            recent = SETTINGS.get_int('recent-account')
+            self.active_num = recent \
+                if len(self.account_liststore) > recent else 0
+
+        self.combobox_account.set_active(self.active_num)
+
+    def get_account_obj(self):
+        active_num = self.combobox_account.get_active()
+        return self.account_liststore[active_num][AccountColumn.ACCOUNT]
+
 class UpdateWindow(UpdateWidgetBase):
 
-    def __init__(self, mainwindow, entry=None):
+    def __init__(self, mainwindow, entry=None, account=None):
         self.entry = entry
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
         self.media = MediaFile(gui)
+
+        self.account_combobox = AccountCombobox(
+            gui, mainwindow.liststore, account)
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')
@@ -76,7 +103,7 @@ class UpdateWindow(UpdateWidgetBase):
         params = {'in_reply_to_status_id': self.entry.get('id')} \
             if self.entry else {}
 
-        twitter_account = AuthorizedTwitterAccount()
+        twitter_account = self.account_combobox.get_account_obj()
 
         if self.media.file: # update with media
             is_shrink = True
@@ -88,6 +115,10 @@ class UpdateWindow(UpdateWidgetBase):
 
         else: # normal update
             twitter_account.api.update(status, params=params)
+
+        if not self.entry:
+            num = self.account_combobox.combobox_account.get_active()
+            SETTINGS.set_int('recent-account', num)
 
         self.update_window.destroy()
 
@@ -237,8 +268,12 @@ class RotatedPixbufCreator(object):
 
 class RetweetDialog(UpdateWidgetBase):
 
+    def __init__(self, account):
+        self.twitter_account = account
+
     def run(self, entry, parent):
-        self.parent = parent
+        self.parent = parent.window
+        self.has_multi_account = len(parent.liststore.account_liststore) > 1
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
@@ -248,12 +283,16 @@ class RetweetDialog(UpdateWidgetBase):
         self._set_ui(gui, entry, icon)
 
         dialog = gui.get_object('messagedialog')
+        screen_name = self.twitter_account.user_name
+        text = _("Retweet this to your (%s's) followers?") % screen_name \
+            if self.has_multi_account else _("Retweet this to your followers?") 
+
+        dialog.format_secondary_text(text)
         dialog.set_transient_for(self.parent)
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
-            twitter_account = AuthorizedTwitterAccount()
-            twitter_account.api.retweet(entry['id'], self._on_retweet_status)
+            self.twitter_account.api.retweet(entry['id'], self._on_retweet_status)
 
         dialog.destroy()
 
@@ -269,6 +308,8 @@ class UpdateWindowOLD(UpdateWindow):
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
         self.media = MediaFile(gui)
+        self.account_combobox = AccountCombobox(
+            gui, mainwindow.liststore, account)
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')
@@ -310,7 +351,6 @@ class RetweetDialogOLD(RetweetDialog):
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
-            twitter_account = AuthorizedTwitterAccount()
-            twitter_account.api.retweet(entry['id'], self._on_retweet_status)
+            self.twitter_account.api.retweet(entry['id'], self._on_retweet_status)
 
         dialog.destroy()

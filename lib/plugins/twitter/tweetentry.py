@@ -13,6 +13,7 @@ user_color = UserColor()
 """
 TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
            |- SearchTweetEntry
+           |- RelatedResultsEntry
            \- FeedEventEntry
 """
 
@@ -20,7 +21,9 @@ TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
 class TweetEntry(object):
 
     def __init__(self, entry):
-        self.entry=entry
+        self.entry = entry
+        self.retweet_by_screen_name = ''
+        self.retweet_by_name = ''
 
     def get_dict(self, api):
         entry = self.entry
@@ -30,21 +33,25 @@ class TweetEntry(object):
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
 
-        self.style_obj = EntryStyles()
-        styles = self.style_obj.get(api, user.screen_name, entry)
+        styles = self._get_styles(api, user.screen_name, entry)
 
         entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry.id,
             styles=styles,
             image_uri=user.profile_image_url,
-            retweet=self._get_retweet_icon(),
+
+            retweet='',
+            retweet_by_screen_name=self.retweet_by_screen_name,
+            retweet_by_name=self.retweet_by_name,
+
+            in_reply_to=self._get_in_reply_to_status_id(entry),
 
             user_name=user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
             protected=self._get_protected_icon(user.protected),
-            source=self._decode_source_html_entities(entry.source),
+            source=self._get_source(entry),
 
             status_body=body,
             popup_body=body_string,
@@ -53,13 +60,19 @@ class TweetEntry(object):
 
         return entry_dict
 
+    def _get_styles(self, api, screen_name, entry=None):
+        style_obj = EntryStyles()
+        return style_obj.get(api, screen_name, entry)
+
+    def _get_source(self, entry):
+        return self._decode_source_html_entities(entry.source)
+
     def get_sender_name(self, api):
         sender = self._get_sender(api)
         return sender.screen_name
 
     def _get_sender(self, api):
-        sender = self.entry.sender if api.name == _('Direct Messages') \
-            else self.entry.user
+        sender = self.entry.user
         return sender
 
     def get_source_name(self):
@@ -73,17 +86,15 @@ class TweetEntry(object):
             source = [x.contents[0] for x in soup('a')][0]
         return source
 
+    def _get_in_reply_to_status_id(self, entry):
+        return entry.in_reply_to_status_id if entry.in_reply_to_status_id else ''
+
     def _get_body(self, text):
         text = decode_html_entities(text) # need to decode!
         return text
 
-    def _get_retweet_icon(self):
-        return ''
-
     def _get_protected_icon(self, attribute):
-        key = '' if attribute == 'false' or not attribute \
-            else "<img class='protected' src='key.png' width='10' height='13'>"
-        return key
+        return True if attribute and attribute != 'false' else ''
 
     def _decode_source_html_entities(self, source_html):
         source_html = unescape(source_html)
@@ -127,18 +138,29 @@ class EntryStyles(object):
     def _get_style_retweet(self):
         pass
 
+class DirectMessageEntry(TweetEntry):
+
+    def _get_sender(self, api):
+        return self.entry.sender
+
+    def _get_styles(self, api, screen_name, entry):
+        return ''
+
+    def _get_source(self, entry):
+        return ''
+
+    def get_source_name(self):
+        return ''
+
+    def _get_in_reply_to_status_id(self, entry):
+        return ''
+
 class RestRetweetEntry(TweetEntry):
 
     def __init__(self, entry):
         self.entry=entry.retweeted_status
-        self.retweet_by = entry.user.screen_name
-
-    def _get_retweet_icon(self):
-        title = _("Retweeted by %s") % self.retweet_by
-        html = ("<a href='http://twitter.com/%s'>"
-                "<img title='%s' src='retweet.png' width='18' height='14'>"
-                "</a>") % (self.retweet_by, title)
-        return html
+        self.retweet_by_screen_name = entry.user.screen_name
+        self.retweet_by_name = entry.user.name
 
 class FeedRetweetEntry(RestRetweetEntry):
 
@@ -148,7 +170,9 @@ class FeedRetweetEntry(RestRetweetEntry):
         self.original_entry = entry
         self.entry=DictObj(entry.raw.get('retweeted_status'))
         self.entry.user=DictObj(self.entry.user)
-        self.retweet_by = entry.raw['user']['screen_name'] # name
+
+        self.retweet_by_screen_name = entry.raw['user']['screen_name']
+        self.retweet_by_name = entry.raw['user']['name']
 
 class MyFeedRetweetEntry(FeedRetweetEntry):
 
@@ -168,6 +192,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
 
             image_uri=user['profile_image_url'],
             retweet='',
+            in_reply_to = '',
 
             user_name=user['screen_name'],
             full_name=user['name'],
@@ -203,8 +228,7 @@ class SearchTweetEntry(TweetEntry):
         name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
 
-        self.style_obj = EntryStyles()
-        styles = self.style_obj.get(api, name)
+        styles = self._get_styles(api, name)
 
         entry_dict = dict(
             date_time=time.get_local_time(),
@@ -212,6 +236,7 @@ class SearchTweetEntry(TweetEntry):
             styles=styles,
             image_uri=entry.image,
             retweet='',
+            in_reply_to = True, # FIXME
 
             user_name=name,
             full_name=self.get_full_name(entry),
@@ -240,6 +265,15 @@ class SearchTweetEntry(TweetEntry):
 
     def _get_body(self, text):
         return text
+
+class RelatedResultsEntry(TweetEntry):
+
+    def __init__(self, entry):
+        super(RelatedResultsEntry, self).__init__(entry)
+
+        self.original_entry = entry
+        self.entry=DictObj(entry)
+        self.entry.user=DictObj(self.entry.user)
 
 class FeedEventEntry(TweetEntry):
 
@@ -273,6 +307,7 @@ class FeedEventEntry(TweetEntry):
             styles='',
             image_uri=entry.source.profile_image_url,
             retweet='',
+            in_reply_to = '',
 
             user_name=entry.source.screen_name,
             full_name=entry.source.name,
@@ -345,6 +380,10 @@ class AddedHtmlMarkup(object):
         text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
         text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 
                                      text)
+
+#        screen_name_re = r"<a href='gfeedlinereply://%s'>@\1</a>" % 120
+#        text = self.nick_pattern.sub(screen_name_re, text)
+
         text = self.hash_pattern.sub(
             r"<a href='https://twitter.com/search?q=%23\1'>#\1</a>", text)
 

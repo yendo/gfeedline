@@ -9,6 +9,7 @@ from gi.repository import GdkPixbuf
 from window import MainWindow
 from view import FeedView
 from constants import Column
+from accountliststore import AccountListStore
 from filterliststore import FilterListStore
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 from plugins.twitter.api import TwitterAPIDict
@@ -20,17 +21,22 @@ class FeedListStore(ListStoreBase):
 
     """ListStore for Feed Sources.
 
-    0,     1,    2,      3,    4,      5,        6,            7,           8
-    group, icon, source, name, target, argument, options_dict, account_obj, api_obj
+    0,     1,    2,      3,        4,    5,      6,
+    group, icon, source, username, name, target, argument,
+
+    7,            8,           9
+    options_dict, account_obj, api_obj
     """
 
     def __init__(self):
         super(FeedListStore, self).__init__(
-            str, GdkPixbuf.Pixbuf, str, str, str, str, object, object, object)
+            str, GdkPixbuf.Pixbuf, str, str, str, str, str, object, object, object)
+
+        self.account_liststore = AccountListStore()
+        self.filter_liststore = FilterListStore()
+
         self.window = MainWindow(self)
         self.api_dict = TwitterAPIDict()
-        self.filter_liststore = FilterListStore()
-        self.twitter_account = AuthorizedTwitterAccount()
 
         self.save = SaveListStore()
         for entry in self.save.load():
@@ -38,10 +44,13 @@ class FeedListStore(ListStoreBase):
 
     def append(self, source, iter=None):
         api_class = self.api_dict.get(source['target'])
-        if not api_class:
+        account_obj = self.account_liststore.get_account_obj(
+            source.get('source'), source.get('username'))
+
+        if not api_class or not account_obj:
             return
 
-        api = api_class(self.twitter_account)
+        api = api_class(account_obj)
         notebook = self.window.get_notebook(source.get('group'))
 
         page = int(str(self.get_path(iter))) if iter else -1
@@ -54,13 +63,14 @@ class FeedListStore(ListStoreBase):
                                      self.filter_liststore)
 
         list = [source.get('group'),
-                GdkPixbuf.Pixbuf(),
+                account_obj.icon.get_pixbuf(),
                 source.get('source'),
+                source.get('username'),
                 source.get('name'),
                 source['target'], # API 
                 source.get('argument'), 
                 source.get('options'),
-                self.twitter_account, # account_obj
+                account_obj,
                 api_obj]
 
         new_iter = self.insert_before(iter, list)
@@ -93,6 +103,7 @@ class FeedListStore(ListStoreBase):
 
                 notebook = self.window.get_notebook(new_group)
                 api_obj.view.move(notebook)
+                api_obj.view.webview.group_name = new_group # FIXME v1.7
 
                 new_page = self.get_group_page(source.get('group'))
                 self.window.column.hbox.reorder_child(notebook, new_page)
@@ -118,14 +129,19 @@ class FeedListStore(ListStoreBase):
         super(FeedListStore, self).remove(iter)
 
     def get_group_page(self, target_group):
-        all_group =[]
+        group_list = self.get_group_list()
+
+        return group_list.index(target_group) \
+            if target_group in group_list else 0
+
+    def get_group_list(self):
+        group_list =[]
         for x in self:
             group = x[Column.GROUP].decode('utf-8')
-            if group not in all_group:
-                all_group.append(group)
-
-        page = all_group.index(target_group)
-        return page
+            if group not in group_list:
+                group_list.append(group)
+        
+        return group_list
 
 class SaveListStore(SaveListStoreBase):
 
@@ -136,11 +152,12 @@ class SaveListStore(SaveListStoreBase):
 
         for dir in entry:
             data = { 'name' : '', 'target' : '', 'argument' : '',
-                     'source' : 'Twitter', 
+                     'source' : 'Twitter', 'username': '',
                      'options' : {} }
 
             for key, value in dir.items():
-                if key in ['group', 'source', 'name', 'target', 'argument']:
+                if key in ['group', 'source', 'username', 
+                           'name', 'target', 'argument']:
                     data[key] = value
                 else:
                     data['options'][key] = value
@@ -151,7 +168,7 @@ class SaveListStore(SaveListStoreBase):
         return source_list
 
     def save(self, liststore):
-        data_list = ['source', 'name', 'target', 'argument']
+        data_list = ['source', 'username', 'name', 'target', 'argument']
         save_data = []
 
         for i, row in enumerate(liststore):

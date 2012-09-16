@@ -42,7 +42,7 @@ class FeedView(FeedScrolledWindow):
         self.theme = self.window.theme
 
         self.append(notebook, page)
-        self.webview = FeedWebView(self, api)
+        self.webview = FeedWebView(self, api, notebook.group_name)
         self.notification = self.window.notification
 
     def append(self, notebook, page=-1):
@@ -81,8 +81,9 @@ class FeedView(FeedScrolledWindow):
 
 class FeedWebView(WebKit.WebView):
 
-    def __init__(self, scrolled_window, api):
+    def __init__(self, scrolled_window, api, group_name):
         super(FeedWebView, self).__init__()
+        self.group_name = group_name
         self.scroll = FeedWebViewScroll()
         self.link_on_webview = FeedWebViewLink()
         self.scrolled_window = scrolled_window
@@ -106,7 +107,7 @@ class FeedWebView(WebKit.WebView):
 
     def on_drag_drop(self, widget, context, x, y, time, *args):
         if self.dnd.text or self.dnd.file:
-            updatewindow = UpdateWindow(self)
+            updatewindow = UpdateWindow(self.scrolled_window)
 
             if self.dnd.text:
                 updatewindow.text_buffer.set_text(self.dnd.text)
@@ -181,6 +182,9 @@ class FeedWebView(WebKit.WebView):
 
         if uri.startswith('gfeedline:'):
             uri = uri.replace('gfeedline:', 'https:')
+#        elif uri.startswith('gfeedlinereply:'):
+#            print "reply"
+#            button = -1
         else:
             uri = decode_html_entities(urllib.unquote(uri))
             uri = uri.replace('#', '%23') # for Twitter hash tags

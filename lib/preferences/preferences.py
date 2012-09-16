@@ -7,10 +7,11 @@
 from gi.repository import Gtk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
-from ..utils.settings import SETTINGS, SETTINGS_VIEW, SETTINGS_TWITTER
+from ..utils.settings import SETTINGS, SETTINGS_VIEW, SETTINGS_GEOMETRY
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE
 from ..theme import Theme
+from accounts import AccountAction
 from feedsource import FeedSourceAction
 from filters import FilterAction
 
@@ -24,16 +25,8 @@ class Preferences(object):
         self.preferences = gui.get_object('preferences')
 
         notebook = gui.get_object('notebook1')
-        notebook.remove_page(1)
         recent_page = SETTINGS.get_int('preferences-recent-page')
         notebook.set_current_page(recent_page)
-
-        # account
-
-        self.label_username = gui.get_object('label_confirm_username')
-        self.on_setting_username_changed()
-        SETTINGS_TWITTER.connect("changed::user-name", 
-                                 self.on_setting_username_changed)
 
         # view & desktop
 
@@ -41,6 +34,10 @@ class Preferences(object):
         self.combobox_order = ComboboxTimelineOrder(gui)
         self.fontbutton = TimeLineFontButton(gui, mainwindow)
  
+        is_other_column = SETTINGS_VIEW.get_boolean('conversation-other-column')
+        checkbutton_conversation = gui.get_object('checkbutton_conversation')
+        checkbutton_conversation.set_active(is_other_column)
+
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
 
         SETTINGS.connect("changed::window-sticky", self.on_settings_sticky_change)
@@ -49,28 +46,35 @@ class Preferences(object):
         checkbutton_sticky = gui.get_object('checkbutton_sticky')
         checkbutton_sticky.set_active(sticky)
 
-        # feeds & filters
+        # accounts, feeds & filters
 
+        self.account_action = AccountAction(
+            gui, mainwindow, self.liststore, self.preferences)
         self.feedsource_action = FeedSourceAction(
             gui, mainwindow, self.liststore, self.preferences)
         self.filter_action = FilterAction(
             gui, mainwindow, self.liststore.filter_liststore, self.preferences)
 
         gui.connect_signals(self)
+
+        self._load_prefs_size(self.preferences)
         self.preferences.show_all()
 
-    def on_setting_username_changed(self, *args):
-        user_name = SETTINGS_TWITTER.get_string('user-name') or 'none'
-        self.label_username.set_text(user_name)
+    def _load_prefs_size(self, preferences):
+        w = SETTINGS_GEOMETRY.get_int('prefs-width')
+        h = SETTINGS_GEOMETRY.get_int('prefs-height')
+        preferences.resize(w, h)
+
+    def _save_prefs_size(self, preferences):
+        w, h = preferences.get_size()
+        SETTINGS_GEOMETRY.set_int('prefs-width', w)
+        SETTINGS_GEOMETRY.set_int('prefs-height', h)
 
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
             self.preferences.stick()
         else:
             self.preferences.unstick()
-
-    def on_button_twitter_auth_clicked(self, button):
-        TwitterAuthAssistant(self.preferences)
 
     def on_button_close_clicked(self, notebook):
         page = notebook.get_current_page()
@@ -83,7 +87,14 @@ class Preferences(object):
 
         self.liststore.save_settings()
         self.liststore.filter_liststore.save_settings()
+        self.liststore.account_liststore.save_settings()
+
+        self._save_prefs_size(self.preferences)
         self.preferences.destroy()
+
+    def on_checkbutton_conversation_toggled(self, button):
+        is_other_column = button.get_active()
+        SETTINGS_VIEW.set_boolean('conversation-other-column', is_other_column)
 
     def on_checkbutton_sticky_toggled(self, button):
         sticky = button.get_active()
@@ -92,6 +103,19 @@ class Preferences(object):
     def on_checkbutton_autostart_toggled(self, button):
         state = button.get_active()
         self.autostart.set(state)
+
+
+    def on_button_account_new_clicked(self, button):
+        self.account_action.on_button_feed_new_clicked(button)
+
+    def on_button_account_prefs_clicked(self, treeselection):
+        self.account_action.on_button_feed_prefs_clicked(treeselection)
+
+    def on_button_account_del_clicked(self, treeselection):
+        self.account_action.on_button_feed_del_clicked(treeselection)
+
+    def on_account_treeview_cursor_changed(self, treeselection):
+        self.account_action.on_feedsource_treeview_cursor_changed(treeselection)
 
 
     def on_button_feed_new_clicked(self, button):

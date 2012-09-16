@@ -1,5 +1,10 @@
 body { margin: 0; }
 
+div.body { padding: 3px 0px;}
+.datetime, .datetime a, .retweet a { font-size: 90%; }
+.screenname, .screenname a { color: #606060;
+                             font-size: 90%; }
+
 div.status { padding: 8px; }
 div.icon { float: left; width: 45px; }
 div.icon img { -webkit-border-radius : 5px; }
@@ -20,7 +25,7 @@ div.event .text { background-color: LightGoldenrodYellow; border-color: Khaki;}
 div.event .text:before { border-color: transparent Khaki;}
 div.event .text:after  { border-color: transparent LightGoldenrodYellow;}
 
-.user { margin-bottom: 3px; font-size: 100%;}
+.user { font-size: 100%; }
 
 .text {
         margin-left: 50px;

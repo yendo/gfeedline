@@ -2,6 +2,9 @@ from gi.repository import Gtk
 
 from ..plugins.twitter.api import TwitterAPIDict
 from ..constants import Column
+from ..accountliststore import AccountColumn
+from ..utils.commonui import MultiAccountSensitiveWidget
+from ..utils.settings import SETTINGS_TWITTER
 from ui import *
 
 class FeedSourceDialog(DialogBase):
@@ -11,6 +14,8 @@ class FeedSourceDialog(DialogBase):
     DIALOG = 'feed_source'
 
     def _setup_ui(self):
+        self.combobox_source = SourceCombobox(self.gui, self.liststore_row, 
+                                              self.liststore)
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
         self.entry_name = self.gui.get_object('entry_name')
         self.label_argument = self.gui.get_object('label_argument')
@@ -38,23 +43,27 @@ class FeedSourceDialog(DialogBase):
         # run
         response_id = self.dialog.run()
 
+        source, username = self.combobox_source.get_active_account()
+        target = self.combobox_target.get_active_text()
+
         v = {
-#            'source'  : source_widget.get_active_text(),
+            'source' : source,
+            'username': username,
             'name' : self.entry_name.get_text().decode('utf-8'),
-            'target' : self.combobox_target.get_active_text(), #.decode('utf-8'),
+            'target' : target, #.decode('utf-8'),
             'argument' : self.entry_argument.get_text().decode('utf-8'),
             'group': self.entry_group.get_text().decode('utf-8'),
             'options' : 
             {'notification': checkbutton_notification.get_active()},
         }
 
-        target = self.combobox_target.get_active_text()
         options = self.options_tab.get(target)
         v['options'].update(options)
 
+        if response_id == Gtk.ResponseType.OK:
+            self.combobox_target.set_recent()
         self.dialog.destroy()
-#        if response_id == Gtk.ResponseType.OK:
-#            SETTINGS_RECENTS.set_string('source', v['source'])
+
         return response_id , v
 
     def on_comboboxtext_target_changed(self, *args):
@@ -124,6 +133,27 @@ class OptionsTabUserStream(OptionsTabChild):
         result = {'notify_events': state}
         return result
 
+class SourceCombobox(object):
+
+    def __init__(self, gui, feedliststore, liststore):
+        self.widget = gui.get_object('combobox_source')
+        self.widget.set_model(liststore.account_liststore)
+        
+        num = 0
+        if feedliststore:
+            for i, v in enumerate(liststore.account_liststore):
+                if v[AccountColumn.SOURCE] == feedliststore[Column.SOURCE] and \
+                        v[AccountColumn.ID] == feedliststore[Column.USERNAME]:
+                    num = i
+
+        self.widget.set_active(num)
+
+    def get_active_account(self):
+        account = self.widget.get_model()[self.widget.get_active()]
+        source, user_name = account[AccountColumn.SOURCE], \
+            account[AccountColumn.ID]
+        return source, user_name
+
 class TargetCombobox(object):
 
     def __init__(self, gui, feedliststore):
@@ -134,13 +164,20 @@ class TargetCombobox(object):
         for text in self.label_list:
             self.widget.append_text(text)
 
-        num = self.label_list.index(
-            feedliststore[Column.TARGET].decode('utf-8')) if feedliststore else 0
+        recent = SETTINGS_TWITTER.get_int('recent-target')
+        num = self.label_list.index(feedliststore[Column.TARGET].decode('utf-8')) \
+            if feedliststore else recent if recent >= 0 else \
+            self.label_list.index(_("User Stream"))
+
         self.widget.set_active(num)
 
     def get_active_text(self):
         label = self.label_list[self.widget.get_active()]
         return label
+
+    def set_recent(self):
+        num = self.widget.get_active()
+        SETTINGS_TWITTER.set_int('recent-target', num)
 
     def has_argument_entry_enabled(self):
         api_name = self.get_active_text()
@@ -165,6 +202,10 @@ class ArgumentEntry(object):
     def set_sensitive(self, status):
         self.widget.set_sensitive(status)
 
+class ButtonFeedNew(MultiAccountSensitiveWidget):
+
+    WIDGET = 'button_feed_new'
+
 class FeedSourceTreeview(TreeviewBase):
 
     WIDGET = 'feedsourcetreeview'
@@ -175,6 +216,8 @@ class FeedSourceTreeview(TreeviewBase):
         self.treeview.set_headers_clickable(False) # Builder bug?
         self.treeview.connect("drag-begin", self.on_drag_begin)
         self.treeview.connect("drag-end", self.on_drag_end, mainwindow)
+
+        button_feed_new = ButtonFeedNew(gui, mainwindow.liststore)
 
     def get_selection(self):
         return self.treeview.get_selection()

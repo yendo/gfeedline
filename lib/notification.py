@@ -19,7 +19,8 @@ class StatusNotification(Notification):
 
     def __init__(self, notification):
         super(StatusNotification, self).__init__('GFeedLine')
-        self.has_actions = 'actions' in self.get_capabilities()
+        # Can't access dbus when auto-start.
+        # self.has_actions = 'actions' in self.get_capabilities()
         self.icon_file = os.path.join(CACHE_HOME, 'notification_icon.jpg')
 
     def notify(self, entry):
@@ -54,6 +55,7 @@ class StatusNotification(Notification):
 
     def _get_actions(self, entry):
         #print entry
+        self.has_actions = 'actions' in self.get_capabilities()
         if self.has_actions and entry.get('id'):
             entry_pickle = pickle.dumps(entry)
             entry_base64 = base64.b64encode(entry_pickle)

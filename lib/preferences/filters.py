@@ -19,11 +19,10 @@ class FilterDialog(DialogBase):
         self.spinbutton_expiry = self.gui.get_object('spinbutton_expiry')
         self.combobox_expire_unit = ComboboxExpireUnit(self.gui)
 
-    def run(self):
-        if self.text:
-            self.entry_word.set_text(self.text)
-
-        if self.liststore_row:
+    def run(self, clipboard_text=None):
+        if clipboard_text:
+            self.entry_word.set_text(clipboard_text)
+        elif self.liststore_row:
             self.combobox_target.set_active_text(
                 self.liststore_row[FilterColumn.TARGET])
             self.entry_word.set_text(self.liststore_row[FilterColumn.WORD])

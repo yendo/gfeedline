@@ -4,7 +4,7 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput
+from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultsOutput
 
 
 class TwitterAPIDict(dict):
@@ -12,10 +12,12 @@ class TwitterAPIDict(dict):
     def __init__(self):
         all_api = [
              TwitterAPIHomeTimeLine,
+             TwitterAPIUserTimeLine,
              TwitterAPIListTimeLine,
              TwitterAPIMentions,
              TwitterAPIDirectMessages,
              TwitterSearchAPI,
+             TwitterRelatedResults,
 
              TwitterAPIUserStream,
              TwitterAPITrack,
@@ -55,6 +57,17 @@ class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     def _get_api(self):
         return self.account.api.home_timeline
+
+class TwitterAPIUserTimeLine(TwitterAPIBase):
+
+    name = _('User TimeLine')
+    has_argument = True
+
+    def _get_api(self):
+        return self.account.api.user_timeline
+
+    def get_options(self, argument):
+        return {'screen_name': argument}
 
 class TwitterAPIListTimeLine(TwitterAPIBase):
 
@@ -129,3 +142,15 @@ class TwitterSearchAPI(TwitterAPIBase):
 
     def get_options(self, argument):
         return {'q': argument}
+
+class TwitterRelatedResults(TwitterAPIBase):
+
+    output= TwitterRelatedResultsOutput
+    name = _('Related Results')
+    has_argument = True
+
+    def _get_api(self):
+        return self.account.api.related_results
+
+    def get_options(self, argument):
+        return {'id': argument.encode('utf-8')}

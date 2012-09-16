@@ -1,200 +1,202 @@
-# Japanese translation for gfeedline
-# Copyright (C) 2012 Yoshizumi Endo.
-# This file is distributed under the same license as the gfeedline package.
-# Yoshizumi Endo <y-endo@ceres.dti.ne.jp>, 2012.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <hemadan@9.cn>, 2012.
+# Humaidan Mohammed <hemadan@9.cn>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 14:28+0900\n"
-"PO-Revision-Date: 2012-09-13 14:29+0900\n"
-"Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2012-09-13 19:13+0900\n"
+"PO-Revision-Date: 2012-09-14 15:18+0000\n"
+"Last-Translator: Humaidan Mohammed <hemadan@9.cn>\n"
+"Language-Team: Arabic (http://www.transifex.com/projects/p/gfeedline/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../lib/filterliststore.py:93 ../share/filters.glade.h:8
 msgid "days"
-msgstr "日間"
+msgstr "أيام"
 
 #: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
 msgid "hours"
-msgstr "時間"
+msgstr "ساعات"
 
 #: ../lib/menu.py:64
 msgid "_Open"
-msgstr "開く(_O)"
+msgstr "إفتح (_O)"
 
 #: ../lib/menu.py:72
 msgid "_Reply"
-msgstr "返信(_R)"
+msgstr "رد (_R)"
 
 #: ../lib/menu.py:84
 msgid "Re_tweet"
-msgstr "リツイート(_T)"
+msgstr "أعد التغريد (_T)"
 
 #: ../lib/menu.py:112
 msgid "_Favorite"
-msgstr "お気に入り(_F)"
+msgstr "تفضيل (_F)"
 
 #: ../lib/menu.py:123
 msgid "View _Conversation"
-msgstr "会話を表示(_C)"
+msgstr "عرض_المحادثة"
 
 #: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:149
 msgid "Related Results"
-msgstr "関連ツイート"
+msgstr "النتائج المتعلقة"
 
 #: ../lib/menu.py:162
 msgid "_Search"
-msgstr "検索(_S)"
+msgstr "بحث  (_S)"
 
 #: ../lib/menu.py:173
 msgid "_Add Filter"
-msgstr "フィルターに追加(_A)"
+msgstr "إضافة مرشح (_A)"
 
 #: ../lib/notification.py:63
 msgid "Reply"
-msgstr "返信"
+msgstr "رد"
 
 #: ../lib/notification.py:64
 msgid "Open"
-msgstr "開く"
+msgstr "إفتح"
 
 #: ../lib/plugins/twitter/api.py:56
 msgid "Home TimeLine"
-msgstr "ホームタイムライン"
+msgstr "الجدول الزمني الرئيسي"
 
 #: ../lib/plugins/twitter/api.py:63
 msgid "User TimeLine"
-msgstr "ユーザータイムライン"
+msgstr "الخط الزمني للمستخدم"
 
 #: ../lib/plugins/twitter/api.py:74
 msgid "List TimeLine"
-msgstr "リストタイムライン"
+msgstr "الجدول الزمني للقوائم"
 
 #: ../lib/plugins/twitter/api.py:93 ../lib/plugins/twitter/api.py:117
 msgid "Mentions"
-msgstr "メンション"
+msgstr "المشار إليهم"
 
 #: ../lib/plugins/twitter/api.py:100
 msgid "Direct Messages"
-msgstr "ダイレクトメッセージ"
+msgstr "الرسائل المباشرة"
 
 #: ../lib/plugins/twitter/api.py:108 ../lib/preferences/feedsource.py:95
+#: ../lib/preferences/feedsource.py:170
 msgid "User Stream"
-msgstr "ユーザーストリーム"
+msgstr "تدفق المستخدم"
 
 #: ../lib/plugins/twitter/api.py:122
 msgid "Track"
-msgstr "トラック"
+msgstr "تتبع"
 
 #: ../lib/plugins/twitter/api.py:136
 msgid "Search"
-msgstr "検索"
+msgstr "بحث"
 
 #: ../lib/plugins/twitter/assistant.py:29
 msgid "Twitter Account Setup"
-msgstr "Twitter アカウントの設定"
+msgstr "تنصيب حساب تويتر"
 
 #: ../lib/plugins/twitter/assistant.py:45
 msgid "Intro"
-msgstr "説明"
+msgstr "مقدمة"
 
 #: ../lib/plugins/twitter/assistant.py:53
 msgid "Enter PIN"
-msgstr "PIN の入力"
+msgstr "ادخل كود PIN"
 
 #: ../lib/plugins/twitter/assistant.py:61
 msgid "Confirm"
-msgstr "確認"
+msgstr "تأكيد"
 
 #: ../lib/plugins/twitter/output.py:60 ../share/filters.glade.h:5
 msgid "Body"
-msgstr "本文"
+msgstr "المحتوي"
 
 #: ../lib/plugins/twitter/output.py:65 ../share/filters.glade.h:6
 msgid "Sender"
-msgstr "送信者"
+msgstr "المرسل"
 
 #: ../lib/plugins/twitter/output.py:68 ../share/filters.glade.h:7
 #: ../share/preferences.glade.h:14
 msgid "Source"
-msgstr "ソース"
+msgstr "المصدر"
 
 #. FIXME
 #: ../lib/plugins/twitter/output.py:93
 #, python-format
 msgid "via %s"
-msgstr "via %s"
+msgstr "عبر %s"
 
 #: ../lib/plugins/twitter/output.py:98
 #, python-format
 msgid "Retweeted by %s"
-msgstr "%sさんがリツイート"
+msgstr "قام بإعادة تغريدها %s"
 
 #: ../lib/plugins/twitter/tweetentry.py:184
 msgid "retweeted your Tweet"
-msgstr "さんがリツイートしました"
+msgstr "أعاد تغريد تغريدتك"
 
 #: ../lib/plugins/twitter/tweetentry.py:284
 msgid "favorited your Tweet"
-msgstr "さんがお気に入りに登録しました"
+msgstr "تم تفضيل تغريدتك"
 
 #: ../lib/plugins/twitter/tweetentry.py:285
 msgid "unfavorited your Tweet"
-msgstr "さんがお気に入りから削除しました"
+msgstr "إلغي تفضيل تغريدتك"
 
 #: ../lib/plugins/twitter/tweetentry.py:286
 msgid "followed you"
-msgstr "さんがフォローしました"
+msgstr "يتابعك"
 
 #: ../lib/plugins/twitter/tweetentry.py:287
 #, python-format
 msgid "added you to list %s"
-msgstr "さんのリスト %s に追加されました"
+msgstr "أضافك الي قائمة  %s"
 
 #: ../lib/plugins/twitter/tweetentry.py:288
 #, python-format
 msgid "removed you from list %s"
-msgstr "さんのリスト %s から削除されました"
+msgstr "إزالتك من مجموعة %s"
 
 #: ../lib/preferences/feedsource.py:123
 msgid "Options"
-msgstr "オプション"
+msgstr "الخيارات"
 
 #: ../lib/preferences/feedsource.py:128
 msgid "_Notify events"
-msgstr "イベントの通知を行う"
+msgstr "تنبيه بالأحداث"
 
 #: ../lib/updatewindow.py:90 ../lib/updatewindow.py:330
 #, python-format
 msgid "Reply to %s"
-msgstr "%s への返信"
+msgstr "رد الي  %s"
 
 #: ../lib/updatewindow.py:214
 msgid "Supported image files"
-msgstr "サポートされている画像ファイル"
+msgstr "ملفات الصور المدعومة"
 
 #: ../lib/updatewindow.py:287
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
-msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
+msgstr "إعادة تغريد هذه إلي (%s's) متابعيك؟"
 
 #: ../lib/updatewindow.py:288
 msgid "Retweet this to your followers?"
-msgstr "あなたのフォロワーにこれをリツイートしますか?"
+msgstr "إعادة التغريدة لمتابعيك؟"
 
 #: ../share/assistant_twitter.glade.h:1
 msgid ""
 "Return to this dialog after you have finished the authorization process on "
 "Twitter.com and Enter your PIN below."
-msgstr ""
-"ブラウザ上で Twitter.com での認証を完了したらこのウィンドウに戻り、この下にあ"
-"る入力欄に PIN を入力してください。"
+msgstr "إرجع الي هذه النافذة بعد إتمام عملية الترخيص علي Twitter.com ثم أدخل رقم الـPIN هنا بالأسفل."
 
 #: ../share/assistant_twitter.glade.h:2
 msgid "PIN:"
@@ -202,75 +204,69 @@ msgstr "PIN:"
 
 #: ../share/assistant_twitter.glade.h:3
 msgid ""
-"Your configuration is complete.  You are now ready to access to Twitter with "
-"GFeedLine.\n"
+"Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
 "\n"
 "Click \"Apply\" to save your settings."
-msgstr "認証が完了しました。[適用] ボタンをクリックすれば設定を完了します。"
+msgstr "تم التكوين. انت الأن جاهز لاستخدام تويتر مع GFeedLine. \n \nإضغط علي \"تطبيق\" لحفظ الإعدادات."
 
 #: ../share/assistant_twitter.glade.h:6
 msgid "Screen name:"
-msgstr "スクリーンネーム:"
+msgstr "إسم الشاشة:"
 
 #: ../share/assistant_twitter.glade.h:7
 msgid "none"
-msgstr "なし"
+msgstr "لا يوجد"
 
 #: ../share/assistant_twitter.glade.h:8
 msgid ""
 "This assistant helps you to configure Twitter account for GFeedLine.\n"
 "\n"
-"Click \"Forward\" to open a Twitter authorization page with the default "
-"browser."
-msgstr ""
-"この設定アシスタントでは GFeedLine で利用するアカウントの設定を行います。\n"
-"\n"
-"[進む] ボタンをクリックすると、ブラウザで Twitter の認証ページを開き、認証作"
-"業を開始します。"
+"Click \"Forward\" to open a Twitter authorization page with the default browser."
+msgstr "هذا المساعد سوف يساعدك لتكوين حساب تويتر لـGFeedLine. \n\nإضغط علي \"إلي الأمام\" لفتح صفحة ترخيص تويتر علي متصفح الويب الإفتراضي."
 
 #: ../share/feedsource.glade.h:1
 msgid "Feed Source"
-msgstr "フィードソース"
+msgstr "مصدر التغريدات"
 
 #: ../share/feedsource.glade.h:2
 msgid "_Source:"
-msgstr "ソース(_S):"
+msgstr "مصدر: (_S)"
 
 #: ../share/feedsource.glade.h:3
 msgid "_Argument:"
-msgstr "引数(_A):"
+msgstr "حوار: (_A)"
 
 #: ../share/feedsource.glade.h:4 ../share/filters.glade.h:2
 msgid "_Target:"
-msgstr "ターゲット(_T):"
+msgstr "الهدف: (_T)"
 
 #: ../share/feedsource.glade.h:5
 msgid "_Name:"
-msgstr "名前(_N):"
+msgstr "إسم: (_N)"
 
 #: ../share/feedsource.glade.h:6
 msgid "_Enable notification"
-msgstr "通知機能を使う(_E)"
+msgstr "تفعيل التنبيهات (_E)"
 
 #: ../share/feedsource.glade.h:7
 msgid "_Group:"
-msgstr "グループ(_G):"
+msgstr "مجموعة: (_G)"
 
 #: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
 msgid "General"
-msgstr "全般"
+msgstr "عام"
 
 #: ../share/filters.glade.h:1
 msgid "Add Filter"
-msgstr "フィルターの追加"
+msgstr "إضافة مرشح"
 
 #: ../share/filters.glade.h:3
 msgid "_Word:"
-msgstr "単語(_W):"
+msgstr "كلمة: (_W)"
 
 #: ../share/filters.glade.h:4
 msgid "_Expiry:"
-msgstr "有効期間(_E):"
+msgstr "إنقضاء: (_E)"
 
 #: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
 msgid "GFeedLine"
@@ -278,11 +274,11 @@ msgstr "GFeedLine"
 
 #: ../share/gfeedline.desktop.in.h:2
 msgid "Read & Write Social Feeds"
-msgstr "ソーシャルフィードの読み書きを行います"
+msgstr "إقرأ واكتب التغريدات الاجتماعية"
 
 #: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:2
 msgid "Social Networking Client"
-msgstr "ソーシャルネットワーキングクライアント"
+msgstr "عميل الشبكات الإجتماعية"
 
 #: ../share/gfeedline.glade.h:1
 msgid "Copyright © 2012 Yoshizumi Endo."
@@ -290,47 +286,47 @@ msgstr "Copyright © 2012 Yoshizumi Endo."
 
 #: ../share/gfeedline.glade.h:3
 msgid "translator-credits"
-msgstr "Yoshizumi Endo <y-endo@ceres.dti.ne.jp>"
+msgstr "طاقم المترجمين"
 
 #: ../share/gfeedline.glade.h:5
 msgid "_File"
-msgstr "ファイル(_F)"
+msgstr "ملف (_F)"
 
 #: ../share/gfeedline.glade.h:6
 msgid "_Update"
-msgstr "投稿(_U)"
+msgstr "تحديث (_U)"
 
 #: ../share/gfeedline.glade.h:7
 msgid "_Edit"
-msgstr "編集(_E)"
+msgstr "تعديل (_E)"
 
 #: ../share/gfeedline.glade.h:8
 msgid "All Tabs to the _Top"
-msgstr "すべてのタブで先頭行に移動(_T)"
+msgstr "كل التبويبات إلي الأعلي (_T)"
 
 #: ../share/gfeedline.glade.h:9
 msgid "All Tabs to the _Bottom"
-msgstr "すべてのタブで最終行に移動(_B)"
+msgstr "كل التبويبات إلي الأسفل (_B)"
 
 #: ../share/gfeedline.glade.h:10
 msgid "_View"
-msgstr "表示(_V)"
+msgstr "عرض (_V)"
 
 #: ../share/gfeedline.glade.h:11
 msgid "_Multi-Column"
-msgstr "マルチカラム(_M)"
+msgstr "أعمدة متعددة (_M)"
 
 #: ../share/gfeedline.glade.h:12
 msgid "_Fullscreen"
-msgstr "フルスクリーン(_F)"
+msgstr "شاشة كاملة (_F)"
 
 #: ../share/gfeedline.glade.h:13
 msgid "_Help"
-msgstr "ヘルプ(_H)"
+msgstr "مساعدة (_H)"
 
 #: ../share/gfeedline.glade.h:14
 msgid "_Contents"
-msgstr "目次(_C)"
+msgstr "المحتوي (_C)"
 
 #: ../share/gfeedline.glade.h:15
 msgid ""
@@ -338,140 +334,127 @@ msgid ""
 "\n"
 "GFeedLine is a social networking client.  It supports Twitter.\n"
 "\n"
-"To start connecting with GFeedLine, open the Preferences dialog from "
-"<b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
+"To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
 "\n"
-"Then you have to configure your feeds in the Feeds tab of the Preferences "
-"dialog.  To enable multi-column view, enter a group name in each feed source "
-"dialog."
-msgstr ""
-"<big><b>GFeedLine へようこそ!</b></big>\n"
-"\n"
-"GFeedLine はソーシャルネットワーキングクライアントです。Twitter をサポートし"
-"ています。\n"
-"\n"
-"GFeedLine でアクセスするために、まずはメニューの<b>編集 ▸ 設定</b>から設定ダ"
-"イアログを開き、そのアカウントタブでアカウントを設定してください。\n"
-"\n"
-"その上で、同じ設定ダイアログのフィードタブでフィードを追加・設定してくださ"
-"い。なお、各フィードでグループ名を指定するとマルチカラム表示が可能です。"
+"Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
+msgstr "<big><b>مرحبا بك في GFeedLine!</b></big>\n\nGFeedLine هو عميل الشبكات الجتماعية. وهو يدعم تويتر.\n \nGFeedLine، إفتح التفضيلات من قائمة <b>تعديل > التفضيلات</b> ثم هيئ حسابك عن تبويب الحساب.\n\nثم عليك تهيئة التغذيات عند تبويب ااتغذية في صندوق التفضيلات. لكي تفعل عرض الأعمدة المتعددة، ادخل اسم المجموعة عند كل صندوق مصدر تغذية."
 
 #: ../share/notebook_popup_menu.glade.h:1
 msgid "_Close Tab"
-msgstr "タブを閉じる(_C)"
+msgstr "_إغلاق التبويب"
 
 #: ../share/preferences.glade.h:1
 msgid "Preferences"
-msgstr "設定"
+msgstr "التفضيلات"
 
 #: ../share/preferences.glade.h:2
 msgid "_Theme:"
-msgstr "テーマ(_T):"
+msgstr "الثمة: (_A)"
 
 #: ../share/preferences.glade.h:3
 msgid "Timeline _order:"
-msgstr "タイムラインの表示順(_O):"
+msgstr "نظام الجدول الزمني: (_O)"
 
 #: ../share/preferences.glade.h:4
 msgid "_Font:"
-msgstr "フォント(_F):"
+msgstr "الخط: (_F)"
 
 #: ../share/preferences.glade.h:5
 msgid "Default"
-msgstr "デフォルト"
+msgstr "إفتراضي"
 
 #: ../share/preferences.glade.h:6
 msgid "Ascending"
-msgstr "昇順"
+msgstr "تصاعدي"
 
 #: ../share/preferences.glade.h:7
 msgid "Descending"
-msgstr "降順"
+msgstr "تنازلي"
 
 #: ../share/preferences.glade.h:8
 msgid "Open _conversation tab in other column"
-msgstr "会話を別のカラムに表示"
+msgstr "فتح _تبويب المحادثة في عمود آخر"
 
 #: ../share/preferences.glade.h:9
 msgid "<b>View</b>"
-msgstr "<b>表示</b>"
+msgstr "<b>عرض</b>"
 
 #: ../share/preferences.glade.h:10
 msgid "Always on _Visible Workspace"
-msgstr "すべてのワークスペースに配置する(_V)"
+msgstr "مساحة العمل دائما مرئية (_V)"
 
 #: ../share/preferences.glade.h:11
 msgid "_Auto Start"
-msgstr "ログイン時に自動起動する(_A)"
+msgstr "بدء تلقائي (_A)"
 
 #: ../share/preferences.glade.h:12
 msgid "<b>Desktop</b>"
-msgstr "<b>デスクトップ</b>"
+msgstr "<b>سطح المكتب</b>"
 
 #: ../share/preferences.glade.h:15
 msgid "User ID"
-msgstr "ユーザ ID"
+msgstr "هوية المستخدم"
 
 #: ../share/preferences.glade.h:16
 msgid "<b>Accounts</b>"
-msgstr "<b>アカウント</b>"
+msgstr "<b>الحسابات</b>"
 
 #: ../share/preferences.glade.h:17
 msgid "Accounts"
-msgstr "アカウント"
+msgstr "الحسابات"
 
 #: ../share/preferences.glade.h:18
 msgid "Name"
-msgstr "名前"
+msgstr "إسم"
 
 #: ../share/preferences.glade.h:19
 msgid "Target"
-msgstr "ターゲット"
+msgstr "الهدف"
 
 #: ../share/preferences.glade.h:20
 msgid "Argument"
-msgstr "引数"
+msgstr "حوار"
 
 #: ../share/preferences.glade.h:21
 msgid "Group"
-msgstr "グループ"
+msgstr "مجموعة"
 
 #: ../share/preferences.glade.h:22
 msgid "<b>Feed Sources</b>"
-msgstr "<b>フィードソース</b>"
+msgstr "<b>مصدر التغذية</b>"
 
 #: ../share/preferences.glade.h:23
 msgid "Feeds"
-msgstr "フィード"
+msgstr "التغذيات"
 
 #: ../share/preferences.glade.h:24
 msgid "Word"
-msgstr "単語"
+msgstr "كلمة"
 
 #: ../share/preferences.glade.h:25
 msgid "Expiry"
-msgstr "有効期間"
+msgstr "إنقضاء"
 
 #: ../share/preferences.glade.h:26
 msgid "<b>Filters</b>"
-msgstr "<b>フィルター</b>"
+msgstr "<b>المرشحات</b>"
 
 #: ../share/preferences.glade.h:27
 msgid "Filters"
-msgstr "フィルター"
+msgstr "المرشحات"
 
 #: ../share/retweet.glade.h:1
 msgid "<big><b>Retweet?</b></big>"
-msgstr "<big><b>リツイートしますか?</b></big>"
+msgstr "<big><b>إعادة تغريد؟</b></big>"
 
 #: ../share/update.glade.h:1
 msgid "What are you doing?"
-msgstr "いまどうしてる?"
+msgstr "ماذا تفعل؟"
 
 #: ../share/update.glade.h:2
 msgid "Add an image"
-msgstr "画像を追加します"
+msgstr "إضافة صورة"
 
 #: ../share/update.glade.h:3
 msgid "_Tweet"
-msgstr "ツイート(_T)"
+msgstr "غرد (_T)"

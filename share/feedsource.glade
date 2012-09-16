@@ -23,18 +23,23 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="border_width">12</property>
-                <property name="column_spacing">6</property>
                 <property name="row_spacing">6</property>
+                <property name="column_spacing">6</property>
                 <child>
                   <object class="GtkComboBox" id="combobox_source">
-                    <property name="sensitive">False</property>
+                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="cellrenderertext_name"/>
-                    </child>
                     <child>
                       <object class="GtkCellRendererPixbuf" id="cellrenderertext_pixbuf"/>
+                      <attributes>
+                        <attribute name="pixbuf">4</attribute>
+                      </attributes>
+                    </child>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext_name"/>
+                      <attributes>
+                        <attribute name="text">1</attribute>
+                      </attributes>
                     </child>
                   </object>
                   <packing>
@@ -46,7 +51,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="label_source">
-                    <property name="sensitive">False</property>
+                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">_Source:</property>
@@ -290,4 +295,5 @@
       </packing>
     </child>
   </object>
+  <object class="GtkListStore" id="liststore1"/>
 </interface>

@@ -23,6 +23,7 @@ from ...utils.htmlentities import decode_html_entities
 from ...utils.settings import SETTINGS_VIEW
 from ...filterliststore import FilterColumn
 from ...constants import Column
+from ...theme import Theme
 
 class TwitterOutputFactory(object):
 
@@ -38,6 +39,7 @@ class TwitterOutputBase(object):
         self.argument = argument
         self.options = options
         self.filters = filters
+        self.theme = Theme()
 
         self.all_entries = []
         self.since_id = 0
@@ -86,6 +88,28 @@ class TwitterOutputBase(object):
     def print_entry(self, entry, is_first_call=False):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)
         has_notify = self.options.get('notification') 
+
+        # FIXME
+        entry_dict['source'] = _('via %s') % entry_dict['source'] \
+            if entry_dict['source'] else ''
+
+        # retweet template
+        if entry_dict.get('retweet_by_name'):
+            text = _("Retweeted by %s")
+            retweet_by_screen_name = entry_dict['retweet_by_screen_name']
+            title_by_screen_name = text % entry_dict['retweet_by_screen_name']
+            title_by_name = text % entry_dict['retweet_by_name']
+
+            template = self.theme.template['retweet']
+            key_dict = {'retweet_by_screen_name': retweet_by_screen_name,
+                        'title_by_screen_name': title_by_screen_name, 
+                        'title_by_name': title_by_name}
+            entry_dict['retweet'] = template.substitute(key_dict)
+
+        # protected icon template
+        if entry_dict['protected']:
+            template = self.theme.template['protected']
+            entry_dict['protected'] = template.substitute({})
 
         if 'event' in entry_dict:
             style = 'event'
@@ -163,6 +187,8 @@ class TwitterRestOutput(TwitterOutputBase):
     def _get_entry_obj(self, entry):
         if hasattr(entry, 'retweeted_status') and entry.retweeted_status:
             entry_class = RestRetweetEntry
+        elif entry.tag_name == 'direct_message':
+            entry_class = DirectMessageEntry
         else:
             entry_class = TweetEntry
         return entry_class(entry)
@@ -234,6 +260,28 @@ class TwitterSearchOutput(TwitterRestOutput):
 
     def _get_entry_obj(self, entry):
         return SearchTweetEntry(entry)
+
+class TwitterRelatedResultsOutput(TwitterRestOutput):
+
+    def got_entry(self, all_entries, *args):
+        new_entries = []
+
+        if len(all_entries) < 1:
+            print "no entries."
+            return
+
+        for raw_entry in all_entries[0]['results']:
+            entry = raw_entry['value']
+
+            if entry['id'] > self.since_id:
+                self._set_since_id(entry['id'])
+                new_entries.append(entry)
+
+        for entry in reversed(new_entries):
+            self.check_entry(entry, entry['text'], args)
+
+    def _get_entry_obj(self, entry):
+        return RelatedResultsEntry(entry)
 
 class TwitterFeedOutput(TwitterOutputBase):
 

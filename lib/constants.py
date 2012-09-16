@@ -4,7 +4,7 @@ from stat import S_IMODE
 
 from xdg.BaseDirectory import *
 
-VERSION = '1.6.1'
+VERSION = '1.7-b3.1'
 APP_NAME = 'gfeedline'
 
 SHARED_DATA_DIR = abspath(os.path.join(dirname(__file__), '../share'))
@@ -27,5 +27,5 @@ def SHARED_DATA_FILE(file):
 
 class Column(object):
 
-    (GROUP, ICON, SOURCE, NAME, TARGET, ARGUMENT, 
-     OPTIONS, ACCOUNT, API) = range(9)
+    (GROUP, ICON, SOURCE, USERNAME, NAME, TARGET, ARGUMENT, 
+     OPTIONS, ACCOUNT, API) = range(10)

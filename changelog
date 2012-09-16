@@ -1,3 +1,109 @@
+2012-09-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py: Fixed a bug on changing group name.
+
+2012-09-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ar.po: Updated Arabic translation. Thanks Humaidan Mohammed!
+
+2012-09-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme
+	  Barrientos!
+
+2012-09-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/de_DE.po: Updated German translation.  Thanks t_bb_!
+	* twitter/: Added support for 'User Timeline' API.
+	* window.py: Added a notebook context menu for removing tabs.
+
+2012-09-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py: Added support for opening conversation in other column.
+	* preferences.py: Save the geometry of the preferences window.
+	* feedsource.py: Added a new GSettings key 'recent-target'.
+	* window.py: Fixed a wrong position problem when auto-start.
+	* notification.py: Fixed a bug for auto-start.
+
+2012-09-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py: Added support for recent account.
+	  Added recipient full name to retweet & reply dialogs.
+	* menu.py, view.py, twitter/output.py, twitter/tweetentry.py:
+	  Added a new pop-up menu item 'View Conversation'.
+	* share/html/theme/: Added a new attribute 'data-inreplyto'.
+	* plugins/twitter/: Added support for unofficial related_results API.
+	* twittytwister/twitter.py, twittytwister/tjson.py: Added support
+	  for JSON format in REST API.
+	* com.googlecode.gfeedline.gschema.xml.in: Added a new gsettings
+	  key 'recent-account'.
+
+2012-09-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* utils/commonui.py: Added a new module.
+	* accountliststore.py: Added account migration from GSettings.
+	* window.py, feedsource.py: Disable sensitiveness of update menu
+	  item & feed new button without any account configured.
+	* utils/iconimage.py: Added icons to account liststore.
+
+2012-09-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, menu.py: Show screen name on retweet dialog.
+
+2012-09-08  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, update.glade: Added multi-account support.
+
+2012-09-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* feedsource.py, feedsource.glade: Added UI for multi-account support.
+
+2012-09-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* accountliststore.py, liststore.py: Added multi-account support.
+
+2012-09-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* accountliststore.py, preferences/accounts.py: Started
+	  implementation for multi-account.
+	* feedsource.glade, preferences.glade: Added interfaces for
+	  multi-account support.
+
+2012-09-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* theme.py, twitter/output.py, twitter/tweetentry.py:
+	  Added new templates: retweet.html and protected.html.
+	  Added substitution keywords (retweet_by_screen_name,
+	  title_by_name & title_by_screen_name).
+
+2012-08-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.6.2 release.
+
+2012-08-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/ja.po: Fixed a mistranslation.
+
+2012-08-08  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/gfeedline.indicator: Added a shortcut icon on Ubuntu
+	  Message Indicator.
+
+2012-08-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/html/theme/RTL/: Added new RTL theme (issue #5).
+	* twitter/tweetentry.py, twitter/output.py: Fixed a bug that
+	prevents showing Direct Messages. (issue #7) Added new
+	DirectMessageEntry class.
+
+2012-08-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/de_DE.po: Added new German translation.  Thanks t_bb_!
+
+2012-07-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/ar.po: Added new Arabic translation.  Thanks Humaidan Mohammed!
+
 2012-07-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 1.6.1 release.
