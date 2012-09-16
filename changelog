@@ -1,3 +1,7 @@
+2012-09-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py: Fixed a bug on changing group name.
+
 2012-09-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* ar.po: Updated Arabic translation. Thanks Humaidan Mohammed!

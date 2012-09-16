@@ -103,6 +103,7 @@ class FeedListStore(ListStoreBase):
 
                 notebook = self.window.get_notebook(new_group)
                 api_obj.view.move(notebook)
+                api_obj.view.webview.group_name = new_group # FIXME v1.7
 
                 new_page = self.get_group_page(source.get('group'))
                 self.window.column.hbox.reorder_child(notebook, new_page)
