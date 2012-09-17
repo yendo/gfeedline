@@ -1,3 +1,7 @@
+2012-09-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
+
 2012-09-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* liststore.py: Fixed a bug on changing group name.
@@ -13,7 +17,7 @@
 
 2012-09-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* po/de_DE.po: Updated German translation.  Thanks t_bb_!
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
 	* twitter/: Added support for 'User Timeline' API.
 	* window.py: Added a notebook context menu for removing tabs.
 

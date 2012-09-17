@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-13 19:13+0900\n"
-"PO-Revision-Date: 2012-09-13 22:43+0900\n"
+"PO-Revision-Date: 2012-09-17 12:20+0900\n"
 "Last-Translator: t_bb_ <tabbo.hankel@bremen.piratenpartei.de>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/gfeedline/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,11 @@ msgstr ""
 
 #: ../lib/filterliststore.py:93 ../share/filters.glade.h:8
 msgid "days"
-msgstr "tage"
+msgstr "Tage"
 
 #: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
 msgid "hours"
-msgstr "stunden"
+msgstr "Stunden"
 
 #: ../lib/menu.py:64
 msgid "_Open"
@@ -45,7 +45,7 @@ msgstr "_Favorisieren"
 
 #: ../lib/menu.py:123
 msgid "View _Conversation"
-msgstr "Konversation_anzeigen"
+msgstr "Verlauf_anzeigen"
 
 #: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:149
 msgid "Related Results"
@@ -286,7 +286,7 @@ msgstr "Copyright © 2012 Yoshizumi Endo."
 
 #: ../share/gfeedline.glade.h:3
 msgid "translator-credits"
-msgstr "t_bb_"
+msgstr "@t_bb_"
 
 #: ../share/gfeedline.glade.h:5
 msgid "_File"
@@ -337,7 +337,7 @@ msgid ""
 "To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
 "\n"
 "Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
-msgstr "<big><b>Willkommen bei GFeedLine</b></big>\n\nGFeedline ist ein Client für soziale Netzwerke und unterstützt derzeit Twitter.\n\nUm GFeedLine als Client zu nutzen, öffne die Einstellungen unter <b>Bearbeiten ▸ Einstellungen</b>. Unter dem Tab <i>Accounts</i>, kannst du deine Accounts einrichten.\n\nKlicke danach auf den Tab <i>Quellen</i> und richte deine Timeline, Streams, usw. ein. Um mehrere Spalten in der Ansicht zu nutzen, gib deinen Quellen Gruppennamen."
+msgstr "<big><b>Willkommen bei GFeedLine</b></big>\n\nGFeedline ist ein Client für soziale Netzwerke und unterstützt derzeit Twitter.\n\nUm GFeedLine als Client zu nutzen, öffne die Einstellungen unter <b>Bearbeiten ▸ Einstellungen</b>. Unter dem Tab <i>Accounts</i>, kannst du deine Accounts einrichten.\n\nKlicke danach auf den Tab <i>Quellen</i> und richte deine Timeline, Streams, usw. ein. Um deine Quellen zu gruppieren, kannst du ihnen Gruppen zuweisen und so mehrere Spalten in der Ansicht nutzen."
 
 #: ../share/notebook_popup_menu.glade.h:1
 msgid "_Close Tab"
@@ -373,7 +373,7 @@ msgstr "Absteigend"
 
 #: ../share/preferences.glade.h:8
 msgid "Open _conversation tab in other column"
-msgstr "_Konversation in anderer Spalte öffnen"
+msgstr "_Verläufe in anderer Spalte öffnen"
 
 #: ../share/preferences.glade.h:9
 msgid "<b>View</b>"
