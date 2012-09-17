@@ -1,0 +1,419 @@
+2012-09-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.7 release.
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
+
+2012-09-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py: Fixed a bug on changing group name.
+
+2012-09-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ar.po: Updated Arabic translation. Thanks Humaidan Mohammed!
+
+2012-09-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme
+	  Barrientos!
+
+2012-09-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
+	* twitter/: Added support for 'User Timeline' API.
+	* window.py: Added a notebook context menu for removing tabs.
+
+2012-09-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py: Added support for opening conversation in other column.
+	* preferences.py: Save the geometry of the preferences window.
+	* feedsource.py: Added a new GSettings key 'recent-target'.
+	* window.py: Fixed a wrong position problem when auto-start.
+	* notification.py: Fixed a bug for auto-start.
+
+2012-09-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py: Added support for recent account.
+	  Added recipient full name to retweet & reply dialogs.
+	* menu.py, view.py, twitter/output.py, twitter/tweetentry.py:
+	  Added a new pop-up menu item 'View Conversation'.
+	* share/html/theme/: Added a new attribute 'data-inreplyto'.
+	* plugins/twitter/: Added support for unofficial related_results API.
+	* twittytwister/twitter.py, twittytwister/tjson.py: Added support
+	  for JSON format in REST API.
+	* com.googlecode.gfeedline.gschema.xml.in: Added a new gsettings
+	  key 'recent-account'.
+
+2012-09-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* utils/commonui.py: Added a new module.
+	* accountliststore.py: Added account migration from GSettings.
+	* window.py, feedsource.py: Disable sensitiveness of update menu
+	  item & feed new button without any account configured.
+	* utils/iconimage.py: Added icons to account liststore.
+
+2012-09-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, menu.py: Show screen name on retweet dialog.
+
+2012-09-08  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, update.glade: Added multi-account support.
+
+2012-09-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* feedsource.py, feedsource.glade: Added UI for multi-account support.
+
+2012-09-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* accountliststore.py, liststore.py: Added multi-account support.
+
+2012-09-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* accountliststore.py, preferences/accounts.py: Started
+	  implementation for multi-account.
+	* feedsource.glade, preferences.glade: Added interfaces for
+	  multi-account support.
+
+2012-09-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* theme.py, twitter/output.py, twitter/tweetentry.py:
+	  Added new templates: retweet.html and protected.html.
+	  Added substitution keywords (retweet_by_screen_name,
+	  title_by_name & title_by_screen_name).
+
+2012-08-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.6.2 release.
+
+2012-08-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/ja.po: Fixed a mistranslation.
+
+2012-08-08  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/gfeedline.indicator: Added a shortcut icon on Ubuntu
+	  Message Indicator.
+
+2012-08-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/html/theme/RTL/: Added new RTL theme (issue #5).
+	* twitter/tweetentry.py, twitter/output.py: Fixed a bug that
+	prevents showing Direct Messages. (issue #7) Added new
+	DirectMessageEntry class.
+
+2012-08-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/de_DE.po: Added new German translation.  Thanks t_bb_!
+
+2012-07-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/ar.po: Added new Arabic translation.  Thanks Humaidan Mohammed!
+
+2012-07-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.6.1 release.
+
+2012-07-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/pt.po: Added new Portuguese translation.  Thanks Valter Asensio!
+
+2012-07-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py: Fixed an escapeing problem of client info
+	  links.  Improved a regular expression for Japanese hash tag.
+
+2012-07-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme
+	  Barrientos!
+	* twitter/tweetentry.py (AddedHtmlMarkup.convert): Fixed character
+	  escaping problems.
+
+2012-06-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/api.py (TwitterAPIListTimeLine.get_options): Added
+	  checking for list names. Thanks @Adan2JP!
+
+2012-06-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py (FavMenuItem._is_enabled): Added support for self-favouring.
+	* gfeedline.glade: Improved the welcome message.
+
+2012-06-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* et.po: Updated Estonian translation.  Thanks Rivo Zängov!
+
+2012-06-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.6 release.
+
+2012-05-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.6 rc 1 release.
+	* view.py (FeedWebView.on_hovering_over_link): Fixed a scroll lock
+	  problem.
+
+2012-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.6 beta 1 release.
+	* twitter/output.py, twitter/api.py: Show user own reply messages
+	  on reply tabs.
+	* es_ES.po: Updated Spanish translation.  Thanks alexnmoya!
+
+2012-04-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* filterliststore.py: Fixed a filter expiration bug.
+
+2012-04-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/output.py, twitter/tweetentry.py: Show retweeting user
+	  info (event) for my tweets.
+
+2012-04-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py (FeedWebView): Fixed a backslash escaping (issue #2).
+
+2012-04-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py (FeedEventEntry.get_dict): Fixed a bug
+	  that prevented showing user stream events.
+
+2012-04-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.5 release.
+
+2012-04-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* it_IT.po: Updated Italian translation.  Thanks Daniele Napolitano!
+
+2012-03-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* es_ES.po: Updated Spanish translation.  Thanks alexnmoya!
+
+2012-03-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.5 beta 1 release.
+	* feedsource.py: Added an Options tab to Feed Source Dialog.
+
+2012-03-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme
+	  Barrientos!
+	* theme.py: Added support for user theme directory.
+	  (~/.config/gfeedline/theme/)
+
+2012-03-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twittytwister/streaming.py: Added support for Twitter activity
+	  streaming.
+
+2012-03-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.1 beta 1 release.
+	* it_IT.po: Added new Italian translation.  Thanks Daniele Napolitano!
+	* et.po: Updated Estonian translation.  Thanks Rivo Zängov!
+
+2012-03-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twittytwister/twitter.py, twittytwister/txml.py: Added supoort
+	  for help/configuration API.
+
+2012-03-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py, window.py: Added support for Drag and Drop image files.
+
+2012-03-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py: Added support for image uploading.
+	* twitter/account.py, twittytwister/twitter.py: Added support for
+	  'update_with_image'.
+
+2012-03-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py: Added support for fullscreen mode.
+	* twitter/output.py, window.py: Save last IDs for cheking unread.
+	* theme.py, view.py: Added an option for the Timeline font.
+	* preferences.py: Added an option for the Timeline order.
+
+2012-03-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/output.py: Added source filters.
+	* twitter/tweetentry.py: Adds 'mine' class for user own messages.
+	* view.py: Added support for dynamic loading of themes.
+
+2012-03-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py, view.py: Added support for D&D URI links.
+
+2012-03-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* key.png, key.svg, updatewindow.py: Added a protected icon.
+	* twitter/tweetentry.py: Added support for full user name.
+
+2012-02-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py: Added a menu item for adding filters.
+
+2012-02-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* filters.py: Added a global filter.
+
+2012-02-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.0.1 release.
+
+2012-02-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* es_ES.po: Added new Spanish (Spain) translation.  Thanks alexnmoya!
+	* gfeedline: Renamed the product name from GNOME Feed Line to
+	  GFeedLine (issue #1).
+
+2012-02-20  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py: Removed redundant html decoding.
+
+2012-02-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.0 release.
+
+2012-02-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py (UpdateWindow): Fixed update argument.
+	* preferences.py (FeedSourceTreeview): Fixed button sensitiveness.
+
+2012-02-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* et.po: Added new Estonian translation.  Thanks Rivo Zängov!
+	* twitter/tweetentry.py (AddedHtmlMarkup): Added html escaping.
+
+2012-02-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py, updatewindow.py: Added checking for old WebKit version.
+
+2012-02-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py: Added new setting for 'update-window-keep-above'.
+
+2012-02-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py: Add message info when replies.
+	* menu.py, view.py: Added dom accessing for retrieving each entry
+	  data from the WebView.  Added message info on a retweet dialog.
+
+2012-02-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py (TwitterTime): Show the date instead of
+	  the time if the entry published one day before.
+	* gfeedline.glade, window.py: Added a welcome message.
+	* menu.py, twitter/account.py: Added support for creating favorites.
+
+2012-02-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.0 beta 2 release.
+	* gfeedline.js: Added auto control of scrolling in 'Twitter' mode.
+
+2012-02-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 1.0 beta 1 release.
+	* Added a confirmation dialog for retweets.
+
+2012-02-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* html/theme/*: Added support for themes.
+
+2012-02-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* notification.py: Added support for actions on notification.
+	  Added support for Notify OSD on Ubuntu.
+	* twitter/ouput.py: Added support for bad-words filtering.
+	* window.py, gfeedline.glade: Added a menu item of 'All Tabs to the
+	  Bottom'.
+
+2012-02-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py, window.py: Enabled to toggle multi-column mode.
+
+2012-02-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py, window.py: Added support for multi-column.
+
+2012-02-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* retweet.png: Added a retweet icon.
+
+2012-01-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py: Added support for auto start & geometry saving.
+	* preferences.py: Save recents tab.
+	* tweetentry.py, menu.py: Added support for Retweet.
+	* autostart.py: Added support for auto start.
+	* ja.po: Added Japanese translation.
+
+2012-01-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 0.1 release.
+
+2012-01-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py: Added auto control of scrolling.  Added support for
+	  user icons on notifications.
+
+2012-01-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.desktop.in: Added a Desktop entry.
+	* setup.py: Added an installation schema.
+	* twittytwister: Include the module.
+	* window.py: Added a context menu item for 'Search Google'.
+
+2012-01-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, update.glade: Added support for updating statuses.
+	* twitter/api.py: Added support for recieving Direct Messages.
+	* utils/htmlentities.py: Code refactoring.
+
+2012-01-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* notification.py: Added support for Desktop Notification.
+	* constants.py: Added constants class.
+	* nullobject.py: Added null object class.
+	* twitter/api.py: Added support for Search API.
+
+2012-01-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences.py: Added support for feedlist store drag & drop.
+
+2012-01-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences/*, share/feedsource.glade: Added feed source
+	  dialogs for feeds configuration.
+
+2012-01-20  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/api.py: Added support for reconnecting lost feed
+	  streaming.
+
+2012-01-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* assistant_twitter.py, twitterauthorize.py, assistant_twitter.glade:
+	  Added an assistant for twitter authorization.
+	* settings.py, com.googlecode.gfeedline.gschema.xml.in: Added GSettings.
+	* preferences.py, preferences.glade: Added preferences.
+
+2012-01-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* scrollsmoothly.js: Added support for smooth scrolling.
+
+2012-01-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.py: Added support for Streaming.  Added ListStore for
+	  Feed Sources.
+	* usercolor.py: Added support for user colors.
+
+2012-01-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.glade: Added Notebook UI.
+
+2012-01-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.py: New project
+
