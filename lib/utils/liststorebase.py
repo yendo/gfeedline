@@ -7,13 +7,13 @@ from ..constants import CONFIG_HOME
 
 class ListStoreBase(Gtk.ListStore):
 
-    def append(self, entry, iter=None):
-        new_iter = self.insert_before(iter, entry)
+    def append(self, entry, treeiter=None):
+        new_iter = self.insert_before(treeiter, entry)
         return new_iter
 
-    def update(self, entry, iter):
-        new_iter = self.append(entry, iter)
-        self.remove(iter)
+    def update(self, entry, treeiter):
+        new_iter = self.append(entry, treeiter)
+        self.remove(treeiter)
         return new_iter
 
     def save_settings(self):

@@ -224,17 +224,17 @@ class FeedSourceTreeview(TreeviewBase):
 
     def on_drag_begin(self, treeview, dragcontext):
         treeselection = treeview.get_selection()
-        model, iter = treeselection.get_selected()
+        model, treeiter = treeselection.get_selected()
 
-        self.api_obj = model.get_value(iter, Column.API)
-        self.group = model.get_value(iter, Column.GROUP).decode('utf-8')
+        self.api_obj = model.get_value(treeiter, Column.API)
+        self.group = model.get_value(treeiter, Column.GROUP).decode('utf-8')
         self.old_page = model.get_group_page(self.group)
 
     def on_drag_end(self, treeview, dragcontext, mainwindow):
         treeselection = treeview.get_selection()
-        model, iter = treeselection.get_selected()
+        model, treeiter = treeselection.get_selected()
 
-        if not iter:
+        if not treeiter:
             self.gui.get_object('button_feed_prefs').set_sensitive(False)
             self.gui.get_object('button_feed_del').set_sensitive(False)
 

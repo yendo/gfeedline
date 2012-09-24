@@ -44,9 +44,9 @@ class TreeviewBase(object):
         self.treeview = treeview = gui.get_object(self.WIDGET)
         treeview.set_model(self.liststore)
 
-    def set_cursor_to(self, iter):
+    def set_cursor_to(self, treeiter):
         model = self.treeview.get_model()
-        row = model.get_path(iter)
+        row = model.get_path(treeiter)
         self.treeview.set_cursor(row, None, False)
 
 class ActionBase(object):
@@ -75,21 +75,21 @@ class ActionBase(object):
             self.feedsource_treeview.set_cursor_to(new_iter)
 
     def on_button_feed_prefs_clicked(self, treeselection):
-        model, iter = treeselection.get_selected()
+        model, treeiter = treeselection.get_selected()
 
-        dialog = self.DIALOG(self.preferences, model[iter], liststore=self.liststore)
+        dialog = self.DIALOG(self.preferences, model[treeiter], liststore=self.liststore)
         response_id, v = dialog.run()
 
         if response_id == Gtk.ResponseType.OK:
-            new_iter = self.liststore.update(v, iter)
+            new_iter = self.liststore.update(v, treeiter)
             self.feedsource_treeview.set_cursor_to(new_iter)
 
     def on_button_feed_del_clicked(self, treeselection):
-        model, iter = treeselection.get_selected()
-        model.remove(iter)
-        model, iter = treeselection.get_selected()
+        model, treeiter = treeselection.get_selected()
+        model.remove(treeiter)
+        model, treeiter = treeselection.get_selected()
 
-        if not iter:
+        if not treeiter:
             self.button_prefs.set_sensitive(False)
             self.button_del.set_sensitive(False)
 
@@ -97,7 +97,7 @@ class ActionBase(object):
         pass
 
     def on_feedsource_treeview_cursor_changed(self, treeselection):
-        model, iter = treeselection.get_selected()
-        if iter:
+        model, treeiter = treeselection.get_selected()
+        if treeiter:
             self.button_prefs.set_sensitive(True)
             self.button_del.set_sensitive(True)
