@@ -66,7 +66,7 @@ class ActionBase(object):
         self.button_prefs = gui.get_object(self.BUTTON_PREFS)
         self.button_del = gui.get_object(self.BUTTON_DEL)
 
-    def on_button_feed_new_clicked(self, button):
+    def on_button_new_clicked(self, button):
         dialog = self.DIALOG(self.preferences, liststore=self.liststore)
         response_id, v = dialog.run()
 
@@ -74,7 +74,7 @@ class ActionBase(object):
             new_iter = self.liststore.append(v)
             self.feedsource_treeview.set_cursor_to(new_iter)
 
-    def on_button_feed_prefs_clicked(self, treeselection):
+    def on_button_prefs_clicked(self, treeselection):
         model, treeiter = treeselection.get_selected()
 
         dialog = self.DIALOG(self.preferences, model[treeiter], liststore=self.liststore)
@@ -84,7 +84,7 @@ class ActionBase(object):
             new_iter = self.liststore.update(v, treeiter)
             self.feedsource_treeview.set_cursor_to(new_iter)
 
-    def on_button_feed_del_clicked(self, treeselection):
+    def on_button_del_clicked(self, treeselection):
         model, treeiter = treeselection.get_selected()
         model.remove(treeiter)
         model, treeiter = treeselection.get_selected()
@@ -93,10 +93,10 @@ class ActionBase(object):
             self.button_prefs.set_sensitive(False)
             self.button_del.set_sensitive(False)
 
-    def on_feedsource_treeview_query_tooltip(self, treeview, *args):
+    def on_treeview_query_tooltip(self, treeview, *args):
         pass
 
-    def on_feedsource_treeview_cursor_changed(self, treeselection):
+    def on_treeview_cursor_changed(self, treeselection):
         model, treeiter = treeselection.get_selected()
         if treeiter:
             self.button_prefs.set_sensitive(True)

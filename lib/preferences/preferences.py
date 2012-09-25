@@ -106,48 +106,48 @@ class Preferences(object):
 
 
     def on_button_account_new_clicked(self, button):
-        self.account_action.on_button_feed_new_clicked(button)
+        self.account_action.on_button_new_clicked(button)
 
     def on_button_account_prefs_clicked(self, treeselection):
-        self.account_action.on_button_feed_prefs_clicked(treeselection)
+        self.account_action.on_button_prefs_clicked(treeselection)
 
     def on_button_account_del_clicked(self, treeselection):
-        self.account_action.on_button_feed_del_clicked(treeselection)
+        self.account_action.on_button_del_clicked(treeselection)
 
     def on_account_treeview_cursor_changed(self, treeselection):
-        self.account_action.on_feedsource_treeview_cursor_changed(treeselection)
+        self.account_action.on_treeview_cursor_changed(treeselection)
 
 
     def on_button_feed_new_clicked(self, button):
-        self.feedsource_action.on_button_feed_new_clicked(button)
+        self.feedsource_action.on_button_new_clicked(button)
 
     def on_button_feed_prefs_clicked(self, treeselection):
-        self.feedsource_action.on_button_feed_prefs_clicked(treeselection)
+        self.feedsource_action.on_button_prefs_clicked(treeselection)
 
     def on_button_feed_del_clicked(self, treeselection):
-        self.feedsource_action.on_button_feed_del_clicked(treeselection)
+        self.feedsource_action.on_button_del_clicked(treeselection)
 
     def on_feedsource_treeview_cursor_changed(self, treeselection):
-        self.feedsource_action.on_feedsource_treeview_cursor_changed(treeselection)
+        self.feedsource_action.on_treeview_cursor_changed(treeselection)
 
     def on_feedsource_treeview_query_tooltip(self, treeview, *args):
-        self.feedsource_action.on_feedsource_treeview_query_tooltip(treeview, args)
+        self.feedsource_action.on_treeview_query_tooltip(treeview, args)
 
 
     def on_button_filter_new_clicked(self, button):
-        self.filter_action.on_button_feed_new_clicked(button)
+        self.filter_action.on_button_new_clicked(button)
 
     def on_button_filter_prefs_clicked(self, treeselection):
-        self.filter_action.on_button_feed_prefs_clicked(treeselection)
+        self.filter_action.on_button_prefs_clicked(treeselection)
 
     def on_button_filter_del_clicked(self, treeselection):
-        self.filter_action.on_button_feed_del_clicked(treeselection)
+        self.filter_action.on_button_del_clicked(treeselection)
 
     def on_filter_treeview_cursor_changed(self, treeselection):
-        self.filter_action.on_feedsource_treeview_cursor_changed(treeselection)
+        self.filter_action.on_treeview_cursor_changed(treeselection)
 
 #    def on_filter_treeview_query_tooltip(self, treeview, *args):
-#        self.filter_action.on_feedsource_treeview_query_tooltip(treeview, args)
+#        self.filter_action.on_treeview_query_tooltip(treeview, args)
 
 
     def on_plugin_treeview_cursor_changed(self, treeview):

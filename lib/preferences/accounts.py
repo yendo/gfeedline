@@ -19,7 +19,7 @@ class AccountAction(ActionBase):
     BUTTON_PREFS = 'button_account_prefs'
     BUTTON_DEL = 'button_account_del'
 
-    def on_button_feed_new_clicked(self, button):
+    def on_button_new_clicked(self, button):
         TwitterAuthAssistant(self.preferences, cb=self.assistant_cb)
 
     def assistant_cb(self, account):

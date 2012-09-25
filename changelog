@@ -1,3 +1,7 @@
+2012-09-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences/: Code refactoring.
+
 2012-09-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 1.7 release.
