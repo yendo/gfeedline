@@ -289,7 +289,6 @@ class NotebookPopUpMenu(object):
         menu.popup(None, None, None, None, event.button, event.time)
         self.page = widget.get_current_page()
 
-
     def on_menuitem_close_tab_activate(self, menuitem):
         c = self.page
 
