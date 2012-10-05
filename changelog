@@ -1,3 +1,7 @@
+2012-10-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* plugins/facebook/*: Implemented a Facebook authorization assistant.
+
 2012-09-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* preferences/: Code refactoring.

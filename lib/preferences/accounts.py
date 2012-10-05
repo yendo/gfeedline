@@ -2,6 +2,7 @@ from ..accountliststore import AccountColumn
 from ui import *
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
+from ..plugins.facebook.assistant import FacebookAuthAssistant
 
 
 class AccountTreeview(TreeviewBase):
@@ -21,6 +22,7 @@ class AccountAction(ActionBase):
 
     def on_button_new_clicked(self, button):
         TwitterAuthAssistant(self.preferences, cb=self.assistant_cb)
+#        FacebookAuthAssistant(self.preferences, cb=self.assistant_cb)
 
     def assistant_cb(self, account):
         account_liststore = self.liststore.account_liststore
