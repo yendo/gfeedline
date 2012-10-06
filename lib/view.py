@@ -120,6 +120,7 @@ class FeedWebView(WebKit.WebView):
         self.dnd.set(info, selection)
 
     def update(self, text=None):
+        text = text.replace('\r\n', '')
         text = text.replace('\n', '')
         text = text.replace('\\', '\\\\')
 

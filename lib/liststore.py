@@ -12,9 +12,9 @@ from constants import Column
 from accountliststore import AccountListStore
 from filterliststore import FilterListStore
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
-from plugins.twitter.api import TwitterAPIDict
 from plugins.twitter.output import TwitterOutputFactory
-from plugins.twitter.account import AuthorizedTwitterAccount
+from plugins.twitter.api import TwitterAPIDict
+from plugins.facebook.api import FacebookAPIDict
 
 
 class FeedListStore(ListStoreBase):
@@ -43,7 +43,13 @@ class FeedListStore(ListStoreBase):
             self.append(entry)
 
     def append(self, source, iter=None):
-        api_class = self.api_dict.get(source['target'])
+        # FIXME:Facebook
+        source_name = source.get('source')
+        if source_name == 'Twitter':
+            api_class = self.api_dict.get(source['target'])
+        else:
+            api_class = FacebookAPIDict().get(source['target'])
+
         account_obj = self.account_liststore.get_account_obj(
             source.get('source'), source.get('username'))
 

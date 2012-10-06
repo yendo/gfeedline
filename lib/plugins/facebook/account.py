@@ -1,38 +1,52 @@
+import json
 from oauth import oauth
+import urllib
 
 from gi.repository import GObject
-from getauthtoken import CONSUMER
 from ...utils.settings import SETTINGS_TWITTER
 from ...utils.iconimage import WebIconImage
+from ...utils.urlgetautoproxy import urlget_with_autoproxy
 
 
 class FacebookIcon(WebIconImage):
 
     def __init__(self):
-        self.icon_name = 'twitter.ico'
-        self.icon_url = 'http://www.twitter.com/favicon.ico'
+        self.icon_name = 'facebook.png'
+        self.icon_url = 'http://www.facebook.com/favicon.ico'
 
 class AuthorizedFacebookAccount(GObject.GObject):
 
-    def __init__(self, user_name, key, secret):
-        super(AuthorizedTwitterAccount, self).__init__()
-
-        token = self._get_token(user_name, key, secret)
-        self.api = TwitterFeed(consumer=CONSUMER, token=token)
-
+    def __init__(self, user_name, token, secret):
+        super(AuthorizedFacebookAccount, self).__init__()
+        self.api = Facebook(token=token)
         self.icon = FacebookIcon()
 
-    def _on_get_configuration(self, data):
-        AuthorizedTwitterAccount.CONFIG = data
+#    def _on_update_credential(self, account, unknown):
+#        token = self._get_token()
+#        self.api.update_token(token)
+#        self.emit("update-credential", None)
 
-    def _on_update_credential(self, account, unknown):
-        token = self._get_token()
-        self.api.update_token(token)
-        self.emit("update-credential", None)
+class Facebook(object):
 
-    def _get_token(self, user_name, key, secret):
-        token = oauth.OAuthToken(key, secret) if key and secret else None
-        self.user_name = user_name if token else None
+    def __init__(self, token):
+        self.token = token
 
-        return token
+    def home_timeline(self, cb, params):
+        url = 'https://graph.facebook.com/me/home'
+        url += '?access_token=%s&locale=ja' % self.token 
+        if params:
+            url += '&'+self._urlencode(params)
 
+        print url
+        return urlget_with_autoproxy(str(url), cb=cb)
+
+    def feed(self, username):
+        pass
+
+    def _urlencode(self, h):
+        rv = []
+        for k,v in h.iteritems():
+            rv.append('%s=%s' %
+                (urllib.quote(k.encode("utf-8")),
+                urllib.quote(v.encode("utf-8"))))
+        return '&'.join(rv)

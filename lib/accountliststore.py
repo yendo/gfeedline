@@ -2,7 +2,9 @@ from gi.repository import GdkPixbuf
 
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
 from utils.settings import SETTINGS_TWITTER
+
 from plugins.twitter.account import AuthorizedTwitterAccount
+from plugins.facebook.account import AuthorizedFacebookAccount
 
 
 class AccountColumn(object):
@@ -38,7 +40,11 @@ class AccountListStore(ListStoreBase):
             SETTINGS_TWITTER.reset('access-secret')
 
     def append(self, entry, iter=None):
-        account_obj = AuthorizedTwitterAccount(
+        # FIXME:Facebook
+        account_class = AuthorizedTwitterAccount \
+            if entry[0] == 'Twitter' else AuthorizedFacebookAccount
+
+        account_obj = account_class(
             entry[AccountColumn.ID], 
             entry[AccountColumn.TOKEN], 
             entry[AccountColumn.SECRET])
