@@ -36,7 +36,7 @@ class FacebookAPIBase(object):
 
 class FacebookAPIHome(FacebookAPIBase):
 
-    name = _('Home TimeLine') # FIXME
+    name = _('News Feed')
 
     def _get_api(self):
         return self.account.api.home_timeline

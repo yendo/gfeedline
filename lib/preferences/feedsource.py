@@ -1,6 +1,5 @@
 from gi.repository import Gtk
 
-from ..plugins.twitter.api import TwitterAPIDict
 from ..constants import Column
 from ..accountliststore import AccountColumn
 from ..utils.commonui import MultiAccountSensitiveWidget
@@ -19,7 +18,8 @@ class FeedSourceDialog(DialogBase):
         self.combobox_target = TargetCombobox(self.gui, self.liststore_row)
         self.entry_name = self.gui.get_object('entry_name')
         self.label_argument = self.gui.get_object('label_argument')
-        self.entry_argument = ArgumentEntry(self.gui, self.combobox_target)
+        self.entry_argument = ArgumentEntry(self.gui, self.combobox_target,
+                                            self.combobox_source)
         self.entry_group = self.gui.get_object('entry_group')
 
         self.options_tab = OptionsTab(self.gui, self.liststore_row)
@@ -74,7 +74,9 @@ class FeedSourceDialog(DialogBase):
         self.combobox_target.set_label_text(labels)
 
     def on_comboboxtext_target_changed(self, *args):
-        status = self.combobox_target.has_argument_entry_enabled()
+        account_obj = self.combobox_source.get_active_account_obj()
+        status = self.combobox_target.has_argument_entry_enabled(account_obj.api_dict)
+
         self.label_argument.set_sensitive(status)
         self.entry_argument.set_sensitive(status)
 
@@ -194,21 +196,23 @@ class TargetCombobox(object):
         num = self.widget.get_active()
         SETTINGS_TWITTER.set_int('recent-target', num)
 
-    def has_argument_entry_enabled(self):
+    def has_argument_entry_enabled(self, api_dict):
         api_name = self.get_active_text()
-        api_class = TwitterAPIDict().get(api_name)
+        api_class = api_dict.get(api_name)
         status = api_class.has_argument
 
         return status
 
 class ArgumentEntry(object):
 
-    def __init__(self, gui, combobox_target):
+    def __init__(self, gui, combobox_target, combobox_source):
         self.widget = gui.get_object('entry_argument')
         self.combobox_target = combobox_target
+        self.combobox_source = combobox_source
 
     def get_text(self):
-        has_argument = self.combobox_target.has_argument_entry_enabled()
+        api_dict = self.combobox_source.get_active_account_obj().api_dict
+        has_argument = self.combobox_target.has_argument_entry_enabled(api_dict)
         return self.widget.get_text() if has_argument else ''
 
     def set_text(self, text):
