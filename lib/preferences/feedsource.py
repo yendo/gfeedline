@@ -63,7 +63,8 @@ class FeedSourceDialog(DialogBase):
         v['options'].update(options)
 
         if response_id == Gtk.ResponseType.OK:
-            self.combobox_target.set_recent()
+            account_obj = self.combobox_source.get_active_account_obj()
+            self.combobox_target.set_recent(account_obj)
         self.dialog.destroy()
 
         return response_id , v
@@ -187,9 +188,9 @@ class TargetCombobox(object):
         label = self.label_list[self.widget.get_active()]
         return label
 
-    def set_recent(self):
+    def set_recent(self, account_obj):
         num = self.widget.get_active()
-#        SETTINGS_TWITTER.set_int('recent-target', num) # FIXME
+        account_obj.set_recent_api(num)
 
     def has_argument_entry_enabled(self, api_dict):
         api_name = self.get_active_text()
