@@ -70,8 +70,7 @@ class FeedSourceDialog(DialogBase):
 
     def on_combobox_source_changed(self, combobox=None):
         account_obj = self.combobox_source.get_active_account_obj()
-        labels = account_obj.api_dict.keys()
-        self.combobox_target.set_label_text(labels)
+        self.combobox_target.set_label_text(account_obj)
 
     def on_comboboxtext_target_changed(self, *args):
         account_obj = self.combobox_source.get_active_account_obj()
@@ -173,19 +172,15 @@ class TargetCombobox(object):
         self.widget = gui.get_object('comboboxtext_target')
         self.feedliststore = feedliststore
 
-    def set_label_text(self, labels):
+    def set_label_text(self, account_obj):
+        labels = account_obj.api_dict.keys()
         self.label_list = sorted([x for x in labels])
 
         self.widget.remove_all()
         for text in self.label_list:
             self.widget.append_text(text)
 
-        recent = SETTINGS_TWITTER.get_int('recent-target')
-        num = self.label_list.index(
-            self.feedliststore[Column.TARGET].decode('utf-8')) \
-            if self.feedliststore else recent if recent >= 0 else \
-            self.label_list.index(_("User Stream"))
-
+        num = account_obj.get_recent_api(self.label_list, self.feedliststore)
         self.widget.set_active(num)
 
     def get_active_text(self):
@@ -194,7 +189,7 @@ class TargetCombobox(object):
 
     def set_recent(self):
         num = self.widget.get_active()
-        SETTINGS_TWITTER.set_int('recent-target', num)
+#        SETTINGS_TWITTER.set_int('recent-target', num) # FIXME
 
     def has_argument_entry_enabled(self, api_dict):
         api_name = self.get_active_text()

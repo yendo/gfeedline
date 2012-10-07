@@ -6,7 +6,7 @@ from gi.repository import GObject
 from getauthtoken import CONSUMER
 from ...utils.settings import SETTINGS_TWITTER
 from ...utils.iconimage import WebIconImage
-
+from ...constants import Column
 
 class TwitterIcon(WebIconImage):
 
@@ -35,6 +35,19 @@ class AuthorizedTwitterAccount(GObject.GObject):
 
         if not AuthorizedTwitterAccount.CONFIG:
             self.api.configuration().addCallback(self._on_get_configuration)
+
+    def get_recent_api(self, label_list, feedliststore):
+        recent = SETTINGS_TWITTER.get_int('recent-target')
+        old_target = feedliststore[Column.TARGET].decode('utf-8') \
+            if feedliststore else None
+
+        num = label_list.index(old_target) if old_target in label_list \
+            else recent if recent >= 0 else label_list.index(_("User Stream"))
+
+        return num
+
+    def set_recent_api(self, num):
+        SETTINGS_TWITTER.set_int('recent-target', num)
 
     def _on_get_configuration(self, data):
         AuthorizedTwitterAccount.CONFIG = data

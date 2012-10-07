@@ -95,6 +95,7 @@
       <description>Disabled plugins list</description>
     </key>
     <child name="twitter" schema="com.googlecode.gfeedline.plugins.twitter"/>
+    <child name="facebook" schema="com.googlecode.gfeedline.plugins.facebook"/>
   </schema>
 
   <schema id="com.googlecode.gfeedline.plugins.twitter" path="/apps/gfeedline/plugins/twitter/">
@@ -117,6 +118,14 @@
       <default>''</default>
       <summary>Screen name</summary>
       <description>Screen name</description>
+    </key>
+  </schema>
+
+  <schema id="com.googlecode.gfeedline.plugins.facebook" path="/apps/gfeedline/plugins/facebook/">
+    <key name="recent-target" type="i">
+      <default>-1</default>
+      <summary>Recent Facebook target</summary>
+      <description>Recent used Facebook API for target combobox on feedsource dialog.</description>
     </key>
   </schema>
 

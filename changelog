@@ -1,3 +1,8 @@
+2012-10-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences/feedsource.py, account.py: Implemented default
+	  target on feed source dialogs.
+
 2012-10-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* liststore.py, accountliststore.py, plugins/facebook/*:

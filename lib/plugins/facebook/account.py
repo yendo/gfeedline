@@ -1,11 +1,13 @@
 import json
-from oauth import oauth
 import urllib
+from oauth import oauth
 
 from gi.repository import GObject
-from ...utils.settings import SETTINGS_TWITTER
+
+from ...utils.settings import SETTINGS_FACEBOOK
 from ...utils.iconimage import WebIconImage
 from ...utils.urlgetautoproxy import urlget_with_autoproxy
+from ...constants import Column
 from api import FacebookAPIDict
 
 class FacebookIcon(WebIconImage):
@@ -22,6 +24,19 @@ class AuthorizedFacebookAccount(GObject.GObject):
         self.api = Facebook(token=token)
         self.api_dict = FacebookAPIDict()
         self.icon = FacebookIcon()
+
+    def get_recent_api(self, label_list, feedliststore):
+        recent = SETTINGS_FACEBOOK.get_int('recent-target')
+        old_target = feedliststore[Column.TARGET].decode('utf-8') \
+            if feedliststore else None
+
+        num = label_list.index(old_target) if old_target in label_list \
+            else recent if recent >= 0 else label_list.index(_("News Feed"))
+
+        return num
+
+    def set_recent_api(self, num):
+        SETTINGS_FACEBOOK.set_int('recent-target', num)
 
 #    def _on_update_credential(self, account, unknown):
 #        token = self._get_token()
