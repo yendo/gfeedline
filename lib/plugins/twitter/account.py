@@ -1,6 +1,7 @@
 from ...twittytwister import twitter, txml
 from oauth import oauth
 
+from api import TwitterAPIDict
 from gi.repository import GObject
 from getauthtoken import CONSUMER
 from ...utils.settings import SETTINGS_TWITTER
@@ -30,6 +31,7 @@ class AuthorizedTwitterAccount(GObject.GObject):
         #                         self._on_update_credential)
 
         self.icon = TwitterIcon()
+        self.api_dict = TwitterAPIDict()
 
         if not AuthorizedTwitterAccount.CONFIG:
             self.api.configuration().addCallback(self._on_get_configuration)

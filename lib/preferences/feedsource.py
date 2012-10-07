@@ -23,6 +23,8 @@ class FeedSourceDialog(DialogBase):
         self.entry_group = self.gui.get_object('entry_group')
 
         self.options_tab = OptionsTab(self.gui, self.liststore_row)
+
+        self.on_combobox_source_changed()
         self.on_comboboxtext_target_changed()
 
     def run(self):
@@ -65,6 +67,11 @@ class FeedSourceDialog(DialogBase):
         self.dialog.destroy()
 
         return response_id , v
+
+    def on_combobox_source_changed(self, combobox=None):
+        account_obj = self.combobox_source.get_active_account_obj()
+        labels = account_obj.api_dict.keys()
+        self.combobox_target.set_label_text(labels)
 
     def on_comboboxtext_target_changed(self, *args):
         status = self.combobox_target.has_argument_entry_enabled()
@@ -138,7 +145,7 @@ class SourceCombobox(object):
     def __init__(self, gui, feedliststore, liststore):
         self.widget = gui.get_object('combobox_source')
         self.widget.set_model(liststore.account_liststore)
-        
+
         num = 0
         if feedliststore:
             for i, v in enumerate(liststore.account_liststore):
@@ -154,19 +161,27 @@ class SourceCombobox(object):
             account[AccountColumn.ID]
         return source, user_name
 
+    def get_active_account_obj(self):
+        account = self.widget.get_model()[self.widget.get_active()]
+        return account[AccountColumn.ACCOUNT]
+
 class TargetCombobox(object):
 
     def __init__(self, gui, feedliststore):
         self.widget = gui.get_object('comboboxtext_target')
+        self.feedliststore = feedliststore
 
-        self.label_list = sorted([x for x in TwitterAPIDict().keys()])
+    def set_label_text(self, labels):
+        self.label_list = sorted([x for x in labels])
 
+        self.widget.remove_all()
         for text in self.label_list:
             self.widget.append_text(text)
 
         recent = SETTINGS_TWITTER.get_int('recent-target')
-        num = self.label_list.index(feedliststore[Column.TARGET].decode('utf-8')) \
-            if feedliststore else recent if recent >= 0 else \
+        num = self.label_list.index(
+            self.feedliststore[Column.TARGET].decode('utf-8')) \
+            if self.feedliststore else recent if recent >= 0 else \
             self.label_list.index(_("User Stream"))
 
         self.widget.set_active(num)

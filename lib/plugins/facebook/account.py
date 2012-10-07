@@ -6,7 +6,7 @@ from gi.repository import GObject
 from ...utils.settings import SETTINGS_TWITTER
 from ...utils.iconimage import WebIconImage
 from ...utils.urlgetautoproxy import urlget_with_autoproxy
-
+from api import FacebookAPIDict
 
 class FacebookIcon(WebIconImage):
 
@@ -18,7 +18,9 @@ class AuthorizedFacebookAccount(GObject.GObject):
 
     def __init__(self, user_name, token, secret):
         super(AuthorizedFacebookAccount, self).__init__()
+
         self.api = Facebook(token=token)
+        self.api_dict = FacebookAPIDict()
         self.icon = FacebookIcon()
 
 #    def _on_update_credential(self, account, unknown):

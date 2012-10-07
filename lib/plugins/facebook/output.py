@@ -39,7 +39,7 @@ class FacebookOutputBase(object):
         self.theme = Theme()
 
         self.since_time = 0
-        self.latest_time = options.get('latest_time') or 0
+        self.last_id = options.get('last_id') or 0
         self.params = {}
         self.counter = 0
 
