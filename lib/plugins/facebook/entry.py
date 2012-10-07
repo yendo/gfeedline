@@ -21,14 +21,14 @@ class FacebookEntry(object):
     def get_dict(self, api):
         entry = self.entry
 
-#        time = TwitterTime(entry.created_at)
-        body = entry.get('message') or entry.get('story') or entry.get('name') 
-#        body = add_markup.convert(body_string) # add_markup is global
+        time = TwitterTime(entry['created_time'])
+        body_string = entry.get('message') or entry.get('story') or entry.get('name') 
+        body = add_markup.convert(body_string) # add_markup is global
 #        styles = self._get_styles(api, user.screen_name, entry)
 
         entry_dict = dict(
-            date_time=entry['created_time'],
-            id='',
+            date_time=time.get_local_time(),
+            id=entry['id'],
             styles='',
             image_uri='https://graph.facebook.com/%s/picture' % entry['from']['id'],
 
@@ -45,7 +45,7 @@ class FacebookEntry(object):
             source='',
 
             status_body=body,
-            popup_body='',
+            popup_body=body,
             target=''
             )
 
@@ -138,6 +138,7 @@ class AddedHtmlMarkup(object):
             r"<a href='https://twitter.com/search?q=%23\1'>#\1</a>", text)
 
         text = text.replace('"', '&quot;')
+        text = text.replace('\r\n', '<br>')
         text = text.replace('\n', '<br>')
 
         return text
