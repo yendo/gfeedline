@@ -22,7 +22,8 @@ class FacebookEntry(object):
         entry = self.entry
 
         time = TwitterTime(entry['created_time'])
-        body_string = entry.get('message') or entry.get('story') or entry.get('name') 
+        body_string = entry.get('message') or entry.get('story') or entry.get('caption') or entry.get('name')
+
         body = add_markup.convert(body_string) # add_markup is global
 #        styles = self._get_styles(api, user.screen_name, entry)
 
