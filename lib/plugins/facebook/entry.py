@@ -40,6 +40,7 @@ class FacebookEntry(object):
             in_reply_to='',
 
             user_name='',
+            user_name2='',
             full_name=entry['from']['name'],
             user_color=user_color.get(entry['from']['name']),
             protected='',
@@ -118,28 +119,25 @@ class AddedHtmlMarkup(object):
         self.link_pattern = re.compile(
             r"(s?https?://[-_.!~*'a-zA-Z0-9;/?:@&=+$,%#]+)", 
             re.IGNORECASE | re.DOTALL)
-        self.nick_pattern = re.compile("\B@([A-Za-z0-9_]+|@[A-Za-z0-9_]$)")
-        self.hash_pattern = re.compile(
-            u'(?:#|\uFF03)([a-zA-Z0-9_'
-            u'\u3041-\u3094\u3099-\u309C\u30A1-\u30FF\u3400-\uD7FF'
-            u'\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
+        num = 5
+        self.new_lines = re.compile('^(([^\n]*\n){%d})(.*)' % num, re.DOTALL)
 
     def convert(self, text):
         text = unescape(text)
         text = escape(text, {"'": '&apos;'}) # Important!
 
         text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
-        text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 
-                                     text)
-
-#        screen_name_re = r"<a href='gfeedlinereply://%s'>@\1</a>" % 120
-#        text = self.nick_pattern.sub(screen_name_re, text)
-
-        text = self.hash_pattern.sub(
-            r"<a href='https://twitter.com/search?q=%23\1'>#\1</a>", text)
-
         text = text.replace('"', '&quot;')
-        text = text.replace('\r\n', '<br>')
+        text = text.replace('\r\n', '\n')
+        text = self.new_lines.sub(
+            ("\\1"
+             "<span class='main-text'>...<br>"
+             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
+             "</span>"
+             "<span class='more-text'>\\3<br>"
+             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
+             "</span>") % (_('See more'), _('See less')), 
+            text)
         text = text.replace('\n', '<br>')
 
         return text

@@ -48,6 +48,7 @@ class TweetEntry(object):
             in_reply_to=self._get_in_reply_to_status_id(entry),
 
             user_name=user.screen_name,
+            user_name2='@'+user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
             protected=self._get_protected_icon(user.protected),
@@ -195,6 +196,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             in_reply_to = '',
 
             user_name=user['screen_name'],
+            user_name2='@'+user['screen_name'],
             full_name=user['name'],
             user_color=user_color.get(user['screen_name']),
             protected=self._get_protected_icon(user['protected']),
@@ -239,6 +241,7 @@ class SearchTweetEntry(TweetEntry):
             in_reply_to = True, # FIXME
 
             user_name=name,
+            user_name2='@'+name,
             full_name=self.get_full_name(entry),
             user_color=user_color.get(name),
             protected='',
@@ -310,6 +313,7 @@ class FeedEventEntry(TweetEntry):
             in_reply_to = '',
 
             user_name=entry.source.screen_name,
+            user_name2='',
             full_name=entry.source.name,
             user_color=user_color.get(entry.source.screen_name),
             protected=self._get_protected_icon(entry.source.protected),

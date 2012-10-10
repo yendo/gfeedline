@@ -10,6 +10,8 @@ div.event { background-color: LightGoldenrodYellow; }
 div.mine { background-color: MistyRose; } 
 div.reply { background-color: Lavender; } 
 
+.more-text { display: none; }
+
 .datetime, .datetime a, .retweet a { color: #606060 }
 
 a { text-decoration: none; }

@@ -1,3 +1,8 @@
+2012-10-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* facebook/entry.py, html/readmore.js: Added support for 'See
+	  more' on Facebook.
+
 2012-10-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* preferences/feedsource.py, account.py: Implemented default
