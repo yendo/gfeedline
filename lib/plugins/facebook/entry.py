@@ -11,6 +11,7 @@ from ...utils.htmlentities import decode_html_entities
 
 user_color = UserColor()
 
+
 class FacebookEntry(object):
 
     def __init__(self, entry):
@@ -32,6 +33,7 @@ class FacebookEntry(object):
             id=entry['id'],
             styles='',
             image_uri='https://graph.facebook.com/%s/picture' % entry['from']['id'],
+            permalink='gfeedline://facebook.com/',
 
             retweet='',
             retweet_by_screen_name='',

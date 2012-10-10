@@ -17,6 +17,22 @@ TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
            \- FeedEventEntry
 """
 
+class TweetEntryDict(dict):
+
+    def __init__(self, **init_dict):
+        super(TweetEntryDict, self).__init__(dict(init_dict))
+
+    def __getitem__(self, key):
+        if key == 'permalink':
+            val = 'gfeedline://twitter.com/%s/status/%s' % (
+                self['user_name'], self['id'])
+        elif key == 'user_name2':
+            val = '@'+self['user_name']
+
+        else:
+            val = super(TweetEntryDict, self).__getitem__(key)
+
+        return val
 
 class TweetEntry(object):
 
@@ -35,7 +51,7 @@ class TweetEntry(object):
 
         styles = self._get_styles(api, user.screen_name, entry)
 
-        entry_dict = dict(
+        entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
             id=entry.id,
             styles=styles,
@@ -48,7 +64,6 @@ class TweetEntry(object):
             in_reply_to=self._get_in_reply_to_status_id(entry),
 
             user_name=user.screen_name,
-            user_name2='@'+user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
             protected=self._get_protected_icon(user.protected),
@@ -186,7 +201,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
         target_date_time = self._get_target_date_time(
             self.entry, self.entry.user.screen_name)
 
-        entry_dict = dict(
+        entry_dict = TweetEntryDict(
             date_time=TwitterTime(created_at).get_local_time(),
             id='',
             styles='',
@@ -196,7 +211,6 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             in_reply_to = '',
 
             user_name=user['screen_name'],
-            user_name2='@'+user['screen_name'],
             full_name=user['name'],
             user_color=user_color.get(user['screen_name']),
             protected=self._get_protected_icon(user['protected']),
@@ -232,7 +246,7 @@ class SearchTweetEntry(TweetEntry):
 
         styles = self._get_styles(api, name)
 
-        entry_dict = dict(
+        entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
             id=entry_id,
             styles=styles,
@@ -241,7 +255,6 @@ class SearchTweetEntry(TweetEntry):
             in_reply_to = True, # FIXME
 
             user_name=name,
-            user_name2='@'+name,
             full_name=self.get_full_name(entry),
             user_color=user_color.get(name),
             protected='',
@@ -304,7 +317,7 @@ class FeedEventEntry(TweetEntry):
             target_body = ''
             target_date_time = ''
 
-        entry_dict = dict(
+        entry_dict = TweetEntryDict(
             date_time=TwitterTime(entry.created_at).get_local_time(),
             id='',
             styles='',
@@ -313,7 +326,6 @@ class FeedEventEntry(TweetEntry):
             in_reply_to = '',
 
             user_name=entry.source.screen_name,
-            user_name2='',
             full_name=entry.source.name,
             user_color=user_color.get(entry.source.screen_name),
             protected=self._get_protected_icon(entry.source.protected),
