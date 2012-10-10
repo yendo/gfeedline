@@ -51,7 +51,7 @@ class FacebookEntry(object):
             source='',
 
             status_body=body,
-            popup_body=body,
+            popup_body=body_string,
             target=''
             )
 

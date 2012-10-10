@@ -54,9 +54,12 @@ class FacebookOutputBase(object):
         pass
 
     def print_all_entries(self, d, api_interval=10):
+        is_first_call = not bool(self.counter)
         for i in reversed(d['data']):
-            self.print_entry(i)
+            self.print_entry(i, is_first_call)
             self.since_time =  i['created_time']
+
+        self.counter += 1
 
     def print_entry(self, entry, is_first_call=False):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)

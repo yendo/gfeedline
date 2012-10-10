@@ -31,8 +31,9 @@ class StatusNotification(Notification):
         d.addCallback(self._notify, entry).addErrback(self._error, entry)
 
     def _notify(self, unknown, entry):
+        user_name = entry['user_name'] or entry['full_name']
         super(StatusNotification, self).notify(
-            self.icon_file, entry['user_name'], entry['popup_body'], entry)
+            self.icon_file, user_name, entry['popup_body'], entry)
 
     def on_dbus_signal(self, proxy, sender_name, signal_name, params):
         if signal_name == "ActionInvoked":
