@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 14:28+0900\n"
-"PO-Revision-Date: 2012-09-13 14:29+0900\n"
+"POT-Creation-Date: 2012-10-10 21:15+0900\n"
+"PO-Revision-Date: 2012-10-10 21:18+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -64,6 +64,41 @@ msgstr "返信"
 msgid "Open"
 msgstr "開く"
 
+#: ../lib/plugins/facebook/account.py:34 ../lib/plugins/facebook/api.py:39
+msgid "News Feed"
+msgstr "ニュースフィード"
+
+#: ../lib/plugins/facebook/assistant.py:26
+msgid "Facebook Account Setup"
+msgstr "Facebook アカウントの設定"
+
+#: ../lib/plugins/facebook/assistant.py:40
+#: ../lib/plugins/twitter/assistant.py:45
+msgid "Intro"
+msgstr "説明"
+
+#: ../lib/plugins/facebook/assistant.py:51
+msgid "Authorization"
+msgstr "認証"
+
+#: ../lib/plugins/facebook/assistant.py:59
+#: ../lib/plugins/twitter/assistant.py:61
+msgid "Confirm"
+msgstr "確認"
+
+#: ../lib/plugins/facebook/entry.py:143
+msgid "See more"
+msgstr "続きを読む"
+
+#: ../lib/plugins/facebook/entry.py:143
+msgid "See less"
+msgstr "折りたたむ"
+
+#: ../lib/plugins/twitter/account.py:45 ../lib/plugins/twitter/api.py:108
+#: ../lib/preferences/feedsource.py:104
+msgid "User Stream"
+msgstr "ユーザーストリーム"
+
 #: ../lib/plugins/twitter/api.py:56
 msgid "Home TimeLine"
 msgstr "ホームタイムライン"
@@ -84,10 +119,6 @@ msgstr "メンション"
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:108 ../lib/preferences/feedsource.py:95
-msgid "User Stream"
-msgstr "ユーザーストリーム"
-
 #: ../lib/plugins/twitter/api.py:122
 msgid "Track"
 msgstr "トラック"
@@ -100,17 +131,9 @@ msgstr "検索"
 msgid "Twitter Account Setup"
 msgstr "Twitter アカウントの設定"
 
-#: ../lib/plugins/twitter/assistant.py:45
-msgid "Intro"
-msgstr "説明"
-
 #: ../lib/plugins/twitter/assistant.py:53
 msgid "Enter PIN"
 msgstr "PIN の入力"
-
-#: ../lib/plugins/twitter/assistant.py:61
-msgid "Confirm"
-msgstr "確認"
 
 #: ../lib/plugins/twitter/output.py:60 ../share/filters.glade.h:5
 msgid "Body"
@@ -136,37 +159,37 @@ msgstr "via %s"
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:184
+#: ../lib/plugins/twitter/tweetentry.py:200
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:284
+#: ../lib/plugins/twitter/tweetentry.py:300
 msgid "favorited your Tweet"
 msgstr "さんがお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:285
+#: ../lib/plugins/twitter/tweetentry.py:301
 msgid "unfavorited your Tweet"
 msgstr "さんがお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:286
+#: ../lib/plugins/twitter/tweetentry.py:302
 msgid "followed you"
 msgstr "さんがフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:287
+#: ../lib/plugins/twitter/tweetentry.py:303
 #, python-format
 msgid "added you to list %s"
 msgstr "さんのリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:288
+#: ../lib/plugins/twitter/tweetentry.py:304
 #, python-format
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
 
-#: ../lib/preferences/feedsource.py:123
+#: ../lib/preferences/feedsource.py:132
 msgid "Options"
 msgstr "オプション"
 
-#: ../lib/preferences/feedsource.py:128
+#: ../lib/preferences/feedsource.py:137
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
@@ -187,6 +210,32 @@ msgstr "あなた (%s) のフォロワーにこれをリツイートしますか
 #: ../lib/updatewindow.py:288
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
+
+#: ../share/assistant_facebook.glade.h:1
+msgid ""
+"Your configuration is complete.  You are now ready to access to Facebook "
+"with GFeedLine."
+msgstr "認証が完了しました。"
+
+#: ../share/assistant_facebook.glade.h:2
+msgid "User name:"
+msgstr "ユーザー名:"
+
+#: ../share/assistant_facebook.glade.h:3 ../share/assistant_twitter.glade.h:7
+msgid "none"
+msgstr "なし"
+
+#: ../share/assistant_facebook.glade.h:4
+msgid ""
+"This assistant helps you to configure Facebook account for GFeedLine.\n"
+"\n"
+"Click \"Forward\" to open a Facebook authorization page."
+msgstr ""
+"この設定アシスタントでは GFeedLine で利用する Facebook アカウントの設定を行い"
+"ます。\n"
+"\n"
+"[進む] ボタンをクリックすると、Facebook の認証ページを開き、認証作業を開始し"
+"ます。"
 
 #: ../share/assistant_twitter.glade.h:1
 msgid ""
@@ -211,10 +260,6 @@ msgstr "認証が完了しました。[適用] ボタンをクリックすれば
 #: ../share/assistant_twitter.glade.h:6
 msgid "Screen name:"
 msgstr "スクリーンネーム:"
-
-#: ../share/assistant_twitter.glade.h:7
-msgid "none"
-msgstr "なし"
 
 #: ../share/assistant_twitter.glade.h:8
 msgid ""
