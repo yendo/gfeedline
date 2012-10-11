@@ -23,7 +23,7 @@ import tjson
 
 SIGNATURE_METHOD = oauth.OAuthSignatureMethod_HMAC_SHA1()
 
-BASE_URL="https://api.twitter.com"
+BASE_URL="https://api.twitter.com/1"
 SEARCH_URL="http://search.twitter.com/search.atom"
 
 
@@ -500,7 +500,7 @@ class Twitter(object):
 
     def configuration(self):
 
-        url = '/1/help/configuration.xml'
+        url = '/help/configuration.xml'
         d = defer.Deferred()
 
         self.__downloadPage(url, txml.Config(lambda u: d.callback(u))) \
