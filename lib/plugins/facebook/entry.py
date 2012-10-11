@@ -28,6 +28,9 @@ class FacebookEntry(object):
         body = add_markup.convert(body_string) # add_markup is global
 #        styles = self._get_styles(api, user.screen_name, entry)
 
+        if entry['type'] == 'photo':
+            body += "<div style='margin: 5px;'><img height='90' style='border: 1px solid #ccc; padding: 3px;' src='%s'></div>" % entry['picture']
+
         userid, postid = entry['id'].split('_')
 
         entry_dict = dict(
@@ -44,7 +47,7 @@ class FacebookEntry(object):
             in_reply_to='',
 
             user_name='',
-            user_name2='',
+            user_name2=entry['type'],
             full_name=entry['from']['name'],
             user_color=user_color.get(entry['from']['name']),
             protected='',
