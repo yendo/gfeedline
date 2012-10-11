@@ -1,5 +1,6 @@
 import json
 import urllib
+import locale
 from oauth import oauth
 
 from gi.repository import GObject
@@ -47,23 +48,17 @@ class Facebook(object):
 
     def __init__(self, token):
         self.token = token
+        self.lang = locale.getdefaultlocale()[0]
 
     def home_timeline(self, cb, params):
-        url = 'https://graph.facebook.com/me/home'
-        url += '?access_token=%s&locale=ja' % self.token 
+        url = 'https://graph.facebook.com/me/home?'
+        params_dict = {'access_token': self.token, 'locale': self.lang}
         if params:
-            url += '&'+self._urlencode(params)
+            params_dict.update(params)
 
+        url += urllib.urlencode(params_dict)
         print url
         return urlget_with_autoproxy(str(url), cb=cb)
 
     def feed(self, username):
         pass
-
-    def _urlencode(self, h):
-        rv = []
-        for k,v in h.iteritems():
-            rv.append('%s=%s' %
-                (urllib.quote(k.encode("utf-8")),
-                urllib.quote(v.encode("utf-8"))))
-        return '&'.join(rv)
