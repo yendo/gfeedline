@@ -107,7 +107,7 @@ class FacebookRestOutput(FacebookOutputBase):
         self.timeout = reactor.callLater(interval, self.start, interval)
 
     def _get_interval_seconds(self):
-        return 30
+        return 120
 
     def exit(self):
         super(FacebookRestOutput, self).exit()
