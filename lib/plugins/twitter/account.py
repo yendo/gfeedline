@@ -66,7 +66,7 @@ class AuthorizedTwitterAccount(GObject.GObject):
 class Twitter(twitter.Twitter):
 
     def list_timeline(self, delegate, params={}, extra_args=None):
-        return self.__get('/1/lists/statuses.xml',
+        return self.__get('/lists/statuses.xml',
                 delegate, params, txml.Statuses, extra_args=extra_args)
 
     def user_timeline(self, delegate, params={}, extra_args=None):
@@ -83,7 +83,7 @@ class Twitter(twitter.Twitter):
 
     def related_results(self, delegate, params={}, extra_args=None):
         statusid = params['id']
-        return self.__get_json('/1/related_results/show/%s.json' % statusid,
+        return self.__get_json('/related_results/show/%s.json' % statusid,
                 delegate, params, extra_args=extra_args)
 
     def fav(self, status_id):
