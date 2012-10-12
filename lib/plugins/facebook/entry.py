@@ -31,6 +31,18 @@ class FacebookEntry(object):
         if entry['type'] == 'photo':
             body += "<div style='margin: 5px;'><img height='90' style='border: 1px solid #ccc; padding: 3px;' src='%s'></div>" % entry['picture']
 
+        if entry.get('description'):
+            description = add_markup.convert(entry.get('description'))
+
+            box = """
+<div class='link-box'>
+  <div class='link-name'><a href='%s'>%s</a></div>
+  <div class='link-caption'>%s</div>
+  <div class='link-description'>%s</div>
+</div>
+""" % (entry.get('link'), entry.get('name'), entry.get('caption') or '', description)
+            body += box
+
         userid, postid = entry['id'].split('_')
 
         entry_dict = dict(
