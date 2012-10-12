@@ -4,14 +4,15 @@
 # 
 # Translators:
 #   <hemadan@9.cn>, 2012.
+# Humaidan Mohammed <hemadan90@gmail.com>, 2012.
 # Humaidan Mohammed <hemadan@9.cn>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-13 19:13+0900\n"
-"PO-Revision-Date: 2012-09-14 15:18+0000\n"
-"Last-Translator: Humaidan Mohammed <hemadan@9.cn>\n"
+"PO-Revision-Date: 2012-10-11 17:25+0000\n"
+"Last-Translator: Humaidan Mohammed <hemadan90@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/gfeedline/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -337,7 +338,7 @@ msgid ""
 "To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
 "\n"
 "Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
-msgstr "<big><b>مرحبا بك في GFeedLine!</b></big>\n\nGFeedLine هو عميل الشبكات الجتماعية. وهو يدعم تويتر.\n \nGFeedLine، إفتح التفضيلات من قائمة <b>تعديل > التفضيلات</b> ثم هيئ حسابك عن تبويب الحساب.\n\nثم عليك تهيئة التغذيات عند تبويب ااتغذية في صندوق التفضيلات. لكي تفعل عرض الأعمدة المتعددة، ادخل اسم المجموعة عند كل صندوق مصدر تغذية."
+msgstr "<big><b>مرحبا بك في GFeedLine! </b></big>\n\nGFeedLine هو عميل الشبكات الجتماعية. وهو يدعم تويتر.\n \nGFeedLine، إفتح التفضيلات من قائمة <b>تعديل > التفضيلات</b> ثم هيئ حسابك عند تبويب الحساب.\n\nثم عليك تهيئة التغذيات عند تبويب التغذية في صندوق التفضيلات. لكي تفعل عرض الأعمدة المتعددة، ادخل اسم المجموعة عند كل صندوق مصدر تغذية."
 
 #: ../share/notebook_popup_menu.glade.h:1
 msgid "_Close Tab"

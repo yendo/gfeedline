@@ -1,3 +1,7 @@
+2012-10-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ar.po: Updated Arabic translation. Thanks Humaidan Mohammed!
+
 2012-10-11  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twittytwister/twitter.py, twitter/account.py: Fixed Twitter API
