@@ -35,7 +35,7 @@ class FacebookEntry(object):
         if entry.get('description'):
             template = self.theme.template['linkbox']
             key_dict = {'url': entry.get('link'),
-                        'name': entry.get('name'),
+                        'name': entry.get('name') or '',
                         'caption': entry.get('caption') or '',
                         'description': add_markup.convert(entry.get('description'))
                         }
