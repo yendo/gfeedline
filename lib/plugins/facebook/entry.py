@@ -8,6 +8,7 @@ import dateutil.parser
 
 from ...utils.usercolor import UserColor
 from ...utils.htmlentities import decode_html_entities
+from ...theme import Theme
 
 user_color = UserColor()
 
@@ -16,8 +17,7 @@ class FacebookEntry(object):
 
     def __init__(self, entry):
         self.entry = entry
-        self.retweet_by_screen_name = ''
-        self.retweet_by_name = ''
+        self.theme = Theme()
 
     def get_dict(self, api):
         entry = self.entry
@@ -29,19 +29,18 @@ class FacebookEntry(object):
 #        styles = self._get_styles(api, user.screen_name, entry)
 
         if entry['type'] == 'photo':
-            body += "<div style='margin: 5px;'><img height='90' style='border: 1px solid #ccc; padding: 3px;' src='%s'></div>" % entry['picture']
+            template = self.theme.template['image']
+            key_dict = {'url': entry['picture']}
+            body += template.substitute(key_dict)
 
         if entry.get('description'):
-            description = add_markup.convert(entry.get('description'))
-
-            box = """
-<div class='link-box'>
-  <div class='link-name'><a href='%s'>%s</a></div>
-  <div class='link-caption'>%s</div>
-  <div class='link-description'>%s</div>
-</div>
-""" % (entry.get('link'), entry.get('name'), entry.get('caption') or '', description)
-            body += box
+            template = self.theme.template['linkbox']
+            key_dict = {'url': entry.get('link'),
+                        'name': entry.get('name'),
+                        'caption': entry.get('caption') or '',
+                        'description': add_markup.convert(entry.get('description'))
+                        }
+            body += template.substitute(key_dict)
 
         userid, postid = entry['id'].split('_')
 
