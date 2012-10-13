@@ -12,6 +12,7 @@ class FacebookAPIDict(dict):
     def __init__(self):
         all_api = [
              FacebookAPIHome,
+             FacebookAPIWall,
              ]
 
         for api in all_api:
@@ -39,4 +40,15 @@ class FacebookAPIHome(FacebookAPIBase):
     name = _('News Feed')
 
     def _get_api(self):
-        return self.account.api.home_timeline
+        return self.account.api.home
+
+class FacebookAPIWall(FacebookAPIBase):
+
+    name = _('Wall')
+    has_argument = True
+
+    def _get_api(self):
+        return self.account.api.feed
+
+    def get_options(self, argument):
+        return {'user': argument}

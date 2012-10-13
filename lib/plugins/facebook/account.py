@@ -50,7 +50,7 @@ class Facebook(object):
         self.token = token
         self.lang = locale.getdefaultlocale()[0]
 
-    def home_timeline(self, cb, params):
+    def home(self, cb, params):
         url = 'https://graph.facebook.com/me/home?'
         params_dict = {'access_token': self.token, 'locale': self.lang}
         if params:
@@ -60,5 +60,12 @@ class Facebook(object):
         print url
         return urlget_with_autoproxy(str(url), cb=cb)
 
-    def feed(self, username):
-        pass
+    def feed(self, cb, params):
+        user = params.pop('user') or 'me'
+        url = 'https://graph.facebook.com/%s/feed?' % user
+        params_dict = {'access_token': self.token, 'locale': self.lang}
+        if params:
+            params_dict.update(params)
+
+        url += urllib.urlencode(params_dict)
+        return urlget_with_autoproxy(str(url), cb=cb)
