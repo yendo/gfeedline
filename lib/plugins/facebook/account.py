@@ -47,25 +47,23 @@ class AuthorizedFacebookAccount(GObject.GObject):
 class Facebook(object):
 
     def __init__(self, token):
-        self.token = token
-        self.lang = locale.getdefaultlocale()[0]
+        lang = locale.getdefaultlocale()[0]
+        self.access_params = {'access_token': token, 'locale': lang}
 
-    def home(self, cb, params):
+    def home(self, cb, params=None):
         url = 'https://graph.facebook.com/me/home?'
-        params_dict = {'access_token': self.token, 'locale': self.lang}
-        if params:
-            params_dict.update(params)
-
-        url += urllib.urlencode(params_dict)
-        print url
-        return urlget_with_autoproxy(str(url), cb=cb)
+        return self._get_defer(url, params, cb)
 
     def feed(self, cb, params):
         user = params.pop('user') or 'me'
         url = 'https://graph.facebook.com/%s/feed?' % user
-        params_dict = {'access_token': self.token, 'locale': self.lang}
-        if params:
-            params_dict.update(params)
+        return self._get_defer(url, params, cb)
 
-        url += urllib.urlencode(params_dict)
+    def _get_defer(self, url, params, cb):
+        if params is None:
+            params = {}
+
+        params.update(self.access_params)
+        url += urllib.urlencode(params)
+        print url
         return urlget_with_autoproxy(str(url), cb=cb)
