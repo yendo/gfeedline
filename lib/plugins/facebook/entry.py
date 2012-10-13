@@ -26,7 +26,6 @@ class FacebookEntry(object):
         body_string = entry.get('message') or entry.get('story') or entry.get('caption') or entry.get('name')
 
         body = add_markup.convert(body_string) # add_markup is global
-#        styles = self._get_styles(api, user.screen_name, entry)
 
         if entry['type'] == 'photo':
             template = self.theme.template['image']
@@ -47,7 +46,7 @@ class FacebookEntry(object):
         entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry['id'],
-            styles='',
+            styles='facebook',
             image_uri='https://graph.facebook.com/%s/picture' % entry['from']['id'],
             permalink='gfeedline://www.facebook.com/permalink.php?id=%s&v=wall&story_fbid=%s' % (userid, postid),
 
