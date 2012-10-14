@@ -46,11 +46,26 @@ class FacebookEntry(object):
             body += template.substitute(key_dict)
 
         if entry.get('actions'):
+
+            is_liked = False
+            if entry.get('likes'):
+                for i in entry['likes'].get('data'):
+                    if i['id'] == api.account.idnum:
+                        is_liked =True
+                        break
+
+            style1 = ''
+            style2 = ''
+
+            if is_liked:
+                style1 = 'hidden'
+            else:
+                style2 = 'hidden'
+
             actions = entry.get('actions')
             likelink = 'gfeedlinefb://graph.facebook.com/%s/likes' % entry['id']
 
-            command=u"<a href='%s'>Like</a> · <a href='%s'>Comment</a> · " % (
-                likelink, permalink)
+            command=u"""<a class='like %s' href='%s' onclick='like(this);'>Like</a><a class='unlike %s' href='%s' onclick='like(this);'>Unlike</a> · <a href='%s'>Comment</a> · """ % (style1, likelink, style2, likelink, permalink)
         else:
             command=''
 

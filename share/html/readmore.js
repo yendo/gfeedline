@@ -5,3 +5,11 @@ function readMore(target){
 
     $(main+','+more).toggle();
 }
+
+function like(target){
+    var id = '#'+$(target).closest('.status').attr('id');
+    var main = id+' .like';
+    var more = id+' .unlike';
+
+    $(main+','+more).toggle();
+}

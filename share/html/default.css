@@ -11,6 +11,7 @@ div.mine { background-color: MistyRose; }
 div.reply { background-color: Lavender; } 
 
 .more-text { display: none; }
+.hidden { display: none; }
 
 .datetime, .datetime a, .retweet a { color: #606060 }
 
