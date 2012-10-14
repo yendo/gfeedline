@@ -49,7 +49,7 @@ class Facebook(object):
 
     def __init__(self, token):
         lang = locale.getdefaultlocale()[0]
-        self.access_params = {'access_token': token}#, 'locale': lang}
+        self.access_params = {'access_token': token, 'locale': lang}
 
     def home(self, cb, params=None):
         url = 'https://graph.facebook.com/me/home?'
@@ -61,16 +61,14 @@ class Facebook(object):
         return self._get_defer(url, params, cb)
 
     def like(self, url, is_unlike=False):
-        print url
         method = 'DELETE' if is_unlike else 'POST'
         d = urlpost_with_autoproxy(str(url), self.access_params, 
-                                   cb=self._like, method=method)
-        d.addErrback(self._like)
+                                   cb=self._like_cb, method=method)
+        d.addErrback(self._like_cb)
 
-    def _like(self, *args):
-        print args
-        print 'ok!'
-
+    def _like_cb(self, *args):
+        # print args
+        pass
 
     def _get_defer(self, url, params, cb):
         if params is None:

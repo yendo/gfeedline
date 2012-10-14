@@ -181,13 +181,10 @@ class FeedWebView(WebKit.WebView):
         uri = action.get_original_uri()
 
         if uri.startswith('gfeedlinefb'):
-
             is_unlike = uri.startswith('gfeedlinefbunlike')
-            print uri, is_unlike
             uri = uri.replace('gfeedlinefblike:', 'https:')
             uri = uri.replace('gfeedlinefbunlike:', 'https:')
             api.account.api.like(uri, is_unlike)
-            
             return True
 
         if uri.startswith('gfeedline:'):

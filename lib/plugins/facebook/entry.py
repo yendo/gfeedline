@@ -45,8 +45,8 @@ class FacebookEntry(object):
                         }
             body += template.substitute(key_dict)
 
+        command=''
         if entry.get('actions'):
-
             is_liked = False
             if entry.get('likes'):
                 for i in entry['likes'].get('data'):
@@ -54,21 +54,21 @@ class FacebookEntry(object):
                         is_liked =True
                         break
 
-            style1 = ''
-            style2 = ''
+            path = '//graph.facebook.com/%s/likes' % entry['id']
+            likelink = 'gfeedlinefblike:%s' % path
+            unlikelink = 'gfeedlinefbunlike:%s' % path
 
-            if is_liked:
-                style1 = 'hidden'
-            else:
-                style2 = 'hidden'
+            template = self.theme.template['like']
+            key_dict = {'like': _('Like'),
+                        'unlike': _('Unlike'),
+                        'comment': _('Comment'),
 
-            actions = entry.get('actions')
-            likelink = 'gfeedlinefblike://graph.facebook.com/%s/likes' % entry['id']
-            unlikelink = 'gfeedlinefbunlike://graph.facebook.com/%s/likes' % entry['id']
-
-            command=u"""<a class='like %s' href='%s' onclick='like(this);'>Like</a><a class='unlike %s' href='%s' onclick='like(this);'>Unlike</a> · <a href='%s'>Comment</a> · """ % (style1, likelink, style2, unlikelink, permalink)
-        else:
-            command=''
+                        'like_link': likelink,
+                        'unlike_link': unlikelink,
+                        'like_style': 'hidden' if is_liked else '',
+                        'unlike_style': '' if is_liked else 'hidden',
+                        'permalink': permalink}
+            command = template.substitute(key_dict)
 
         entry_dict = dict(
             date_time=time.get_local_time(),
