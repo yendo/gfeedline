@@ -27,6 +27,10 @@ class FacebookEntry(object):
 
         body = add_markup.convert(body_string) # add_markup is global
 
+        userid, postid = entry['id'].split('_')
+        permalink = ('gfeedline://www.facebook.com/permalink.php'
+                     '?id=%s&v=wall&story_fbid=%s') % (userid, postid)
+
         if entry['type'] == 'photo':
             template = self.theme.template['image']
             key_dict = {'url': entry['picture']}
@@ -41,14 +45,23 @@ class FacebookEntry(object):
                         }
             body += template.substitute(key_dict)
 
-        userid, postid = entry['id'].split('_')
+        if entry.get('actions'):
+            actions = entry.get('actions')
+            likelink = 'gfeedlinefb://graph.facebook.com/%s/likes' % entry['id']
+
+            command=u"<a href='%s'>Like</a> · <a href='%s'>Comment</a> · " % (
+                likelink, permalink)
+        else:
+            command=''
 
         entry_dict = dict(
             date_time=time.get_local_time(),
             id=entry['id'],
             styles='facebook',
             image_uri='https://graph.facebook.com/%s/picture' % entry['from']['id'],
-            permalink='gfeedline://www.facebook.com/permalink.php?id=%s&v=wall&story_fbid=%s' % (userid, postid),
+            permalink=permalink,
+
+            command=command,
 
             retweet='',
             retweet_by_screen_name='',

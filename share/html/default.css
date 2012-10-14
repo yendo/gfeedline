@@ -20,4 +20,5 @@ a.username { font-weight: bold; }
 a.target_datetime { color: gray; }
 
 div.facebook a { color: #3b5998; }
+div.facebook .command { color: #3b5998; }
 div.image img { margin: 5px; padding: 3px; border: 1px solid #ccc; }

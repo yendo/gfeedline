@@ -91,7 +91,7 @@ class FeedWebView(WebKit.WebView):
         self.dnd = DnDFile()
 
         self.load_uri("file://%s" % SHARED_DATA_FILE('html/base.html'))
-        self.connect("navigation-policy-decision-requested", self.on_click_link)
+        self.connect("navigation-policy-decision-requested", self.on_click_link, api)
         self.connect("populate-popup", self.on_popup, api)
         self.connect("hovering-over-link", self.on_hovering_over_link)
         self.connect('scroll-event', self.on_scroll_event)
@@ -176,9 +176,15 @@ class FeedWebView(WebKit.WebView):
         else:
             default_menu.destroy()
 
-    def on_click_link(self, view, frame, req, action, decison):
+    def on_click_link(self, view, frame, req, action, decison, api):
         button = action.get_button()
         uri = action.get_original_uri()
+
+        if uri.startswith('gfeedlinefb:'):
+            uri = uri.replace('gfeedlinefb:', 'https:')
+            api.account.api.like(uri)
+            
+            return True
 
         if uri.startswith('gfeedline:'):
             uri = uri.replace('gfeedline:', 'https:')

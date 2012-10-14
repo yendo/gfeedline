@@ -21,6 +21,7 @@ class TweetEntryDict(dict):
 
     def __init__(self, **init_dict):
         super(TweetEntryDict, self).__init__(dict(init_dict))
+        self['command'] = ''
 
     def __getitem__(self, key):
         if key == 'permalink':

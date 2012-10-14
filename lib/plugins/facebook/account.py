@@ -7,7 +7,7 @@ from gi.repository import GObject
 
 from ...utils.settings import SETTINGS_FACEBOOK
 from ...utils.iconimage import WebIconImage
-from ...utils.urlgetautoproxy import urlget_with_autoproxy
+from ...utils.urlgetautoproxy import urlget_with_autoproxy, urlpost_with_autoproxy
 from ...constants import Column
 from api import FacebookAPIDict
 
@@ -48,7 +48,7 @@ class Facebook(object):
 
     def __init__(self, token):
         lang = locale.getdefaultlocale()[0]
-        self.access_params = {'access_token': token, 'locale': lang}
+        self.access_params = {'access_token': token}#, 'locale': lang}
 
     def home(self, cb, params=None):
         url = 'https://graph.facebook.com/me/home?'
@@ -58,6 +58,19 @@ class Facebook(object):
         user = params.pop('user') or 'me'
         url = 'https://graph.facebook.com/%s/feed?' % user
         return self._get_defer(url, params, cb)
+
+    def like(self, url, do=None):
+#        url += '?'+urllib.urlencode(self.access_params)
+        print url
+        token = {}
+        token.update(self.access_params)
+        d = urlpost_with_autoproxy(str(url), token, cb=self._like)
+        d.addErrback(self._like)
+
+    def _like(self, *args):
+        print args
+        print 'ok!'
+
 
     def _get_defer(self, url, params, cb):
         if params is None:

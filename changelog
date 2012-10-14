@@ -1,3 +1,7 @@
+2012-10-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py, facebook/*: Added support for Facebook 'Like'.
+
 2012-10-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 1.7.1 release.

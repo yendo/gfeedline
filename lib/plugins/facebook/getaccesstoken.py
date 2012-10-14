@@ -16,7 +16,7 @@ class FacebookWebKitScrolledWindow(Gtk.ScrolledWindow):
                    'redirect_uri': 
                    'http://www.facebook.com/connect/login_success.html',
                    'response_type': 'token',
-                   'scope': 'user_photos,friends_photos,read_stream,offline_access',
+                   'scope': 'user_photos,friends_photos,read_stream,offline_access,publish_stream',
                    'display': 'popup'}
         uri = 'https://www.facebook.com/dialog/oauth?' + urllib.urlencode(values)
 
