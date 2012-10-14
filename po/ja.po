@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-13 15:19+0900\n"
-"PO-Revision-Date: 2012-10-13 15:19+0900\n"
+"POT-Creation-Date: 2012-10-14 16:20+0900\n"
+"PO-Revision-Date: 2012-10-14 16:21+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -64,7 +64,7 @@ msgstr "返信"
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/plugins/facebook/account.py:35 ../lib/plugins/facebook/api.py:40
+#: ../lib/plugins/facebook/account.py:36 ../lib/plugins/facebook/api.py:40
 msgid "News Feed"
 msgstr "ニュースフィード"
 
@@ -90,11 +90,23 @@ msgstr "認証"
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/plugins/facebook/entry.py:156
+#: ../lib/plugins/facebook/entry.py:62
+msgid "Like"
+msgstr "いいね！"
+
+#: ../lib/plugins/facebook/entry.py:63
+msgid "Unlike"
+msgstr "いいね！を取り消す"
+
+#: ../lib/plugins/facebook/entry.py:64
+msgid "Comment"
+msgstr "コメントする"
+
+#: ../lib/plugins/facebook/entry.py:185
 msgid "See more"
 msgstr "続きを読む"
 
-#: ../lib/plugins/facebook/entry.py:156
+#: ../lib/plugins/facebook/entry.py:185
 msgid "See less"
 msgstr "折りたたむ"
 
@@ -163,28 +175,28 @@ msgstr "via %s"
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:200
+#: ../lib/plugins/twitter/tweetentry.py:201
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:300
+#: ../lib/plugins/twitter/tweetentry.py:301
 msgid "favorited your Tweet"
 msgstr "さんがお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:301
+#: ../lib/plugins/twitter/tweetentry.py:302
 msgid "unfavorited your Tweet"
 msgstr "さんがお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:302
+#: ../lib/plugins/twitter/tweetentry.py:303
 msgid "followed you"
 msgstr "さんがフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:303
+#: ../lib/plugins/twitter/tweetentry.py:304
 #, python-format
 msgid "added you to list %s"
 msgstr "さんのリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:304
+#: ../lib/plugins/twitter/tweetentry.py:305
 #, python-format
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
