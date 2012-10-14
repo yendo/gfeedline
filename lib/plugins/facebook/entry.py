@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-
 import re
-from datetime import datetime, timedelta
 from xml.sax.saxutils import escape, unescape
-import dateutil.parser
 
 from ...utils.usercolor import UserColor
+from ...utils.timeformat import TimeFormat
 from ...utils.htmlentities import decode_html_entities
 from ...theme import Theme
 
@@ -22,7 +20,7 @@ class FacebookEntry(object):
     def get_dict(self, api):
         entry = self.entry
 
-        time = TwitterTime(entry['created_time'])
+        time = TimeFormat(entry['created_time'])
         body_string = entry.get('message') or entry.get('story') or entry.get('caption') or entry.get('name')
 
         body = add_markup.convert(body_string) # add_markup is global
@@ -136,28 +134,6 @@ class EntryStyles(object):
 
     def _get_style_retweet(self):
         pass
-
-class DictObj(object):
-
-    def __init__(self, d):
-        self.d = d
-
-    def __getattr__(self, m):
-        return self.d.get(m, None)
-
-class TwitterTime(object):
-
-    def __init__(self, utc_str):
-        self.utc = dateutil.parser.parse(utc_str).replace(tzinfo=None)
-        self.local_time = self.utc.replace(tzinfo=dateutil.tz.tzutc()
-                                   ).astimezone(dateutil.tz.tzlocal())
-
-    def get_local_time(self):
-        datetime_format = '%y-%m-%d' \
-            if datetime.utcnow() - self.utc >= timedelta(days=1) \
-            else '%H:%M:%S'
-
-        return self.local_time.strftime(datetime_format)
 
 class AddedHtmlMarkup(object):
 

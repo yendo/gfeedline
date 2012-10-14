@@ -1,11 +1,10 @@
 import re
-from datetime import datetime, timedelta
 from xml.sax.saxutils import escape, unescape
 
 from BeautifulSoup import BeautifulSoup
-import dateutil.parser
 
 from ...utils.usercolor import UserColor
+from ...utils.timeformat import TimeFormat 
 from ...utils.htmlentities import decode_html_entities
 
 user_color = UserColor()
@@ -45,7 +44,7 @@ class TweetEntry(object):
     def get_dict(self, api):
         entry = self.entry
 
-        time = TwitterTime(entry.created_at)
+        time = TimeFormat(entry.created_at)
         body_string = self._get_body(entry.text) # FIXME
         body = add_markup.convert(body_string) # add_markup is global
         user = self._get_sender(api)
@@ -120,7 +119,7 @@ class TweetEntry(object):
     def _get_target_date_time(self, target_object, original_screen_name):
         "Get the datetime of retweeted original post not retweeting post."
 
-        date_time = TwitterTime(target_object.created_at).get_local_time()
+        date_time = TimeFormat(target_object.created_at).get_local_time()
         dt_format = ("(<a href='http://twitter.com/%s/status/%s' "
                      "class='target_datetime'>%s</a>)")
         target_date_time = dt_format % (
@@ -203,7 +202,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             self.entry, self.entry.user.screen_name)
 
         entry_dict = TweetEntryDict(
-            date_time=TwitterTime(created_at).get_local_time(),
+            date_time=TimeFormat(created_at).get_local_time(),
             id='',
             styles='',
 
@@ -236,7 +235,7 @@ class SearchTweetEntry(TweetEntry):
     def get_dict(self, api):
         entry = self.entry
 
-        time = TwitterTime(entry.published)
+        time = TimeFormat(entry.published)
         body_string = self._get_body(entry.title) # FIXME
         body = add_markup.convert(body_string) # add_markup is global
         #body = decode_html_entities(entry.content)
@@ -319,7 +318,7 @@ class FeedEventEntry(TweetEntry):
             target_date_time = ''
 
         entry_dict = TweetEntryDict(
-            date_time=TwitterTime(entry.created_at).get_local_time(),
+            date_time=TimeFormat(entry.created_at).get_local_time(),
             id='',
             styles='',
             image_uri=entry.source.profile_image_url,
@@ -363,20 +362,6 @@ class DictObj(object):
 
     def __getattr__(self, m):
         return self.d.get(m, None)
-
-class TwitterTime(object):
-
-    def __init__(self, utc_str):
-        self.utc = dateutil.parser.parse(utc_str).replace(tzinfo=None)
-        self.local_time = self.utc.replace(tzinfo=dateutil.tz.tzutc()
-                                   ).astimezone(dateutil.tz.tzlocal())
-
-    def get_local_time(self):
-        datetime_format = '%y-%m-%d' \
-            if datetime.utcnow() - self.utc >= timedelta(days=1) \
-            else '%H:%M:%S'
-
-        return self.local_time.strftime(datetime_format)
 
 class AddedHtmlMarkup(object):
 
