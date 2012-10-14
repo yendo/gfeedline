@@ -369,6 +369,21 @@ class AddedHtmlMarkup(object):
         self.link_pattern = re.compile(
             r"(s?https?://[-_.!~*'a-zA-Z0-9;/?:@&=+$,%#]+)", 
             re.IGNORECASE | re.DOTALL)
+
+    def convert(self, text):
+        text = unescape(text)
+        text = escape(text, {"'": '&apos;'}) # Important!
+        text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
+        text = text.replace('"', '&quot;')
+        text = text.replace('\r\n', '\n')
+
+        return text
+
+class AddedTwitterHtmlMarkup(AddedHtmlMarkup):
+
+    def __init__(self):
+        super(AddedTwitterHtmlMarkup, self).__init__()
+
         self.nick_pattern = re.compile("\B@([A-Za-z0-9_]+|@[A-Za-z0-9_]$)")
         self.hash_pattern = re.compile(
             u'(?:#|\uFF03)([a-zA-Z0-9_'
@@ -376,22 +391,13 @@ class AddedHtmlMarkup(object):
             u'\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)')
 
     def convert(self, text):
-        text = unescape(text)
-        text = escape(text, {"'": '&apos;'}) # Important!
+        text = super(AddedTwitterHtmlMarkup, self).convert(text)
 
-        text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
-        text = self.nick_pattern.sub(r"<a href='https://twitter.com/\1'>@\1</a>", 
-                                     text)
-
-#        screen_name_re = r"<a href='gfeedlinereply://%s'>@\1</a>" % 120
-#        text = self.nick_pattern.sub(screen_name_re, text)
-
+        text = self.nick_pattern.sub(
+            r"<a href='https://twitter.com/\1'>@\1</a>", text)
         text = self.hash_pattern.sub(
             r"<a href='https://twitter.com/search?q=%23\1'>#\1</a>", text)
-
-        text = text.replace('"', '&quot;')
         text = text.replace('\n', '<br>')
-
         return text
 
-add_markup = AddedHtmlMarkup()
+add_markup = AddedTwitterHtmlMarkup()

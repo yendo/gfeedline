@@ -7,6 +7,7 @@ from ...utils.usercolor import UserColor
 from ...utils.timeformat import TimeFormat
 from ...utils.htmlentities import decode_html_entities
 from ...theme import Theme
+from ..twitter.tweetentry import AddedHtmlMarkup
 
 user_color = UserColor()
 
@@ -135,22 +136,17 @@ class EntryStyles(object):
     def _get_style_retweet(self):
         pass
 
-class AddedHtmlMarkup(object):
+class AddedFacebookHtmlMarkup(AddedHtmlMarkup):
 
     def __init__(self):
-        self.link_pattern = re.compile(
-            r"(s?https?://[-_.!~*'a-zA-Z0-9;/?:@&=+$,%#]+)", 
-            re.IGNORECASE | re.DOTALL)
+        super(AddedFacebookHtmlMarkup, self).__init__()
+
         num = 5
         self.new_lines = re.compile('^(([^\n]*\n){%d})(.*)' % num, re.DOTALL)
 
     def convert(self, text):
-        text = unescape(text)
-        text = escape(text, {"'": '&apos;'}) # Important!
+        text = super(AddedFacebookHtmlMarkup, self).convert(text)
 
-        text = self.link_pattern.sub(r"<a href='\1'>\1</a>", text)
-        text = text.replace('"', '&quot;')
-        text = text.replace('\r\n', '\n')
         text = self.new_lines.sub(
             ("\\1"
              "<span class='main-text'>...<br>"
@@ -161,7 +157,6 @@ class AddedHtmlMarkup(object):
              "</span>") % (_('See more'), _('See less')), 
             text)
         text = text.replace('\n', '<br>')
-
         return text
 
-add_markup = AddedHtmlMarkup()
+add_markup = AddedFacebookHtmlMarkup()
