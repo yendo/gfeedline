@@ -91,7 +91,8 @@ class TwitterAuthAssistant(Gtk.Assistant):
             'Twitter',
             self.result['screen-name'],
             self.result['access-token'],
-            self.result['access-secret']
+            self.result['access-secret'],
+            ''
             ]
 
         cb(account)

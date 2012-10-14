@@ -22,7 +22,7 @@ class AuthorizedTwitterAccount(GObject.GObject):
 
     CONFIG = None
 
-    def __init__(self, user_name, key, secret):
+    def __init__(self, user_name, key, secret, idnum):
         super(AuthorizedTwitterAccount, self).__init__()
 
         token = self._get_token(user_name, key, secret)

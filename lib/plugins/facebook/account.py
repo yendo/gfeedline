@@ -19,11 +19,12 @@ class FacebookIcon(WebIconImage):
 
 class AuthorizedFacebookAccount(GObject.GObject):
 
-    def __init__(self, user_name, token, secret):
+    def __init__(self, user_name, token, secret, idnum):
         super(AuthorizedFacebookAccount, self).__init__()
 
         self.api = Facebook(token=token)
         self.api_dict = FacebookAPIDict()
+        self.idnum = idnum # type unicode
         self.icon = FacebookIcon()
 
     def get_recent_api(self, label_list, feedliststore):

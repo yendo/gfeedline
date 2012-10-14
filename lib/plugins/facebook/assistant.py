@@ -70,12 +70,13 @@ class FacebookAuthAssistant(Gtk.Assistant):
     def _get_userinfo_cb(self, data):
         d = json.loads(data)
         self.user_fullname = d['name']
+        self.idnum = d['id']
         self.label_user_fullname.set_text(self.user_fullname)
 
         self.next_page()
 
     def on_close(self, assistant, cb):
-        account = ['Facebook', self.user_fullname, self.token, ""]
+        account = ['Facebook', self.user_fullname, self.token, "", self.idnum]
         cb(account)
         self.destroy()
 

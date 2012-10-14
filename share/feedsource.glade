@@ -33,7 +33,7 @@
                     <child>
                       <object class="GtkCellRendererPixbuf" id="cellrenderertext_pixbuf"/>
                       <attributes>
-                        <attribute name="pixbuf">4</attribute>
+                        <attribute name="pixbuf">5</attribute>
                       </attributes>
                     </child>
                     <child>

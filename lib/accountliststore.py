@@ -9,19 +9,19 @@ from plugins.facebook.account import AuthorizedFacebookAccount
 
 class AccountColumn(object):
 
-    (SOURCE, ID, TOKEN, SECRET, ICON, ACCOUNT) = range(6)
+    (SOURCE, ID, TOKEN, SECRET, IDNUM, ICON, ACCOUNT) = range(7)
 
 class AccountListStore(ListStoreBase):
 
     """ListStore for Accounts.
 
-    0,      1,  2,     3,      4,    5
-    source, id, token, secret, icon, account_obj
+    0,      1,  2,     3,      4,     5,    6
+    source, id, token, secret, idnum, icon, account_obj
     """
 
     def __init__(self):
         super(AccountListStore, self).__init__(
-            str, str, str, str, GdkPixbuf.Pixbuf, object)
+            str, str, str, str, str, GdkPixbuf.Pixbuf, object)
 
         self.save = SaveAccountListStore()
         for entry in self.save.load():
@@ -47,7 +47,8 @@ class AccountListStore(ListStoreBase):
         account_obj = account_class(
             entry[AccountColumn.ID], 
             entry[AccountColumn.TOKEN], 
-            entry[AccountColumn.SECRET])
+            entry[AccountColumn.SECRET],
+            entry[AccountColumn.IDNUM])
 
         entry.append(account_obj.icon.get_pixbuf())
         entry.append(account_obj)
@@ -82,6 +83,7 @@ class SaveAccountListStore(SaveListStoreBase):
                     row['id'],
                     row['token'],
                     row['secret'],
+                    row.get('idnum'),
                     ]
             source_list.append(data)
 
@@ -94,7 +96,8 @@ class SaveAccountListStore(SaveListStoreBase):
             save_temp = {'source': row[AccountColumn.SOURCE],
                          'id': row[AccountColumn.ID],
                          'token': row[AccountColumn.TOKEN],
-                         'secret': row[AccountColumn.SECRET]
+                         'secret': row[AccountColumn.SECRET],
+                         'idnum': row[AccountColumn.IDNUM],
                          }
 
             save_data.append(save_temp)
