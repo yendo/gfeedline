@@ -21,6 +21,10 @@ class TweetEntryDict(dict):
     def __init__(self, **init_dict):
         super(TweetEntryDict, self).__init__(dict(init_dict))
         self['command'] = ''
+        self.setdefault('command', '')
+        self.setdefault('pre_username', '')
+        self.setdefault('post_username', '')
+        self.setdefault('event', '')
 
     def __getitem__(self, key):
         if key == 'permalink':
@@ -317,10 +321,18 @@ class FeedEventEntry(TweetEntry):
             target_body = ''
             target_date_time = ''
 
+        target ="""
+    <div class='target'>
+      <span class='body'>%s</span> 
+      <span class='datetime'>%s</span>
+    </div>
+""" % (target_body, target_date_time)
+
+
         entry_dict = TweetEntryDict(
             date_time=TimeFormat(entry.created_at).get_local_time(),
             id='',
-            styles='',
+            styles='event',
             image_uri=entry.source.profile_image_url,
             retweet='',
             in_reply_to = '',
@@ -331,11 +343,11 @@ class FeedEventEntry(TweetEntry):
             protected=self._get_protected_icon(entry.source.protected),
             source='',
 
-            status_body=body,
+            status_body='',
             popup_body="%s %s" % (entry.source.name, body),
 
             event=body,
-            target='',
+            target=target,
 
             pre_username = '',
             post_username = ' ',

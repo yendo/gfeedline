@@ -111,13 +111,13 @@ class TwitterOutputBase(object):
             template = self.theme.template['protected']
             entry_dict['protected'] = template.substitute({})
 
-        if 'event' in entry_dict:
-            style = 'event'
+        if entry_dict.get('event'):
+            style = 'status' # FIXME
             is_new_update = True
 
             has_notify = has_notify or self.options.get('notify_events')
         else:
-            style = 'status'
+            style = 'status' # FIXME
             is_new_update = self.last_id < entry_dict['id']
 
             if is_new_update:

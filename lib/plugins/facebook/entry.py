@@ -82,6 +82,10 @@ class FacebookEntry(object):
             retweet_by_screen_name='',
             retweet_by_name='',
 
+            pre_username='',
+            post_username='',
+            event='',
+
             in_reply_to='',
 
             user_name='',
