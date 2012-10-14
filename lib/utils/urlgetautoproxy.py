@@ -42,12 +42,12 @@ def urlget_with_autoproxy(url, arg=None, cb=None, **kargs):
 
     return d
 
-def urlpost_with_autoproxy(url, arg, cb=None):
-
+def urlpost_with_autoproxy(url, arg, cb=None, method='POST'):
+    print method, type(method)
     client = UrlGetWithAutoProxy(url)
     content_type = {'Content-Type' : 'application/x-www-form-urlencoded'}
 
-    d = client.getPage(url, method='POST',
+    d = client.getPage(url, method=method,
                        postdata = urllib.urlencode(arg),
                        headers = content_type)
     if cb:

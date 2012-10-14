@@ -63,9 +63,10 @@ class FacebookEntry(object):
                 style2 = 'hidden'
 
             actions = entry.get('actions')
-            likelink = 'gfeedlinefb://graph.facebook.com/%s/likes' % entry['id']
+            likelink = 'gfeedlinefblike://graph.facebook.com/%s/likes' % entry['id']
+            unlikelink = 'gfeedlinefbunlike://graph.facebook.com/%s/likes' % entry['id']
 
-            command=u"""<a class='like %s' href='%s' onclick='like(this);'>Like</a><a class='unlike %s' href='%s' onclick='like(this);'>Unlike</a> · <a href='%s'>Comment</a> · """ % (style1, likelink, style2, likelink, permalink)
+            command=u"""<a class='like %s' href='%s' onclick='like(this);'>Like</a><a class='unlike %s' href='%s' onclick='like(this);'>Unlike</a> · <a href='%s'>Comment</a> · """ % (style1, likelink, style2, unlikelink, permalink)
         else:
             command=''
 
