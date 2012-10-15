@@ -22,7 +22,7 @@ class FacebookEntry(object):
         entry = self.entry
 
         time = TimeFormat(entry['created_time'])
-        body_string = entry.get('message') or entry.get('story') or entry.get('caption') or entry.get('name')
+        body_string = entry.get('message') or entry.get('story') or entry.get('caption') or entry.get('name') or ''
 
         body = add_markup.convert(body_string) # add_markup is global
 
@@ -57,17 +57,14 @@ class FacebookEntry(object):
             likelink = 'gfeedlinefblike:%s' % path
             unlikelink = 'gfeedlinefbunlike:%s' % path
 
-            template = self.theme.template['like']
-            key_dict = {'like': _('Like'),
-                        'unlike': _('Unlike'),
-                        'comment': _('Comment'),
+            command = (
+                "<a class='like %s' href='%s' onclick='like(this);'>%s</a>"
+                "<a class='unlike %s' href='%s' onclick='like(this);'>%s</a>"
+                u" · <a href='%s'>%s</a> · ") % (
+                'hidden' if is_liked else '', likelink,   _('Like'),
+                '' if is_liked else 'hidden', unlikelink, _('Unlike'), 
+                permalink, _('Comment'))
 
-                        'like_link': likelink,
-                        'unlike_link': unlikelink,
-                        'like_style': 'hidden' if is_liked else '',
-                        'unlike_style': '' if is_liked else 'hidden',
-                        'permalink': permalink}
-            command = template.substitute(key_dict)
 
         entry_dict = dict(
             date_time=time.get_local_time(),
