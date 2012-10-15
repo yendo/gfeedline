@@ -85,7 +85,7 @@ class FacebookEntry(object):
 
             in_reply_to='',
 
-            user_name='',
+            user_name=entry['from']['name'],
             user_name2=entry['type'],
             full_name=entry['from']['name'],
             user_color=user_color.get(entry['from']['name']),

@@ -343,7 +343,7 @@ class FeedEventEntry(TweetEntry):
             protected=self._get_protected_icon(entry.source.protected),
             source='',
 
-            status_body='',
+            status_body=body,
             popup_body="%s %s" % (entry.source.name, body),
 
             event=body,

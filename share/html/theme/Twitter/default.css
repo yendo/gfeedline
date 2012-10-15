@@ -11,7 +11,5 @@ div.icon img { -webkit-border-radius : 5px; }
                              font-size: 90%; }
 div.body { padding: 2px 0px;}
 
-div.link-box{ border: solid 1px #e4e4e4; width: 90%;
-              color: #555; background-color: #f7f7f7; 
-              font-size: 80%; margin: 5px 0px; padding: 5px; }
-div.link-name a { font-weight: bold; }
+div.facebook a { color: #3b5998; }
+div.facebook .command { color: #3b5998; }
