@@ -21,4 +21,5 @@ share/gfeedline.glade
 share/notebook_popup_menu.glade
 share/preferences.glade
 share/retweet.glade
+share/select_assistant.glade
 share/update.glade

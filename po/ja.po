@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-14 16:20+0900\n"
-"PO-Revision-Date: 2012-10-14 16:21+0900\n"
+"POT-Creation-Date: 2012-10-15 12:20+0900\n"
+"PO-Revision-Date: 2012-10-15 12:21+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -90,23 +90,23 @@ msgstr "認証"
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/plugins/facebook/entry.py:62
+#: ../lib/plugins/facebook/entry.py:61
 msgid "Like"
 msgstr "いいね！"
 
-#: ../lib/plugins/facebook/entry.py:63
+#: ../lib/plugins/facebook/entry.py:62
 msgid "Unlike"
 msgstr "いいね！を取り消す"
 
-#: ../lib/plugins/facebook/entry.py:64
+#: ../lib/plugins/facebook/entry.py:63
 msgid "Comment"
 msgstr "コメントする"
 
-#: ../lib/plugins/facebook/entry.py:185
+#: ../lib/plugins/facebook/entry.py:161
 msgid "See more"
 msgstr "続きを読む"
 
-#: ../lib/plugins/facebook/entry.py:185
+#: ../lib/plugins/facebook/entry.py:161
 msgid "See less"
 msgstr "折りたたむ"
 
@@ -175,28 +175,28 @@ msgstr "via %s"
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:201
+#: ../lib/plugins/twitter/tweetentry.py:204
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:301
+#: ../lib/plugins/twitter/tweetentry.py:304
 msgid "favorited your Tweet"
 msgstr "さんがお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:302
+#: ../lib/plugins/twitter/tweetentry.py:305
 msgid "unfavorited your Tweet"
 msgstr "さんがお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:303
+#: ../lib/plugins/twitter/tweetentry.py:306
 msgid "followed you"
 msgstr "さんがフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:304
+#: ../lib/plugins/twitter/tweetentry.py:307
 #, python-format
 msgid "added you to list %s"
 msgstr "さんのリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:305
+#: ../lib/plugins/twitter/tweetentry.py:308
 #, python-format
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
@@ -525,6 +525,18 @@ msgstr "フィルター"
 #: ../share/retweet.glade.h:1
 msgid "<big><b>Retweet?</b></big>"
 msgstr "<big><b>リツイートしますか?</b></big>"
+
+#: ../share/select_assistant.glade.h:1
+msgid "Select a web service for adding an account"
+msgstr "アカウントを追加するウェブサービスを選択してください"
+
+#: ../share/select_assistant.glade.h:2
+msgid "_Twitter"
+msgstr "_Twitter"
+
+#: ../share/select_assistant.glade.h:3
+msgid "_Facebook"
+msgstr "_Facebook"
 
 #: ../share/update.glade.h:1
 msgid "What are you doing?"
