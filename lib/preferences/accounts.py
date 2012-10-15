@@ -20,9 +20,20 @@ class AccountAction(ActionBase):
     BUTTON_PREFS = 'button_account_prefs'
     BUTTON_DEL = 'button_account_del'
 
-    def on_button_new_clicked(self, button):
-        TwitterAuthAssistant(self.preferences, cb=self.assistant_cb)
-#        FacebookAuthAssistant(self.preferences, cb=self.assistant_cb)
+    def on_button_new_clicked(self, parent):
+        gui = Gtk.Builder()
+        gui.add_from_file(SHARED_DATA_FILE('select_assistant.glade'))
+        dialog = gui.get_object('dialog1')
+        dialog.set_transient_for(parent)
+
+        response_id = dialog.run()
+        dialog.destroy()
+
+        if response_id == Gtk.ResponseType.OK:
+            if gui.get_object('radiobutton_tw').get_active():
+                TwitterAuthAssistant(self.preferences, cb=self.assistant_cb)
+            elif gui.get_object('radiobutton_fb').get_active():
+                FacebookAuthAssistant(self.preferences, cb=self.assistant_cb)
 
     def assistant_cb(self, account):
         account_liststore = self.liststore.account_liststore

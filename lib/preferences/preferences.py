@@ -105,8 +105,8 @@ class Preferences(object):
         self.autostart.set(state)
 
 
-    def on_button_account_new_clicked(self, button):
-        self.account_action.on_button_new_clicked(button)
+    def on_button_account_new_clicked(self, preferences):
+        self.account_action.on_button_new_clicked(preferences)
 
     def on_button_account_prefs_clicked(self, treeselection):
         self.account_action.on_button_prefs_clicked(treeselection)
