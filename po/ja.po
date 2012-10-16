@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-15 12:20+0900\n"
-"PO-Revision-Date: 2012-10-15 12:21+0900\n"
+"POT-Creation-Date: 2012-10-16 14:34+0900\n"
+"PO-Revision-Date: 2012-10-16 14:35+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -90,28 +90,28 @@ msgstr "認証"
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/plugins/facebook/entry.py:61
+#: ../lib/plugins/facebook/entry.py:64
 msgid "Like"
 msgstr "いいね！"
 
-#: ../lib/plugins/facebook/entry.py:62
+#: ../lib/plugins/facebook/entry.py:65
 msgid "Unlike"
 msgstr "いいね！を取り消す"
 
-#: ../lib/plugins/facebook/entry.py:63
+#: ../lib/plugins/facebook/entry.py:66
 msgid "Comment"
 msgstr "コメントする"
 
-#: ../lib/plugins/facebook/entry.py:161
+#: ../lib/plugins/facebook/entry.py:158
 msgid "See more"
 msgstr "続きを読む"
 
-#: ../lib/plugins/facebook/entry.py:161
+#: ../lib/plugins/facebook/entry.py:158
 msgid "See less"
 msgstr "折りたたむ"
 
 #: ../lib/plugins/twitter/account.py:45 ../lib/plugins/twitter/api.py:108
-#: ../lib/preferences/feedsource.py:104
+#: ../lib/preferences/feedsource.py:106
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
@@ -201,29 +201,29 @@ msgstr "さんのリスト %s に追加されました"
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
 
-#: ../lib/preferences/feedsource.py:132
+#: ../lib/preferences/feedsource.py:134
 msgid "Options"
 msgstr "オプション"
 
-#: ../lib/preferences/feedsource.py:137
+#: ../lib/preferences/feedsource.py:139
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
-#: ../lib/updatewindow.py:90 ../lib/updatewindow.py:330
+#: ../lib/updatewindow.py:101 ../lib/updatewindow.py:372
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:214
+#: ../lib/updatewindow.py:256
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:287
+#: ../lib/updatewindow.py:329
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:288
+#: ../lib/updatewindow.py:330
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
@@ -539,13 +539,25 @@ msgid "_Facebook"
 msgstr "_Facebook"
 
 #: ../share/update.glade.h:1
+msgid "Public"
+msgstr "公開"
+
+#: ../share/update.glade.h:2
+msgid "Friends"
+msgstr "友達"
+
+#: ../share/update.glade.h:3
+msgid "Only Me"
+msgstr "自分のみ"
+
+#: ../share/update.glade.h:4
 msgid "What are you doing?"
 msgstr "いまどうしてる?"
 
-#: ../share/update.glade.h:2
+#: ../share/update.glade.h:5
 msgid "Add an image"
 msgstr "画像を追加します"
 
-#: ../share/update.glade.h:3
+#: ../share/update.glade.h:6
 msgid "_Tweet"
 msgstr "ツイート(_T)"
