@@ -87,12 +87,16 @@ class FeedListStore(ListStoreBase):
         return new_iter
 
     def update(self, source, iter):
-        # compare 'target' & 'argument'
-        old = [self.get_value(iter, x).decode('utf-8') 
-               for x in range(Column.TARGET, Column.OPTIONS)]
-        new = [source.get(x) for x in ['target', 'argument']]
+        # compare 'source', 'username', 'target' & 'argument'
+        old_column = [Column.SOURCE, Column.USERNAME, 
+                      Column.TARGET, Column.ARGUMENT]
+        old = [self.get_value(iter, x).decode('utf-8') for x in old_column]
+        new = [source.get(x) for x in ['source', 'username', 'target', 'argument']]
 
-        if old == new:
+        if old != new:
+            new_iter = self.append(source, iter)
+            self.remove(iter)
+        else:
             new_iter = iter
 
             # API
@@ -122,9 +126,6 @@ class FeedListStore(ListStoreBase):
                 self.set_value(iter, Column.NAME, new_name)
                 tab_name = new_name or source.get('target')
                 api_obj.view.tab_label.set_text(tab_name)
-        else:
-            new_iter = self.append(source, iter)
-            self.remove(iter)
 
         return new_iter
 
