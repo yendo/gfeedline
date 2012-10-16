@@ -48,13 +48,20 @@ class AccountCombobox(object):
         self.combobox_account.set_active(self.active_num)
 
     def get_account_obj(self):
+        return self._get_account(AccountColumn.ACCOUNT)
+
+    def get_account_source(self):
+        return self._get_account(AccountColumn.SOURCE)
+
+    def _get_account(self, column):
         active_num = self.combobox_account.get_active()
-        return self.account_liststore[active_num][AccountColumn.ACCOUNT]
+        return self.account_liststore[active_num][column]
 
 class UpdateWindow(UpdateWidgetBase):
 
     def __init__(self, mainwindow, entry=None, account=None):
         self.entry = entry
+        self.child = None # for GtkGrid.get_child_at no available
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
@@ -68,6 +75,10 @@ class UpdateWindow(UpdateWidgetBase):
         self.update_window.set_keep_above(is_above)
 
         self.label_num = gui.get_object('label_num')
+        self.comboboxtext_privacy = gui.get_object('comboboxtext_privacy')
+        self.grid_button = gui.get_object('grid_button')
+        self.on_combobox_account_changed()
+
         self.button_tweet = gui.get_object('button_tweet')
         self.text_buffer = gui.get_object('textbuffer')
         self.on_textbuffer_changed(self.text_buffer)
@@ -138,6 +149,17 @@ class UpdateWindow(UpdateWidgetBase):
     def on_file_activated(self, *args):
         print args
 
+    def on_combobox_account_changed(self, *args):
+        source = self.account_combobox.get_account_source()
+
+        widget = self.label_num if source == 'Twitter' \
+            else self.comboboxtext_privacy
+
+        if self.child: # for GtkGrid.get_child_at no available
+            self.grid_button.remove(self.child)
+        self.grid_button.attach(widget, 0, 0, 1, 1)
+        self.child = widget
+
     def on_textbuffer_changed(self, text_buffer):
         num = 140 - text_buffer.get_char_count() - self.media.get_link_letters()
         self.label_num.set_text(str(num))
@@ -195,7 +217,8 @@ class MediaFile(object):
         return temp
 
     def get_link_letters(self):
-        media_link_letters = int(self.config.characters_reserved_per_media)
+        media_link_letters = int(self.config.characters_reserved_per_media) \
+                if self.config else 10
         return media_link_letters if self.file else 0
 
 class FileChooserDialog(object):
