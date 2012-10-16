@@ -1,5 +1,6 @@
 2012-10-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* window.py: Fixed a notebook pop-up menu.
 	* updatewindow.py, facebook/account.py: Added support for Facebook
 	  'Publish'.
 

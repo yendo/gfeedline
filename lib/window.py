@@ -229,7 +229,6 @@ class FeedNotebook(Gtk.Notebook):
 
         super(FeedNotebook, self).__init__()
         self.set_scrollable(True)
-        self.popup_disable()
         self.popup_menu = NotebookPopUpMenu(liststore, group_name)
 
         self.connect('switch-page', self.on_update_tablabel_sensitive)
@@ -247,12 +246,10 @@ class FeedNotebook(Gtk.Notebook):
     def on_notebook_button_press_event(self, notebook, event):
         if event.button == 1:
             self.on_update_tablabel_sensitive(notebook, event)
-        elif event.button == 3:
-            self.popup_menu.start(notebook, event)
 
     def append_page(self, child, name, page=-1):
-        super(FeedNotebook, self).append_page(
-            child, Gtk.Label.new_with_mnemonic(name))
+        super(FeedNotebook, self).append_page(child, 
+                             NotebookTabLabel(name, self, child))
         self.reorder_child(child, page)
         # self.set_tab_reorderable(child, True)
 
@@ -273,6 +270,27 @@ class FeedNotebook(Gtk.Notebook):
     def change_font(self, font, size):
         for feedview in self.get_children():
             feedview.change_font(font, size)
+
+class NotebookTabLabel(Gtk.EventBox):
+
+    def __init__(self, name, notebook, child):
+        super(NotebookTabLabel, self).__init__()
+
+        self.label = Gtk.Label.new_with_mnemonic(name)
+        self.connect('button-press-event', self._on_button_press_cb, 
+                     notebook, child)
+        self.set_visible_window(False)
+        self.add(self.label)
+        self.show_all()
+
+    def set_sensitive(self, status):
+        self.label.set_sensitive(status)
+
+    def _on_button_press_cb(self, widget, event, notebook, child):
+        num = notebook.page_num(child)
+        notebook.set_current_page(num)
+        if event.button == 3:
+            notebook.popup_menu.start(notebook, event)
 
 class NotebookPopUpMenu(object):
 
