@@ -154,7 +154,7 @@ class AccountCombobox(object):
         self.combobox_account = gui.get_object('combobox_account')
         self.combobox_account.set_model(self.account_liststore)
 
-        if account:
+        if account: # for reply or retweet
             self.active_num = self.account_liststore.get_account_row_num(
                 account.source, account.user_name) 
             self.combobox_account.set_sensitive(False)
