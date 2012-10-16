@@ -22,6 +22,7 @@ class AuthorizedFacebookAccount(GObject.GObject):
     def __init__(self, user_name, token, secret, idnum):
         super(AuthorizedFacebookAccount, self).__init__()
 
+        self.source = 'Facebook'
         self.api = Facebook(token=token)
         self.api_dict = FacebookAPIDict()
         self.idnum = idnum # type unicode

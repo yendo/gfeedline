@@ -46,6 +46,8 @@ class UpdateWindow(UpdateWidgetBase):
         self.update_window = gui.get_object('window1')
         self.update_window.set_keep_above(is_above)
 
+        self.button_image = gui.get_object('button_image')
+
         self.label_num = gui.get_object('label_num')
         self.comboboxtext_privacy = FacebookPrivacyCombobox(gui)
         self.grid_button = gui.get_object('grid_button')
@@ -128,6 +130,8 @@ class UpdateWindow(UpdateWidgetBase):
     def on_combobox_account_changed(self, *args):
         source = self.account_combobox.get_account_source()
 
+        self.button_image.set_sensitive(source == 'Twitter')
+
         widget = self.label_num if source == 'Twitter' \
             else self.comboboxtext_privacy.widget
 
@@ -152,7 +156,7 @@ class AccountCombobox(object):
 
         if account:
             self.active_num = self.account_liststore.get_account_row_num(
-            'Twitter', account.user_name) 
+                account.source, account.user_name) 
             self.combobox_account.set_sensitive(False)
         else:
             recent = SETTINGS.get_int('recent-account')

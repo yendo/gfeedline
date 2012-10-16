@@ -30,6 +30,7 @@ class AuthorizedTwitterAccount(GObject.GObject):
         #SETTINGS_TWITTER.connect("changed::access-secret", 
         #                         self._on_update_credential)
 
+        self.source = 'Twitter'
         self.icon = TwitterIcon()
         self.api_dict = TwitterAPIDict()
 
