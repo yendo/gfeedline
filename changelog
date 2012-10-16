@@ -1,6 +1,7 @@
 2012-10-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* updatewindow.py: Added support for Facebook 'Publish'.
+	* updatewindow.py, facebook/account.py: Added support for Facebook
+	  'Publish'.
 
 2012-10-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 

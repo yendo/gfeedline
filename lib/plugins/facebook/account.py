@@ -70,6 +70,17 @@ class Facebook(object):
         # print args
         pass
 
+    def update(self, status, params):
+        params={'message': status.encode('utf-8'), 'privacy': params}
+        params.update(self.access_params)
+
+        url = 'https://graph.facebook.com/me/feed?'
+        url += urllib.urlencode(params)
+        # print url
+        
+        d = urlpost_with_autoproxy(str(url), params, cb=self._like_cb)
+        d.addErrback(self._like_cb)
+
     def _get_defer(self, url, params, cb):
         if params is None:
             params = {}

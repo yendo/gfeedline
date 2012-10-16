@@ -75,7 +75,7 @@ class UpdateWindow(UpdateWidgetBase):
         self.update_window.set_keep_above(is_above)
 
         self.label_num = gui.get_object('label_num')
-        self.comboboxtext_privacy = gui.get_object('comboboxtext_privacy')
+        self.comboboxtext_privacy = FacebookPrivacyCombobox(gui)
         self.grid_button = gui.get_object('grid_button')
         self.on_combobox_account_changed()
 
@@ -111,10 +111,14 @@ class UpdateWindow(UpdateWidgetBase):
         start, end = self.text_buffer.get_bounds()
         status = self.text_buffer.get_text(start, end, False).decode('utf-8')
 
+        twitter_account = self.account_combobox.get_account_obj()
+        account_source = self.account_combobox.get_account_source()
+
         params = {'in_reply_to_status_id': self.entry.get('id')} \
             if self.entry else {}
 
-        twitter_account = self.account_combobox.get_account_obj()
+        if account_source == 'Facebook':
+            params = self.comboboxtext_privacy.get_params()
 
         if self.media.file: # update with media
             is_shrink = True
@@ -153,7 +157,7 @@ class UpdateWindow(UpdateWidgetBase):
         source = self.account_combobox.get_account_source()
 
         widget = self.label_num if source == 'Twitter' \
-            else self.comboboxtext_privacy
+            else self.comboboxtext_privacy.widget
 
         if self.child: # for GtkGrid.get_child_at no available
             self.grid_button.remove(self.child)
@@ -166,6 +170,21 @@ class UpdateWindow(UpdateWidgetBase):
 
         status = bool(num != 140)
         self.button_tweet.set_sensitive(status)
+
+class FacebookPrivacyCombobox(object):
+
+    def __init__(self, gui):
+        self.widget = gui.get_object('comboboxtext_privacy')
+        self.widget.set_active(0)
+
+    def get_params(self):
+        num = self.widget.get_active()
+        values = ['EVERYONE', 'ALL_FRIENDS', 'CUSTOM']
+        privacy = {'value': values[num]}
+        if values[num] == 'CUSTOM': # 'Only Me'
+            privacy['friends'] = 'SELF'
+
+        return privacy
 
 class MediaFile(object):
 
