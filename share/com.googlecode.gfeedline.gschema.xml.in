@@ -16,6 +16,11 @@
       <summary>Recent opend preferences page number</summary>
       <description>Recent opend preferences page number</description>
     </key>
+    <key name="feedsource-recent-account" type="i">
+      <default>0</default>
+      <summary>Recent account on feed source dialog</summary>
+      <description>Recent account on feed source dialog</description>
+    </key>
     <key name="recent-account" type="i">
       <default>0</default>
       <summary>Recent used account number</summary>

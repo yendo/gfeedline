@@ -3,7 +3,7 @@ from gi.repository import Gtk
 from ..constants import Column
 from ..accountliststore import AccountColumn
 from ..utils.commonui import MultiAccountSensitiveWidget
-from ..utils.settings import SETTINGS_TWITTER
+from ..utils.settings import SETTINGS
 from ui import *
 
 class FeedSourceDialog(DialogBase):
@@ -28,7 +28,6 @@ class FeedSourceDialog(DialogBase):
         self.on_comboboxtext_target_changed()
 
     def run(self):
-        #source_widget = SourceComboBox(self.gui, source_list, self.data)
 
         if self.liststore_row:
             self.entry_name.set_text(
@@ -64,7 +63,10 @@ class FeedSourceDialog(DialogBase):
 
         if response_id == Gtk.ResponseType.OK:
             account_obj = self.combobox_source.get_active_account_obj()
+
+            self.combobox_source.set_recent()
             self.combobox_target.set_recent(account_obj)
+
         self.dialog.destroy()
 
         return response_id , v
@@ -154,11 +156,14 @@ class SourceCombobox(object):
                 if v[AccountColumn.SOURCE] == feedliststore[Column.SOURCE] and \
                         v[AccountColumn.ID] == feedliststore[Column.USERNAME]:
                     num = i
+        else:
+            num = SETTINGS.get_int('feedsource-recent-account')
 
         self.widget.set_active(num)
 
     def get_active_account(self):
         account = self.widget.get_model()[self.widget.get_active()]
+        print account
         source, user_name = account[AccountColumn.SOURCE], \
             account[AccountColumn.ID]
         return source, user_name
@@ -166,6 +171,11 @@ class SourceCombobox(object):
     def get_active_account_obj(self):
         account = self.widget.get_model()[self.widget.get_active()]
         return account[AccountColumn.ACCOUNT]
+
+    def set_recent(self):
+        num = self.widget.get_active()
+        SETTINGS.set_int('feedsource-recent-account', num)
+        
 
 class TargetCombobox(object):
 
