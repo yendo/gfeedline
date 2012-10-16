@@ -60,7 +60,7 @@ class Theme(object):
              if theme_name in self.all_themes else ''
 
         if not os.path.isfile(css_file):
-            css_file = SHARED_DATA_FILE('html/theme/Twitter/default.css')
+            css_file = SHARED_DATA_FILE('html/theme/Default/default.css')
 
         return css_file
 
@@ -78,7 +78,7 @@ class Theme(object):
 
             if not os.path.isfile(template_file):
                 template_file = SHARED_DATA_FILE(
-                    'html/theme/Twitter/%s.html' % style)
+                    'html/theme/Default/%s.html' % style)
 
             with open(template_file, 'r') as fh:
                 file = fh.read()

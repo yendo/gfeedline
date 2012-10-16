@@ -165,7 +165,7 @@ class ComboboxTheme(object):
 
         selected_theme = SETTINGS_VIEW.get_string('theme').decode('utf-8')
         if selected_theme not in self.labels:
-            selected_theme = 'Twitter'
+            selected_theme = 'Default'
 
         num = self.labels.index(selected_theme)
         self.combobox.set_active(num)
