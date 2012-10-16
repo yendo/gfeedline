@@ -29,34 +29,6 @@ class UpdateWidgetBase(object):
         gui.get_object('label_body').set_text(entry['status_body'])
         gui.get_object('image_usericon').set_from_file(icon.name)
 
-class AccountCombobox(object):
-
-    def __init__(self, gui, liststore, account):
-        self.account_liststore = liststore.account_liststore
-        self.combobox_account = gui.get_object('combobox_account')
-        self.combobox_account.set_model(self.account_liststore)
-
-        if account:
-            self.active_num = self.account_liststore.get_account_row_num(
-            'Twitter', account.user_name) 
-            self.combobox_account.set_sensitive(False)
-        else:
-            recent = SETTINGS.get_int('recent-account')
-            self.active_num = recent \
-                if len(self.account_liststore) > recent else 0
-
-        self.combobox_account.set_active(self.active_num)
-
-    def get_account_obj(self):
-        return self._get_account(AccountColumn.ACCOUNT)
-
-    def get_account_source(self):
-        return self._get_account(AccountColumn.SOURCE)
-
-    def _get_account(self, column):
-        active_num = self.combobox_account.get_active()
-        return self.account_liststore[active_num][column]
-
 class UpdateWindow(UpdateWidgetBase):
 
     def __init__(self, mainwindow, entry=None, account=None):
@@ -111,7 +83,7 @@ class UpdateWindow(UpdateWidgetBase):
         start, end = self.text_buffer.get_bounds()
         status = self.text_buffer.get_text(start, end, False).decode('utf-8')
 
-        twitter_account = self.account_combobox.get_account_obj()
+        account_obj = self.account_combobox.get_account_obj()
         account_source = self.account_combobox.get_account_source()
 
         params = {'in_reply_to_status_id': self.entry.get('id')} \
@@ -125,11 +97,11 @@ class UpdateWindow(UpdateWidgetBase):
             size = 1024
 
             upload_file = self.media.get_upload_file_obj(is_shrink, size)
-            twitter_account.api.update_with_media(
+            account_obj.api.update_with_media(
                 status.encode('utf-8'), upload_file.name, params=params)
 
         else: # normal update
-            twitter_account.api.update(status, params=params)
+            account_obj.api.update(status, params=params)
 
         if not self.entry:
             num = self.account_combobox.combobox_account.get_active()
@@ -170,6 +142,34 @@ class UpdateWindow(UpdateWidgetBase):
 
         status = bool(num != 140)
         self.button_tweet.set_sensitive(status)
+
+class AccountCombobox(object):
+
+    def __init__(self, gui, liststore, account):
+        self.account_liststore = liststore.account_liststore
+        self.combobox_account = gui.get_object('combobox_account')
+        self.combobox_account.set_model(self.account_liststore)
+
+        if account:
+            self.active_num = self.account_liststore.get_account_row_num(
+            'Twitter', account.user_name) 
+            self.combobox_account.set_sensitive(False)
+        else:
+            recent = SETTINGS.get_int('recent-account')
+            self.active_num = recent \
+                if len(self.account_liststore) > recent else 0
+
+        self.combobox_account.set_active(self.active_num)
+
+    def get_account_obj(self):
+        return self._get_account(AccountColumn.ACCOUNT)
+
+    def get_account_source(self):
+        return self._get_account(AccountColumn.SOURCE)
+
+    def _get_account(self, column):
+        active_num = self.combobox_account.get_active()
+        return self.account_liststore[active_num][column]
 
 class FacebookPrivacyCombobox(object):
 
@@ -381,7 +381,6 @@ class RetweetDialogOLD(RetweetDialog):
         self.parent = parent
 
         gui = Gtk.Builder()
-
         gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
 
         gui.get_object('grid1').destroy()
