@@ -3,6 +3,7 @@ from ui import *
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
 from ..plugins.facebook.assistant import FacebookAuthAssistant
+from ..plugins.tumblr.assistant import TumblrAuthAssistant
 
 
 class AccountTreeview(TreeviewBase):
@@ -34,6 +35,8 @@ class AccountAction(ActionBase):
                 TwitterAuthAssistant(self.preferences, cb=self.assistant_cb)
             elif gui.get_object('radiobutton_fb').get_active():
                 FacebookAuthAssistant(self.preferences, cb=self.assistant_cb)
+            elif gui.get_object('radiobutton_tl').get_active():
+                TumblrAuthAssistant(self.preferences, cb=self.assistant_cb)
 
     def assistant_cb(self, account):
         account_liststore = self.liststore.account_liststore

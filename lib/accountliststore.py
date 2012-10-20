@@ -5,6 +5,7 @@ from utils.settings import SETTINGS_TWITTER
 
 from plugins.twitter.account import AuthorizedTwitterAccount
 from plugins.facebook.account import AuthorizedFacebookAccount
+from plugins.tumblr.account import AuthorizedTumblrAccount
 
 
 class AccountColumn(object):
@@ -41,8 +42,9 @@ class AccountListStore(ListStoreBase):
 
     def append(self, entry, iter=None):
         # FIXME:Facebook
-        account_class = AuthorizedTwitterAccount \
-            if entry[0] == 'Twitter' else AuthorizedFacebookAccount
+        account_class = AuthorizedTwitterAccount if entry[0] == 'Twitter' \
+            else AuthorizedFacebookAccount if entry[0] == 'Facebook' \
+            else AuthorizedTumblrAccount
 
         account_obj = account_class(
             entry[AccountColumn.ID], 
