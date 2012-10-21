@@ -6,13 +6,11 @@ from gi.repository import GObject, Gtk, Gdk, WebKit
 
 class FacebookWebKitScrolledWindow(Gtk.ScrolledWindow):
 
-    app_id = 203600696439990
-
     def __init__(self):
         super(FacebookWebKitScrolledWindow, self).__init__()
         self.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
-        values = { 'client_id': self.app_id,
+        values = { 'client_id': 203600696439990,
                    'redirect_uri': 
                    'http://www.facebook.com/connect/login_success.html',
                    'response_type': 'token',
@@ -30,6 +28,7 @@ class FacebookWebKitScrolledWindow(Gtk.ScrolledWindow):
 
     def _get_document_cb(self, w, e):
         url = w.get_property('uri')
+
         re_token = re.compile('.*access_token=(.*)&.*')
         login_url = 'https://www.facebook.com/login.php?'
         error_url = 'http://www.facebook.com/connect/login_success.html?error'

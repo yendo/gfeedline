@@ -9,10 +9,11 @@ import json
 
 from gi.repository import Gtk, Gdk
 
-from getauthtoken import TumblrWebKitScrolledWindow
+from getauthtoken import TumblrAuthorization
 from ...constants import SHARED_DATA_FILE
 from ...utils.urlgetautoproxy import urlget_with_autoproxy
 
+from ..base.authwebkit import AuthWebKitScrolledWindow
 
 class TumblrAuthAssistant(Gtk.Assistant):
 
@@ -27,8 +28,6 @@ class TumblrAuthAssistant(Gtk.Assistant):
         self.set_default_size(400, 400)
         self.set_type_hint(Gdk.WindowTypeHint.DIALOG)
         self.set_modal(True)
-#        if parent:
-#            self.set_transient_for(parent)
 
         self.connect('cancel', self.on_cancel)
         self.connect('close', self.on_close, cb)
@@ -42,8 +41,15 @@ class TumblrAuthAssistant(Gtk.Assistant):
         self.set_page_complete(page1, True)
 
         # page 2
-        page2 = TumblrWebKitScrolledWindow()
+        uri, self.token = TumblrAuthorization().open_authorize_uri()
+        self.re_token = re.compile('.*oauth_token=(.*)&.*')
+        page2 = AuthWebKitScrolledWindow(
+            uri,
+            'https://www.tumblr.com/login',
+            'http://www.tumblr.com/error',
+            self.re_token)
         # self.page2.connect("login-started", self._set_webkit_ui_cb)
+
         page2.connect("token-acquired", self._get_access_token_cb)
         page2.connect("error-occurred", self.on_cancel)
         self.append_page(page2)
@@ -62,8 +68,14 @@ class TumblrAuthAssistant(Gtk.Assistant):
 
         self.show_all()
 
-    def _get_access_token_cb(self, w, result):
-        self.result = result
+    def _get_access_token_cb(self, w, url):
+        re_verifier = re.compile('.*oauth_verifier=(.*)&?.*')
+
+        verifier = re_verifier.sub("\\1", url)
+        token = self.re_token.sub("\\1", url)
+        print "OAUTH=",token, verifier
+        self.result = TumblrAuthorization().get_access_token(verifier, self.token)
+
         self.next_page()
 
     def _get_userinfo_cb(self, data):

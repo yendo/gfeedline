@@ -41,11 +41,6 @@ class AuthorizedFacebookAccount(GObject.GObject):
     def set_recent_api(self, num):
         SETTINGS_FACEBOOK.set_int('recent-target', num)
 
-#    def _on_update_credential(self, account, unknown):
-#        token = self._get_token()
-#        self.api.update_token(token)
-#        self.emit("update-credential", None)
-
 class Facebook(object):
 
     def __init__(self, token):
