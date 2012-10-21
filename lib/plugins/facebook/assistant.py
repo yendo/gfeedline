@@ -6,10 +6,12 @@
 
 import re
 import json
+import urllib
 
 from gi.repository import Gtk, Gdk
 
-from getaccesstoken import FacebookWebKitScrolledWindow
+#from getaccesstoken import FacebookWebKitScrolledWindow
+from ..base.authwebkit import AuthWebKitScrolledWindow
 from ...constants import SHARED_DATA_FILE
 from ...utils.urlgetautoproxy import urlget_with_autoproxy
 
@@ -42,7 +44,20 @@ class FacebookAuthAssistant(Gtk.Assistant):
         self.set_page_complete(page1, True)
 
         # page 2
-        page2 = FacebookWebKitScrolledWindow()
+        values = { 'client_id': 203600696439990,
+                   'redirect_uri': 
+                   'http://www.facebook.com/connect/login_success.html',
+                   'response_type': 'token',
+                   'scope': 'user_photos,friends_photos,read_stream,offline_access,publish_stream',
+                   'display': 'popup'}
+        url = 'https://www.facebook.com/dialog/oauth?' + urllib.urlencode(values)
+        self.re_token = re.compile('.*access_token=(.*)&.*')
+        page2 = AuthWebKitScrolledWindow(
+            url,
+            'https://www.facebook.com/login.php?',
+            'http://www.facebook.com/connect/login_success.html?error',
+            self.re_token)
+
         # self.page2.connect("login-started", self._set_webkit_ui_cb)
         page2.connect("token-acquired", self._get_access_token_cb)
         page2.connect("error-occurred", self.on_cancel)
@@ -62,9 +77,9 @@ class FacebookAuthAssistant(Gtk.Assistant):
 
         self.show_all()
 
-    def _get_access_token_cb(self, w, token):
-        self.token = token
-        url = 'https://graph.facebook.com/me?access_token=%s' % token
+    def _get_access_token_cb(self, w, url):
+        self.token = self.re_token.sub("\\1", url)
+        url = 'https://graph.facebook.com/me?access_token=%s' % self.token
         urlget_with_autoproxy(url, cb=self._get_userinfo_cb)
 
     def _get_userinfo_cb(self, data):
