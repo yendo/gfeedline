@@ -37,6 +37,7 @@ class TumblrOutputBase(object):
         self.filters = filters
 
         self.theme = Theme()
+        self.delayed = DelayedPool()
 
         self.since_id = 0
         self.last_id = options.get('last_id') or 0
@@ -54,12 +55,25 @@ class TumblrOutputBase(object):
         pass
 
     def print_all_entries(self, d, api_interval=10):
+        self.all_entries = d['response']['posts']
         is_first_call = not bool(self.counter)
-        for i in reversed(d['response']['posts']):
-            self.print_entry(i, is_first_call)
-            self.since_id =  i['id']
 
-        self.counter += 1
+        self.delayed.delete_called()
+
+        if not self.all_entries:
+            return
+
+        interval = api_interval*1.0 / len(self.all_entries)
+        print "interval: ", interval
+        for i, entry in enumerate(reversed(self.all_entries)):
+            if self.counter:
+                self.delayed.append(
+                    reactor.callLater(interval*i, self.print_entry, entry))
+            else:
+                self.counter += 1
+                self.print_entry(entry, is_first_call=True)
+
+            self.since_id =  entry['id']
 
     def print_entry(self, entry, is_first_call=False):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)
@@ -85,6 +99,7 @@ class TumblrOutputBase(object):
         self.view.remove()
 
     def disconnect(self):
+        self.delayed.clear()
         if hasattr(self, 'timeout') and not self.timeout.called:
             self.timeout.cancel()
 
@@ -122,3 +137,15 @@ class TumblrRestOutput(TumblrOutputBase):
 
     def _on_error(self, e):
         print "Error: ", e
+
+class DelayedPool(list):
+
+    def delete_called(self):
+        for i in self:
+            if i.called:
+                self.remove(i)
+
+    def clear(self):
+        for i in self:
+            if not i.called:
+                i.cancel()
