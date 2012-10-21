@@ -43,12 +43,12 @@ class FacebookOutputBase(object):
         self.params = {}
         self.counter = 0
 
-#        api.account.connect("update_credential", self._on_reconnect_credential)
         SETTINGS_VIEW.connect_after("changed::theme", self._on_restart_theme_changed)
 
     def got_entry(self, entries, *args):
-        d = json.loads(entries)
-        self.print_all_entries(d)
+        if entries:
+            d = json.loads(entries)
+            self.print_all_entries(d)
 
     def check_entry(self, entry, text, *args):
         pass
@@ -85,8 +85,6 @@ class FacebookOutputBase(object):
         self.view.remove()
 
     def disconnect(self):
-#        if hasattr(self, 'd'):
-#            self.d.cancel()
         if hasattr(self, 'timeout') and not self.timeout.called:
             self.timeout.cancel()
 

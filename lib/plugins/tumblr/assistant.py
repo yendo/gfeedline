@@ -63,13 +63,8 @@ class TumblrAuthAssistant(Gtk.Assistant):
         self.show_all()
 
     def _get_access_token_cb(self, w, result):
-#        self.token = token
-#        print "call back"
         self.result = result
         self.next_page()
-
-#        url = 'https://graph.facebook.com/me?access_token=%s' % token
-#        urlget_with_autoproxy(url, cb=self._get_userinfo_cb)
 
     def _get_userinfo_cb(self, data):
         d = json.loads(data)

@@ -21,25 +21,29 @@ class TumblrEntry(object):
     def get_dict(self, api):
         entry = self.entry
         body = entry.get('text') or entry.get('body') or entry.get('caption') or ''
+
+        time = TimeFormat(entry['date'])
+
+        if entry.get('source'):
+            body +=  "<div class='source'>%s</div>" % entry.get('source')
+
         body = add_markup.convert(body)
 
         image_uri = 'http://api.tumblr.com/v2/blog/%s.tumblr.com/avatar/30' \
             % entry.get('blog_name')
 
-     
         if entry.get('type') == 'photo':
             url =  entry['photos'][0]['alt_sizes'][2]['url']
             template = self.theme.template['image']
             key_dict = {'url': url}
             body = template.substitute(key_dict) + body
 
-
         entry_dict = dict(
-            date_time=entry['date'],
+            date_time=time.get_local_time(),
             id=entry['id'],
             styles='tumblr',
             image_uri=image_uri,
-            permalink='',
+            permalink=entry['post_url'],
 
             command='',
 
@@ -54,7 +58,7 @@ class TumblrEntry(object):
             in_reply_to='',
 
             user_name=entry['blog_name'],
-            user_name2='',
+            user_name2=entry['type'],
             full_name=entry['blog_name'],
             user_color=user_color.get(entry['blog_name']),
             protected='',
@@ -67,44 +71,6 @@ class TumblrEntry(object):
 
         return entry_dict
 
-    def _get_styles(self, api, screen_name, entry=None):
-        style_obj = EntryStyles()
-        return style_obj.get(api, screen_name, entry)
-
-    def _get_body(self, text):
-        text = decode_html_entities(text) # need to decode!
-        return text
-
-    def _get_protected_icon(self, attribute):
-        return True if attribute and attribute != 'false' else ''
-
-class EntryStyles(object):
-
-    def get(self, api, screen_name, entry=None):
-
-        styles = [ self._get_style_own_message(api, screen_name) ]
-
-        if entry:
-            styles.append(self._get_style_reply(entry, api))
-            styles.append(self._get_style_favorited(entry) )
-
-        styles_string = " ".join([x for x in styles if x])
-        return styles_string
-
-    def _get_style_own_message(self, api, name):
-        return 'mine' if api.account.user_name == name else ''
-
-    def _get_style_reply(self, entry, api):
-        return 'reply' \
-            if entry.in_reply_to_screen_name == api.account.user_name else ''
-
-    def _get_style_favorited(self, entry):
-        fav = entry.favorited
-        return '' if fav == 'false' or not fav else 'favorited'
-
-    def _get_style_retweet(self):
-        pass
-
 class AddedTumblrHtmlMarkup(AddedHtmlMarkup):
 
     def __init__(self):
@@ -114,18 +80,21 @@ class AddedTumblrHtmlMarkup(AddedHtmlMarkup):
         self.new_lines = re.compile('^(([^\n]*\n){%d})(.*)' % num, re.DOTALL)
 
     def convert(self, text):
+        text = text.replace('target="_blank"', "")
         # text = super(AddedTumblrHtmlMarkup, self).convert(text)
-        text = text.replace('"', '&quot;')
+#        text = text.replace('"', '&quot;')
+        text = text.replace('"', "'")
 
-        text = self.new_lines.sub(
-            ("\\1"
-             "<span class='main-text'>...<br>"
-             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
-             "</span>"
-             "<span class='more-text'>\\3<br>"
-             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
-             "</span>") % (_('See more'), _('See less')), 
-            text)
+#        text = self.new_lines.sub(
+#            ("\\1"
+#             "<span class='main-text'>...<br>"
+#             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
+#             "</span>"
+#             "<span class='more-text'>\\3<br>"
+#             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
+#             "</span>") % (_('See more'), _('See less')), 
+#            text)
+
 #        text = text.replace('\n', '<br>')
         return text
 
