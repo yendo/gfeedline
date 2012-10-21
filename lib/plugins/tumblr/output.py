@@ -38,7 +38,7 @@ class TumblrOutputBase(object):
 
         self.theme = Theme()
 
-        self.since_time = 0
+        self.since_id = 0
         self.last_id = options.get('last_id') or 0
         self.params = {}
         self.counter = 0
@@ -57,7 +57,7 @@ class TumblrOutputBase(object):
         is_first_call = not bool(self.counter)
         for i in reversed(d['response']['posts']):
             self.print_entry(i, is_first_call)
-            self.since_time =  i['id']
+            self.since_id =  i['id']
 
         self.counter += 1
 
@@ -74,11 +74,11 @@ class TumblrOutputBase(object):
     def _get_entry_obj(self, entry):
         return TumblrEntry(entry)
 
-    def _set_since_time(self, entry_time):
-        entry_time = int(entry_time)
+    def _set_since_id(self, entry_id):
+        entry_id = int(entry_id)
 
-        if self.since_time < entry_time:
-            self.since_time = entry_time
+        if self.since_id < entry_id:
+            self.since_id = entry_id
 
     def exit(self):
         self.disconnect()
@@ -92,8 +92,8 @@ class TumblrRestOutput(TumblrOutputBase):
 
     def start(self, interval=60):
         self.params.clear()
-        if self.since_time:
-            self.params['since_id'] = self.since_time
+        if self.since_id:
+            self.params['since_id'] = self.since_id
 
         params = self.api.get_options(self.argument)
         self.params.update(params)
