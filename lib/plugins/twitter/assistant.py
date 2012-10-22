@@ -5,6 +5,7 @@
 # Licence: GPL3
 
 import re
+import webbrowser
 
 from gi.repository import Gtk, Gdk
 
@@ -75,11 +76,16 @@ class TwitterAuthAssistant(Gtk.Assistant):
         page_num = self.get_current_page()
 
         if page_num == 1:
-            self.token = self.authorization.open_authorize_uri()
+            uri, self.token = self.authorization.open_authorize_uri()
+            webbrowser.open(uri)
         elif page_num == 2:
             pin = self.entry.get_text()
+            token, params = self.authorization.get_access_token(pin, self.token)
 
-            self.result = self.authorization.get_access_token(pin, self.token)
+            screen_name = params['screen_name'][0]
+            self.result = {'screen-name': screen_name,
+                           'access-token': token.key,
+                           'access-secret': token.secret}
             # print self.result
 
             self.label_screen_name.set_text(self.result['screen-name'])
