@@ -7,7 +7,7 @@ from getauthtoken import CONSUMER
 from ..base.getauthtoken import AuthorizedAccount
 from ...utils.settings import SETTINGS_TUMBLR
 from ...utils.iconimage import WebIconImage
-from ...utils.urlgetautoproxy import UrlGetWithAutoProxy
+from ...utils.urlgetautoproxy import urlget_with_autoproxy
 
 class TumblrIcon(WebIconImage):
 
@@ -40,36 +40,23 @@ class Tumblr(object):
 
         if params:
             url += '?'+urllib.urlencode(params)
-        print url
-        header = self.make_oauth_header('GET', url, params)
+        headers = self.make_oauth_header('GET', url, params)
 
-        return self.urlget_with_autoproxy(url, cb=cb, header=header)
+        return urlget_with_autoproxy(url, cb=cb, headers=headers)
 
     def user_info(self):
         url = str('http://api.tumblr.com/v2/user/info')
-        header = self.make_oauth_header('GET', url)
-        self.urlget_with_autoproxy(url, cb=self._cb, header=header)
-
+        headers = self.make_oauth_header('GET', url)
+        urlget_with_autoproxy(url, cb=self._cb, headers=headers)
 
     def _cb(self, *args):
         print "!",args
         
     def make_oauth_header(self, method, url, parameters={}, headers={}):
-        oauth_request = oauth.OAuthRequest.from_consumer_and_token(self.consumer,
-            token=self.token, http_method=method, http_url=url, parameters=parameters)
+        oauth_request = oauth.OAuthRequest.from_consumer_and_token(
+            self.consumer, token=self.token, 
+            http_method=method, http_url=url, parameters=parameters)
         oauth_request.sign_request(self.signature_method, self.consumer, self.token)
 
         headers.update(oauth_request.to_header())
         return headers
-
-    def urlget_with_autoproxy(self, url, arg=None, cb=None, method='GET', header=None):
-
-        client = UrlGetWithAutoProxy(url)
-        content_type = {'Content-Type' : 'application/x-www-form-urlencoded'}
-
-        d = client.getPage(url, method=method, headers=header)
-        if cb:
-            d.addCallback(cb)
-        d.addErrback(cb)
-
-        return d

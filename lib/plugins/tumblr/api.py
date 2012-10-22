@@ -18,7 +18,7 @@ class TumblrAPIDict(dict):
             self[api.name] = api
 
     def get_default(self):
-        return _('Dashboard')
+        return TumblrAPIDashboard
 
 class TumblrAPIBase(object):
 
@@ -34,13 +34,9 @@ class TumblrAPIBase(object):
     def get_options(self, argument):
         return {}
 
-    def print_to_other_view(self, entry_dict):
-        return None
-
 class TumblrAPIDashboard(TumblrAPIBase):
 
     name = _('Dashboard')
 
     def _get_api(self):
         return self.account.api.dashboard
-

@@ -71,5 +71,5 @@ class Facebook(object):
 
         params.update(self.access_params)
         url += urllib.urlencode(params)
-        print url
+        # print url
         return urlget_with_autoproxy(str(url), cb=cb)

@@ -24,6 +24,7 @@ from ...utils.settings import SETTINGS_VIEW
 from ...filterliststore import FilterColumn
 from ...constants import Column
 from ...theme import Theme
+from ..base.output import DelayedPool
 
 class TwitterOutputFactory(object):
 
@@ -366,15 +367,3 @@ class TwitterFeedOutput(TwitterOutputBase):
                                              self._reconnect_lost_connection)
             if self.reconnect_interval < 180:
                 self.reconnect_interval += 10
-
-class DelayedPool(list):
-
-    def delete_called(self):
-        for i in self:
-            if i.called:
-                self.remove(i)
-
-    def clear(self):
-        for i in self:
-            if not i.called:
-                i.cancel()

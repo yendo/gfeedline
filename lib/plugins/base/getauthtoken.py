@@ -4,10 +4,15 @@ import cgi
 from oauth import oauth
 from gi.repository import GObject
 
+from ...constants import Column
 
 SIGNATURE_METHOD = oauth.OAuthSignatureMethod_HMAC_SHA1()
 
 class AuthorizedAccount(GObject.GObject):
+
+    __gsignals__ = {
+        'update-credential': (GObject.SignalFlags.RUN_LAST, None, (object, )),
+        }
 
     SETTINGS = None
 
@@ -19,8 +24,7 @@ class AuthorizedAccount(GObject.GObject):
         old_target = feedliststore[Column.TARGET].decode('utf-8') \
             if feedliststore else None
 
-        default_menuitem = self.api_dict.get_default()
-        print default_menuitem
+        default_menuitem = self.api_dict.get_default().name
         num = label_list.index(old_target) if old_target in label_list \
             else recent if recent >= 0 else label_list.index(default_menuitem)
 

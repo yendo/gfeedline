@@ -19,7 +19,7 @@ class FacebookAPIDict(dict):
             self[api.name] = api
 
     def get_default(self):
-        return _('News Feed')
+        return FacebookAPIHome
 
 class FacebookAPIBase(object):
 
@@ -34,9 +34,6 @@ class FacebookAPIBase(object):
 
     def get_options(self, argument):
         return {}
-
-    def print_to_other_view(self, entry_dict):
-        return None
 
 class FacebookAPIHome(FacebookAPIBase):
 

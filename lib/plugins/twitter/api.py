@@ -26,6 +26,9 @@ class TwitterAPIDict(dict):
         for api in all_api:
             self[api.name] = api
 
+    def get_default(self):
+        return TwitterAPIUserStream
+
 class TwitterAPIBase(object):
 
     output = TwitterRestOutput
