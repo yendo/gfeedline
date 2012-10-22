@@ -30,6 +30,7 @@ class TumblrAuthorization(object):
         token = oauth.OAuthToken.from_string(tokendata)
         uri = ('http://www.tumblr.com/oauth/authorize'
                '?theme=android&oauth_token=' + token.key)
+
         #webbrowser.open(uri)
         return uri, token
 
@@ -55,10 +56,3 @@ class TumblrAuthorization(object):
                   'access-secret': token.secret}
 
         return result
-
-if __name__ == '__main__':
-
-    auth = TumblrAuthorization()
-#    token = auth.open_authorize_uri()
-#    pin = raw_input()
-#    auth.get_access_token(pin, token)

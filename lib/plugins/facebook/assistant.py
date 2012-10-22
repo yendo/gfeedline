@@ -44,19 +44,8 @@ class FacebookAuthAssistant(Gtk.Assistant):
         self.set_page_complete(page1, True)
 
         # page 2
-        values = { 'client_id': 203600696439990,
-                   'redirect_uri': 
-                   'http://www.facebook.com/connect/login_success.html',
-                   'response_type': 'token',
-                   'scope': 'user_photos,friends_photos,read_stream,offline_access,publish_stream',
-                   'display': 'popup'}
-        url = 'https://www.facebook.com/dialog/oauth?' + urllib.urlencode(values)
         self.re_token = re.compile('.*access_token=(.*)&.*')
-        page2 = AuthWebKitScrolledWindow(
-            url,
-            'https://www.facebook.com/login.php?',
-            'http://www.facebook.com/connect/login_success.html?error',
-            self.re_token)
+        page2 = FacebookWebKitScrolledWindow()
 
         # self.page2.connect("login-started", self._set_webkit_ui_cb)
         page2.connect("token-acquired", self._get_access_token_cb)
@@ -97,3 +86,19 @@ class FacebookAuthAssistant(Gtk.Assistant):
 
     def on_cancel(self, *args):
         self.destroy()
+
+class FacebookWebKitScrolledWindow(AuthWebKitScrolledWindow):
+
+    LOGIN_URL = 'https://www.facebook.com/login.php?'
+    ERROR_URL = 'http://www.facebook.com/connect/login_success.html?error',
+    RE_TOKEN = '.*access_token=(.*)&.*'
+
+    def _get_auth_url(self):
+        values = { 'client_id': 203600696439990,
+                   'redirect_uri': 
+                   'http://www.facebook.com/connect/login_success.html',
+                   'response_type': 'token',
+                   'scope': 'user_photos,friends_photos,read_stream,offline_access,publish_stream',
+                   'display': 'popup'}
+        url = 'https://www.facebook.com/dialog/oauth?' + urllib.urlencode(values)
+        return url

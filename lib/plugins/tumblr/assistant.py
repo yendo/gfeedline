@@ -25,7 +25,7 @@ class TumblrAuthAssistant(Gtk.Assistant):
         self.label_user_fullname = gui.get_object('label_name')
 
         self.set_title(_('Tumblr Account Setup'))
-        self.set_default_size(400, 400)
+        self.set_default_size(600, 600)
         self.set_type_hint(Gdk.WindowTypeHint.DIALOG)
         self.set_modal(True)
 
@@ -41,13 +41,8 @@ class TumblrAuthAssistant(Gtk.Assistant):
         self.set_page_complete(page1, True)
 
         # page 2
-        uri, self.token = TumblrAuthorization().open_authorize_uri()
-        self.re_token = re.compile('.*oauth_token=(.*)&.*')
-        page2 = AuthWebKitScrolledWindow(
-            uri,
-            'https://www.tumblr.com/login',
-            'http://www.tumblr.com/error',
-            self.re_token)
+        page2 = TumblrWebKitScrolledWindow()
+        self.token = page2.token
         # self.page2.connect("login-started", self._set_webkit_ui_cb)
 
         page2.connect("token-acquired", self._get_access_token_cb)
@@ -69,11 +64,10 @@ class TumblrAuthAssistant(Gtk.Assistant):
         self.show_all()
 
     def _get_access_token_cb(self, w, url):
+        print "!!! ", url
         re_verifier = re.compile('.*oauth_verifier=(.*)&?.*')
-
         verifier = re_verifier.sub("\\1", url)
-        token = self.re_token.sub("\\1", url)
-        print "OAUTH=",token, verifier
+#        print "OAUTH=",token, verifier
         self.result = TumblrAuthorization().get_access_token(verifier, self.token)
 
         self.next_page()
@@ -100,3 +94,14 @@ class TumblrAuthAssistant(Gtk.Assistant):
 
     def on_cancel(self, *args):
         self.destroy()
+
+class TumblrWebKitScrolledWindow(AuthWebKitScrolledWindow):
+
+    LOGIN_URL = 'https://www.tumblr.com/login'
+    ERROR_URL = 'http://www.tumblr.com/error'
+    RE_TOKEN = '.*oauth_token=(.*)&.*'
+           
+
+    def _get_auth_url(self):
+        url, self.token = TumblrAuthorization().open_authorize_uri()
+        return url
