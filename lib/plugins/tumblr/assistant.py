@@ -68,7 +68,13 @@ class TumblrAuthAssistant(Gtk.Assistant):
         re_verifier = re.compile('.*oauth_verifier=(.*)&?.*')
         verifier = re_verifier.sub("\\1", url)
 #        print "OAUTH=",token, verifier
-        self.result = TumblrAuthorization().get_access_token(verifier, self.token)
+        token, params = TumblrAuthorization().get_access_token(verifier, self.token)
+#        screen_name = params['screen_name'][0]
+        screen_name = 'dummy'
+
+        self.result = {'screen-name': screen_name,
+                       'access-token': token.key,
+                       'access-secret': token.secret}
 
         self.next_page()
 
