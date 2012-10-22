@@ -18,6 +18,9 @@ class FacebookAPIDict(dict):
         for api in all_api:
             self[api.name] = api
 
+    def get_default(self):
+        return _('News Feed')
+
 class FacebookAPIBase(object):
 
     output = FacebookRestOutput

@@ -17,6 +17,9 @@ class TumblrAPIDict(dict):
         for api in all_api:
             self[api.name] = api
 
+    def get_default(self):
+        return _('Dashboard')
+
 class TumblrAPIBase(object):
 
     output = TumblrRestOutput

@@ -101,6 +101,7 @@
     </key>
     <child name="twitter" schema="com.googlecode.gfeedline.plugins.twitter"/>
     <child name="facebook" schema="com.googlecode.gfeedline.plugins.facebook"/>
+    <child name="tumblr" schema="com.googlecode.gfeedline.plugins.tumblr"/>
   </schema>
 
   <schema id="com.googlecode.gfeedline.plugins.twitter" path="/apps/gfeedline/plugins/twitter/">
@@ -131,6 +132,14 @@
       <default>-1</default>
       <summary>Recent Facebook target</summary>
       <description>Recent used Facebook API for target combobox on feedsource dialog.</description>
+    </key>
+  </schema>
+
+  <schema id="com.googlecode.gfeedline.plugins.tumblr" path="/apps/gfeedline/plugins/tumblr/">
+    <key name="recent-target" type="i">
+      <default>-1</default>
+      <summary>Recent Tumblr target</summary>
+      <description>Recent used Tumblr API for target combobox on feedsource dialog.</description>
     </key>
   </schema>
 

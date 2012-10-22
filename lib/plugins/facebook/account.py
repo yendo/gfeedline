@@ -3,13 +3,12 @@ import urllib
 import locale
 from oauth import oauth
 
-from gi.repository import GObject
-
 from ...utils.settings import SETTINGS_FACEBOOK
 from ...utils.iconimage import WebIconImage
 from ...utils.urlgetautoproxy import urlget_with_autoproxy, urlpost_with_autoproxy
 from ...constants import Column
 from api import FacebookAPIDict
+from ..base.getauthtoken import AuthorizedAccount
 
 class FacebookIcon(WebIconImage):
 
@@ -17,7 +16,9 @@ class FacebookIcon(WebIconImage):
         self.icon_name = 'facebook.png'
         self.icon_url = 'http://www.facebook.com/favicon.ico'
 
-class AuthorizedFacebookAccount(GObject.GObject):
+class AuthorizedFacebookAccount(AuthorizedAccount):
+
+    SETTINGS = SETTINGS_FACEBOOK
 
     def __init__(self, user_name, token, secret, idnum):
         super(AuthorizedFacebookAccount, self).__init__()
@@ -27,19 +28,6 @@ class AuthorizedFacebookAccount(GObject.GObject):
         self.api_dict = FacebookAPIDict()
         self.idnum = idnum # type unicode
         self.icon = FacebookIcon()
-
-    def get_recent_api(self, label_list, feedliststore):
-        recent = SETTINGS_FACEBOOK.get_int('recent-target')
-        old_target = feedliststore[Column.TARGET].decode('utf-8') \
-            if feedliststore else None
-
-        num = label_list.index(old_target) if old_target in label_list \
-            else recent if recent >= 0 else label_list.index(_("News Feed"))
-
-        return num
-
-    def set_recent_api(self, num):
-        SETTINGS_FACEBOOK.set_int('recent-target', num)
 
 class Facebook(object):
 

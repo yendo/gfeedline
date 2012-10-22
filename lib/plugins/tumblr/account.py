@@ -3,12 +3,10 @@ import urllib
 from oauth import oauth
 
 from api import TumblrAPIDict
-from gi.repository import GObject
 from getauthtoken import CONSUMER
-from ...utils.settings import SETTINGS_TWITTER
+from ..base.getauthtoken import AuthorizedAccount
+from ...utils.settings import SETTINGS_TUMBLR
 from ...utils.iconimage import WebIconImage
-from ...constants import Column
-
 from ...utils.urlgetautoproxy import UrlGetWithAutoProxy
 
 class TumblrIcon(WebIconImage):
@@ -17,54 +15,18 @@ class TumblrIcon(WebIconImage):
         self.icon_name = 'twitter.gif'
         self.icon_url = 'http://assets.tumblr.com/images/favicon.gif'
 
-class AuthorizedTumblrAccount(GObject.GObject):
+class AuthorizedTumblrAccount(AuthorizedAccount):
 
-    __gsignals__ = {
-        'update-credential': (GObject.SignalFlags.RUN_LAST, None, (object, )),
-        }
-
-    CONFIG = None
+    SETTINGS = SETTINGS_TUMBLR
 
     def __init__(self, user_name, key, secret, idnum):
         super(AuthorizedTumblrAccount, self).__init__()
 
         token = self._get_token(user_name, key, secret)
-        self.api = Tumblr(consumer=CONSUMER, token=token)
-
-
         self.source = 'Tumblr'
-        self.icon = TumblrIcon()
+        self.api = Tumblr(consumer=CONSUMER, token=token)
         self.api_dict = TumblrAPIDict()
-
-#        self.api.user_info()
-#        self.api.dashboard()
-
-    def get_recent_api(self, label_list, feedliststore):
-        recent = SETTINGS_TWITTER.get_int('recent-target')
-        old_target = feedliststore[Column.TARGET].decode('utf-8') \
-            if feedliststore else None
-
-        num = label_list.index(old_target) if old_target in label_list \
-            else recent if recent >= 0 else label_list.index(_("User Stream"))
-
-        return num
-
-    def set_recent_api(self, num):
-        SETTINGS_TWITTER.set_int('recent-target', num)
-
-#    def _on_get_configuration(self, data):
-#        AuthorizedTumblrAccount.CONFIG = data
-
-    def _on_update_credential(self, account, unknown):
-        token = self._get_token()
-        self.api.update_token(token)
-        self.emit("update-credential", None)
-
-    def _get_token(self, user_name, key, secret):
-        token = oauth.OAuthToken(key, secret) if key and secret else None
-        self.user_name = user_name if token else None
-
-        return token
+        self.icon = TumblrIcon()
 
 class Tumblr(object):
 
