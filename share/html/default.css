@@ -20,7 +20,8 @@ a:hover { text-decoration: underline; }
 a.username { font-weight: bold; }
 a.target_datetime { color: gray; }
 
-div.image img { margin: 5px; padding: 3px; border: 1px solid #ccc; }
+div.image img { margin: 5px; padding: 3px; border: 1px solid #ccc; 
+                max-width: 160px; max-height: 90px;}
 
 div.link-box{ border: solid 1px #e4e4e4; width: 90%;
               color: #555; background-color: #f7f7f7; 
