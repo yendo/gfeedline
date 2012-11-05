@@ -63,7 +63,7 @@ class OutputBase(object):
             return
 
         interval = api_interval*1.0 / len(self.all_entries)
-        # print "interval: ", interval
+        # print "interval: ", interval, api_interval, len(self.all_entries)
         for i, entry in enumerate(reversed(self.all_entries)):
             if self.counter:
                 self.delayed.append(

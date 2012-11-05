@@ -3,6 +3,9 @@
 import re
 from xml.sax.saxutils import escape, unescape
 
+# from BeautifulSoup import BeautifulSoup
+# from django.utils.text import Truncator
+
 from ...utils.usercolor import UserColor
 from ...utils.timeformat import TimeFormat
 from ...utils.htmlentities import decode_html_entities
@@ -18,9 +21,26 @@ class TumblrEntry(object):
         self.entry = entry
         self.theme = Theme()
 
+#     def truncate_html(self, html, length, end_text='...'):
+#         truncate = end_text and ' %s' % end_text or ''
+#         return Truncator(html).words(length, truncate=truncate)
+# 
+#     def truncate_html2(self, html, length): 
+# 
+#         a = unicode(BeautifulSoup(html[:length]))
+#         b = unicode(BeautifulSoup(html))
+# 
+#         if len(a) < len(b):
+#             a+='...'
+#             print a
+#         return a
+
     def get_dict(self, api):
         entry = self.entry
         body = entry.get('text') or entry.get('body') or entry.get('caption') or ''
+
+        # body = self.truncate_html(body, 10)
+        # print body
 
         time = TimeFormat(entry['date'])
 
