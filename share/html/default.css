@@ -30,6 +30,6 @@ div.link-name a { font-weight: bold; }
 
 
 /* for tumblr */
-blockquote {margin: 0px;padding: 0px; } 
-p {margin: 0px;padding: 0px; } 
-span {margin: 0px;padding: 0px; } 
+blockquote { margin: 0px; padding: 0px; } 
+p { margin: 0px; padding: 0px; } 
+span { margin: 0px; padding: 0px; font-size: 100% !important;} 
