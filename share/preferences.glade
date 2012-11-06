@@ -536,6 +536,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkTreeViewColumn" id="treeviewcolumn_target">
+                                        <property name="sizing">fixed</property>
+                                        <property name="fixed_width">150</property>
                                         <property name="title" translatable="yes">Target</property>
                                         <property name="sort_column_id">2</property>
                                         <child>
