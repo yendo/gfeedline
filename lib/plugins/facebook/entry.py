@@ -24,6 +24,11 @@ class FacebookEntry(object):
         time = TimeFormat(entry['created_time'])
         body_string = entry.get('message') or entry.get('story') or entry.get('caption') or entry.get('name') or ''
 
+        if not body_string:
+            print "skip!"
+            print entry
+            return None
+
         body = add_markup.convert(body_string) # add_markup is global
 
         userid, postid = entry['id'].split('_')

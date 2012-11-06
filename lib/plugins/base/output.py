@@ -76,8 +76,10 @@ class OutputBase(object):
 
     def print_entry(self, entry, is_first_call=False):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)
-        has_notify = self.options.get('notification') 
+        if not entry_dict:
+            return
 
+        has_notify = self.options.get('notification') 
         style = 'status'
         is_new_update = False
 
