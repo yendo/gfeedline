@@ -286,6 +286,9 @@ class NotebookTabLabel(Gtk.EventBox):
     def set_sensitive(self, status):
         self.label.set_sensitive(status)
 
+    def set_text(self, text):
+        self.label.set_text(text)
+
     def _on_button_press_cb(self, widget, event, notebook, child):
         num = notebook.page_num(child)
         notebook.set_current_page(num)
