@@ -30,6 +30,7 @@ div.link-name a { font-weight: bold; }
 
 
 /* for tumblr */
-blockquote { margin: 0px; padding: 0px; } 
-p { margin: 0px; padding: 0px; } 
-span { margin: 0px; padding: 0px; font-size: 100% !important;} 
+div.tumblr blockquote { margin: 0px; padding: 0px; } 
+div.tumblr p { margin: 0px; padding: 0px; } 
+div.tumblr span { margin: 0px; padding: 0px; font-size: 100% !important;} 
+div.tumblr img { max-width: 160px; max-height: 90px; }
