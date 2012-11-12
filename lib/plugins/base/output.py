@@ -53,7 +53,7 @@ class OutputBase(object):
     def check_entry(self, entry, text, *args):
         pass
 
-    def print_all_entries(self, d, api_interval=10):
+    def print_all_entries(self, d):
         self.all_entries = self._get_all_entries(d)
         is_first_call = not bool(self.counter)
 
@@ -62,6 +62,7 @@ class OutputBase(object):
         if not self.all_entries:
             return
 
+        api_interval = self._get_interval_seconds()
         interval = api_interval*1.0 / len(self.all_entries)
         # print "interval: ", interval, api_interval, len(self.all_entries)
         for i, entry in enumerate(reversed(self.all_entries)):
