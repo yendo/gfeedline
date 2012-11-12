@@ -1,3 +1,8 @@
+2012-11-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py, facebook/account.py: Added support for auto account
+	  selection for drag & drop updateing.
+
 2012-11-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme!

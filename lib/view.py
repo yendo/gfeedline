@@ -83,7 +83,9 @@ class FeedWebView(WebKit.WebView):
 
     def __init__(self, scrolled_window, api, group_name):
         super(FeedWebView, self).__init__()
+        self.api = api
         self.group_name = group_name
+
         self.scroll = FeedWebViewScroll()
         self.link_on_webview = FeedWebViewLink()
         self.scrolled_window = scrolled_window
@@ -107,7 +109,8 @@ class FeedWebView(WebKit.WebView):
 
     def on_drag_drop(self, widget, context, x, y, time, *args):
         if self.dnd.text or self.dnd.file:
-            updatewindow = UpdateWindow(self.scrolled_window)
+            account = widget.api.account
+            updatewindow = UpdateWindow(self.scrolled_window, account=account)
 
             if self.dnd.text:
                 updatewindow.text_buffer.set_text(self.dnd.text)

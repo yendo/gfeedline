@@ -27,6 +27,7 @@ class AuthorizedFacebookAccount(AuthorizedAccount):
         self.api = Facebook(token=token)
         self.api_dict = FacebookAPIDict()
         self.idnum = idnum # type unicode
+        self.user_name = user_name
         self.icon = FacebookIcon()
 
 class Facebook(object):
