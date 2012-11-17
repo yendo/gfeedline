@@ -1,5 +1,6 @@
 2012-11-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* NEWS: 2.0 release.
 	* updatewindow.py: Fixed bugs in UpdateWindowOLD &
 	  RetweetDialogOLD.
 
