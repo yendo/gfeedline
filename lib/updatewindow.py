@@ -348,8 +348,9 @@ class RetweetDialog(UpdateWidgetBase):
 
 class UpdateWindowOLD(UpdateWindow):
 
-    def __init__(self, mainwindow, entry=None):
+    def __init__(self, mainwindow, entry=None, account=None):
         self.entry = entry
+        self.child = None # for GtkGrid.get_child_at no available
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
@@ -361,7 +362,12 @@ class UpdateWindowOLD(UpdateWindow):
         self.update_window = gui.get_object('window1')
         self.update_window.set_keep_above(is_above)
 
+        self.button_image = gui.get_object('button_image')
         self.label_num = gui.get_object('label_num')
+        self.comboboxtext_privacy = FacebookPrivacyCombobox(gui)
+        self.grid_button = gui.get_object('grid_button')
+        self.on_combobox_account_changed()
+
         self.button_tweet = gui.get_object('button_tweet')
         self.text_buffer = gui.get_object('textbuffer')
         self.on_textbuffer_changed(self.text_buffer)
@@ -382,7 +388,8 @@ class UpdateWindowOLD(UpdateWindow):
 class RetweetDialogOLD(RetweetDialog):
 
     def run(self, entry, parent):
-        self.parent = parent
+        self.parent = parent.window
+        self.has_multi_account = len(parent.liststore.account_liststore) > 1
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('retweet.glade'))
@@ -393,6 +400,12 @@ class RetweetDialogOLD(RetweetDialog):
     def _run(self, unknown, gui, entry, *args):
         dialog = gui.get_object('messagedialog')
         dialog.set_transient_for(self.parent)
+
+        screen_name = self.twitter_account.user_name
+        text = _("Retweet this to your (%s's) followers?") % screen_name \
+            if self.has_multi_account else _("Retweet this to your followers?") 
+        dialog.format_secondary_text(text)
+
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
