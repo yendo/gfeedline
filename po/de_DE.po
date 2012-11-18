@@ -1,0 +1,539 @@
+# German translation for gfeedline
+# Copyright (C) 2012 Yoshizumi Endo.
+# This file is distributed under the same license as the gfeedline package.
+# 
+# Translators:
+#   <aldebus@spambog.com>, 2012.
+#   <tabbo.hankel@bremen.piratenpartei.de>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: GFeedLine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-16 22:05+0900\n"
+"PO-Revision-Date: 2012-10-17 20:24+0000\n"
+"Last-Translator: t_bb_ <tabbo.hankel@bremen.piratenpartei.de>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/gfeedline/language/de_DE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:8
+msgid "days"
+msgstr "Tage"
+
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
+msgid "hours"
+msgstr "Stunden"
+
+#: ../lib/menu.py:64
+msgid "_Open"
+msgstr "_Öffnen"
+
+#: ../lib/menu.py:72
+msgid "_Reply"
+msgstr "_Antworten"
+
+#: ../lib/menu.py:84
+msgid "Re_tweet"
+msgstr "Re_tweeten"
+
+#: ../lib/menu.py:112
+msgid "_Favorite"
+msgstr "_Favorisieren"
+
+#: ../lib/menu.py:123
+msgid "View _Conversation"
+msgstr "Verlauf_anzeigen"
+
+#: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:149
+msgid "Related Results"
+msgstr "Zusammenhängende Ergebnisse"
+
+#: ../lib/menu.py:162
+msgid "_Search"
+msgstr "_Suchen"
+
+#: ../lib/menu.py:173
+msgid "_Add Filter"
+msgstr "_Filter hinzufügen"
+
+#: ../lib/notification.py:64
+msgid "Reply"
+msgstr "Antworten"
+
+#: ../lib/notification.py:65
+msgid "Open"
+msgstr "Öffnen"
+
+#: ../lib/plugins/facebook/account.py:37 ../lib/plugins/facebook/api.py:40
+msgid "News Feed"
+msgstr "Neuigkeiten"
+
+#: ../lib/plugins/facebook/api.py:47
+msgid "Wall"
+msgstr "Wall"
+
+#: ../lib/plugins/facebook/assistant.py:26
+msgid "Facebook Account Setup"
+msgstr "Facebook-Account einrichten"
+
+#: ../lib/plugins/facebook/assistant.py:40
+#: ../lib/plugins/twitter/assistant.py:45
+msgid "Intro"
+msgstr "Einführung"
+
+#: ../lib/plugins/facebook/assistant.py:51
+msgid "Authorization"
+msgstr "Authorisierung"
+
+#: ../lib/plugins/facebook/assistant.py:59
+#: ../lib/plugins/twitter/assistant.py:61
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: ../lib/plugins/facebook/entry.py:64
+msgid "Like"
+msgstr "Gefällt mir"
+
+#: ../lib/plugins/facebook/entry.py:65
+msgid "Unlike"
+msgstr "Gefällt mir nicht mehr"
+
+#: ../lib/plugins/facebook/entry.py:66
+msgid "Comment"
+msgstr "Kommentieren"
+
+#: ../lib/plugins/facebook/entry.py:158
+msgid "See more"
+msgstr "Mehr..."
+
+#: ../lib/plugins/facebook/entry.py:158
+msgid "See less"
+msgstr "Weniger..."
+
+#: ../lib/plugins/twitter/account.py:46 ../lib/plugins/twitter/api.py:108
+#: ../lib/preferences/feedsource.py:106
+msgid "User Stream"
+msgstr "Userstream"
+
+#: ../lib/plugins/twitter/api.py:56
+msgid "Home TimeLine"
+msgstr "Timeline"
+
+#: ../lib/plugins/twitter/api.py:63
+msgid "User TimeLine"
+msgstr "Benutzer Timeline"
+
+#: ../lib/plugins/twitter/api.py:74
+msgid "List TimeLine"
+msgstr "Liste"
+
+#: ../lib/plugins/twitter/api.py:93 ../lib/plugins/twitter/api.py:117
+msgid "Mentions"
+msgstr "Erwähnungen"
+
+#: ../lib/plugins/twitter/api.py:100
+msgid "Direct Messages"
+msgstr "Direktnachrichten"
+
+#: ../lib/plugins/twitter/api.py:122
+msgid "Track"
+msgstr "Verfolgen"
+
+#: ../lib/plugins/twitter/api.py:136
+msgid "Search"
+msgstr "Suchen"
+
+#: ../lib/plugins/twitter/assistant.py:29
+msgid "Twitter Account Setup"
+msgstr "Twitter-Account einrichten"
+
+#: ../lib/plugins/twitter/assistant.py:53
+msgid "Enter PIN"
+msgstr "PIN eingeben"
+
+#: ../lib/plugins/twitter/output.py:60 ../share/filters.glade.h:5
+msgid "Body"
+msgstr "Inhalt"
+
+#: ../lib/plugins/twitter/output.py:65 ../share/filters.glade.h:6
+msgid "Sender"
+msgstr "Sender"
+
+#: ../lib/plugins/twitter/output.py:68 ../share/filters.glade.h:7
+#: ../share/preferences.glade.h:14
+msgid "Source"
+msgstr "Quelle"
+
+#. FIXME
+#: ../lib/plugins/twitter/output.py:93
+#, python-format
+msgid "via %s"
+msgstr "via %s"
+
+#: ../lib/plugins/twitter/output.py:98
+#, python-format
+msgid "Retweeted by %s"
+msgstr "Retweeted von %s"
+
+#: ../lib/plugins/twitter/tweetentry.py:204
+msgid "retweeted your Tweet"
+msgstr "hat dich retweetet"
+
+#: ../lib/plugins/twitter/tweetentry.py:304
+msgid "favorited your Tweet"
+msgstr "hat deinen Tweet favorisiert"
+
+#: ../lib/plugins/twitter/tweetentry.py:305
+msgid "unfavorited your Tweet"
+msgstr "favorisiert deinen Tweet nicht mehr"
+
+#: ../lib/plugins/twitter/tweetentry.py:306
+msgid "followed you"
+msgstr "folgt dir jetzt"
+
+#: ../lib/plugins/twitter/tweetentry.py:307
+#, python-format
+msgid "added you to list %s"
+msgstr "hat dich zu der Liste %s hinzugefügt"
+
+#: ../lib/plugins/twitter/tweetentry.py:308
+#, python-format
+msgid "removed you from list %s"
+msgstr "hat dich von der Liste %s entfernt"
+
+#: ../lib/preferences/feedsource.py:134
+msgid "Options"
+msgstr "Einstellungen"
+
+#: ../lib/preferences/feedsource.py:139
+msgid "_Notify events"
+msgstr "_Benachrichtigung bei Ereignissen"
+
+#: ../lib/updatewindow.py:75 ../lib/updatewindow.py:376
+#, python-format
+msgid "Reply to %s"
+msgstr "Antworten auf %s"
+
+#: ../lib/updatewindow.py:260
+msgid "Supported image files"
+msgstr "Unterstützte Bild-Formate"
+
+#: ../lib/updatewindow.py:333
+#, python-format
+msgid "Retweet this to your (%s's) followers?"
+msgstr "Möchtest du (%s) dies retweeten?"
+
+#: ../lib/updatewindow.py:334
+msgid "Retweet this to your followers?"
+msgstr "Möchtest du dies retweeten?"
+
+#: ../share/assistant_facebook.glade.h:1
+msgid ""
+"Your configuration is complete.  You are now ready to access to Facebook "
+"with GFeedLine."
+msgstr "Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf Facebook zugreifen.\n\nKlicke auf \"Bestätigen\", um die Einstellungen zu sichern."
+
+#: ../share/assistant_facebook.glade.h:2
+msgid "User name:"
+msgstr "Benutzername:"
+
+#: ../share/assistant_facebook.glade.h:3 ../share/assistant_twitter.glade.h:7
+msgid "none"
+msgstr "keine"
+
+#: ../share/assistant_facebook.glade.h:4
+msgid ""
+"This assistant helps you to configure Facebook account for GFeedLine.\n"
+"\n"
+"Click \"Forward\" to open a Facebook authorization page."
+msgstr "Dieser Assistent hilft dir, Gfeedline für deinen Facebook-Account einzurichten.\n\nKlicke auf \"Fortfahren\" um Facebook zur Authorisierung in deinem Standard-Browser zu öffnen."
+
+#: ../share/assistant_twitter.glade.h:1
+msgid ""
+"Return to this dialog after you have finished the authorization process on "
+"Twitter.com and Enter your PIN below."
+msgstr "Nachdem Sie diese Anwendung auf Twitter authorisiert haben, geben Sie die PIN unten in das Feld ein."
+
+#: ../share/assistant_twitter.glade.h:2
+msgid "PIN:"
+msgstr "PIN:"
+
+#: ../share/assistant_twitter.glade.h:3
+msgid ""
+"Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
+"\n"
+"Click \"Apply\" to save your settings."
+msgstr "Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf Twitter zugreifen.\n\nKlicke auf \"Bestätigen\", um die Einstellungen zu sichern."
+
+#: ../share/assistant_twitter.glade.h:6
+msgid "Screen name:"
+msgstr "Benutzername"
+
+#: ../share/assistant_twitter.glade.h:8
+msgid ""
+"This assistant helps you to configure Twitter account for GFeedLine.\n"
+"\n"
+"Click \"Forward\" to open a Twitter authorization page with the default browser."
+msgstr "Dieser Assistent hilft dir, Gfeedline für deinen Twitter-Account einzurichten.\n\nKlicke auf \"Fortfahren\" um Twitter.com zur Authorisierung in deinem Standard-Browser zu öffnen."
+
+#: ../share/feedsource.glade.h:1
+msgid "Feed Source"
+msgstr "Quelle"
+
+#: ../share/feedsource.glade.h:2
+msgid "_Source:"
+msgstr "_Quelle:"
+
+#: ../share/feedsource.glade.h:3
+msgid "_Argument:"
+msgstr "_Argument:"
+
+#: ../share/feedsource.glade.h:4 ../share/filters.glade.h:2
+msgid "_Target:"
+msgstr "_Ziel:"
+
+#: ../share/feedsource.glade.h:5
+msgid "_Name:"
+msgstr "_Name:"
+
+#: ../share/feedsource.glade.h:6
+msgid "_Enable notification"
+msgstr "_Benachrichtigungen einschalten"
+
+#: ../share/feedsource.glade.h:7
+msgid "_Group:"
+msgstr "_Gruppe:"
+
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
+msgid "General"
+msgstr "Allgemein"
+
+#: ../share/filters.glade.h:1
+msgid "Add Filter"
+msgstr "Filter hinzufügen"
+
+#: ../share/filters.glade.h:3
+msgid "_Word:"
+msgstr "_Schlagwort:"
+
+#: ../share/filters.glade.h:4
+msgid "_Expiry:"
+msgstr "_Ablaufdatum:"
+
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
+msgid "GFeedLine"
+msgstr "GFeedLine"
+
+#: ../share/gfeedline.desktop.in.h:2
+msgid "Read & Write Social Feeds"
+msgstr "Lies & schreibe soziale Nachrichten"
+
+#: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:2
+msgid "Social Networking Client"
+msgstr "Client für soziale Netzwerke"
+
+#: ../share/gfeedline.glade.h:1
+msgid "Copyright © 2012 Yoshizumi Endo."
+msgstr "Copyright © 2012 Yoshizumi Endo."
+
+#: ../share/gfeedline.glade.h:3
+msgid "translator-credits"
+msgstr "@t_bb_"
+
+#: ../share/gfeedline.glade.h:5
+msgid "_File"
+msgstr "_Datei"
+
+#: ../share/gfeedline.glade.h:6
+msgid "_Update"
+msgstr "_Verfassen"
+
+#: ../share/gfeedline.glade.h:7
+msgid "_Edit"
+msgstr "_Bearbeiten"
+
+#: ../share/gfeedline.glade.h:8
+msgid "All Tabs to the _Top"
+msgstr "Alle Tabs nach _oben"
+
+#: ../share/gfeedline.glade.h:9
+msgid "All Tabs to the _Bottom"
+msgstr "Alle Tabs nach _unten"
+
+#: ../share/gfeedline.glade.h:10
+msgid "_View"
+msgstr "_Ansicht"
+
+#: ../share/gfeedline.glade.h:11
+msgid "_Multi-Column"
+msgstr "_Mehrere Spalten"
+
+#: ../share/gfeedline.glade.h:12
+msgid "_Fullscreen"
+msgstr "_Vollbildschirm"
+
+#: ../share/gfeedline.glade.h:13
+msgid "_Help"
+msgstr "_Hilfe"
+
+#: ../share/gfeedline.glade.h:14
+msgid "_Contents"
+msgstr "_Inhalte"
+
+#: ../share/gfeedline.glade.h:15
+msgid ""
+"<big><b>Welcome to GFeedLine!</b></big>\n"
+"\n"
+"GFeedLine is a social networking client.  It supports Twitter.\n"
+"\n"
+"To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
+"\n"
+"Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
+msgstr "<big><b>Willkommen bei GFeedLine</b></big>\n\nGFeedline ist ein Client für soziale Netzwerke und unterstützt derzeit Twitter und Facebook.\n\nUm GFeedLine als Client zu nutzen, öffne die Einstellungen unter <b>Bearbeiten ▸ Einstellungen</b>. Unter dem Tab <i>Accounts</i>, kannst du deine Accounts einrichten.\n\nKlicke danach auf den Tab <i>Quellen</i> und richte deine Timeline, Streams, Facebook-Wall usw. ein. Um deine Quellen zu gruppieren, kannst du ihnen Gruppen zuweisen und so mehrere Spalten in der Ansicht nutzen."
+
+#: ../share/notebook_popup_menu.glade.h:1
+msgid "_Close Tab"
+msgstr "_Tab schließen"
+
+#: ../share/preferences.glade.h:1
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: ../share/preferences.glade.h:2
+msgid "_Theme:"
+msgstr "_Thema"
+
+#: ../share/preferences.glade.h:3
+msgid "Timeline _order:"
+msgstr "_Darstellung:"
+
+#: ../share/preferences.glade.h:4
+msgid "_Font:"
+msgstr "_Schriftart"
+
+#: ../share/preferences.glade.h:5
+msgid "Default"
+msgstr "Standard"
+
+#: ../share/preferences.glade.h:6
+msgid "Ascending"
+msgstr "Aufsteigend"
+
+#: ../share/preferences.glade.h:7
+msgid "Descending"
+msgstr "Absteigend"
+
+#: ../share/preferences.glade.h:8
+msgid "Open _conversation tab in other column"
+msgstr "_Verläufe in anderer Spalte öffnen"
+
+#: ../share/preferences.glade.h:9
+msgid "<b>View</b>"
+msgstr "<b>Ansicht</b>"
+
+#: ../share/preferences.glade.h:10
+msgid "Always on _Visible Workspace"
+msgstr "Immer _sichtbar"
+
+#: ../share/preferences.glade.h:11
+msgid "_Auto Start"
+msgstr "_Automatisch starten"
+
+#: ../share/preferences.glade.h:12
+msgid "<b>Desktop</b>"
+msgstr "<b>Desktop</b>"
+
+#: ../share/preferences.glade.h:15
+msgid "User ID"
+msgstr "Benutzer ID"
+
+#: ../share/preferences.glade.h:16
+msgid "<b>Accounts</b>"
+msgstr "<b>Accounts</b>"
+
+#: ../share/preferences.glade.h:17
+msgid "Accounts"
+msgstr "Accounts"
+
+#: ../share/preferences.glade.h:18
+msgid "Name"
+msgstr "Name"
+
+#: ../share/preferences.glade.h:19
+msgid "Target"
+msgstr "Ziel"
+
+#: ../share/preferences.glade.h:20
+msgid "Argument"
+msgstr "Argument"
+
+#: ../share/preferences.glade.h:21
+msgid "Group"
+msgstr "Gruppe"
+
+#: ../share/preferences.glade.h:22
+msgid "<b>Feed Sources</b>"
+msgstr "<b>Quellen</b>"
+
+#: ../share/preferences.glade.h:23
+msgid "Feeds"
+msgstr "Quellen"
+
+#: ../share/preferences.glade.h:24
+msgid "Word"
+msgstr "Schlagwort"
+
+#: ../share/preferences.glade.h:25
+msgid "Expiry"
+msgstr "Ablaufdatum"
+
+#: ../share/preferences.glade.h:26
+msgid "<b>Filters</b>"
+msgstr "<b>Filter</b>"
+
+#: ../share/preferences.glade.h:27
+msgid "Filters"
+msgstr "Filter"
+
+#: ../share/retweet.glade.h:1
+msgid "<big><b>Retweet?</b></big>"
+msgstr "<big><b>Retweeten?</b></big>"
+
+#: ../share/select_assistant.glade.h:1
+msgid "Select a web service for adding an account"
+msgstr "Wähle für welchen Service du für GFeedline einrichten möchtest"
+
+#: ../share/select_assistant.glade.h:2
+msgid "_Twitter"
+msgstr "_Twitter"
+
+#: ../share/select_assistant.glade.h:3
+msgid "_Facebook"
+msgstr "_Facebook"
+
+#: ../share/update.glade.h:1
+msgid "Public"
+msgstr "Öffentlich"
+
+#: ../share/update.glade.h:2
+msgid "Friends"
+msgstr "Freunde"
+
+#: ../share/update.glade.h:3
+msgid "Only Me"
+msgstr "Nur Eigene"
+
+#: ../share/update.glade.h:4
+msgid "What are you doing?"
+msgstr "Was gibt's Neues?"
+
+#: ../share/update.glade.h:5
+msgid "Add an image"
+msgstr "Bild hinzufügen"
+
+#: ../share/update.glade.h:6
+msgid "_Tweet"
+msgstr "_Tweet"
