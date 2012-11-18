@@ -1,3 +1,8 @@
+2012-11-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 2.0.1 release.
+	* setup.py: Fixed data entries.
+
 2012-11-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.0 release.
