@@ -45,6 +45,10 @@ class Theme(object):
 
         if save_value == 0: # default
             theme_name = self._get_theme_name()
+
+            if theme_name not in self.all_themes:
+                theme_name = 'Default'
+
             is_ascending = bool(self.all_themes[theme_name].get('is_ascending'))
         else:
             is_ascending = save_value == 1
