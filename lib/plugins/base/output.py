@@ -82,7 +82,10 @@ class OutputBase(object):
 
         has_notify = self.options.get('notification') 
         style = 'status'
-        is_new_update = False
+
+        is_new_update = self.last_id < entry_dict['id']
+        if is_new_update:
+            self.last_id = entry_dict['id']
 
         self.view.update(entry_dict, style, has_notify, 
                          is_first_call, is_new_update)

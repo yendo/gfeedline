@@ -2,6 +2,7 @@
 
 	* theme.py, com.googlecode.gfeedline.gschema.xml.in: Changed the
 	  name of default theme.
+	* output.py: Fixed unread flags.
 
 2012-11-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
