@@ -1,5 +1,6 @@
 2012-11-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* NEWS: 2.0.2 release.
 	* theme.py, com.googlecode.gfeedline.gschema.xml.in: Changed the
 	  name of default theme.
 	* output.py: Fixed unread flags.
