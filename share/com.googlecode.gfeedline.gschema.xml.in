@@ -38,7 +38,7 @@
       <description>Multi-column mode</description>
     </key>
     <key name="theme" type="s">
-      <default>'Twitter'</default>
+      <default>'Default'</default>
       <summary>FeedView Theme</summary>
       <description>FeedView Theme</description>
     </key>
