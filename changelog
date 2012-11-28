@@ -1,3 +1,7 @@
+2012-11-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* utils/truncatehtml.py: Added HTML truncation for Tumblr.
+
 2012-11-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.0.2 release.
