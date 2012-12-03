@@ -21,31 +21,31 @@ class TumblrEntry(object):
 
     def get_dict(self, api):
         entry = self.entry
+        body = self._get_body(entry)
 
+        return self._get_entry_dict(entry, body)
+
+    def _get_body(self, entry):
         link = "<a href='%s' title='%s'>......</a>" % (
             entry['post_url'], _('Read more'))
         body = entry.get('text') or entry.get('body') or entry.get('caption') or ''
         body = truncate_html(body, 140, link)
 
-        time = TimeFormat(entry['date'])
+        if entry.get('type') == 'quote':
+            body = u'“%s”' % body
 
         if entry.get('source'):
             source = truncate_html(entry.get('source'), 80)
             body +=  "<div class='source'>%s</div>" % source
 
-        body = add_markup.convert(body)
+        return body
 
+    def _get_entry_dict(self, entry, body):
         image_uri = 'http://api.tumblr.com/v2/blog/%s.tumblr.com/avatar/30' \
             % entry.get('blog_name')
 
-        if entry.get('type') == 'photo':
-            url =  entry['photos'][0]['alt_sizes'][2]['url']
-            template = self.theme.template['image']
-            key_dict = {'url': url}
-            body = template.substitute(key_dict) + body
-
         entry_dict = dict(
-            date_time=time.get_local_time(),
+            date_time=TimeFormat(entry['date']).get_local_time(),
             id=entry['id'],
             styles='tumblr',
             image_uri=image_uri,
@@ -70,12 +70,41 @@ class TumblrEntry(object):
             protected='',
             source='',
 
-            status_body=body,
+            status_body=add_markup.convert(body),
             popup_body='',
             target=''
             )
 
         return entry_dict
+
+class TumblrPhotosEntry(TumblrEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+        body = self._get_body(entry)
+
+        new_body = ''
+        template = self.theme.template['image']
+
+        for photo in entry['photos']:
+            url =  photo['alt_sizes'][2]['url']
+            key_dict = {'url': url}
+            new_body += template.substitute(key_dict)
+
+        new_body += body
+
+        return self._get_entry_dict(entry, new_body)
+
+#class TumblrQuoteEntry(TumblrEntry):
+#
+#    def get_dict(self, api):
+#        entry = self.entry
+#        body = self._get_body(entry)
+#        body = u'“%s”' % body
+#
+#        print body
+#
+#        return self._get_entry_dict(entry, body)
 
 class AddedTumblrHtmlMarkup(AddedHtmlMarkup):
 

@@ -14,11 +14,18 @@ class TumblrRestOutput(OutputBase):
     SINCE = 'since_id'
     SINCE_KEY = 'id'
 
+    ENTRY_TYPE = {
+        'photo': TumblrPhotosEntry,
+#        'quote': TumblrQuoteEntry,
+        }
+
     def _get_all_entries(self, d):
         return d['response']['posts']
 
     def _get_entry_obj(self, entry):
-        return TumblrEntry(entry)
+        entry_class = self.ENTRY_TYPE.get(entry['type']) or TumblrEntry
+
+        return entry_class(entry)
 
     def _get_interval_seconds(self):
         return 120
