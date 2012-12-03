@@ -117,20 +117,11 @@ class AddedTumblrHtmlMarkup(AddedHtmlMarkup):
     def convert(self, text):
         text = text.replace('target="_blank"', "")
         # text = super(AddedTumblrHtmlMarkup, self).convert(text)
-#        text = text.replace('"', '&quot;')
+        # text = text.replace('"', '&quot;')
         text = text.replace('"', "'")
+        text = text.replace('\r', '')
+        text = text.replace('\n', '<br>')
 
-#        text = self.new_lines.sub(
-#            ("\\1"
-#             "<span class='main-text'>...<br>"
-#             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
-#             "</span>"
-#             "<span class='more-text'>\\3<br>"
-#             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
-#             "</span>") % (_('See more'), _('See less')), 
-#            text)
-
-#        text = text.replace('\n', '<br>')
         return text
 
 add_markup = AddedTumblrHtmlMarkup()
