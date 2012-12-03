@@ -24,15 +24,16 @@ class AuthorizedTumblrAccount(AuthorizedAccount):
 
         token = self._get_token(user_name, key, secret)
         self.source = 'Tumblr'
-        self.api = Tumblr(consumer=CONSUMER, token=token)
+        self.api = Tumblr(consumer=CONSUMER, token=token, user_name=user_name)
         self.api_dict = TumblrAPIDict()
         self.icon = TumblrIcon()
 
 class Tumblr(object):
 
-    def __init__(self, consumer, token):
+    def __init__(self, consumer, token, user_name):
         self.consumer = consumer
         self.token =token
+        self.user_name = user_name
         self.signature_method = oauth.OAuthSignatureMethod_HMAC_SHA1()
 
     def dashboard(self, cb, params=None):
@@ -43,6 +44,22 @@ class Tumblr(object):
         headers = self.make_oauth_header('GET', url, params)
 
         return urlget_with_autoproxy(url, cb=cb, headers=headers)
+
+    def update(self, status, params=None):
+        '''Create a New Blog Post'''
+
+        hostname = self.user_name + '.tumblr.com'
+        url = str('http://api.tumblr.com/v2/blog/%s/post') % str(hostname)
+        params={'type': 'text', 'body': status.encode('utf-8'),}
+
+        headers = self.make_oauth_header('POST', url, params)
+        headers.update( {'Content-Type' : 'application/x-www-form-urlencoded'})
+
+        d = urlget_with_autoproxy(url, cb=self._cb, 
+                                  headers=headers,
+                                  method='POST',
+                                  postdata=urllib.urlencode(params))
+        d.addErrback(self._cb)
 
     def posts(self, cb, params):
         '''Get posts'''

@@ -1,6 +1,7 @@
 2012-12-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* tumblr/api.py, tumblr/account.py: Added support for 'posts' API.
+	* tumblr/api.py, tumblr/account.py: Added support for 'post' &
+	  'posts' API.
 
 2012-11-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 

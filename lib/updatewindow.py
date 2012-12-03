@@ -133,11 +133,13 @@ class UpdateWindow(UpdateWidgetBase):
         self.button_image.set_sensitive(source == 'Twitter')
 
         widget = self.label_num if source == 'Twitter' \
-            else self.comboboxtext_privacy.widget
+            else self.comboboxtext_privacy.widget if source == 'Facebook' \
+            else None
 
         if self.child: # for GtkGrid.get_child_at no available
             self.grid_button.remove(self.child)
-        self.grid_button.attach(widget, 0, 0, 1, 1)
+        if widget:
+            self.grid_button.attach(widget, 0, 0, 1, 1)
         self.child = widget
 
     def on_textbuffer_changed(self, text_buffer):
