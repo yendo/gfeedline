@@ -14,6 +14,8 @@ from ...constants import SHARED_DATA_FILE
 from ...utils.urlgetautoproxy import urlget_with_autoproxy
 
 from ..base.authwebkit import AuthWebKitScrolledWindow
+from account import AuthorizedTumblrAccount
+
 
 class TumblrAuthAssistant(Gtk.Assistant):
 
@@ -64,27 +66,27 @@ class TumblrAuthAssistant(Gtk.Assistant):
         self.show_all()
 
     def _get_access_token_cb(self, w, url):
-        print "!!! ", url
+        # print "!!! ", url
         re_verifier = re.compile('.*oauth_verifier=(.*)&?.*')
         verifier = re_verifier.sub("\\1", url)
-#        print "OAUTH=",token, verifier
         token, params = TumblrAuthorization().get_access_token(verifier, self.token)
-#        screen_name = params['screen_name'][0]
-        screen_name = 'dummy'
 
-        self.result = {'screen-name': screen_name,
-                       'access-token': token.key,
+        self.result = {'access-token': token.key,
                        'access-secret': token.secret}
 
         self.next_page()
 
+        account = AuthorizedTumblrAccount('dummy', token.key, token.secret)
+        account.api.user_info(cb=self._get_userinfo_cb)
+
     def _get_userinfo_cb(self, data):
         d = json.loads(data)
-        self.user_fullname = d['name']
-        self.idnum = d['id']
-        self.label_user_fullname.set_text(self.user_fullname)
 
-        self.next_page()
+        self.user_fullname = d['response']['user']['name']
+        self.result['screen-name'] = self.user_fullname
+
+        self.idnum = None
+        self.label_user_fullname.set_text(self.user_fullname)
 
     def on_close(self, assistant, cb):
         account = [

@@ -19,7 +19,7 @@ class AuthorizedTumblrAccount(AuthorizedAccount):
 
     SETTINGS = SETTINGS_TUMBLR
 
-    def __init__(self, user_name, key, secret, idnum):
+    def __init__(self, user_name, key, secret, idnum=None):
         super(AuthorizedTumblrAccount, self).__init__()
 
         token = self._get_token(user_name, key, secret)
@@ -56,14 +56,14 @@ class Tumblr(object):
 
         return urlget_with_autoproxy(url, cb=cb)
 
-    def user_info(self):
+    def user_info(self, cb):
         url = str('http://api.tumblr.com/v2/user/info')
         headers = self.make_oauth_header('GET', url)
-        urlget_with_autoproxy(url, cb=self._cb, headers=headers)
+        urlget_with_autoproxy(url, cb=cb, headers=headers)
 
     def _cb(self, *args):
         print "!",args
-        
+
     def make_oauth_header(self, method, url, parameters={}, headers={}):
         oauth_request = oauth.OAuthRequest.from_consumer_and_token(
             self.consumer, token=self.token, 
