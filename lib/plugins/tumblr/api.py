@@ -12,6 +12,7 @@ class TumblrAPIDict(dict):
     def __init__(self):
         all_api = [
              TumblrAPIDashboard,
+#             TumblrAPIPosts,
              ]
 
         for api in all_api:
@@ -40,3 +41,14 @@ class TumblrAPIDashboard(TumblrAPIBase):
 
     def _get_api(self):
         return self.account.api.dashboard
+
+class TumblrAPIPosts(TumblrAPIBase):
+
+    name = _('Posts')
+    has_argument = True
+
+    def _get_api(self):
+        return self.account.api.posts
+
+    def get_options(self, argument):
+        return {'hostname': argument}

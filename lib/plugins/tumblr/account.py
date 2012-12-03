@@ -44,6 +44,18 @@ class Tumblr(object):
 
         return urlget_with_autoproxy(url, cb=cb, headers=headers)
 
+    def posts(self, cb, params):
+        '''Get posts'''
+
+        hostname = params.pop('hostname')
+        hostname = hostname + '.tumblr.com'
+        url = str('http://api.tumblr.com/v2/blog/%s/posts') % str(hostname)
+
+        params.update({'api_key': self.consumer.key})
+        url += '?'+urllib.urlencode(params)
+
+        return urlget_with_autoproxy(url, cb=cb)
+
     def user_info(self):
         url = str('http://api.tumblr.com/v2/user/info')
         headers = self.make_oauth_header('GET', url)
