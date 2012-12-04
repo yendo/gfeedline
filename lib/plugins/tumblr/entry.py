@@ -41,7 +41,7 @@ class TumblrEntry(object):
         return body
 
     def _get_entry_dict(self, entry, body):
-        image_uri = 'http://api.tumblr.com/v2/blog/%s.tumblr.com/avatar/30' \
+        image_uri = 'http://api.tumblr.com/v2/blog/%s.tumblr.com/avatar/40' \
             % entry.get('blog_name')
 
         entry_dict = dict(
@@ -77,6 +77,18 @@ class TumblrEntry(object):
 
         return entry_dict
 
+class TumblrTextEntry(TumblrEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+        body = self._get_body(entry)
+
+        title = entry.get('title')
+        if title:
+            body = '<p><b>%s</b></p>%s' % (title, body)
+
+        return self._get_entry_dict(entry, body)
+
 class TumblrPhotosEntry(TumblrEntry):
 
     def get_dict(self, api):
@@ -95,16 +107,89 @@ class TumblrPhotosEntry(TumblrEntry):
 
         return self._get_entry_dict(entry, new_body)
 
-#class TumblrQuoteEntry(TumblrEntry):
-#
-#    def get_dict(self, api):
-#        entry = self.entry
-#        body = self._get_body(entry)
-#        body = u'“%s”' % body
-#
-#        print body
-#
-#        return self._get_entry_dict(entry, body)
+class TumblrLinkEntry(TumblrEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+        body = self._get_body(entry)
+
+        url = entry.get('url')
+        title = entry.get('title') or url
+        link = "<p><a href='%s'>%s</a><p>" % (url, title)
+        body = link + body
+
+        return self._get_entry_dict(entry, body)
+
+class TumblrChatEntry(TumblrEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+        entry['body'] = entry['body'].replace('\r', '').replace('\n', '<br>')
+        body = self._get_body(self.entry)
+
+        title = self.entry.get('title')
+        if title:
+            body = '<p><b>%s</b></p>%s' % (title, body)
+
+        return self._get_entry_dict(self.entry, body)
+
+class TumblrAudioEntry(TumblrEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+        body = ""
+
+        artist = entry.get('artist')
+        track_name = entry.get('track_name')
+        album = entry.get('album')
+        image = entry.get('album_art')
+
+        if artist:
+            body = ("<p>%s</p>" % artist) + body
+        if track_name:
+            body = ("<p>%s</p>" % track_name) + body
+        if album:
+            body = ("<p>%s</p>" % album) + body
+
+        if image:
+            template = self.theme.template['image']
+            key_dict = {'url': image}
+            body += template.substitute(key_dict)
+
+        body += self._get_body(entry)
+        return self._get_entry_dict(entry, body)
+
+class TumblrVideoEntry(TumblrEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+        body = self._get_body(entry)
+
+        template = self.theme.template['image']
+        key_dict = {'url': entry['thumbnail_url']}
+        body = template.substitute(key_dict) + body
+        return self._get_entry_dict(entry, body)
+
+class TumblrAnswerEntry(TumblrEntry):
+
+    def get_dict(self, api):
+        entry = self.entry
+        name = entry.get('asking_name')
+        url = entry.get('asking_url')
+
+        image = 'http://api.tumblr.com/v2/blog/%savatar/40' % \
+            url.replace('http://', '') if url else \
+            'http://www.tumblr.com/images/anonymous_avatar_40.gif'
+
+        template = self.theme.template['bubble']
+        key_dict = {'image_uri': image,
+                    'permalink': url,
+                    'text': entry.get('question'),
+                    }
+        body = template.substitute(key_dict)
+        body += entry.get('answer')
+
+        return self._get_entry_dict(entry, body)
 
 class AddedTumblrHtmlMarkup(AddedHtmlMarkup):
 
@@ -120,7 +205,7 @@ class AddedTumblrHtmlMarkup(AddedHtmlMarkup):
         # text = text.replace('"', '&quot;')
         text = text.replace('"', "'")
         text = text.replace('\r', '')
-        text = text.replace('\n', '<br>')
+        text = text.replace('\n', '')
 
         return text
 

@@ -12,7 +12,7 @@ class TumblrAPIDict(dict):
     def __init__(self):
         all_api = [
              TumblrAPIDashboard,
-#             TumblrAPIPosts,
+             TumblrAPIPosts,
              ]
 
         for api in all_api:

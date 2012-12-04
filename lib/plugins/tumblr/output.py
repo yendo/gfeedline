@@ -15,8 +15,14 @@ class TumblrRestOutput(OutputBase):
     SINCE_KEY = 'id'
 
     ENTRY_TYPE = {
+        'text': TumblrTextEntry,
         'photo': TumblrPhotosEntry,
-#        'quote': TumblrQuoteEntry,
+        'quote': TumblrEntry,
+        'link': TumblrLinkEntry,
+        'chat': TumblrChatEntry,
+        'audio': TumblrAudioEntry,
+        'video': TumblrVideoEntry,
+        'answer': TumblrAnswerEntry,
         }
 
     def _get_all_entries(self, d):
@@ -24,7 +30,6 @@ class TumblrRestOutput(OutputBase):
 
     def _get_entry_obj(self, entry):
         entry_class = self.ENTRY_TYPE.get(entry['type']) or TumblrEntry
-
         return entry_class(entry)
 
     def _get_interval_seconds(self):
