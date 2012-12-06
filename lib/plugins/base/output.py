@@ -66,7 +66,10 @@ class OutputBase(object):
         interval = api_interval*1.0 / len(self.all_entries)
         # print "interval: ", interval, api_interval, len(self.all_entries)
         for i, entry in enumerate(reversed(self.all_entries)):
-            if self.counter:
+            if self._check_duplicate(entry):
+                print "skip!"
+                continue
+            elif self.counter:
                 self.delayed.append(
                     reactor.callLater(interval*i, self.print_entry, entry))
             else:
@@ -89,6 +92,9 @@ class OutputBase(object):
 
         self.view.update(entry_dict, style, has_notify, 
                          is_first_call, is_new_update)
+
+    def _check_duplicate(self, entry):
+        return False
 
     def _get_entry_obj(self, entry):
         pass

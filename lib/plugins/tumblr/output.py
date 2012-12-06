@@ -25,6 +25,9 @@ class TumblrRestOutput(OutputBase):
         'answer': TumblrAnswerEntry,
         }
 
+    def _check_duplicate(self, entry):
+        return entry[self.SINCE_KEY] <= self.since_id
+
     def _get_all_entries(self, d):
         return d['response']['posts']
 
