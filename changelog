@@ -1,5 +1,6 @@
 2013-02-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* tumblr/entry.py: Removed depends on 'image' template.
 	* updatewindow.py, update.glade: Added new short cut keys framework.
 
 2012-12-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp> 

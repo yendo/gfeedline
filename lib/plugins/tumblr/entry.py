@@ -95,15 +95,16 @@ class TumblrPhotosEntry(TumblrEntry):
         entry = self.entry
         body = self._get_body(entry)
 
-        new_body = ''
-        template = self.theme.template['image']
+        new_body = "<div class='image'>"
+        # template = self.theme.template['image']
 
         for photo in entry['photos']:
             url =  photo['alt_sizes'][2]['url']
-            key_dict = {'url': url}
-            new_body += template.substitute(key_dict)
+            # key_dict = {'url': url}
+            # new_body += template.substitute(key_dict)
+            new_body += "<img height='90' src='%s'>" % url
 
-        new_body += body
+        new_body += "</div>" + body
 
         return self._get_entry_dict(entry, new_body)
 
