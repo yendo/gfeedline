@@ -9,7 +9,7 @@ CONSUMER = oauth.OAuthConsumer(consumer_key, consumer_secret)
 class TwitterAuthorization(Authorization):
 
     CALLBACK = 'oob'
-    REQUEST_TOKEN_URL = 'http://twitter.com/oauth/request_token'
-    ACCESS_TOKEN_URL = 'http://twitter.com/oauth/access_token'
-    AUTHORIZE_URL = 'http://twitter.com/oauth/authorize?mode=desktop&oauth_token='
+    REQUEST_TOKEN_URL = 'https://twitter.com/oauth/request_token'
+    ACCESS_TOKEN_URL = 'https://twitter.com/oauth/access_token'
+    AUTHORIZE_URL = 'https://twitter.com/oauth/authorize?mode=desktop&oauth_token='
     CONSUMER = CONSUMER
