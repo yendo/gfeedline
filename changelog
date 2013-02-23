@@ -1,4 +1,8 @@
-2012-12-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+2013-02-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, update.glade: Added new short cut keys framework.
+
+2012-12-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp> 
 
 	* output.py: Added checking for duplicated posts.
 

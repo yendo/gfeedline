@@ -1,7 +1,7 @@
 import os
 import tempfile
 
-from gi.repository import Gtk, GLib, Gio, GdkPixbuf
+from gi.repository import Gtk, GLib, Gio, Gdk, GdkPixbuf
 
 from constants import SHARED_DATA_FILE
 from accountliststore import AccountColumn
@@ -148,6 +148,12 @@ class UpdateWindow(UpdateWidgetBase):
 
         status = bool(num != 140)
         self.button_tweet.set_sensitive(status)
+
+    def on_textview_key_press_event(self, textview, event):
+        if (event.keyval == Gdk.KEY_Return and 
+            'GDK_CONTROL_MASK' in event.state.value_names):
+            print "yes"
+            return True
 
 class AccountCombobox(object):
 

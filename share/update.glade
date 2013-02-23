@@ -151,6 +151,7 @@
                     <property name="can_focus">True</property>
                     <property name="wrap_mode">word-char</property>
                     <property name="buffer">textbuffer</property>
+                    <signal name="key-press-event" handler="on_textview_key_press_event" swapped="no"/>
                   </object>
                 </child>
               </object>
