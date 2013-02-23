@@ -1,6 +1,8 @@
 2013-02-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* NEWS: 2.0.3 release.
 	* twitter/getauthtoken.py: Updated Twitter OAuth URLs (issue #16).
+	  Thanks @gion_XY & @Sururu_s2!
 
 2012-11-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
