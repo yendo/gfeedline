@@ -1,3 +1,7 @@
+2013-02-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/getauthtoken.py: Updated Twitter OAuth URLs (issue #16).
+
 2012-11-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* po/id_ID.po: Added new Indonesian translation.  Thanks kuspoes!
