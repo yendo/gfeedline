@@ -1,5 +1,7 @@
 2013-04-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* notification.py: Fixed Facebook URLs opened from notification
+	  (issue #25).
 	* facebook/assistant.py: Fixed a Facebook authorization error
 	  (issue #26).
 

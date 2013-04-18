@@ -50,8 +50,7 @@ class StatusNotification(Notification):
                 entry_dict['status_body'] = entry_dict['popup_body']
                 UpdateWindow(None, entry_dict)
             elif action == 'open':
-                uri = 'https://twitter.com/%s/status/%s' % (
-                    entry_dict['user_name'], entry_dict['id'])
+                uri = entry_dict['permalink'].replace('gfeedline://', 'https://')
                 webbrowser.open(uri)
 
     def _get_actions(self, entry):
