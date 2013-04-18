@@ -15,6 +15,7 @@ div.reply { background-color: Lavender; }
 
 .datetime, .datetime a, .retweet a { color: #606060 }
 
+.datetime { clear: both; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.username { font-weight: bold; }
