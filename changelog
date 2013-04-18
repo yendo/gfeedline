@@ -1,3 +1,8 @@
+2013-04-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* facebook/assistant.py: Fixed a Facebook authorization error
+	  (issue #26).
+
 2013-02-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.0.3 release.
