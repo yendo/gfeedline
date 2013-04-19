@@ -1,3 +1,15 @@
+2013-04-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/filters.glade: Added tooltips for permanent filters
+	  (issue #17).
+
+2013-04-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* notification.py: Fixed Facebook URLs opened from notification
+	  (issue #25).
+	* facebook/assistant.py: Fixed a Facebook authorization error
+	  (issue #26).
+
 2013-02-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.0.3 release.

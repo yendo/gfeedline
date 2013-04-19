@@ -151,6 +151,7 @@
               <object class="GtkSpinButton" id="spinbutton_expiry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Set 0 for permanent filter</property>
                 <property name="hexpand">True</property>
                 <property name="invisible_char">●</property>
                 <property name="adjustment">expiry_adjustment</property>

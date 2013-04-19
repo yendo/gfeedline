@@ -53,7 +53,7 @@ class FacebookAuthAssistant(Gtk.Assistant):
         self.append_page(page2)
 
         self.set_page_title(page2, _('Authorization'))
-        self.set_page_type(page2, Gtk.AssistantPageType.PROGRESS)
+        self.set_page_type(page2, Gtk.AssistantPageType.CONTENT)
         self.set_page_complete(page2, False)
 
         # page 3
@@ -90,13 +90,13 @@ class FacebookAuthAssistant(Gtk.Assistant):
 class FacebookWebKitScrolledWindow(AuthWebKitScrolledWindow):
 
     LOGIN_URL = 'https://www.facebook.com/login.php?'
-    ERROR_URL = 'http://www.facebook.com/connect/login_success.html?error',
+    ERROR_URL = 'https://www.facebook.com/connect/login_success.html?error'
     RE_TOKEN = '.*access_token=(.*)&.*'
 
     def _get_auth_url(self):
         values = { 'client_id': 203600696439990,
                    'redirect_uri': 
-                   'http://www.facebook.com/connect/login_success.html',
+                   'https://www.facebook.com/connect/login_success.html',
                    'response_type': 'token',
                    'scope': 'user_photos,friends_photos,read_stream,offline_access,publish_stream',
                    'display': 'popup'}
