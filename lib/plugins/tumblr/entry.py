@@ -44,6 +44,24 @@ class TumblrEntry(object):
         image_uri = 'http://api.tumblr.com/v2/blog/%s.tumblr.com/avatar/40' \
             % entry.get('blog_name')
 
+        rebloglink = 'http://www.tumblr.com/reblog/%s/%s' % (
+            entry['id'], entry['reblog_key'])
+
+        path = '//%s/%s' % (entry['id'], entry['reblog_key'])
+        likelink = 'gfeedlinefblike:%s' % path
+        unlikelink = 'gfeedlinefbunlike:%s' % path
+        is_liked = entry['liked']
+
+        command = (
+            u"<a href='%s'>%s</a> "
+            "<a class='like %s' href='%s' onclick='like(this);'>%s</a>"
+            "<a class='unlike %s' href='%s' onclick='like(this);'>%s</a>"
+            ) % (
+            rebloglink, _('Reblog'),
+            'hidden' if is_liked else '', likelink,   _('Like'),
+            '' if is_liked else 'hidden', unlikelink, _('Unlike'), 
+            )
+
         entry_dict = dict(
             date_time=TimeFormat(entry['date']).get_local_time(),
             id=entry['id'],
@@ -64,10 +82,10 @@ class TumblrEntry(object):
             in_reply_to='',
 
             user_name=entry['blog_name'],
-            user_name2=entry['type'],
+            user_name2='',
             full_name=entry['blog_name'],
             user_color=user_color.get(entry['blog_name']),
-            protected='',
+            protected="<div style='text-align: right;'>%s</div>" % command,
             source='',
 
             status_body=add_markup.convert(body),
