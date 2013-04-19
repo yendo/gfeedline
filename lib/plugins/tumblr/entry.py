@@ -52,14 +52,18 @@ class TumblrEntry(object):
         unlikelink = 'gfeedlinefbunlike:%s' % path
         is_liked = entry['liked']
 
+        reblog_icon = "<img src='retweet.png' width='20' height='16'>"
+        like_icon = "<img src='/usr/share/gwibber/ui/themes/ubuntu/favorite.png' width='15' height='16'>"
+        unlike_icon = like_icon
+
         command = (
             u"<a href='%s'>%s</a> "
             "<a class='like %s' href='%s' onclick='like(this);'>%s</a>"
             "<a class='unlike %s' href='%s' onclick='like(this);'>%s</a>"
             ) % (
-            rebloglink, _('Reblog'),
-            'hidden' if is_liked else '', likelink,   _('Like'),
-            '' if is_liked else 'hidden', unlikelink, _('Unlike'), 
+            rebloglink, reblog_icon,
+            'hidden' if is_liked else '', likelink,   like_icon,
+            '' if is_liked else 'hidden', unlikelink, unlike_icon, 
             )
 
         entry_dict = dict(
