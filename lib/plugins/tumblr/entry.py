@@ -89,7 +89,7 @@ class TumblrEntry(object):
             user_name2='',
             full_name=entry['blog_name'],
             user_color=user_color.get(entry['blog_name']),
-            protected="<div style='text-align: right;'>%s</div>" % command,
+            protected="<div class='tumblrbuttons'>%s</div>" % command,
             source='',
 
             status_body=add_markup.convert(body),
