@@ -152,7 +152,10 @@ class UpdateWindow(UpdateWidgetBase):
     def on_textview_key_press_event(self, textview, event):
         if (event.keyval == Gdk.KEY_Return and 
             'GDK_CONTROL_MASK' in event.state.value_names):
-            print "yes"
+
+            if self.button_tweet.get_sensitive():
+                self.on_button_tweet_clicked(None)
+
             return True
 
 class AccountCombobox(object):

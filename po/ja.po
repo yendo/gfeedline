@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-16 14:34+0900\n"
-"PO-Revision-Date: 2012-10-16 14:35+0900\n"
+"POT-Creation-Date: 2013-04-19 09:26+0900\n"
+"PO-Revision-Date: 2013-04-19 09:31+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../lib/filterliststore.py:93 ../share/filters.glade.h:8
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
 msgid "days"
 msgstr "日間"
 
-#: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:10
 msgid "hours"
 msgstr "時間"
 
@@ -44,7 +44,7 @@ msgstr "お気に入り(_F)"
 msgid "View _Conversation"
 msgstr "会話を表示(_C)"
 
-#: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:149
+#: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:152
 msgid "Related Results"
 msgstr "関連ツイート"
 
@@ -56,15 +56,15 @@ msgstr "検索(_S)"
 msgid "_Add Filter"
 msgstr "フィルターに追加(_A)"
 
-#: ../lib/notification.py:64
-msgid "Reply"
-msgstr "返信"
-
-#: ../lib/notification.py:65
+#: ../lib/notification.py:63
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/plugins/facebook/account.py:36 ../lib/plugins/facebook/api.py:40
+#: ../lib/notification.py:65
+msgid "Reply"
+msgstr "返信"
+
+#: ../lib/plugins/facebook/api.py:40
 msgid "News Feed"
 msgstr "ニュースフィード"
 
@@ -72,105 +72,104 @@ msgstr "ニュースフィード"
 msgid "Wall"
 msgstr "ウォール"
 
-#: ../lib/plugins/facebook/assistant.py:26
+#: ../lib/plugins/facebook/assistant.py:28
 msgid "Facebook Account Setup"
 msgstr "Facebook アカウントの設定"
 
-#: ../lib/plugins/facebook/assistant.py:40
-#: ../lib/plugins/twitter/assistant.py:45
+#: ../lib/plugins/facebook/assistant.py:42
+#: ../lib/plugins/twitter/assistant.py:46
 msgid "Intro"
 msgstr "説明"
 
-#: ../lib/plugins/facebook/assistant.py:51
+#: ../lib/plugins/facebook/assistant.py:55
 msgid "Authorization"
 msgstr "認証"
 
-#: ../lib/plugins/facebook/assistant.py:59
-#: ../lib/plugins/twitter/assistant.py:61
+#: ../lib/plugins/facebook/assistant.py:63
+#: ../lib/plugins/twitter/assistant.py:62
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/plugins/facebook/entry.py:64
+#: ../lib/plugins/facebook/entry.py:69
 msgid "Like"
 msgstr "いいね！"
 
-#: ../lib/plugins/facebook/entry.py:65
+#: ../lib/plugins/facebook/entry.py:70
 msgid "Unlike"
 msgstr "いいね！を取り消す"
 
-#: ../lib/plugins/facebook/entry.py:66
+#: ../lib/plugins/facebook/entry.py:71
 msgid "Comment"
 msgstr "コメントする"
 
-#: ../lib/plugins/facebook/entry.py:158
+#: ../lib/plugins/facebook/entry.py:163
 msgid "See more"
 msgstr "続きを読む"
 
-#: ../lib/plugins/facebook/entry.py:158
+#: ../lib/plugins/facebook/entry.py:163
 msgid "See less"
 msgstr "折りたたむ"
 
-#: ../lib/plugins/twitter/account.py:45 ../lib/plugins/twitter/api.py:108
-#: ../lib/preferences/feedsource.py:106
-msgid "User Stream"
-msgstr "ユーザーストリーム"
-
-#: ../lib/plugins/twitter/api.py:56
+#: ../lib/plugins/twitter/api.py:59
 msgid "Home TimeLine"
 msgstr "ホームタイムライン"
 
-#: ../lib/plugins/twitter/api.py:63
+#: ../lib/plugins/twitter/api.py:66
 msgid "User TimeLine"
 msgstr "ユーザータイムライン"
 
-#: ../lib/plugins/twitter/api.py:74
+#: ../lib/plugins/twitter/api.py:77
 msgid "List TimeLine"
 msgstr "リストタイムライン"
 
-#: ../lib/plugins/twitter/api.py:93 ../lib/plugins/twitter/api.py:117
+#: ../lib/plugins/twitter/api.py:96 ../lib/plugins/twitter/api.py:120
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:100
+#: ../lib/plugins/twitter/api.py:103
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:122
+#: ../lib/plugins/twitter/api.py:111 ../lib/preferences/feedsource.py:106
+msgid "User Stream"
+msgstr "ユーザーストリーム"
+
+#: ../lib/plugins/twitter/api.py:125
 msgid "Track"
 msgstr "トラック"
 
-#: ../lib/plugins/twitter/api.py:136
+#: ../lib/plugins/twitter/api.py:139
 msgid "Search"
 msgstr "検索"
 
-#: ../lib/plugins/twitter/assistant.py:29
+#: ../lib/plugins/twitter/assistant.py:30
 msgid "Twitter Account Setup"
 msgstr "Twitter アカウントの設定"
 
-#: ../lib/plugins/twitter/assistant.py:53
+#: ../lib/plugins/twitter/assistant.py:54
 msgid "Enter PIN"
 msgstr "PIN の入力"
 
-#: ../lib/plugins/twitter/output.py:60 ../share/filters.glade.h:5
+#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:5
 msgid "Body"
 msgstr "本文"
 
-#: ../lib/plugins/twitter/output.py:65 ../share/filters.glade.h:6
+#: ../lib/plugins/twitter/output.py:66 ../share/filters.glade.h:6
 msgid "Sender"
 msgstr "送信者"
 
-#: ../lib/plugins/twitter/output.py:68 ../share/filters.glade.h:7
+#: ../lib/plugins/twitter/output.py:69 ../share/filters.glade.h:7
 #: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "ソース"
 
 #. FIXME
-#: ../lib/plugins/twitter/output.py:93
+#: ../lib/plugins/twitter/output.py:94
 #, python-format
 msgid "via %s"
 msgstr "via %s"
 
-#: ../lib/plugins/twitter/output.py:98
+#: ../lib/plugins/twitter/output.py:99
 #, python-format
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
@@ -209,21 +208,21 @@ msgstr "オプション"
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
-#: ../lib/updatewindow.py:101 ../lib/updatewindow.py:372
+#: ../lib/updatewindow.py:75 ../lib/updatewindow.py:382
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:256
+#: ../lib/updatewindow.py:260
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:329
+#: ../lib/updatewindow.py:333 ../lib/updatewindow.py:405
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:330
+#: ../lib/updatewindow.py:334 ../lib/updatewindow.py:406
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
@@ -333,6 +332,10 @@ msgstr "単語(_W):"
 #: ../share/filters.glade.h:4
 msgid "_Expiry:"
 msgstr "有効期間(_E):"
+
+#: ../share/filters.glade.h:8
+msgid "Set 0 for permanent filter"
+msgstr "このフィルターを常用する場合は O を設定してください"
 
 #: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
 msgid "GFeedLine"
@@ -537,6 +540,10 @@ msgstr "_Twitter"
 #: ../share/select_assistant.glade.h:3
 msgid "_Facebook"
 msgstr "_Facebook"
+
+#: ../share/select_assistant.glade.h:4
+msgid "Tumblr"
+msgstr "Tumblr"
 
 #: ../share/update.glade.h:1
 msgid "Public"

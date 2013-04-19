@@ -50,8 +50,7 @@ class StatusNotification(Notification):
                 entry_dict['status_body'] = entry_dict['popup_body']
                 UpdateWindow(None, entry_dict)
             elif action == 'open':
-                uri = 'https://twitter.com/%s/status/%s' % (
-                    entry_dict['user_name'], entry_dict['id'])
+                uri = entry_dict['permalink'].replace('gfeedline://', 'https://')
                 webbrowser.open(uri)
 
     def _get_actions(self, entry):
@@ -61,8 +60,9 @@ class StatusNotification(Notification):
             entry_pickle = pickle.dumps(entry)
             entry_base64 = base64.b64encode(entry_pickle)
 
-            actions = ['reply %s' % entry_base64, _('Reply'),
-                       'open %s'  % entry_base64, _('Open')]
+            actions = ['open %s'  % entry_base64, _('Open')]
+            if entry['permalink'].startswith('gfeedline://twitter.com/'):
+                actions = ['reply %s' % entry_base64, _('Reply') ] + actions
         else:
             actions = []
 
