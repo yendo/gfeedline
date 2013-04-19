@@ -1,3 +1,8 @@
+2013-04-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/filters.glade: Added tooltips for permanent filters
+	  (issue #17).
+
 2013-04-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* notification.py: Fixed Facebook URLs opened from notification
