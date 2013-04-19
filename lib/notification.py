@@ -60,8 +60,9 @@ class StatusNotification(Notification):
             entry_pickle = pickle.dumps(entry)
             entry_base64 = base64.b64encode(entry_pickle)
 
-            actions = ['reply %s' % entry_base64, _('Reply'),
-                       'open %s'  % entry_base64, _('Open')]
+            actions = ['open %s'  % entry_base64, _('Open')]
+            if entry['permalink'].startswith('gfeedline://twitter.com/'):
+                actions = ['reply %s' % entry_base64, _('Reply') ] + actions
         else:
             actions = []
 
