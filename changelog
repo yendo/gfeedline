@@ -1,5 +1,7 @@
 2013-04-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* updatewindow.py, update.glade: Added support for updating with
+	  Ctrl+Enter keys.
 	* share/filters.glade: Added tooltips for permanent filters
 	  (issue #17).
 
