@@ -1,5 +1,6 @@
 2013-04-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* html/heart_*.png: Added new 'heart' icons for Tumblr.
 	* updatewindow.py, menu.py: Dropped support for Ubuntu Oneiric.
 
 2013-04-20  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
