@@ -11,7 +11,7 @@ GFeedLine is a social networking client.  It supports Twitter.
   - Python: 2.6 or 2.7
   - python-gobject
   - gir1.2-gtk-3.0
-  - gir1.2-webkit-3.0
+  - gir1.2-webkit-3.0 (> 1.6)
   - Twisted: twisted.internet & twisted.web
   - python-beautifulsoup
   - python-oauth

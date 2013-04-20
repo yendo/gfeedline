@@ -6,11 +6,6 @@ from updatewindow import UpdateWindow, RetweetDialog
 from preferences.filters import FilterDialog
 from utils.settings import SETTINGS_VIEW
 
-# for old WebKit (<= 1.6)
-from gi.repository import WebKit
-from updatewindow import UpdateWindowOLD, RetweetDialogOLD
-CAN_ACCESS_DOM = WebKit.MAJOR_VERSION >= 1 and WebKit.MINOR_VERSION >= 6
-
 
 def ENTRY_POPUP_MENU():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, RelatedResultsMenuItem]
@@ -72,12 +67,8 @@ class ReplyMenuItem(PopupMenuItem):
     LABEL = _('_Reply')
 
     def on_activate(self, menuitem, entry_id):
-        if CAN_ACCESS_DOM:
-            entry_dict = self._get_entry_from_dom(entry_id)
-            UpdateWindow(self.parent, entry_dict, self.api.account)
-        else:
-            entry_dict = {'id': entry_id, 'user_name': self.user}
-            UpdateWindowOLD(self.parent, entry_dict, self.api.account)
+        entry_dict = self._get_entry_from_dom(entry_id)
+        UpdateWindow(self.parent, entry_dict, self.api.account)
 
 class RetweetMenuItem(PopupMenuItem):
 
@@ -87,10 +78,9 @@ class RetweetMenuItem(PopupMenuItem):
         super(RetweetMenuItem, self).__init__(uri, api, scrolled_window)
         self.account = api.account
 
-        if CAN_ACCESS_DOM:
-            entry_id = uri.split('/')[-1]
-            dom = self.parent.webview.dom.get_element_by_id(entry_id)
-            self.set_sensitive(self._is_enabled(dom))
+        entry_id = uri.split('/')[-1]
+        dom = self.parent.webview.dom.get_element_by_id(entry_id)
+        self.set_sensitive(self._is_enabled(dom))
 
     def _is_enabled(self, dom):
         is_mine = dom.get_attribute('class').count('mine')
@@ -98,12 +88,8 @@ class RetweetMenuItem(PopupMenuItem):
         return not is_mine and not is_protected
 
     def on_activate(self, menuitem, entry_id):
-        if CAN_ACCESS_DOM:
-            entry_dict = self._get_entry_from_dom(entry_id)
-            dialog = RetweetDialog(self.account)
-        else:
-            entry_dict = {'id': entry_id, 'user_name': self.user}
-            dialog = RetweetDialogOLD(self.account)
+        entry_dict = self._get_entry_from_dom(entry_id)
+        dialog = RetweetDialog(self.account)
 
         dialog.run(entry_dict, self.parent.window)
 
@@ -123,7 +109,7 @@ class RelatedResultsMenuItem(RetweetMenuItem):
     LABEL = _('View _Conversation')
 
     def _is_enabled(self, dom):
-        return bool(dom.get_attribute('data-inreplyto')) if CAN_ACCESS_DOM else True
+        return bool(dom.get_attribute('data-inreplyto'))
 
     def _get_group_name(self):
         current_group_name = self.parent.webview.group_name

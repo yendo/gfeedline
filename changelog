@@ -1,3 +1,7 @@
+2013-04-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, menu.py: Dropped support for Ubuntu Oneiric.
+
 2013-04-20  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.0.4 release.
