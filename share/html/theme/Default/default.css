@@ -1,0 +1,15 @@
+body { margin: 0; }
+
+div.status { padding: 8px;
+             border-bottom: 1px solid #ccc; }
+div.icon { float: left; width: 45px; }
+div.text { margin-left: 45px; }
+div.icon img { -webkit-border-radius : 5px; }
+
+.datetime, .datetime a, .retweet a { font-size: 90%; }
+.screenname, .screenname a { color: #606060;
+                             font-size: 90%; }
+div.body { padding: 2px 0px;}
+
+div.facebook a { color: #3b5998; }
+div.facebook .command { color: #3b5998; }

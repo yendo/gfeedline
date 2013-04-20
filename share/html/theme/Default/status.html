@@ -1,0 +1,24 @@
+<div class='status $styles' id='$id' data-inreplyto='$in_reply_to'>
+  <div class='icon'>
+    <a href='$permalink'
+       style='color: #$user_color;'>
+      <img src='$image_uri' class='usericon' width='36' height='36'></a>
+  </div>
+
+  <div class='text'>
+    <div class='user'>
+      $pre_username
+      <a href='$permalink'
+         style='color: #$user_color;' class='username' title='$user_name'
+         data-user='$user_name' data-fullname='$full_name'>$full_name</a>
+      <span class='screenname'>$user_name2</span>
+      $protected
+      $post_username
+      $event
+    </div>
+    <div class='body' dir='auto'>$status_body</div>
+    <div class='retweet'>$retweet</div>
+    <div class='datetime'><span class='command'>$command</span>$date_time $source</div>
+    $target
+  </div>
+</div>
