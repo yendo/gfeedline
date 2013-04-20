@@ -53,8 +53,8 @@ class TumblrEntry(object):
         is_liked = entry['liked']
 
         reblog_icon = "<img src='retweet.png' width='20' height='16'>"
-        like_icon = "<img src='/usr/share/gwibber/ui/themes/ubuntu/favorite.png' width='15' height='16'>"
-        unlike_icon = like_icon
+        like_icon = "<img src='unfavorite.png' width='16' height='16'>"
+        unlike_icon = "<img src='favorite.png' width='16' height='16'>"
 
         command = (
             u"<a href='%s'>%s</a> "
