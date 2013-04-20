@@ -58,9 +58,8 @@ class FacebookEntry(object):
                         is_liked =True
                         break
 
-            path = '//graph.facebook.com/%s/likes' % entry['id']
-            likelink = 'gfeedlinefblike:%s' % path
-            unlikelink = 'gfeedlinefbunlike:%s' % path
+            likelink = 'gfeedlinefblike://%s' % entry['id']
+            unlikelink = 'gfeedlinefbunlike://%s' % entry['id']
 
             command = (
                 "<a class='like %s' href='%s' onclick='like(this);'>%s</a>"

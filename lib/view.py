@@ -5,6 +5,7 @@
 # Licence: GPL3
 
 import os
+import re
 import urllib
 import webbrowser
 
@@ -185,9 +186,8 @@ class FeedWebView(WebKit.WebView):
 
         if uri.startswith('gfeedlinefb'):
             is_unlike = uri.startswith('gfeedlinefbunlike')
-            uri = uri.replace('gfeedlinefblike:', 'https:')
-            uri = uri.replace('gfeedlinefbunlike:', 'https:')
-            api.account.api.like(uri, is_unlike)
+            param = re.sub(r'gfeedlinefb.*like://', '', uri)
+            api.account.api.like(param, is_unlike)
             return True
 
         if uri.startswith('gfeedline:'):

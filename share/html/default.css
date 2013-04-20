@@ -38,6 +38,8 @@ div.tumblr img { max-width: 160px; max-height: 90px; }
 div.tumblr h1 { font-size: 100%; } 
 div.tumblr ul { padding-left: 2em; }
 div.tumblr .source { margin-top: 0.5em; }
+div.tumblr .username { float: left; }
+div.tumblr .tumblrbuttons { text-align: right; }
 
 div.tumblr .bubble { margin: 10px; }
 div.tumblr .bubble-text { 
