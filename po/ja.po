@@ -1,14 +1,14 @@
 # Japanese translation for gfeedline
-# Copyright (C) 2012 Yoshizumi Endo.
+# Copyright (C) 2012, 2013 Yoshizumi Endo.
 # This file is distributed under the same license as the gfeedline package.
-# Yoshizumi Endo <y-endo@ceres.dti.ne.jp>, 2012.
+# Yoshizumi Endo <y-endo@ceres.dti.ne.jp>, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-19 09:26+0900\n"
-"PO-Revision-Date: 2013-04-19 09:31+0900\n"
+"POT-Creation-Date: 2013-04-21 21:26+0900\n"
+"PO-Revision-Date: 2013-04-21 21:29+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -24,35 +24,35 @@ msgstr "日間"
 msgid "hours"
 msgstr "時間"
 
-#: ../lib/menu.py:64
+#: ../lib/menu.py:59
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:72
+#: ../lib/menu.py:67
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:84
+#: ../lib/menu.py:75
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:112
+#: ../lib/menu.py:98
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:123
+#: ../lib/menu.py:109
 msgid "View _Conversation"
 msgstr "会話を表示(_C)"
 
-#: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:152
+#: ../lib/menu.py:135 ../lib/plugins/twitter/api.py:152
 msgid "Related Results"
 msgstr "関連ツイート"
 
-#: ../lib/menu.py:162
+#: ../lib/menu.py:148
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../lib/menu.py:173
+#: ../lib/menu.py:159
 msgid "_Add Filter"
 msgstr "フィルターに追加(_A)"
 
@@ -77,38 +77,62 @@ msgid "Facebook Account Setup"
 msgstr "Facebook アカウントの設定"
 
 #: ../lib/plugins/facebook/assistant.py:42
+#: ../lib/plugins/tumblr/assistant.py:41
 #: ../lib/plugins/twitter/assistant.py:46
 msgid "Intro"
 msgstr "説明"
 
 #: ../lib/plugins/facebook/assistant.py:55
+#: ../lib/plugins/tumblr/assistant.py:54
 msgid "Authorization"
 msgstr "認証"
 
 #: ../lib/plugins/facebook/assistant.py:63
+#: ../lib/plugins/tumblr/assistant.py:62
 #: ../lib/plugins/twitter/assistant.py:62
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/plugins/facebook/entry.py:69
+#: ../lib/plugins/facebook/entry.py:68 ../lib/plugins/tumblr/entry.py:56
+#: ../lib/plugins/tumblr/entry.py:57
 msgid "Like"
 msgstr "いいね！"
 
-#: ../lib/plugins/facebook/entry.py:70
+#: ../lib/plugins/facebook/entry.py:69
 msgid "Unlike"
 msgstr "いいね！を取り消す"
 
-#: ../lib/plugins/facebook/entry.py:71
+#: ../lib/plugins/facebook/entry.py:70
 msgid "Comment"
 msgstr "コメントする"
 
-#: ../lib/plugins/facebook/entry.py:163
+#: ../lib/plugins/facebook/entry.py:162
 msgid "See more"
 msgstr "続きを読む"
 
-#: ../lib/plugins/facebook/entry.py:163
+#: ../lib/plugins/facebook/entry.py:162
 msgid "See less"
 msgstr "折りたたむ"
+
+#: ../lib/plugins/tumblr/api.py:40
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: ../lib/plugins/tumblr/api.py:47
+msgid "Posts"
+msgstr "投稿"
+
+#: ../lib/plugins/tumblr/assistant.py:29
+msgid "Tumblr Account Setup"
+msgstr "Tumblr アカウントの設定"
+
+#: ../lib/plugins/tumblr/entry.py:30
+msgid "Read more"
+msgstr "続きを読む"
+
+#: ../lib/plugins/tumblr/entry.py:55
+msgid "Reblog"
+msgstr "リブログ"
 
 #: ../lib/plugins/twitter/api.py:59
 msgid "Home TimeLine"
@@ -208,21 +232,21 @@ msgstr "オプション"
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
-#: ../lib/updatewindow.py:75 ../lib/updatewindow.py:382
+#: ../lib/updatewindow.py:75
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:260
+#: ../lib/updatewindow.py:271
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:333 ../lib/updatewindow.py:405
+#: ../lib/updatewindow.py:344
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:334 ../lib/updatewindow.py:406
+#: ../lib/updatewindow.py:345
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
@@ -568,3 +592,7 @@ msgstr "画像を追加します"
 #: ../share/update.glade.h:6
 msgid "_Tweet"
 msgstr "ツイート(_T)"
+
+#: ../share/update.glade.h:7
+msgid "Ctrl+Enter"
+msgstr "Ctrl+Enter"
