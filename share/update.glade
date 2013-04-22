@@ -288,7 +288,7 @@
                 <property name="column_spacing">6</property>
                 <child>
                   <object class="GtkButton" id="button_tweet">
-                    <property name="label" translatable="yes">_Tweet</property>
+                    <property name="label" translatable="yes">_Update</property>
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
