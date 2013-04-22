@@ -1,16 +1,16 @@
 # German translation for gfeedline
-# Copyright (C) 2012 Yoshizumi Endo.
+# Copyright (C) 2012-2013 Yoshizumi Endo.
 # This file is distributed under the same license as the gfeedline package.
 # 
 # Translators:
 #   <aldebus@spambog.com>, 2012.
-#   <tabbo.hankel@bremen.piratenpartei.de>, 2012.
+#   t_bb_ <tabbo.hankel@bremen.piratenpartei.de>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-16 22:05+0900\n"
-"PO-Revision-Date: 2012-10-17 20:24+0000\n"
+"POT-Creation-Date: 2013-04-21 21:26+0900\n"
+"PO-Revision-Date: 2013-04-21 14:30+0000\n"
 "Last-Translator: t_bb_ <tabbo.hankel@bremen.piratenpartei.de>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/gfeedline/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -19,55 +19,55 @@ msgstr ""
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../lib/filterliststore.py:93 ../share/filters.glade.h:8
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
 msgid "days"
 msgstr "Tage"
 
-#: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:10
 msgid "hours"
 msgstr "Stunden"
 
-#: ../lib/menu.py:64
+#: ../lib/menu.py:59
 msgid "_Open"
 msgstr "_Öffnen"
 
-#: ../lib/menu.py:72
+#: ../lib/menu.py:67
 msgid "_Reply"
 msgstr "_Antworten"
 
-#: ../lib/menu.py:84
+#: ../lib/menu.py:75
 msgid "Re_tweet"
 msgstr "Re_tweeten"
 
-#: ../lib/menu.py:112
+#: ../lib/menu.py:98
 msgid "_Favorite"
 msgstr "_Favorisieren"
 
-#: ../lib/menu.py:123
+#: ../lib/menu.py:109
 msgid "View _Conversation"
 msgstr "Verlauf_anzeigen"
 
-#: ../lib/menu.py:149 ../lib/plugins/twitter/api.py:149
+#: ../lib/menu.py:135 ../lib/plugins/twitter/api.py:152
 msgid "Related Results"
 msgstr "Zusammenhängende Ergebnisse"
 
-#: ../lib/menu.py:162
+#: ../lib/menu.py:148
 msgid "_Search"
 msgstr "_Suchen"
 
-#: ../lib/menu.py:173
+#: ../lib/menu.py:159
 msgid "_Add Filter"
 msgstr "_Filter hinzufügen"
 
-#: ../lib/notification.py:64
-msgid "Reply"
-msgstr "Antworten"
-
-#: ../lib/notification.py:65
+#: ../lib/notification.py:63
 msgid "Open"
 msgstr "Öffnen"
 
-#: ../lib/plugins/facebook/account.py:37 ../lib/plugins/facebook/api.py:40
+#: ../lib/notification.py:65
+msgid "Reply"
+msgstr "Antworten"
+
+#: ../lib/plugins/facebook/api.py:40
 msgid "News Feed"
 msgstr "Neuigkeiten"
 
@@ -75,105 +75,128 @@ msgstr "Neuigkeiten"
 msgid "Wall"
 msgstr "Wall"
 
-#: ../lib/plugins/facebook/assistant.py:26
+#: ../lib/plugins/facebook/assistant.py:28
 msgid "Facebook Account Setup"
 msgstr "Facebook-Account einrichten"
 
-#: ../lib/plugins/facebook/assistant.py:40
-#: ../lib/plugins/twitter/assistant.py:45
+#: ../lib/plugins/facebook/assistant.py:42
+#: ../lib/plugins/tumblr/assistant.py:41
+#: ../lib/plugins/twitter/assistant.py:46
 msgid "Intro"
 msgstr "Einführung"
 
-#: ../lib/plugins/facebook/assistant.py:51
+#: ../lib/plugins/facebook/assistant.py:55
+#: ../lib/plugins/tumblr/assistant.py:54
 msgid "Authorization"
 msgstr "Authorisierung"
 
-#: ../lib/plugins/facebook/assistant.py:59
-#: ../lib/plugins/twitter/assistant.py:61
+#: ../lib/plugins/facebook/assistant.py:63
+#: ../lib/plugins/tumblr/assistant.py:62
+#: ../lib/plugins/twitter/assistant.py:62
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: ../lib/plugins/facebook/entry.py:64
+#: ../lib/plugins/facebook/entry.py:68 ../lib/plugins/tumblr/entry.py:56
+#: ../lib/plugins/tumblr/entry.py:57
 msgid "Like"
 msgstr "Gefällt mir"
 
-#: ../lib/plugins/facebook/entry.py:65
+#: ../lib/plugins/facebook/entry.py:69
 msgid "Unlike"
 msgstr "Gefällt mir nicht mehr"
 
-#: ../lib/plugins/facebook/entry.py:66
+#: ../lib/plugins/facebook/entry.py:70
 msgid "Comment"
 msgstr "Kommentieren"
 
-#: ../lib/plugins/facebook/entry.py:158
+#: ../lib/plugins/facebook/entry.py:162
 msgid "See more"
 msgstr "Mehr..."
 
-#: ../lib/plugins/facebook/entry.py:158
+#: ../lib/plugins/facebook/entry.py:162
 msgid "See less"
 msgstr "Weniger..."
 
-#: ../lib/plugins/twitter/account.py:46 ../lib/plugins/twitter/api.py:108
-#: ../lib/preferences/feedsource.py:106
-msgid "User Stream"
-msgstr "Userstream"
+#: ../lib/plugins/tumblr/api.py:40
+msgid "Dashboard"
+msgstr "Dashboard"
 
-#: ../lib/plugins/twitter/api.py:56
+#: ../lib/plugins/tumblr/api.py:47
+msgid "Posts"
+msgstr "Einträge"
+
+#: ../lib/plugins/tumblr/assistant.py:29
+msgid "Tumblr Account Setup"
+msgstr "Tumblr-Account einrichten"
+
+#: ../lib/plugins/tumblr/entry.py:30
+msgid "Read more"
+msgstr "Mehr anzeigen"
+
+#: ../lib/plugins/tumblr/entry.py:55
+msgid "Reblog"
+msgstr "Rebloggen"
+
+#: ../lib/plugins/twitter/api.py:59
 msgid "Home TimeLine"
 msgstr "Timeline"
 
-#: ../lib/plugins/twitter/api.py:63
+#: ../lib/plugins/twitter/api.py:66
 msgid "User TimeLine"
 msgstr "Benutzer Timeline"
 
-#: ../lib/plugins/twitter/api.py:74
+#: ../lib/plugins/twitter/api.py:77
 msgid "List TimeLine"
 msgstr "Liste"
 
-#: ../lib/plugins/twitter/api.py:93 ../lib/plugins/twitter/api.py:117
+#: ../lib/plugins/twitter/api.py:96 ../lib/plugins/twitter/api.py:120
 msgid "Mentions"
 msgstr "Erwähnungen"
 
-#: ../lib/plugins/twitter/api.py:100
+#: ../lib/plugins/twitter/api.py:103
 msgid "Direct Messages"
 msgstr "Direktnachrichten"
 
-#: ../lib/plugins/twitter/api.py:122
+#: ../lib/plugins/twitter/api.py:111 ../lib/preferences/feedsource.py:106
+msgid "User Stream"
+msgstr "Userstream"
+
+#: ../lib/plugins/twitter/api.py:125
 msgid "Track"
 msgstr "Verfolgen"
 
-#: ../lib/plugins/twitter/api.py:136
+#: ../lib/plugins/twitter/api.py:139
 msgid "Search"
 msgstr "Suchen"
 
-#: ../lib/plugins/twitter/assistant.py:29
+#: ../lib/plugins/twitter/assistant.py:30
 msgid "Twitter Account Setup"
 msgstr "Twitter-Account einrichten"
 
-#: ../lib/plugins/twitter/assistant.py:53
+#: ../lib/plugins/twitter/assistant.py:54
 msgid "Enter PIN"
 msgstr "PIN eingeben"
 
-#: ../lib/plugins/twitter/output.py:60 ../share/filters.glade.h:5
+#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:5
 msgid "Body"
 msgstr "Inhalt"
 
-#: ../lib/plugins/twitter/output.py:65 ../share/filters.glade.h:6
+#: ../lib/plugins/twitter/output.py:66 ../share/filters.glade.h:6
 msgid "Sender"
 msgstr "Sender"
 
-#: ../lib/plugins/twitter/output.py:68 ../share/filters.glade.h:7
+#: ../lib/plugins/twitter/output.py:69 ../share/filters.glade.h:7
 #: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "Quelle"
 
 #. FIXME
-#: ../lib/plugins/twitter/output.py:93
+#: ../lib/plugins/twitter/output.py:94
 #, python-format
 msgid "via %s"
 msgstr "via %s"
 
-#: ../lib/plugins/twitter/output.py:98
+#: ../lib/plugins/twitter/output.py:99
 #, python-format
 msgid "Retweeted by %s"
 msgstr "Retweeted von %s"
@@ -212,21 +235,21 @@ msgstr "Einstellungen"
 msgid "_Notify events"
 msgstr "_Benachrichtigung bei Ereignissen"
 
-#: ../lib/updatewindow.py:75 ../lib/updatewindow.py:376
+#: ../lib/updatewindow.py:75
 #, python-format
 msgid "Reply to %s"
 msgstr "Antworten auf %s"
 
-#: ../lib/updatewindow.py:260
+#: ../lib/updatewindow.py:271
 msgid "Supported image files"
 msgstr "Unterstützte Bild-Formate"
 
-#: ../lib/updatewindow.py:333
+#: ../lib/updatewindow.py:344
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "Möchtest du (%s) dies retweeten?"
 
-#: ../lib/updatewindow.py:334
+#: ../lib/updatewindow.py:345
 msgid "Retweet this to your followers?"
 msgstr "Möchtest du dies retweeten?"
 
@@ -234,7 +257,7 @@ msgstr "Möchtest du dies retweeten?"
 msgid ""
 "Your configuration is complete.  You are now ready to access to Facebook "
 "with GFeedLine."
-msgstr "Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf Facebook zugreifen.\n\nKlicke auf \"Bestätigen\", um die Einstellungen zu sichern."
+msgstr "Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf Facebook zugreifen.\n\nBestätige den Dialog, um die Einstellungen zu sichern."
 
 #: ../share/assistant_facebook.glade.h:2
 msgid "User name:"
@@ -249,13 +272,13 @@ msgid ""
 "This assistant helps you to configure Facebook account for GFeedLine.\n"
 "\n"
 "Click \"Forward\" to open a Facebook authorization page."
-msgstr "Dieser Assistent hilft dir, Gfeedline für deinen Facebook-Account einzurichten.\n\nKlicke auf \"Fortfahren\" um Facebook zur Authorisierung in deinem Standard-Browser zu öffnen."
+msgstr "Dieser Assistent hilft dir, Gfeedline für deinen Facebook-Account einzurichten.\n\nBestätige, um Facebook zur Authorisierung in deinem Standard-Browser zu öffnen."
 
 #: ../share/assistant_twitter.glade.h:1
 msgid ""
 "Return to this dialog after you have finished the authorization process on "
 "Twitter.com and Enter your PIN below."
-msgstr "Nachdem Sie diese Anwendung auf Twitter authorisiert haben, geben Sie die PIN unten in das Feld ein."
+msgstr "Nachdem du diese Anwendung auf Twitter authorisiert hast, gib die PIN unten in das Feld ein."
 
 #: ../share/assistant_twitter.glade.h:2
 msgid "PIN:"
@@ -266,7 +289,7 @@ msgid ""
 "Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
 "\n"
 "Click \"Apply\" to save your settings."
-msgstr "Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf Twitter zugreifen.\n\nKlicke auf \"Bestätigen\", um die Einstellungen zu sichern."
+msgstr "Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf Twitter zugreifen.\n\nBestätige den Dialog, um die Einstellungen zu sichern."
 
 #: ../share/assistant_twitter.glade.h:6
 msgid "Screen name:"
@@ -277,7 +300,7 @@ msgid ""
 "This assistant helps you to configure Twitter account for GFeedLine.\n"
 "\n"
 "Click \"Forward\" to open a Twitter authorization page with the default browser."
-msgstr "Dieser Assistent hilft dir, Gfeedline für deinen Twitter-Account einzurichten.\n\nKlicke auf \"Fortfahren\" um Twitter.com zur Authorisierung in deinem Standard-Browser zu öffnen."
+msgstr "Dieser Assistent hilft dir, Gfeedline für deinen Twitter-Account einzurichten.\n\nBestätige, um Twitter.com zur Authorisierung in deinem Standard-Browser zu öffnen."
 
 #: ../share/feedsource.glade.h:1
 msgid "Feed Source"
@@ -322,6 +345,10 @@ msgstr "_Schlagwort:"
 #: ../share/filters.glade.h:4
 msgid "_Expiry:"
 msgstr "_Ablaufdatum:"
+
+#: ../share/filters.glade.h:8
+msgid "Set 0 for permanent filter"
+msgstr "Wähle 0 für zeitlich unbegrenzten Filter"
 
 #: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
 msgid "GFeedLine"
@@ -514,6 +541,10 @@ msgstr "_Twitter"
 msgid "_Facebook"
 msgstr "_Facebook"
 
+#: ../share/select_assistant.glade.h:4
+msgid "Tumblr"
+msgstr "Tumblr"
+
 #: ../share/update.glade.h:1
 msgid "Public"
 msgstr "Öffentlich"
@@ -537,3 +568,7 @@ msgstr "Bild hinzufügen"
 #: ../share/update.glade.h:6
 msgid "_Tweet"
 msgstr "_Tweet"
+
+#: ../share/update.glade.h:7
+msgid "Ctrl+Enter"
+msgstr "Strg+Enter"
