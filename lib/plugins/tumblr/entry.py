@@ -58,8 +58,8 @@ class TumblrEntry(object):
 
         command = (
             u"<a href='%s'>%s</a> &nbsp;"
-            "<a class='like %s' href='%s' onclick='like(this);'>%s</a>"
-            "<a class='unlike %s' href='%s' onclick='like(this);'>%s</a>"
+            "<a class='like-first %s'  href='%s' onclick='like(this);'>%s</a>"
+            "<a class='like-second %s' href='%s' onclick='like(this);'>%s</a>"
             ) % (
             rebloglink, reblog_icon,
             'hidden' if is_liked else '', likelink,   like_icon,

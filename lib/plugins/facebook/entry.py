@@ -62,8 +62,8 @@ class FacebookEntry(object):
             unlikelink = 'gfeedlinefbunlike://%s' % entry['id']
 
             command = (
-                "<a class='like %s' href='%s' onclick='like(this);'>%s</a>"
-                "<a class='unlike %s' href='%s' onclick='like(this);'>%s</a>"
+                "<a class='like-first %s'  href='%s' onclick='like(this);'>%s</a>"
+                "<a class='like-second %s' href='%s' onclick='like(this);'>%s</a>"
                 u" · <a href='%s'>%s</a> · ") % (
                 'hidden' if is_liked else '', likelink,   _('Like'),
                 '' if is_liked else 'hidden', unlikelink, _('Unlike'), 
@@ -156,10 +156,10 @@ class AddedFacebookHtmlMarkup(AddedHtmlMarkup):
         text = self.new_lines.sub(
             ("\\1"
              "<span class='readmore-first'>...<br>"
-             "<a href='#' onclick='toggleShow(this,&quot;readmore&quot;); return false;'>%s</a>"
+             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
              "</span>"
              "<span class='readmore-second'>\\3<br>"
-             "<a href='#' onclick='toggleShow(this,&quot;readmore&quot;); return false;'>%s</a>"
+             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
              "</span>") % (_('See more'), _('See less')), 
             text)
         text = text.replace('\n', '<br>')
