@@ -13,7 +13,9 @@ div.reply { background-color: Lavender; }
 .readmore-second, .command-second, .hidden { display: none; }
 .datetime, .datetime a, .retweet a { color: #606060 }
 
-.togglelinks { clear: both; position: absolute; margin-top: 2px; }
+.togglelinks { clear: both; }
+.datetime-dummy { display: none;}
+
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.username { font-weight: bold; }
@@ -27,7 +29,11 @@ div.link-box{ border: solid 1px #e4e4e4; width: 90%;
               font-size: 80%; margin: 5px 0px; padding: 5px; }
 div.link-name a { font-weight: bold; }
 
+
+/* for twitter */
 div.twitter .command { display: none; } 
+div.twitter .togglelinks { position: absolute; margin-top: 2px; }
+div.twitter .datetime-dummy { display: block; visibility: hidden;}
 
 /* for tumblr */
 div.tumblr blockquote { margin: 0px; padding: 0px; } 
