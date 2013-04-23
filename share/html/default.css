@@ -13,7 +13,7 @@ div.reply { background-color: Lavender; }
 .more-text, .secound-text, .hidden { display: none; }
 .datetime, .datetime a, .retweet a { color: #606060 }
 
-.datetime { position: absolute; clear: both; margin-top: 2px; }
+.togglelinks { clear: both; position: absolute; margin-top: 2px; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.username { font-weight: bold; }
