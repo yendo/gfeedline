@@ -20,11 +20,12 @@ class TweetEntryDict(dict):
 
     def __init__(self, **init_dict):
         super(TweetEntryDict, self).__init__(dict(init_dict))
-        self['command'] = ''
-        self.setdefault('command', '')
+        self['command'] = 'Replay Retweet Favorite'
+        self.setdefault('command', '') # need it?
         self.setdefault('pre_username', '')
         self.setdefault('post_username', '')
         self.setdefault('event', '')
+        self.setdefault('onmouseover', 'showCommand(this, &quot;abc&quot;)')
 
     def __getitem__(self, key):
         if key == 'permalink':
@@ -58,7 +59,7 @@ class TweetEntry(object):
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
             id=entry.id,
-            styles=styles,
+            styles='twitter %s' % styles,
             image_uri=user.profile_image_url,
 
             retweet='',
@@ -208,7 +209,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
         entry_dict = TweetEntryDict(
             date_time=TimeFormat(created_at).get_local_time(),
             id='',
-            styles='',
+            styles='twitter',
 
             image_uri=user['profile_image_url'],
             retweet='',
@@ -253,7 +254,7 @@ class SearchTweetEntry(TweetEntry):
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
             id=entry_id,
-            styles=styles,
+            styles='twitter %s' % styles,
             image_uri=entry.image,
             retweet='',
             in_reply_to = True, # FIXME
@@ -332,7 +333,7 @@ class FeedEventEntry(TweetEntry):
         entry_dict = TweetEntryDict(
             date_time=TimeFormat(entry.created_at).get_local_time(),
             id='',
-            styles='event',
+            styles='twitter event',
             image_uri=entry.source.profile_image_url,
             retweet='',
             in_reply_to = '',

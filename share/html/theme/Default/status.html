@@ -1,4 +1,5 @@
-<div class='status $styles' id='$id' data-inreplyto='$in_reply_to'>
+<div class='status $styles' id='$id' data-inreplyto='$in_reply_to'
+     onmouseover='$onmouseover' onmouseout='$onmouseover'>
   <div class='icon'>
     <a href='$permalink'
        style='color: #$user_color;'>
@@ -18,7 +19,16 @@
     </div>
     <div class='body' dir='auto'>$status_body</div>
     <div class='retweet'>$retweet</div>
-    <div class='datetime'><span class='command'>$command</span>$date_time $source</div>
+
+    <div class='datetime'>
+      <div class='first-text'>
+        <span class='command'>$command</span>$date_time $source
+      </div>
+      <div class='long-command secound-text'>$command</div>
+    </div>
+    <!-- dummy -->
+    <div style='visibility: hidden;'>$date_time $source</div>
+
     $target
   </div>
 </div>

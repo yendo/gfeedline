@@ -13,3 +13,11 @@ function like(target){
 
     $(main+','+more).toggle();
 }
+
+function showCommand(target, tag){
+    var id = '#'+$(target).closest('.status').attr('id');
+    var main = id+' .first-text';
+    var more = id+' .secound-text';
+
+    $(main+','+more).toggle();
+}

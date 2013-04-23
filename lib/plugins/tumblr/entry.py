@@ -74,6 +74,7 @@ class TumblrEntry(object):
             permalink=entry['post_url'],
 
             command='',
+            onmouseover='',
 
             retweet='',
             retweet_by_screen_name='',

@@ -10,12 +10,10 @@ div.event { background-color: LightGoldenrodYellow; }
 div.mine { background-color: MistyRose; } 
 div.reply { background-color: Lavender; } 
 
-.more-text { display: none; }
-.hidden { display: none; }
-
+.more-text, .secound-text, .hidden { display: none; }
 .datetime, .datetime a, .retweet a { color: #606060 }
 
-.datetime { clear: both; }
+.datetime { position: absolute; clear: both; margin-top: 2px; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.username { font-weight: bold; }
@@ -29,6 +27,7 @@ div.link-box{ border: solid 1px #e4e4e4; width: 90%;
               font-size: 80%; margin: 5px 0px; padding: 5px; }
 div.link-name a { font-weight: bold; }
 
+div.twitter .command { display: none; } 
 
 /* for tumblr */
 div.tumblr blockquote { margin: 0px; padding: 0px; } 

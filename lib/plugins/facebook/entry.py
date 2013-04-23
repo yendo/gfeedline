@@ -78,6 +78,7 @@ class FacebookEntry(object):
             permalink=permalink,
 
             command=command,
+            onmouseover='',
 
             retweet='',
             retweet_by_screen_name='',
