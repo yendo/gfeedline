@@ -155,11 +155,11 @@ class AddedFacebookHtmlMarkup(AddedHtmlMarkup):
 
         text = self.new_lines.sub(
             ("\\1"
-             "<span class='main-text'>...<br>"
-             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
+             "<span class='readmore-first'>...<br>"
+             "<a href='#' onclick='toggleShow(this,&quot;readmore&quot;); return false;'>%s</a>"
              "</span>"
-             "<span class='more-text'>\\3<br>"
-             "<a href='#' onclick='readMore(this); return false;'>%s</a>"
+             "<span class='readmore-second'>\\3<br>"
+             "<a href='#' onclick='toggleShow(this,&quot;readmore&quot;); return false;'>%s</a>"
              "</span>") % (_('See more'), _('See less')), 
             text)
         text = text.replace('\n', '<br>')
