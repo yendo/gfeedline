@@ -1,7 +1,7 @@
 2013-04-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* twitter/tweetentry.py, theme/Default/status.html: Improved
-	  a scheme for Twitter interfaces.
+	* twitter/tweetentry.py, theme/Default/status.html, view.py:
+	  Improved a scheme for Twitter interfaces.
 
 2013-04-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 

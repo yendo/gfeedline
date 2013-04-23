@@ -190,6 +190,27 @@ class FeedWebView(WebKit.WebView):
             api.account.api.like(param, is_unlike)
             return True
 
+        if uri.startswith('gfeedlinetw:'):
+            button, entry_id = uri.split('/')[2:4]
+
+            replymenuitem = ENTRY_POPUP_MENU()[1](
+                None, self.api, self.scrolled_window)
+            retweetmenuitem = ENTRY_POPUP_MENU()[2](
+                None, self.api, self.scrolled_window)
+
+            if button == 'reply':
+                replymenuitem.on_activate(None, entry_id)
+            elif button == 'retweet':
+                retweetmenuitem.on_activate(None, entry_id)
+            elif button == 'fav':
+                twitter_account = self.api.account
+                twitter_account.api.fav(entry_id)
+            elif button == 'unfav':
+                twitter_account = self.api.account
+                twitter_account.api.unfav(entry_id)
+
+            return True
+
         if uri.startswith('gfeedline:'):
             uri = uri.replace('gfeedline:', 'https:')
 #        elif uri.startswith('gfeedlinereply:'):

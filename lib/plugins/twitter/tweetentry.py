@@ -20,8 +20,6 @@ class TweetEntryDict(dict):
 
     def __init__(self, **init_dict):
         super(TweetEntryDict, self).__init__(dict(init_dict))
-        self['command'] = 'Replay Retweet Favorite'
-        self.setdefault('command', '') # need it?
         self.setdefault('pre_username', '')
         self.setdefault('post_username', '')
         self.setdefault('event', '')
@@ -76,6 +74,7 @@ class TweetEntry(object):
 
             status_body=body,
             popup_body=body_string,
+            command=self._get_commands(entry.id, entry.favorited),
             target=''
             )
 
@@ -84,6 +83,35 @@ class TweetEntry(object):
     def _get_styles(self, api, screen_name, entry=None):
         style_obj = EntryStyles()
         return style_obj.get(api, screen_name, entry)
+
+    def _get_commands(self, entry_id, is_liked):
+
+        if not isinstance(is_liked, bool):
+            is_liked = is_liked == 'true'
+
+        replylink =   'gfeedlinetw://reply/%s' % entry_id
+        retweetlink = 'gfeedlinetw://retweet/%s'  % entry_id
+        favlink =     'gfeedlinetw://fav/%s' % entry_id
+        unfavlink =   'gfeedlinetw://unfav/%s' % entry_id
+        morelink =    'gfeedlinetw://more/%s' % entry_id
+
+        commands = (
+        "<a href='%s' title='%s'><img src='twitter-reply.png'>%s</a> "
+        "<a href='%s' title='%s'><img src='twitter-retweet.png'>%s</a> "
+
+        "<a href='%s' title='%s' class='like-first %s' onclick='like(this)'><img src='twitter-fav.png'>%s</a> "
+        "<a href='%s' title='%s' class='like-second %s' onclick='like(this)'><img src='twitter-unfav.png'>%s</a> "
+#        "<a href='%s' title='More'><img src='twitter-fav.png'>More</a>"
+        ) % (
+            replylink, _('Reply'), _('Reply'),
+            retweetlink, _('Retweet'), _('Retweet'), 
+
+            favlink, _('Favorite'), 'hidden' if is_liked else '', _('Favorite'), 
+            unfavlink, _('Favorite'), '' if is_liked else 'hidden', _('Favorite'), 
+            # morelink
+            )
+
+        return commands
 
     def _get_source(self, entry):
         return self._decode_source_html_entities(entry.source)
@@ -230,6 +258,8 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             pre_username = '',
             post_username = ' ',
 
+            command='oops!',
+
             target_body=retweeted_dict['status_body'],
             target_date_time=target_date_time,)
 
@@ -248,8 +278,10 @@ class SearchTweetEntry(TweetEntry):
 
         name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
-
         styles = self._get_styles(api, name)
+
+        print entry
+        print
 
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
@@ -267,6 +299,7 @@ class SearchTweetEntry(TweetEntry):
 
             status_body=body,
             popup_body=body_string,
+            command=self._get_commands(entry_id, False),
             target=''
             )
 
@@ -353,6 +386,7 @@ class FeedEventEntry(TweetEntry):
             pre_username = '',
             post_username = ' ',
 
+            command='',
             target_body=target_body,
             target_date_time=target_date_time,
             )

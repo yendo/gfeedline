@@ -78,9 +78,10 @@ class RetweetMenuItem(PopupMenuItem):
         super(RetweetMenuItem, self).__init__(uri, api, scrolled_window)
         self.account = api.account
 
-        entry_id = uri.split('/')[-1]
-        dom = self.parent.webview.dom.get_element_by_id(entry_id)
-        self.set_sensitive(self._is_enabled(dom))
+        if uri:
+            entry_id = uri.split('/')[-1]
+            dom = self.parent.webview.dom.get_element_by_id(entry_id)
+            self.set_sensitive(self._is_enabled(dom))
 
     def _is_enabled(self, dom):
         is_mine = dom.get_attribute('class').count('mine')

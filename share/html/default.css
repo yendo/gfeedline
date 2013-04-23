@@ -32,6 +32,7 @@ div.link-name a { font-weight: bold; }
 
 /* for twitter */
 div.twitter .command { display: none; } 
+div.twitter .long-command img { vertical-align: -20%; } /* FIXME */
 div.twitter .togglelinks { position: absolute; margin-top: 2px; }
 div.twitter .datetime-dummy { display: block; visibility: hidden;}
 
