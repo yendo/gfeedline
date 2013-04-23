@@ -10,7 +10,7 @@ div.event { background-color: LightGoldenrodYellow; }
 div.mine { background-color: MistyRose; } 
 div.reply { background-color: Lavender; } 
 
-.more-text, .secound-text, .hidden { display: none; }
+.more-text, .command-second, .hidden { display: none; }
 .datetime, .datetime a, .retweet a { color: #606060 }
 
 .togglelinks { clear: both; position: absolute; margin-top: 2px; }
