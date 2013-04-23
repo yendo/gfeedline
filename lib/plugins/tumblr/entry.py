@@ -52,7 +52,7 @@ class TumblrEntry(object):
         unlikelink = 'gfeedlinefbunlike:%s' % path
         is_liked = entry['liked']
 
-        reblog_icon = "<img src='retweet.png' title='%s' width='15' height='12'>" % _('Reblog')
+        reblog_icon = "<img src='reblog.png' title='%s' width='19' height='11'>" % _('Reblog')
         like_icon = "<img src='heart_gray.png' title='%s' width='15' height='12'>" % _('Like')
         unlike_icon = "<img src='heart_red.png' title='%s' width='15' height='12'>" % _('Like')
 
