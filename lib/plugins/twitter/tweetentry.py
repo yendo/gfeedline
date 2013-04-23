@@ -96,12 +96,14 @@ class TweetEntry(object):
         morelink =    'gfeedlinetw://more/%s' % entry_id
 
         commands = (
-        "<a href='%s' title='%s'><img src='twitter-reply.png'>%s</a> "
-        "<a href='%s' title='%s'><img src='twitter-retweet.png'>%s</a> "
+        "<a href='%s' title='%s' class='icon-reply icon-large'> %s</a> "
+        "<a href='%s' title='%s' class='icon-retweet icon-large'>%s</a> "
 
-        "<a href='%s' title='%s' class='like-first %s' onclick='like(this)'><img src='twitter-fav.png'>%s</a> "
-        "<a href='%s' title='%s' class='like-second %s' onclick='like(this)'><img src='twitter-unfav.png'>%s</a> "
-#        "<a href='%s' title='More'><img src='twitter-fav.png'>More</a>"
+        "<a href='%s' title='%s' class='like-first %s' onclick='like(this)'><i class='icon-star icon-large'></i>%s</a> "
+        "<a href='%s' title='%s' class='like-second %s' style='color:red;' onclick='like(this)'><i class='icon-star icon-large'></i>%s</a> "
+
+#        "<a href='%s' title='More' class='icon-double-angle-right icon-large'>More</a>"
+
         ) % (
             replylink, _('Reply'), _('Reply'),
             retweetlink, _('Retweet'), _('Retweet'), 
