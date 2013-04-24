@@ -156,7 +156,7 @@ class TweetEntry(object):
 
         date_time = TimeFormat(target_object.created_at).get_local_time()
         dt_format = ("(<a href='http://twitter.com/%s/status/%s' "
-                     "class='target_datetime'>%s</a>)")
+                     "class='target-datetime'>%s</a>)")
         target_date_time = dt_format % (
             original_screen_name, target_object.id, date_time)
 
