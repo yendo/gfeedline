@@ -283,9 +283,6 @@ class SearchTweetEntry(TweetEntry):
         entry_id = entry.id.split(':')[2]
         styles = self._get_styles(api, name)
 
-        print entry
-        print
-
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
             id=entry_id,
