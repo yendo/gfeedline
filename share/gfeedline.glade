@@ -293,7 +293,7 @@
             <property name="xpad">24</property>
             <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Welcome to GFeedLine!&lt;/b&gt;&lt;/big&gt;
 
-GFeedLine is a social networking client.  It supports Twitter.
+GFeedLine is a social networking client.  It supports Twitter, Facebook and Tumblr.
 
 To start connecting with GFeedLine, open the Preferences dialog from &lt;b&gt;Edit  ▸ Preference&lt;/b&gt; to configure your accounts in the Accounts tab.
 
