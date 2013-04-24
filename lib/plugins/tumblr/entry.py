@@ -52,18 +52,19 @@ class TumblrEntry(object):
         unlikelink = 'gfeedlinefbunlike:%s' % path
         is_liked = entry['liked']
 
-        reblog_icon = "<img src='reblog.png' title='%s' width='19' height='11'>" % _('Reblog')
-        like_icon = "<img src='heart_gray.png' title='%s' width='15' height='12'>" % _('Like')
-        unlike_icon = "<img src='heart_red.png' title='%s' width='15' height='12'>" % _('Like')
+        reblog_icon = "<i class='icon-retweet'></i>"
+        like_icon = "<i class='icon-heart'></i>"
 
         command = (
-            u"<a href='%s'>%s</a> &nbsp;"
-            "<a class='like-first %s'  href='%s' onclick='like(this);'>%s</a>"
-            "<a class='like-second %s' href='%s' onclick='like(this);'>%s</a>"
+            u"<span class='commands'>"
+            "<a title='%s' href='%s' >%s</a> &nbsp;"
+            "<a title='%s' class='like-first %s'  href='%s' onclick='like(this);'>%s</a>"
+            "<a title='%s' class='like-second %s yendo' href='%s' onclick='like(this);'>%s</a>"
+            "</span>"
             ) % (
-            rebloglink, reblog_icon,
-            'hidden' if is_liked else '', likelink,   like_icon,
-            '' if is_liked else 'hidden', unlikelink, unlike_icon, 
+            _('Reblog'), rebloglink, reblog_icon,
+            _('Like'), 'hidden' if is_liked else '', likelink,   like_icon,
+            _('Like'), '' if is_liked else 'hidden', unlikelink, like_icon, 
             )
 
         entry_dict = dict(
