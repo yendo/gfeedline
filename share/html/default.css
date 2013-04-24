@@ -36,6 +36,8 @@ div.twitter .togglelinks { position: absolute; margin-top: 2px; }
 div.twitter .datetime-dummy { display: block; visibility: hidden; }
 div.twitter .long-command, div.twitter .long-command a { color: blue; }
 
+div.twitter .icon-lock { color: #999999; }
+
 
 /* for tumblr */
 div.tumblr .commands a { font-size: 130%; color: adb3bc; text-decoration: none; }

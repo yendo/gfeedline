@@ -107,11 +107,6 @@ class TwitterOutputBase(object):
                         'title_by_name': title_by_name}
             entry_dict['retweet'] = template.substitute(key_dict)
 
-        # protected icon template
-        if entry_dict['protected']:
-            template = self.theme.template['protected']
-            entry_dict['protected'] = template.substitute({})
-
         if entry_dict.get('event'):
             style = 'status' # FIXME
             is_new_update = True

@@ -145,7 +145,8 @@ class TweetEntry(object):
         return text
 
     def _get_protected_icon(self, attribute):
-        return True if attribute and attribute != 'false' else ''
+        icon = "<i class='icon-lock'></i>"
+        return icon if attribute and attribute != 'false' else ''
 
     def _decode_source_html_entities(self, source_html):
         source_html = unescape(source_html)

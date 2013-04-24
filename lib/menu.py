@@ -39,7 +39,7 @@ class PopupMenuItem(Gtk.MenuItem):
         full_name = _get_first_class('username').get_attribute('data-fullname')
         body = _get_first_class('body').get_inner_text()
         date_time = _get_first_class('datetime').get_inner_text()
-        is_protected = bool(_get_first_class('protected'))
+        is_protected = bool(_get_first_class('icon-lock'))
 
         entry_dict = dict(
             date_time=date_time,
