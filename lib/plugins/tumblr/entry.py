@@ -59,7 +59,7 @@ class TumblrEntry(object):
             u"<span class='commands'>"
             "<a title='%s' href='%s' >%s</a> &nbsp;"
             "<a title='%s' class='like-first %s'  href='%s' onclick='like(this);'>%s</a>"
-            "<a title='%s' class='like-second %s yendo' href='%s' onclick='like(this);'>%s</a>"
+            "<a title='%s' class='like-second %s' href='%s' onclick='like(this);'>%s</a>"
             "</span>"
             ) % (
             _('Reblog'), rebloglink, reblog_icon,
