@@ -44,6 +44,8 @@ class TumblrEntry(object):
         image_uri = 'http://api.tumblr.com/v2/blog/%s.tumblr.com/avatar/40' \
             % entry.get('blog_name')
 
+        # command
+
         rebloglink = 'http://www.tumblr.com/reblog/%s/%s' % (
             entry['id'], entry['reblog_key'])
 
@@ -66,6 +68,21 @@ class TumblrEntry(object):
             _('Like'), 'hidden' if is_liked else '', likelink,   like_icon,
             _('Like'), '' if is_liked else 'hidden', unlikelink, like_icon, 
             )
+
+        # popup
+
+        for key in ['text', 'body', 'question', 'link', 'caption']:
+            popup_body = entry.get(key)
+            if popup_body:
+                popup_body = re.sub(r'<[^>]*?>', '', popup_body).rstrip()
+                break
+        else:
+            post_type = {'photo': _('a photo'), 'video': _('a video'), 
+                         'audio': _('an audio')}
+            popup_body = _('{0} posts {1} entry.').format(
+                entry['blog_name'], _(post_type[entry['type']]))
+
+        print popup_body
 
         entry_dict = dict(
             date_time=TimeFormat(entry['date']).get_local_time(),
@@ -95,7 +112,7 @@ class TumblrEntry(object):
             source='',
 
             status_body=add_markup.convert(body),
-            popup_body='',
+            popup_body=popup_body,
             target=''
             )
 

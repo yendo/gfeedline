@@ -1,3 +1,7 @@
+2013-04-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* tumblr/entry.py: Added support for notification of Tumblr.
+
 2013-04-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* fontawesome-webfont.woff, font-awesome.min.css: Added Font
