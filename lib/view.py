@@ -41,6 +41,7 @@ class FeedView(FeedScrolledWindow):
         self.liststore = liststore
         self.window = liststore.window # access from RetweetMenuItem
         self.theme = self.window.theme
+        self.feed_counter = 1 # numbers of feeds
 
         self.append(notebook, page)
         self.webview = FeedWebView(self, api, notebook.group_name)
@@ -56,9 +57,11 @@ class FeedView(FeedScrolledWindow):
         self.append(notebook, page)
 
     def remove(self):
-        page = self.notebook.page_num(self)
-        print "removed %s page!" % page
-        self.notebook.remove_page(page)
+        self.feed_counter -= 1
+        if self.feed_counter == 0:
+            page = self.notebook.page_num(self)
+            print "removed %s page!" % page
+            self.notebook.remove_page(page)
 
     def update(self, entry_dict, style='status', has_notify=False, 
                is_first_call=False, is_new_update=True):

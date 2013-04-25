@@ -65,7 +65,14 @@ class FeedListStore(ListStoreBase):
 
         page = int(str(self.get_path(iter))) if iter else -1
         tab_name = source.get('name') or api.name
-        view = FeedView(self, notebook, api, tab_name, page)
+
+        for row in self:
+            if tab_name == row[Column.API].view.name:
+                view = row[Column.API].view
+                view.feed_counter += 1
+                break
+        else:
+            view = FeedView(self, notebook, api, tab_name, page)
 
         factory = TwitterOutputFactory()
         api_obj = factory.create_obj(api, view, 
@@ -91,11 +98,12 @@ class FeedListStore(ListStoreBase):
         return new_iter
 
     def update(self, source, iter):
-        # compare 'source', 'username', 'target' & 'argument'
-        old_column = [Column.SOURCE, Column.USERNAME, 
+        # compare 'source', 'username', 'name', 'target' & 'argument'
+        old_column = [Column.SOURCE, Column.USERNAME, Column.NAME, 
                       Column.TARGET, Column.ARGUMENT]
         old = [self.get_value(iter, x).decode('utf-8') for x in old_column]
-        new = [source.get(x) for x in ['source', 'username', 'target', 'argument']]
+        new = [source.get(x) for x in ['source', 'username', 'name', 
+                                       'target', 'argument']]
 
         if old != new:
             new_iter = self.append(source, iter)
