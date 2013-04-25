@@ -63,15 +63,16 @@ class FeedListStore(ListStoreBase):
         api = api_class(account_obj)
         notebook = self.window.get_notebook(source.get('group'))
 
-        page = int(str(self.get_path(iter))) if iter else -1
-        tab_name = source.get('name') or api.name
-
         for row in self:
-            if tab_name == row[Column.API].view.name:
+            if (source.get('name') == row[Column.API].view.name and 
+                source.get('group') == row[Column.GROUP] and 
+                source.get('source') == row[Column.SOURCE]):
                 view = row[Column.API].view
                 view.feed_counter += 1
                 break
         else:
+            page = int(str(self.get_path(iter))) if iter else -1
+            tab_name = source.get('name') or api.name
             view = FeedView(self, notebook, api, tab_name, page)
 
         factory = TwitterOutputFactory()
@@ -98,12 +99,11 @@ class FeedListStore(ListStoreBase):
         return new_iter
 
     def update(self, source, iter):
-        # compare 'source', 'username', 'name', 'target' & 'argument'
-        old_column = [Column.SOURCE, Column.USERNAME, Column.NAME, 
-                      Column.TARGET, Column.ARGUMENT]
+        old_column = [Column.GROUP, Column.SOURCE, Column.USERNAME, 
+                      Column.NAME, Column.TARGET, Column.ARGUMENT]
         old = [self.get_value(iter, x).decode('utf-8') for x in old_column]
-        new = [source.get(x) for x in ['source', 'username', 'name', 
-                                       'target', 'argument']]
+        new = [source.get(x) for x in ['group', 'source', 'username', 
+                                       'name', 'target', 'argument']]
 
         if old != new:
             new_iter = self.append(source, iter)
@@ -115,29 +115,6 @@ class FeedListStore(ListStoreBase):
             api_obj = self.get_value(iter, Column.API)
             api_obj.options = source.get('options', {})
             self.set_value(iter, Column.OPTIONS, api_obj.options)
-
-            # GROUP
-            old_group = self.get_value(iter, Column.GROUP).decode('utf-8')
-            new_group = source.get('group') # FIXME
-
-            if old_group != new_group:
-                self.set_value(iter, Column.GROUP, new_group)
-
-                notebook = self.window.get_notebook(new_group)
-                api_obj.view.move(notebook)
-                api_obj.view.webview.group_name = new_group # FIXME v1.7
-
-                new_page = self.get_group_page(source.get('group'))
-                self.window.column.hbox.reorder_child(notebook, new_page)
-
-            # NAME
-            old_name = self.get_value(iter, Column.NAME).decode('utf-8')
-            new_name = source.get('name')
-
-            if old_name != new_name:
-                self.set_value(iter, Column.NAME, new_name)
-                tab_name = new_name or source.get('target')
-                api_obj.view.tab_label.set_text(tab_name)
 
         return new_iter
 
