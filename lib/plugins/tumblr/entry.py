@@ -82,7 +82,7 @@ class TumblrEntry(object):
             popup_body = _('{0} posts {1} entry.').format(
                 entry['blog_name'], _(post_type[entry['type']]))
 
-        print popup_body
+        # print popup_body
 
         entry_dict = dict(
             date_time=TimeFormat(entry['date']).get_local_time(),
