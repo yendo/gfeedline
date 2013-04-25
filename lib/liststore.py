@@ -12,11 +12,6 @@ from constants import Column
 from accountliststore import AccountListStore
 from filterliststore import FilterListStore
 from utils.liststorebase import ListStoreBase, SaveListStoreBase
-from plugins.twitter.output import TwitterOutputFactory
-
-from plugins.twitter.api import TwitterAPIDict
-from plugins.facebook.api import FacebookAPIDict
-from plugins.tumblr.api import TumblrAPIDict
 
 
 class FeedListStore(ListStoreBase):
@@ -38,27 +33,19 @@ class FeedListStore(ListStoreBase):
         self.filter_liststore = FilterListStore()
 
         self.window = MainWindow(self)
-        self.api_dict = TwitterAPIDict()
 
         self.save = SaveListStore()
         for entry in self.save.load():
             self.append(entry)
 
     def append(self, source, iter=None):
-        # FIXME:Facebook
-        source_name = source.get('source')
-        if source_name == 'Twitter':
-            api_class = self.api_dict.get(source['target'])
-        elif source_name == 'Facebook':
-            api_class = FacebookAPIDict().get(source['target'])
-        else:
-            api_class = TumblrAPIDict().get(source['target'])
-
         account_obj = self.account_liststore.get_account_obj(
             source.get('source'), source.get('username'))
 
-        if not api_class or not account_obj:
-            return
+        if account_obj:
+            api_class = account_obj.api_dict.get(source.get('target'))
+            if not api_class:
+                return
 
         api = api_class(account_obj)
         notebook = self.window.get_notebook(source.get('group'))
@@ -75,10 +62,9 @@ class FeedListStore(ListStoreBase):
             tab_name = source.get('name') or api.name
             view = FeedView(self, notebook, api, tab_name, page)
 
-        factory = TwitterOutputFactory()
-        api_obj = factory.create_obj(api, view, 
-                                     source.get('argument'), source.get('options'),
-                                     self.filter_liststore)
+        api_obj = api.output(api, view, 
+                             source.get('argument'), source.get('options'),
+                             self.filter_liststore)
 
         list = [source.get('group'),
                 account_obj.icon.get_pixbuf(),

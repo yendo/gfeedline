@@ -26,11 +26,6 @@ from ...constants import Column
 from ...theme import Theme
 from ..base.output import DelayedPool
 
-class TwitterOutputFactory(object):
-
-    def create_obj(self, api, view, argument, options, filters):
-        obj = api.output(api, view, argument, options, filters)
-        return obj
 
 class TwitterOutputBase(object):
 
