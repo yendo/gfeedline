@@ -47,6 +47,8 @@ class FeedView(FeedScrolledWindow):
         self.webview = FeedWebView(self, api, notebook.group_name)
         self.notification = self.window.notification
 
+        self.id_history = CacheList()
+
     def append(self, notebook, page=-1):
         self.notebook = notebook
         self.tab_label = notebook.append_page(self, self.name, page)
@@ -65,6 +67,12 @@ class FeedView(FeedScrolledWindow):
 
     def update(self, entry_dict, style='status', has_notify=False, 
                is_first_call=False, is_new_update=True):
+
+        is_dupulicated = entry_dict['id'] in self.id_history
+        self.id_history.append(entry_dict['id'])
+        if is_dupulicated:
+            return
+
         text = self.theme.template[style].substitute(entry_dict)
 
         if has_notify and not is_first_call:
@@ -316,3 +324,14 @@ class DnDSelection(object):
             text = link_style % {'title': title, 'uri': uri} if title else uri
 
         return text, image_file
+
+class CacheList(list):
+
+    def __init__(self, num=100):
+        super(CacheList, self).__init__()
+        self.num = num
+
+    def append(self, item):
+        super(CacheList, self).append(item)
+        if len(self) >= self.num:
+            self.pop(0)

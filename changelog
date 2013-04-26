@@ -1,3 +1,7 @@
+2013-04-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py: Added checking duplicate posts.
+
 2013-04-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* liststore.py, view.py: Added support for feeds unification.
