@@ -15,6 +15,7 @@ lib/plugins/twitter/output.py
 lib/plugins/twitter/tweetentry.py
 lib/preferences/feedsource.py
 lib/updatewindow.py
+lib/window.py
 share/assistant_facebook.glade
 share/assistant_twitter.glade
 share/feedsource.glade

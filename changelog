@@ -1,5 +1,6 @@
 2013-04-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* window.py: Fixed problems for removing tab.
 	* view.py: Added checking duplicate posts.
 
 2013-04-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
