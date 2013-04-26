@@ -48,20 +48,7 @@ class FeedListStore(ListStoreBase):
                 return
 
         api = api_class(account_obj)
-        notebook = self.window.get_notebook(source.get('group'))
-
-        for row in self:
-            if (source.get('name') == row[Column.API].view.name and 
-                source.get('group') == row[Column.GROUP] and 
-                source.get('source') == row[Column.SOURCE]):
-                view = row[Column.API].view
-                view.feed_counter += 1
-                break
-        else:
-            page = int(str(self.get_path(iter))) if iter else -1
-            tab_name = source.get('name') or api.name
-            view = FeedView(self, notebook, api, tab_name, page)
-
+        view = self._get_view(source, api, iter)
         api_obj = api.output(api, view, 
                              source.get('argument'), source.get('options'),
                              self.filter_liststore)
@@ -83,6 +70,22 @@ class FeedListStore(ListStoreBase):
         api_obj.start(interval)
 
         return new_iter
+
+    def _get_view(self, source, api, iter):
+        for row in self:
+            if (source.get('name') == row[Column.API].view.name and 
+                source.get('group') == row[Column.GROUP] and 
+                source.get('source') == row[Column.SOURCE]):
+                view = row[Column.API].view
+                view.feed_counter += 1
+                break
+        else:
+            notebook = self.window.get_notebook(source.get('group'))
+            page = int(str(self.get_path(iter))) if iter else -1
+            tab_name = source.get('name') or api.name
+            view = FeedView(self, notebook, api, tab_name, page)
+
+        return view
 
     def update(self, source, iter):
         old_column = [Column.GROUP, Column.SOURCE, Column.USERNAME, 
