@@ -338,7 +338,7 @@ class CloseTabDialog(object):
         self.dialog.format_secondary_text(message)
 
     def run(self):
-        self.dialog.run()
+        return self.dialog.run()
 
     def destroy(self):
         self.dialog.destroy()
