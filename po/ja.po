@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 19:16+0900\n"
-"PO-Revision-Date: 2013-04-23 19:17+0900\n"
+"POT-Creation-Date: 2013-04-26 13:22+0900\n"
+"PO-Revision-Date: 2013-04-26 12:57+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -60,7 +60,7 @@ msgstr "フィルターに追加(_A)"
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:106
+#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:108
 msgid "Reply"
 msgstr "返信"
 
@@ -93,8 +93,8 @@ msgstr "認証"
 msgid "Confirm"
 msgstr "確認"
 
-#: ../lib/plugins/facebook/entry.py:68 ../lib/plugins/tumblr/entry.py:56
-#: ../lib/plugins/tumblr/entry.py:57
+#: ../lib/plugins/facebook/entry.py:68 ../lib/plugins/tumblr/entry.py:68
+#: ../lib/plugins/tumblr/entry.py:69
 msgid "Like"
 msgstr "いいね！"
 
@@ -130,9 +130,25 @@ msgstr "Tumblr アカウントの設定"
 msgid "Read more"
 msgstr "続きを読む"
 
-#: ../lib/plugins/tumblr/entry.py:55
+#: ../lib/plugins/tumblr/entry.py:67
 msgid "Reblog"
 msgstr "リブログ"
+
+#: ../lib/plugins/tumblr/entry.py:80
+msgid "a photo"
+msgstr "写真"
+
+#: ../lib/plugins/tumblr/entry.py:80
+msgid "a video"
+msgstr "動画"
+
+#: ../lib/plugins/tumblr/entry.py:81
+msgid "an audio"
+msgstr "音声"
+
+#: ../lib/plugins/tumblr/entry.py:82
+msgid "{0} posts {1} entry."
+msgstr "{0} が{1}エントリーを投稿しました。"
 
 #: ../lib/plugins/twitter/api.py:59
 msgid "Home TimeLine"
@@ -174,40 +190,40 @@ msgstr "Twitter アカウントの設定"
 msgid "Enter PIN"
 msgstr "PIN の入力"
 
-#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:5
+#: ../lib/plugins/twitter/output.py:56 ../share/filters.glade.h:5
 msgid "Body"
 msgstr "本文"
 
-#: ../lib/plugins/twitter/output.py:66 ../share/filters.glade.h:6
+#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:6
 msgid "Sender"
 msgstr "送信者"
 
-#: ../lib/plugins/twitter/output.py:69 ../share/filters.glade.h:7
+#: ../lib/plugins/twitter/output.py:64 ../share/filters.glade.h:7
 #: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "ソース"
 
 #. FIXME
-#: ../lib/plugins/twitter/output.py:94
+#: ../lib/plugins/twitter/output.py:89
 #, python-format
 msgid "via %s"
 msgstr "via %s"
 
-#: ../lib/plugins/twitter/output.py:99
+#: ../lib/plugins/twitter/output.py:94
 #, python-format
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:107
+#: ../lib/plugins/twitter/tweetentry.py:109
 msgid "Retweet"
 msgstr "リツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:109
-#: ../lib/plugins/twitter/tweetentry.py:110
+#: ../lib/plugins/twitter/tweetentry.py:111
+#: ../lib/plugins/twitter/tweetentry.py:112
 msgid "Favorite"
 msgstr "お気に入り"
 
-#: ../lib/plugins/twitter/tweetentry.py:233
+#: ../lib/plugins/twitter/tweetentry.py:236
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
@@ -258,6 +274,13 @@ msgstr "あなた (%s) のフォロワーにこれをリツイートしますか
 #: ../lib/updatewindow.py:345
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
+
+#: ../lib/window.py:336
+#, python-format
+msgid "This tab include %s feeds.  Are you sure you want to close the tab."
+msgstr ""
+"このタブには複数 (%s) のフィードが含まれています。このタブを閉じてよろしいで"
+"すか?"
 
 #: ../share/assistant_facebook.glade.h:1
 msgid ""
@@ -434,7 +457,8 @@ msgstr "目次(_C)"
 msgid ""
 "<big><b>Welcome to GFeedLine!</b></big>\n"
 "\n"
-"GFeedLine is a social networking client.  It supports Twitter.\n"
+"GFeedLine is a social networking client.  It supports Twitter, Facebook and "
+"Tumblr.\n"
 "\n"
 "To start connecting with GFeedLine, open the Preferences dialog from "
 "<b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
@@ -445,8 +469,8 @@ msgid ""
 msgstr ""
 "<big><b>GFeedLine へようこそ!</b></big>\n"
 "\n"
-"GFeedLine はソーシャルネットワーキングクライアントです。Twitter をサポートし"
-"ています。\n"
+"GFeedLine はソーシャルネットワーキングクライアントです。Twitter と Facebbok、"
+"Tumblr をサポートしています。\n"
 "\n"
 "GFeedLine でアクセスするために、まずはメニューの<b>編集 ▸ 設定</b>から設定ダ"
 "イアログを開き、そのアカウントタブでアカウントを設定してください。\n"
@@ -455,6 +479,10 @@ msgstr ""
 "い。なお、各フィードでグループ名を指定するとマルチカラム表示が可能です。"
 
 #: ../share/notebook_popup_menu.glade.h:1
+msgid "Close this tab?"
+msgstr "このタブを閉じますか?"
+
+#: ../share/notebook_popup_menu.glade.h:2
 msgid "_Close Tab"
 msgstr "タブを閉じる(_C)"
 
