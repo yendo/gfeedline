@@ -6,7 +6,7 @@
     <property name="border_width">5</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">GFeedLine</property>
-    <property name="copyright" translatable="yes">Copyright © 2012 Yoshizumi Endo.</property>
+    <property name="copyright" translatable="yes">Copyright © 2012, 2013 Yoshizumi Endo.</property>
     <property name="comments" translatable="yes">Social Networking Client</property>
     <property name="website">http://code.google.com/p/gfeedline/</property>
     <property name="authors">Yoshizumi Endo &lt;yendo0206@gmail.com&gt;</property>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-26 13:22+0900\n"
-"PO-Revision-Date: 2013-04-26 12:57+0900\n"
+"POT-Creation-Date: 2013-04-26 15:34+0900\n"
+"PO-Revision-Date: 2013-04-26 15:39+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -406,8 +406,8 @@ msgid "Social Networking Client"
 msgstr "ソーシャルネットワーキングクライアント"
 
 #: ../share/gfeedline.glade.h:1
-msgid "Copyright © 2012 Yoshizumi Endo."
-msgstr "Copyright © 2012 Yoshizumi Endo."
+msgid "Copyright © 2012, 2013 Yoshizumi Endo."
+msgstr "Copyright © 2012, 2013 Yoshizumi Endo."
 
 #: ../share/gfeedline.glade.h:3
 msgid "translator-credits"
