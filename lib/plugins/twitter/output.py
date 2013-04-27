@@ -26,11 +26,6 @@ from ...constants import Column
 from ...theme import Theme
 from ..base.output import DelayedPool
 
-class TwitterOutputFactory(object):
-
-    def create_obj(self, api, view, argument, options, filters):
-        obj = api.output(api, view, argument, options, filters)
-        return obj
 
 class TwitterOutputBase(object):
 
@@ -106,11 +101,6 @@ class TwitterOutputBase(object):
                         'title_by_screen_name': title_by_screen_name, 
                         'title_by_name': title_by_name}
             entry_dict['retweet'] = template.substitute(key_dict)
-
-        # protected icon template
-        if entry_dict['protected']:
-            template = self.theme.template['protected']
-            entry_dict['protected'] = template.substitute({})
 
         if entry_dict.get('event'):
             style = 'status' # FIXME

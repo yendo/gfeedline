@@ -6,23 +6,23 @@ div.target { padding-left: 1em;
              font-size: 80%; 
              color: gray; }
 
-div.event { background-color: LightGoldenrodYellow; } 
-div.mine { background-color: MistyRose; } 
-div.reply { background-color: Lavender; } 
+div.event { background-color: LightGoldenrodYellow; }
+div.mine { background-color: MistyRose; }
+div.reply { background-color: Lavender; }
 
-.more-text { display: none; }
-.hidden { display: none; }
-
+.readmore-second, .command-second, .hidden { display: none; }
 .datetime, .datetime a, .retweet a { color: #606060 }
 
-.datetime { clear: both; }
+.togglelinks { clear: both; }
+.datetime-dummy { display: none; }
+
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.username { font-weight: bold; }
-a.target_datetime { color: gray; }
+a.target-datetime { color: gray; }
 
 div.image img { margin: 5px; padding: 3px; border: 1px solid #ccc; 
-                max-width: 160px; max-height: 90px;}
+                max-width: 160px; max-height: 90px; }
 
 div.link-box{ border: solid 1px #e4e4e4; width: 90%;
               color: #555; background-color: #f7f7f7; 
@@ -30,14 +30,33 @@ div.link-box{ border: solid 1px #e4e4e4; width: 90%;
 div.link-name a { font-weight: bold; }
 
 
+/* for twitter */
+div.twitter .command { display: none; }
+div.twitter .togglelinks { position: absolute; margin-top: 2px; }
+div.twitter .datetime-dummy { display: block; visibility: hidden; }
+div.twitter .long-command, div.twitter .long-command a { color: blue; }
+div.twitter .long-command a i { text-decoration: none; }  
+div.twitter .icon-lock { color: #999999; }
+
+@media screen and (max-width: 250px) {
+  div.twitter .long-command .label { display: none; }  
+}
+
+
 /* for tumblr */
-div.tumblr blockquote { margin: 0px; padding: 0px; } 
-div.tumblr p { margin: 0px; padding: 0px; } 
-div.tumblr span { margin: 0px; padding: 0px; font-size: 100% !important;} 
+div.tumblr .commands a { font-size: 130%; color: adb3bc; text-decoration: none; }
+div.tumblr .commands a:hover { color: #8d96a2 }
+div.tumblr .commands a.like-second { color: #d32a2a; }
+
+div.tumblr blockquote { margin: 0px; padding: 0px; }
+div.tumblr p { margin: 0px; padding: 0px; }
+div.tumblr span { margin: 0px; padding: 0px; font-size: 100% !important; }
 div.tumblr img { max-width: 160px; max-height: 90px; }
-div.tumblr h1 { font-size: 100%; } 
+div.tumblr h1 { font-size: 100%; }
 div.tumblr ul { padding-left: 2em; }
 div.tumblr .source { margin-top: 0.5em; }
+div.tumblr .username { float: left; }
+div.tumblr .tumblrbuttons { text-align: right; }
 
 div.tumblr .bubble { margin: 10px; }
 div.tumblr .bubble-text { 

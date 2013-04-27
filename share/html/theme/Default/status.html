@@ -5,7 +5,7 @@
       <img src='$image_uri' class='usericon' width='36' height='36'></a>
   </div>
 
-  <div class='text'>
+  <div class='text' onmouseover='$onmouseover' onmouseout='$onmouseover'>
     <div class='user'>
       $pre_username
       <a href='$permalink'
@@ -18,7 +18,16 @@
     </div>
     <div class='body' dir='auto'>$status_body</div>
     <div class='retweet'>$retweet</div>
-    <div class='datetime'><span class='command'>$command</span>$date_time $source</div>
+
+    <div class='datetime togglelinks'>
+      <div class='command-first'>
+        <span class='command'>$command</span>$date_time $source
+      </div>
+      <div class='long-command command-second'>$command</div>
+    </div>
+    <!-- dummy -->
+    <div class='datetime datetime-dummy'>$date_time $source</div>
+
     $target
   </div>
 </div>

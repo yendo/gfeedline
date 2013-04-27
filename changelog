@@ -1,9 +1,44 @@
+2013-04-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
+
+2013-04-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py: Fixed problems for removing tab.
+	* view.py: Added checking duplicate posts.
+
+2013-04-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py, view.py: Added support for feeds unification.
+	* tumblr/entry.py: Added support for notification of Tumblr.
+
+2013-04-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* fontawesome-webfont.woff, font-awesome.min.css: Added Font
+	  Awesome Support.
+	* twitter/tweetentry.py, theme/Default/status.html, view.py:
+	  Improved a scheme for Twitter interfaces.
+
+2013-04-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
+	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme!
+
+2013-04-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* html/heart_*.png: Added new 'heart' icons for Tumblr.
+	* updatewindow.py, menu.py: Dropped support for Ubuntu Oneiric.
+
 2013-04-20  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.0.4 release.
 
 2013-04-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* tumblr/account.py, tumblr/entry.py: Added support for Tumblr
+	  'Reblog' & 'Like'.
 	* updatewindow.py, update.glade: Added support for updating with
 	  Ctrl+Enter keys.
 	* share/filters.glade: Added tooltips for permanent filters

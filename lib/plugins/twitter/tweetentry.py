@@ -20,11 +20,10 @@ class TweetEntryDict(dict):
 
     def __init__(self, **init_dict):
         super(TweetEntryDict, self).__init__(dict(init_dict))
-        self['command'] = ''
-        self.setdefault('command', '')
         self.setdefault('pre_username', '')
         self.setdefault('post_username', '')
         self.setdefault('event', '')
+        self.setdefault('onmouseover', 'toggleShow(this, &quot;command&quot;)')
 
     def __getitem__(self, key):
         if key == 'permalink':
@@ -58,7 +57,7 @@ class TweetEntry(object):
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
             id=entry.id,
-            styles=styles,
+            styles='twitter %s' % styles,
             image_uri=user.profile_image_url,
 
             retweet='',
@@ -75,6 +74,7 @@ class TweetEntry(object):
 
             status_body=body,
             popup_body=body_string,
+            command=self._get_commands(entry.id, entry.favorited),
             target=''
             )
 
@@ -83,6 +83,39 @@ class TweetEntry(object):
     def _get_styles(self, api, screen_name, entry=None):
         style_obj = EntryStyles()
         return style_obj.get(api, screen_name, entry)
+
+    def _get_commands(self, entry_id, is_liked):
+
+        if not isinstance(is_liked, bool):
+            is_liked = is_liked == 'true'
+
+        replylink =   'gfeedlinetw://reply/%s' % entry_id
+        retweetlink = 'gfeedlinetw://retweet/%s'  % entry_id
+        favlink =     'gfeedlinetw://fav/%s' % entry_id
+        unfavlink =   'gfeedlinetw://unfav/%s' % entry_id
+        morelink =    'gfeedlinetw://more/%s' % entry_id
+
+#        "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
+
+        commands = (
+        "<a href='%s' title='%s'><i class='icon-reply icon-large'></i><span class='label'> %s</span></a> "
+        "<a href='%s' title='%s'><i class='icon-retweet icon-large'></i><span class='label'>%s</span></a> "
+
+        "<a href='%s' title='%s' class='like-first %s' onclick='like(this)'><i class='icon-star icon-large'></i><span class='label'>%s</span></a> "
+        "<a href='%s' title='%s' class='like-second %s' style='color:red;' onclick='like(this)'><i class='icon-star icon-large'></i><span class='label'>%s</span></a> "
+
+#        "<a href='%s' title='More' class='icon-double-angle-right icon-large'>More</a>"
+
+        ) % (
+            replylink, _('Reply'), _('Reply'),
+            retweetlink, _('Retweet'), _('Retweet'), 
+
+            favlink, _('Favorite'), 'hidden' if is_liked else '', _('Favorite'), 
+            unfavlink, _('Favorite'), '' if is_liked else 'hidden', _('Favorite'), 
+            # morelink
+            )
+
+        return commands
 
     def _get_source(self, entry):
         return self._decode_source_html_entities(entry.source)
@@ -114,7 +147,8 @@ class TweetEntry(object):
         return text
 
     def _get_protected_icon(self, attribute):
-        return True if attribute and attribute != 'false' else ''
+        icon = "<i class='icon-lock'></i>"
+        return icon if attribute and attribute != 'false' else ''
 
     def _decode_source_html_entities(self, source_html):
         source_html = unescape(source_html)
@@ -125,7 +159,7 @@ class TweetEntry(object):
 
         date_time = TimeFormat(target_object.created_at).get_local_time()
         dt_format = ("(<a href='http://twitter.com/%s/status/%s' "
-                     "class='target_datetime'>%s</a>)")
+                     "class='target-datetime'>%s</a>)")
         target_date_time = dt_format % (
             original_screen_name, target_object.id, date_time)
 
@@ -208,7 +242,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
         entry_dict = TweetEntryDict(
             date_time=TimeFormat(created_at).get_local_time(),
             id='',
-            styles='',
+            styles='twitter',
 
             image_uri=user['profile_image_url'],
             retweet='',
@@ -229,6 +263,8 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             pre_username = '',
             post_username = ' ',
 
+            command='oops!',
+
             target_body=retweeted_dict['status_body'],
             target_date_time=target_date_time,)
 
@@ -247,13 +283,12 @@ class SearchTweetEntry(TweetEntry):
 
         name = self.get_sender_name()
         entry_id = entry.id.split(':')[2]
-
         styles = self._get_styles(api, name)
 
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
             id=entry_id,
-            styles=styles,
+            styles='twitter %s' % styles,
             image_uri=entry.image,
             retweet='',
             in_reply_to = True, # FIXME
@@ -266,6 +301,7 @@ class SearchTweetEntry(TweetEntry):
 
             status_body=body,
             popup_body=body_string,
+            command=self._get_commands(entry_id, False),
             target=''
             )
 
@@ -332,7 +368,7 @@ class FeedEventEntry(TweetEntry):
         entry_dict = TweetEntryDict(
             date_time=TimeFormat(entry.created_at).get_local_time(),
             id='',
-            styles='event',
+            styles='twitter event',
             image_uri=entry.source.profile_image_url,
             retweet='',
             in_reply_to = '',
@@ -352,6 +388,7 @@ class FeedEventEntry(TweetEntry):
             pre_username = '',
             post_username = ' ',
 
+            command='',
             target_body=target_body,
             target_date_time=target_date_time,
             )

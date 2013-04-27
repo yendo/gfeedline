@@ -74,7 +74,7 @@ class Theme(object):
     def on_setting_theme_changed(self, settings, key): # get_status_template
         theme_name = self._get_theme_name()
 
-        for style in ['status', 'retweet', 'protected', 
+        for style in ['status', 'retweet', 
                       'image', 'linkbox', 'bubble']:
             template_file = os.path.join(
                 self.all_themes[theme_name]['dir'], '%s.html' % style) \

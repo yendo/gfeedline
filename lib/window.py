@@ -229,7 +229,7 @@ class FeedNotebook(Gtk.Notebook):
 
         super(FeedNotebook, self).__init__()
         self.set_scrollable(True)
-        self.popup_menu = NotebookPopUpMenu(liststore, group_name)
+        self.popup_menu = NotebookPopUpMenu(liststore)
 
         self.connect('switch-page', self.on_update_tablabel_sensitive)
         self.connect('button-press-event', self.on_notebook_button_press_event)
@@ -297,34 +297,51 @@ class NotebookTabLabel(Gtk.EventBox):
 
 class NotebookPopUpMenu(object):
 
-    def __init__(self, liststore, group_name):
+    def __init__(self, liststore):
         self.liststore = liststore
-        self.group_name = group_name
 
         self.gui = Gtk.Builder()
         self.gui.add_from_file(SHARED_DATA_FILE('notebook_popup_menu.glade'))
         self.gui.connect_signals(self)
 
     def start(self, widget, event):
+        self.child = widget.get_nth_page(widget.get_current_page())
+        
         menu = self.gui.get_object('notebook_popup_menu')
         menu.popup(None, None, None, None, event.button, event.time)
-        self.page = widget.get_current_page()
 
     def on_menuitem_close_tab_activate(self, menuitem):
-        c = self.page
+        if self.child.feed_counter > 1:
+            dialog = CloseTabDialog(self.liststore.window.window, 
+                                    self.child.feed_counter)
+            response_id = dialog.run()
+            dialog.destroy()
 
-        if SETTINGS_VIEW.get_boolean('multi-column'):
-            for i, v in enumerate(self.liststore):
-                if v[0] == self.group_name:
-                    c -= 1
-                    if c < 0:
-                        break
-        else:
-            i = c
+            if response_id != Gtk.ResponseType.OK:
+                return True
 
-        path = Gtk.TreePath(i)
-        treeiter = self.liststore.get_iter(path)
-        self.liststore.remove(treeiter)
+        for i, v in reversed(list(enumerate(self.liststore))):
+            if v[Column.API].view == self.child:
+                print v[Column.TARGET]
+                del self.liststore[i]
+
+class CloseTabDialog(object):
+
+    def __init__(self, parent, feeds_num):
+        gui = Gtk.Builder()
+        gui.add_from_file(SHARED_DATA_FILE('notebook_popup_menu.glade'))
+        self.dialog = gui.get_object('messagedialog_remove_tab')
+        self.dialog.set_transient_for(parent)
+
+        message = _('This tab include %s feeds.  '
+                    'Are you sure you want to close the tab.') % feeds_num
+        self.dialog.format_secondary_text(message)
+
+    def run(self):
+        return self.dialog.run()
+
+    def destroy(self):
+        self.dialog.destroy()
 
 class AboutDialog(object):
 

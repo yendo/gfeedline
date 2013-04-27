@@ -45,7 +45,8 @@ class Facebook(object):
         url = 'https://graph.facebook.com/%s/feed?' % user
         return self._get_defer(url, params, cb)
 
-    def like(self, url, is_unlike=False):
+    def like(self, post_id, is_unlike=False):
+        url = 'https://graph.facebook.com/%s/likes' % post_id
         method = 'DELETE' if is_unlike else 'POST'
         d = urlpost_with_autoproxy(str(url), self.access_params, 
                                    cb=self._like_cb, method=method)

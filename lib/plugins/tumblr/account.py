@@ -7,7 +7,7 @@ from getauthtoken import CONSUMER
 from ..base.getauthtoken import AuthorizedAccount
 from ...utils.settings import SETTINGS_TUMBLR
 from ...utils.iconimage import WebIconImage
-from ...utils.urlgetautoproxy import urlget_with_autoproxy
+from ...utils.urlgetautoproxy import urlget_with_autoproxy, urlpost_with_autoproxy
 
 class TumblrIcon(WebIconImage):
 
@@ -72,6 +72,24 @@ class Tumblr(object):
         url += '?'+urllib.urlencode(params)
 
         return urlget_with_autoproxy(url, cb=cb)
+
+    def like(self, url, is_unlike=False):
+        '''Like (Unlike) a post'''
+
+        id, reblog_key = url.replace('https://', '').split('/')
+
+        url = str('http://api.tumblr.com/v2/user/%s'
+                  ) % ('unlike' if is_unlike else 'like')
+        params={'id': id, 'reblog_key': reblog_key}
+
+        headers = self.make_oauth_header('POST', url, params)
+        headers.update( {'Content-Type' : 'application/x-www-form-urlencoded'})
+
+        d = urlget_with_autoproxy(url, cb=self._cb, 
+                                  headers=headers,
+                                  method='POST',
+                                  postdata=urllib.urlencode(params))
+        d.addErrback(self._cb)
 
     def user_info(self, cb):
         url = str('http://api.tumblr.com/v2/user/info')

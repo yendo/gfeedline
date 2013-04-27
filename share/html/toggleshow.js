@@ -1,15 +1,19 @@
-function readMore(target){
+function toggleShow(target, tag){
     var id = '#'+$(target).closest('.status').attr('id');
-    var main = id+' .main-text';
-    var more = id+' .more-text';
+    var prefix_tag = id + ' .' + tag;
 
-    $(main+','+more).toggle();
+    var first  = prefix_tag + '-first';
+    var secoud = prefix_tag + '-second';
+
+    $(first + ',' + secoud).toggle();
+}
+
+function readMore(target){
+         var tag = 'readmore';
+         toggleShow(target, tag);
 }
 
 function like(target){
-    var id = '#'+$(target).closest('.status').attr('id');
-    var main = id+' .like';
-    var more = id+' .unlike';
-
-    $(main+','+more).toggle();
+         var tag = 'like';
+         toggleShow(target, tag);
 }

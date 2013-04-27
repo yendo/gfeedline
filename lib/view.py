@@ -5,6 +5,7 @@
 # Licence: GPL3
 
 import os
+import re
 import urllib
 import webbrowser
 
@@ -40,10 +41,13 @@ class FeedView(FeedScrolledWindow):
         self.liststore = liststore
         self.window = liststore.window # access from RetweetMenuItem
         self.theme = self.window.theme
+        self.feed_counter = 1 # numbers of feeds
 
         self.append(notebook, page)
         self.webview = FeedWebView(self, api, notebook.group_name)
         self.notification = self.window.notification
+
+        self.id_history = CacheList()
 
     def append(self, notebook, page=-1):
         self.notebook = notebook
@@ -55,12 +59,20 @@ class FeedView(FeedScrolledWindow):
         self.append(notebook, page)
 
     def remove(self):
-        page = self.notebook.page_num(self)
-        print "removed %s page!" % page
-        self.notebook.remove_page(page)
+        self.feed_counter -= 1
+        if self.feed_counter == 0:
+            page = self.notebook.page_num(self)
+            print "removed %s page!" % page
+            self.notebook.remove_page(page)
 
     def update(self, entry_dict, style='status', has_notify=False, 
                is_first_call=False, is_new_update=True):
+
+        is_dupulicated = entry_dict['id'] in self.id_history
+        self.id_history.append(entry_dict['id'])
+        if is_dupulicated:
+            return
+
         text = self.theme.template[style].substitute(entry_dict)
 
         if has_notify and not is_first_call:
@@ -185,9 +197,29 @@ class FeedWebView(WebKit.WebView):
 
         if uri.startswith('gfeedlinefb'):
             is_unlike = uri.startswith('gfeedlinefbunlike')
-            uri = uri.replace('gfeedlinefblike:', 'https:')
-            uri = uri.replace('gfeedlinefbunlike:', 'https:')
-            api.account.api.like(uri, is_unlike)
+            param = re.sub(r'gfeedlinefb.*like://', '', uri)
+            api.account.api.like(param, is_unlike)
+            return True
+
+        if uri.startswith('gfeedlinetw:'):
+            button, entry_id = uri.split('/')[2:4]
+
+            replymenuitem = ENTRY_POPUP_MENU()[1](
+                None, self.api, self.scrolled_window)
+            retweetmenuitem = ENTRY_POPUP_MENU()[2](
+                None, self.api, self.scrolled_window)
+
+            if button == 'reply':
+                replymenuitem.on_activate(None, entry_id)
+            elif button == 'retweet':
+                retweetmenuitem.on_activate(None, entry_id)
+            elif button == 'fav':
+                twitter_account = self.api.account
+                twitter_account.api.fav(entry_id)
+            elif button == 'unfav':
+                twitter_account = self.api.account
+                twitter_account.api.unfav(entry_id)
+
             return True
 
         if uri.startswith('gfeedline:'):
@@ -292,3 +324,14 @@ class DnDSelection(object):
             text = link_style % {'title': title, 'uri': uri} if title else uri
 
         return text, image_file
+
+class CacheList(list):
+
+    def __init__(self, num=100):
+        super(CacheList, self).__init__()
+        self.num = num
+
+    def append(self, item):
+        super(CacheList, self).append(item)
+        if len(self) >= self.num:
+            self.pop(0)

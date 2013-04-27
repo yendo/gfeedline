@@ -27,9 +27,6 @@ class AccountAction(ActionBase):
         dialog = gui.get_object('dialog1')
         dialog.set_transient_for(parent)
 
-        # Tumblr will be officially supported from ver.2.1.
-        gui.get_object('radiobutton_tl').hide()
-
         response_id = dialog.run()
         dialog.destroy()
 

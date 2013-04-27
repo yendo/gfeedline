@@ -44,6 +44,46 @@ class TumblrEntry(object):
         image_uri = 'http://api.tumblr.com/v2/blog/%s.tumblr.com/avatar/40' \
             % entry.get('blog_name')
 
+        # command
+
+        rebloglink = 'http://www.tumblr.com/reblog/%s/%s' % (
+            entry['id'], entry['reblog_key'])
+
+        path = '//%s/%s' % (entry['id'], entry['reblog_key'])
+        likelink = 'gfeedlinefblike:%s' % path
+        unlikelink = 'gfeedlinefbunlike:%s' % path
+        is_liked = entry['liked']
+
+        reblog_icon = "<i class='icon-retweet'></i>"
+        like_icon = "<i class='icon-heart'></i>"
+
+        command = (
+            u"<span class='commands'>"
+            "<a title='%s' href='%s' >%s</a> &nbsp;"
+            "<a title='%s' class='like-first %s'  href='%s' onclick='like(this);'>%s</a>"
+            "<a title='%s' class='like-second %s' href='%s' onclick='like(this);'>%s</a>"
+            "</span>"
+            ) % (
+            _('Reblog'), rebloglink, reblog_icon,
+            _('Like'), 'hidden' if is_liked else '', likelink,   like_icon,
+            _('Like'), '' if is_liked else 'hidden', unlikelink, like_icon, 
+            )
+
+        # popup
+
+        for key in ['text', 'body', 'question', 'link', 'caption']:
+            popup_body = entry.get(key)
+            if popup_body:
+                popup_body = re.sub(r'<[^>]*?>', '', popup_body).rstrip()
+                break
+        else:
+            post_type = {'photo': _('a photo'), 'video': _('a video'), 
+                         'audio': _('an audio')}
+            popup_body = _('{0} posts {1} entry.').format(
+                entry['blog_name'], _(post_type[entry['type']]))
+
+        # print popup_body
+
         entry_dict = dict(
             date_time=TimeFormat(entry['date']).get_local_time(),
             id=entry['id'],
@@ -52,6 +92,7 @@ class TumblrEntry(object):
             permalink=entry['post_url'],
 
             command='',
+            onmouseover='',
 
             retweet='',
             retweet_by_screen_name='',
@@ -64,14 +105,14 @@ class TumblrEntry(object):
             in_reply_to='',
 
             user_name=entry['blog_name'],
-            user_name2=entry['type'],
+            user_name2='',
             full_name=entry['blog_name'],
             user_color=user_color.get(entry['blog_name']),
-            protected='',
+            protected="<div class='tumblrbuttons'>%s</div>" % command,
             source='',
 
             status_body=add_markup.convert(body),
-            popup_body='',
+            popup_body=popup_body,
             target=''
             )
 
