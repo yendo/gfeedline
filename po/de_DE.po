@@ -1,7 +1,7 @@
 # German translation for gfeedline
 # Copyright (C) 2012-2013 Yoshizumi Endo.
 # This file is distributed under the same license as the gfeedline package.
-# 
+#
 # Translators:
 #   <aldebus@spambog.com>, 2012.
 #   t_bb_ <tabbo.hankel@bremen.piratenpartei.de>, 2012-2013
@@ -10,13 +10,14 @@ msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-26 15:34+0900\n"
-"PO-Revision-Date: 2013-04-26 14:50+0000\n"
+"PO-Revision-Date: 2013-04-27 20:18+0900\n"
 "Last-Translator: t_bb_ <tabbo.hankel@bremen.piratenpartei.de>\n"
-"Language-Team: German (Germany) (http://www.transifex.com/projects/p/gfeedline/language/de_DE/)\n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/"
+"gfeedline/language/de_DE/)\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
@@ -281,13 +282,19 @@ msgstr "Möchtest du dies retweeten?"
 #: ../lib/window.py:336
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
-msgstr "Dieser Tab enthält %s Feeds. Bist du sicher, dass du den Tab schließen möchtest?"
+msgstr ""
+"Dieser Tab enthält %s Feeds. Bist du sicher, dass du den Tab schließen "
+"möchtest?"
 
 #: ../share/assistant_facebook.glade.h:1
 msgid ""
 "Your configuration is complete.  You are now ready to access to Facebook "
 "with GFeedLine."
-msgstr "Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf Facebook zugreifen.\n\nBestätige den Dialog, um die Einstellungen zu sichern."
+msgstr ""
+"Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf "
+"Facebook zugreifen.\n"
+"\n"
+"Bestätige den Dialog, um die Einstellungen zu sichern."
 
 #: ../share/assistant_facebook.glade.h:2
 msgid "User name:"
@@ -302,13 +309,20 @@ msgid ""
 "This assistant helps you to configure Facebook account for GFeedLine.\n"
 "\n"
 "Click \"Forward\" to open a Facebook authorization page."
-msgstr "Dieser Assistent hilft dir, Gfeedline für deinen Facebook-Account einzurichten.\n\nBestätige, um Facebook zur Authorisierung in deinem Standard-Browser zu öffnen."
+msgstr ""
+"Dieser Assistent hilft dir, Gfeedline für deinen Facebook-Account "
+"einzurichten.\n"
+"\n"
+"Bestätige, um Facebook zur Authorisierung in deinem Standard-Browser zu "
+"öffnen."
 
 #: ../share/assistant_twitter.glade.h:1
 msgid ""
 "Return to this dialog after you have finished the authorization process on "
 "Twitter.com and Enter your PIN below."
-msgstr "Nachdem du diese Anwendung auf Twitter authorisiert hast, gib die PIN unten in das Feld ein."
+msgstr ""
+"Nachdem du diese Anwendung auf Twitter authorisiert hast, gib die PIN unten "
+"in das Feld ein."
 
 #: ../share/assistant_twitter.glade.h:2
 msgid "PIN:"
@@ -316,10 +330,15 @@ msgstr "PIN:"
 
 #: ../share/assistant_twitter.glade.h:3
 msgid ""
-"Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
+"Your configuration is complete.  You are now ready to access to Twitter with "
+"GFeedLine.\n"
 "\n"
 "Click \"Apply\" to save your settings."
-msgstr "Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf Twitter zugreifen.\n\nBestätige den Dialog, um die Einstellungen zu sichern."
+msgstr ""
+"Die Authorisierung ist abgeschlossen. Du kannst nun mit GFeedLine auf "
+"Twitter zugreifen.\n"
+"\n"
+"Bestätige den Dialog, um die Einstellungen zu sichern."
 
 #: ../share/assistant_twitter.glade.h:6
 msgid "Screen name:"
@@ -329,8 +348,14 @@ msgstr "Benutzername"
 msgid ""
 "This assistant helps you to configure Twitter account for GFeedLine.\n"
 "\n"
-"Click \"Forward\" to open a Twitter authorization page with the default browser."
-msgstr "Dieser Assistent hilft dir, Gfeedline für deinen Twitter-Account einzurichten.\n\nBestätige, um Twitter.com zur Authorisierung in deinem Standard-Browser zu öffnen."
+"Click \"Forward\" to open a Twitter authorization page with the default "
+"browser."
+msgstr ""
+"Dieser Assistent hilft dir, Gfeedline für deinen Twitter-Account "
+"einzurichten.\n"
+"\n"
+"Bestätige, um Twitter.com zur Authorisierung in deinem Standard-Browser zu "
+"öffnen."
 
 #: ../share/feedsource.glade.h:1
 msgid "Feed Source"
@@ -444,12 +469,28 @@ msgstr "_Inhalte"
 msgid ""
 "<big><b>Welcome to GFeedLine!</b></big>\n"
 "\n"
-"GFeedLine is a social networking client.  It supports Twitter, Facebook and Tumblr.\n"
+"GFeedLine is a social networking client.  It supports Twitter, Facebook and "
+"Tumblr.\n"
 "\n"
-"To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
+"To start connecting with GFeedLine, open the Preferences dialog from "
+"<b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
 "\n"
-"Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
-msgstr "<big><b>Willkommen bei GFeedLine</b></big> GFeedline ist ein Client für soziale Netzwerke und unterstützt derzeit Twitter, Facebook und Tumblr. Um GFeedLine als Client zu nutzen, öffne die Einstellungen unter <b>Bearbeiten ▸ Einstellungen</b>. Unter dem Tab <i>Accounts</i>, kannst du deine Accounts einrichten. Klicke danach auf den Tab <i>Quellen</i> und richte deine Timeline, Streams, Feeds usw. ein. Um deine Quellen zu gruppieren, kannst du ihnen Gruppen zuweisen und so mehrere Spalten in der Ansicht nutzen."
+"Then you have to configure your feeds in the Feeds tab of the Preferences "
+"dialog.  To enable multi-column view, enter a group name in each feed source "
+"dialog."
+msgstr ""
+"<big><b>Willkommen bei GFeedLine</b></big>\n"
+"\n"
+"GFeedline ist ein Client für soziale Netzwerke und unterstützt derzeit "
+"Twitter, Facebook und Tumblr.\n"
+"\n"
+"Um GFeedLine als Client zu nutzen, öffne die Einstellungen unter "
+"<b>Bearbeiten ▸ Einstellungen</b>. Unter dem Tab <i>Accounts</i>, kannst du "
+"deine Accounts einrichten.\n"
+"\n"
+"Klicke danach auf den Tab <i>Quellen</i> und richte deine Timeline, Streams, "
+"Feeds usw. ein. Um deine Quellen zu gruppieren, kannst du ihnen Gruppen "
+"zuweisen und so mehrere Spalten in der Ansicht nutzen."
 
 #: ../share/notebook_popup_menu.glade.h:1
 msgid "Close this tab?"
