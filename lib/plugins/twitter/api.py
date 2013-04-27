@@ -111,7 +111,7 @@ class TwitterAPIUserStream(TwitterFeedAPIBase):
     name = _('User Stream')
 
     def _get_api(self):
-        return self.account.api.userstream
+        return self.account.api.user
 
     def print_to_other_view(self, entry_dict):
         is_own_tweet = entry_dict['user_name'] == self.account.user_name

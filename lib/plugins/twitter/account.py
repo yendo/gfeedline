@@ -91,7 +91,4 @@ class Twitter(twitter.Twitter):
         self.signature_method = oauth.OAuthSignatureMethod_HMAC_SHA1()
 
 class TwitterFeed(Twitter, twitter.TwitterFeed):
-
-    def userstream(self, delegate, args=None):
-        return self._rtfeed('https://userstream.twitter.com/2/user.json',
-                            delegate, args)
+    pass
