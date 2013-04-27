@@ -32,7 +32,9 @@ class AuthorizedTwitterAccount(AuthorizedAccount):
         self.api_dict = TwitterAPIDict()
 
         if not AuthorizedTwitterAccount.CONFIG:
-            self.api.configuration().addCallback(self._on_get_configuration)
+            # FIXME
+            # self.api.configuration().addCallback(self._on_get_configuration)
+            pass
 
     def _on_get_configuration(self, data):
         AuthorizedTwitterAccount.CONFIG = data
