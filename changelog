@@ -1,5 +1,6 @@
 2013-04-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twittytwister/twitter.py: Updated streaming API endpoints.
 	* twittytwister/*: Updated twitty-twister.
 	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
 	* de_DE.po: Updated German translation.  Thanks t_bb_!
