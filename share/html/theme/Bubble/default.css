@@ -1,0 +1,71 @@
+body { margin: 0; }
+
+div.body { padding: 3px 0px;}
+.datetime, .datetime a, .retweet a { font-size: 90%; }
+.screenname, .screenname a { color: #606060;
+                             font-size: 90%; }
+
+div.status { padding: 8px; }
+div.icon { float: left; width: 45px; }
+div.icon img { -webkit-border-radius : 5px; }
+div.icon { float: left; width: 45px; }
+
+div.mine { background-color: transparent; } 
+div.mine .text { background-color: MistyRose; border-color: Pink;}
+div.mine .text:before { border-color: transparent Pink;}
+div.mine .text:after  { border-color: transparent MistyRose;}
+
+div.reply { background-color: transparent; } 
+div.reply .text { background-color: Lavender; border-color: LightSteelBlue;}
+div.reply .text:before { border-color: transparent LightSteelBlue;}
+div.reply .text:after  { border-color: transparent Lavender;}
+
+div.event { background-color: transparent; } 
+div.event .text { background-color: LightGoldenrodYellow; border-color: Khaki;}
+div.event .text:before { border-color: transparent Khaki;}
+div.event .text:after  { border-color: transparent LightGoldenrodYellow;}
+
+.user { font-size: 100%; }
+
+.text {
+        margin-left: 50px;
+        padding: 10px 15px;
+        position: relative;
+        border: 2px solid #aaa;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        }
+
+.text:before {
+        border-top-width: 0px;
+        border-right-width: 12px;
+        border-bottom-width: 12px;
+        border-left-width: 0px;
+        border-color: transparent #aaa;
+        border-style: solid;
+
+        display: block;
+        position: absolute;
+        top: 18px;
+        left: -12px;
+        width: 0;
+        height: 0;
+        content: "";
+      }
+
+.text:after {
+        border-top-width: 0px;
+        border-right-width: 12px;
+        border-bottom-width: 12px;
+        border-left-width: 0px;
+        border-color: transparent #f5f5f5;
+        border-style: solid;
+
+        display: block;
+        position: absolute;
+        top: 20px;
+        left: -7px;
+        width: 0;
+        height: 0;
+        content: "";
+      }

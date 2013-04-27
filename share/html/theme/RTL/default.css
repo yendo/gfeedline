@@ -1,0 +1,9 @@
+body { margin: 0; }
+
+div.status { padding: 8px;
+             border-bottom: 1px solid #ccc; }
+div.icon { float: right; width: 35px; }
+div.text { margin-right: 45px; }
+div.icon img { -webkit-border-radius : 5px; }
+
+div.user, div.datetime { text-align: right; }
