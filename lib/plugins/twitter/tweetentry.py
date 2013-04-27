@@ -95,12 +95,14 @@ class TweetEntry(object):
         unfavlink =   'gfeedlinetw://unfav/%s' % entry_id
         morelink =    'gfeedlinetw://more/%s' % entry_id
 
-        commands = (
-        "<a href='%s' title='%s' class='icon-reply icon-large'> %s</a> "
-        "<a href='%s' title='%s' class='icon-retweet icon-large'>%s</a> "
+#        "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
 
-        "<a href='%s' title='%s' class='like-first %s' onclick='like(this)'><i class='icon-star icon-large'></i>%s</a> "
-        "<a href='%s' title='%s' class='like-second %s' style='color:red;' onclick='like(this)'><i class='icon-star icon-large'></i>%s</a> "
+        commands = (
+        "<a href='%s' title='%s'><i class='icon-reply icon-large'></i><span class='label'> %s</span></a> "
+        "<a href='%s' title='%s'><i class='icon-retweet icon-large'></i><span class='label'>%s</span></a> "
+
+        "<a href='%s' title='%s' class='like-first %s' onclick='like(this)'><i class='icon-star icon-large'></i><span class='label'>%s</span></a> "
+        "<a href='%s' title='%s' class='like-second %s' style='color:red;' onclick='like(this)'><i class='icon-star icon-large'></i><span class='label'>%s</span></a> "
 
 #        "<a href='%s' title='More' class='icon-double-angle-right icon-large'>More</a>"
 
