@@ -224,11 +224,12 @@ class RestRetweetEntry(TweetEntry):
 class FeedRetweetEntry(RestRetweetEntry):
 
     def __init__(self, entry):
-        super(FeedRetweetEntry, self).__init__(entry)
+        self.entry=entry.retweeted_status
+        self.retweet_by_screen_name = entry.user.screen_name
+        self.retweet_by_name = entry.user.name
 
         self.original_entry = entry
         self.entry=DictObj(entry.raw.get('retweeted_status'))
-        self.entry.user=DictObj(self.entry.user)
 
         self.retweet_by_screen_name = entry.raw['user']['screen_name']
         self.retweet_by_name = entry.raw['user']['name']
