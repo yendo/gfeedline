@@ -250,12 +250,11 @@ class TwitterRestOutput(TwitterOutputBase):
 class TwitterSearchOutput(TwitterRestOutput):
 
     def got_entry(self, entry, *args):
-        entry.title = decode_html_entities(entry.title)
-        self._set_since_id( entry.id.split(':')[2] )
-        self.check_entry(entry, entry.title, args)
-
-    def _get_entry_obj(self, entry):
-        return SearchTweetEntry(entry)
+        for i in entry['statuses']:
+            entry = DictObj(i) # FIXME
+            entry.text = decode_html_entities(entry.text)
+            self._set_since_id(entry.id)
+            self.check_entry(entry, entry.text, args)
 
 class TwitterRelatedResultsOutput(TwitterRestOutput):
 

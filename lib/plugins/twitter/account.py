@@ -82,8 +82,8 @@ class Twitter(twitter.Twitter):
             params = {}
         params['result_type'] = 'recent'
 
-        return self.__doDownloadPage(self.search_url + '?' + self._urlencode(params),
-            txml.Feed(delegate, extra_args), agent=self.agent)
+        return self.__get_json('/search/tweets.json', delegate, params,
+                               extra_args=extra_args)
 
     def related_results(self, delegate, params={}, extra_args=None):
         statusid = params['id']
