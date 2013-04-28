@@ -238,8 +238,8 @@ class Twitter(object):
 
         return c.deferred.addBoth(handle_headers)
 
-    def __postMultipart(self, url, fields=(), files=()):
-        # url = self.base_url + path
+    def __postMultipart(self, path, fields=(), files=()):
+        url = self.base_url + path
 
         (boundary, body) = self.__encodeMultipart(fields, files)
         headers = {'Content-Type': 'multipart/form-data; boundary=%s' % boundary,
@@ -532,8 +532,8 @@ class Twitter(object):
 
         Returns no useful data."""
 
-        url = self.base_url + '/account/update_profile_image.xml'
-        return self.__postMultipart(url, files=(('image', filename, image),))
+        return self.__postMultipart('/account/update_profile_image.xml',
+                                    files=(('image', filename, image),))
 
 
 
