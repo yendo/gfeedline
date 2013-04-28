@@ -60,6 +60,13 @@ class Twitter(twitter.Twitter):
         return self.__get_json('/direct_messages.json', delegate, params,
                                extra_args=extra_args)
 
+    def update(self, status, source=None, params={}):
+        params = params.copy()
+        params['status'] = status
+        if source:
+            params['source'] = source
+        print params
+        return self.__post('/statuses/update.json', params)
 
     def list_timeline(self, delegate, params={}, extra_args=None):
         return self.__get_json('/lists/statuses.json', delegate, params,
@@ -83,10 +90,10 @@ class Twitter(twitter.Twitter):
                 delegate, params, extra_args=extra_args)
 
     def fav(self, status_id):
-        return self.__post('/favorites/create/%s.xml' % status_id)
+        return self.__post('/favorites/create.json', {'id': status_id})
 
     def unfav(self, status_id):
-        return self.__post('/favorites/destroy/%s.xml' % status_id)
+        return self.__post('/favorites/destroy.json', {'id': status_id})
 
     def update_with_media(self, status, image_file, params=None):
         with open(image_file, 'rb') as fh:
