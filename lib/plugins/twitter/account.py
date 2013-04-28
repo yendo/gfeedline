@@ -23,7 +23,8 @@ class AuthorizedTwitterAccount(AuthorizedAccount):
         super(AuthorizedTwitterAccount, self).__init__()
 
         token = self._get_token(user_name, key, secret)
-        self.api = TwitterFeed(consumer=CONSUMER, token=token)
+        self.api = Twitter(consumer=CONSUMER, token=token)
+        self.feedapi = twitter.TwitterFeed(consumer=CONSUMER, token=token)
         #SETTINGS_TWITTER.connect("changed::access-secret", 
         #                         self._on_update_credential)
 
@@ -105,6 +106,3 @@ class Twitter(twitter.Twitter):
         self.consumer = CONSUMER
         self.token = token
         self.signature_method = oauth.OAuthSignatureMethod_HMAC_SHA1()
-
-class TwitterFeed(Twitter, twitter.TwitterFeed):
-    pass

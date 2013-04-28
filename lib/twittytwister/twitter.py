@@ -165,15 +165,9 @@ class Twitter(object):
         else:
             return self.__makeAuthHeader(headers)
 
-    def _mymakeAuthHeader(self, method, url, parameters={}, headers={}):
-        if self.use_oauth:
-            return self.__makeOAuthHeader(method, url, parameters, headers)
-        else:
-            return self.__makeAuthHeader(headers)
-
     def makeAuthHeader(self, method, url, parameters={}, headers={}):
         if self.use_auth:
-            return self._mymakeAuthHeader(method, url, parameters, headers)
+            return self._makeAuthHeader(method, url, parameters, headers)
         else:
             return headers
 
