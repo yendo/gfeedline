@@ -65,8 +65,10 @@ class Twitter(twitter.Twitter):
         params['status'] = status
         if source:
             params['source'] = source
-        print params
         return self.__post('/statuses/update.json', params)
+
+    def retweet(self, status_id, delegate):
+        return self.__post('/statuses/retweet/%s.json' % status_id)
 
     def list_timeline(self, delegate, params={}, extra_args=None):
         return self.__get_json('/lists/statuses.json', delegate, params,
@@ -104,7 +106,7 @@ class Twitter(twitter.Twitter):
             fields += params.items()
 
         return self.__postMultipart(
-            'https://upload.twitter.com/1/statuses/update_with_media.xml',
+            'https://upload.twitter.com/1/statuses/update_with_media.json',
             fields=tuple(fields))
 
     def update_token(self, token):
