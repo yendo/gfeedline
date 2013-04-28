@@ -47,6 +47,9 @@ class TwitterOutputBase(object):
         SETTINGS_VIEW.connect_after("changed::theme", self._on_restart_theme_changed)
 
     def got_entry(self, entry, *args):
+        if not entry:
+            return
+
         for i in entry:
             entry = DictObj(i) # FIXME
             entry.text = decode_html_entities(entry.text)
@@ -225,7 +228,6 @@ class TwitterRestOutput(TwitterOutputBase):
 
         # FIXME
         interval = 60
-        print interval
         return interval
 
     def exit(self):
