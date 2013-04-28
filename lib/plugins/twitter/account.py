@@ -105,7 +105,7 @@ class Twitter(twitter.Twitter):
             fields += params.items()
 
         return self.__postMultipart(
-            'https://upload.twitter.com/1/statuses/update_with_media.json',
+            'https://api.twitter.com/1.1/statuses/update_with_media.json',
             fields=tuple(fields))
 
     def update_token(self, token):
