@@ -6,7 +6,7 @@ from getauthtoken import CONSUMER
 from ...utils.settings import SETTINGS_TWITTER
 from ...utils.iconimage import WebIconImage
 from ..base.getauthtoken import AuthorizedAccount
-
+from tweetentry import DictObj
 
 class TwitterIcon(WebIconImage):
 
@@ -33,12 +33,11 @@ class AuthorizedTwitterAccount(AuthorizedAccount):
         self.api_dict = TwitterAPIDict()
 
         if not AuthorizedTwitterAccount.CONFIG:
-            # FIXME
-            # self.api.configuration().addCallback(self._on_get_configuration)
+            self.api.configuration().addCallback(self._on_get_configuration)
             pass
 
     def _on_get_configuration(self, data):
-        AuthorizedTwitterAccount.CONFIG = data
+        AuthorizedTwitterAccount.CONFIG = DictObj(data)
 
     def _on_update_credential(self, account, unknown):
         token = self._get_token()

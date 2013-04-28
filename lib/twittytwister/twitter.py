@@ -507,10 +507,10 @@ class Twitter(object):
 
     def configuration(self):
 
-        url = '/help/configuration.xml'
+        url = '/help/configuration.json'
         d = defer.Deferred()
 
-        self.__downloadPage(url, txml.Config(lambda u: d.callback(u))) \
+        self.__downloadPage(url, tjson.Parser(lambda u: d.callback(u))) \
             .addErrback(lambda e: d.errback(e))
 
         return d
