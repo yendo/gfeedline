@@ -46,13 +46,27 @@ class AuthorizedTwitterAccount(AuthorizedAccount):
 
 class Twitter(twitter.Twitter):
 
+    def home_timeline(self, delegate, params={}, extra_args=None):
+        return self.__get_json('/statuses/home_timeline.json', delegate, params,
+                               extra_args=extra_args)
+
+
+    def mentions(self, delegate, params={}, extra_args=None):
+        return self.__get_json('/statuses/mentions_timeline.json', delegate, params,
+                               extra_args=extra_args)
+
+    def direct_messages(self, delegate, params={}, extra_args=None):
+        return self.__get_json('/direct_messages.json', delegate, params,
+                               extra_args=extra_args)
+
+
     def list_timeline(self, delegate, params={}, extra_args=None):
-        return self.__get('/lists/statuses.xml',
-                delegate, params, txml.Statuses, extra_args=extra_args)
+        return self.__get_json('/lists/statuses.json', delegate, params,
+            extra_args=extra_args)
 
     def user_timeline(self, delegate, params={}, extra_args=None):
-        return self.__get('/statuses/user_timeline.xml', delegate, params,
-                          txml.Statuses, extra_args=extra_args)
+        return self.__get_json('/statuses/user_timeline.json', delegate, params,
+            extra_args=extra_args)
 
     def search(self, delegate, params=None, extra_args=None):
         if params is None:

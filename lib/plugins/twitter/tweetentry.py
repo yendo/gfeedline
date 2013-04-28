@@ -126,6 +126,7 @@ class TweetEntry(object):
 
     def _get_sender(self, api):
         sender = self.entry.user
+        sender = DictObj(sender) # FIXME
         return sender
 
     def get_source_name(self):
@@ -195,7 +196,7 @@ class EntryStyles(object):
 class DirectMessageEntry(TweetEntry):
 
     def _get_sender(self, api):
-        return self.entry.sender
+        return DictObj(self.entry.sender)
 
     def _get_styles(self, api, screen_name, entry):
         return ''
@@ -212,9 +213,12 @@ class DirectMessageEntry(TweetEntry):
 class RestRetweetEntry(TweetEntry):
 
     def __init__(self, entry):
-        self.entry=entry.retweeted_status
-        self.retweet_by_screen_name = entry.user.screen_name
-        self.retweet_by_name = entry.user.name
+        #self.entry=entry.retweeted_status
+        #self.retweet_by_screen_name = entry.user.screen_name
+        #self.retweet_by_name = entry.user.name
+        self.entry=DictObj(entry.retweeted_status)
+        self.retweet_by_screen_name = entry.user['screen_name']
+        self.retweet_by_name = entry.user['name']
 
 class FeedRetweetEntry(RestRetweetEntry):
 

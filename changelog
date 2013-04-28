@@ -1,3 +1,8 @@
+2013-04-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/account.py, twitter/output.py, tweetentry.py:
+	  Added support for Twitter API 1.1.
+
 2013-04-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twittytwister/twitter.py: Updated streaming API endpoints.

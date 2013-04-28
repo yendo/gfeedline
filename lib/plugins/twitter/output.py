@@ -47,9 +47,11 @@ class TwitterOutputBase(object):
         SETTINGS_VIEW.connect_after("changed::theme", self._on_restart_theme_changed)
 
     def got_entry(self, entry, *args):
-        entry.text = decode_html_entities(entry.text)
-        self._set_since_id(entry.id)
-        self.check_entry(entry, entry.text, args)
+        for i in entry:
+            entry = DictObj(i) # FIXME
+            entry.text = decode_html_entities(entry.text)
+            self._set_since_id(entry.id)
+            self.check_entry(entry, entry.text, args)
 
     def check_entry(self, entry, text, *args):
         pass_rt = text.startswith('RT @') and not self.api.include_rt
@@ -178,7 +180,7 @@ class TwitterRestOutput(TwitterOutputBase):
     def _get_entry_obj(self, entry):
         if hasattr(entry, 'retweeted_status') and entry.retweeted_status:
             entry_class = RestRetweetEntry
-        elif entry.tag_name == 'direct_message':
+        elif 'sender_screen_name' in entry.d:
             entry_class = DirectMessageEntry
         else:
             entry_class = TweetEntry
@@ -221,6 +223,9 @@ class TwitterRestOutput(TwitterOutputBase):
 #            diff, rate_limit_remaining, rate_limit_limit, 
 #            TwitterRestOutput.api_connections, interval)
 
+        # FIXME
+        interval = 60
+        print interval
         return interval
 
     def exit(self):
