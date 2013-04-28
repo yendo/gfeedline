@@ -126,7 +126,8 @@ class TweetEntry(object):
 
     def _get_sender(self, api):
         sender = self.entry.user
-        sender = DictObj(sender) # FIXME
+        if isinstance(sender, dict):
+            sender = DictObj(sender) # FIXME
         return sender
 
     def get_source_name(self):

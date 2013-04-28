@@ -301,7 +301,12 @@ class TwitterFeedOutput(TwitterOutputBase):
 
             self.print_entry(entry)
         else:
-            super(TwitterFeedOutput, self).got_entry(entry, args)
+            self.got_entry(entry, args)
+
+    def got_entry(self, entry, *args):
+        entry.text = decode_html_entities(entry.text)
+        self._set_since_id(entry.id)
+        self.check_entry(entry, entry.text, args)
 
     def _get_entry_obj(self, entry):
         if hasattr(entry, 'raw') and entry.raw.get('retweeted_status'):
