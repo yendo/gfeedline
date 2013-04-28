@@ -135,6 +135,8 @@ class OptionsTabUserStream(OptionsTabChild):
 
         state = feedliststore[Column.OPTIONS].get('notify_events') \
             if feedliststore else True
+        if state is None:
+            state = True
 
         self.checkbutton.set_label(_('_Notify events'))
         self.checkbutton.set_active(state)
