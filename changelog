@@ -1,3 +1,8 @@
+2013-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py, preferences.py, preferences.glade: Removed a 'View
+	  Conversation' menu item. The API is not supported Twitter API 1.1.
+
 2013-04-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/account.py, twitter/output.py, tweetentry.py:

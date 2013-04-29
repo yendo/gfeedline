@@ -34,9 +34,9 @@ class Preferences(object):
         self.combobox_order = ComboboxTimelineOrder(gui)
         self.fontbutton = TimeLineFontButton(gui, mainwindow)
  
-        is_other_column = SETTINGS_VIEW.get_boolean('conversation-other-column')
-        checkbutton_conversation = gui.get_object('checkbutton_conversation')
-        checkbutton_conversation.set_active(is_other_column)
+#        is_other_column = SETTINGS_VIEW.get_boolean('conversation-other-column')
+#        checkbutton_conversation = gui.get_object('checkbutton_conversation')
+#        checkbutton_conversation.set_active(is_other_column)
 
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
 
