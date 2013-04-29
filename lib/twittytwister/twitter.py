@@ -175,8 +175,8 @@ class Twitter(object):
         rv = []
         for k,v in h.iteritems():
             rv.append('%s=%s' %
-                (urllib.quote(k.encode("utf-8")),
-                urllib.quote(v.encode("utf-8"))))
+                (urllib.quote(k.encode("utf-8"), ''),
+                urllib.quote(v.encode("utf-8"), '')))
         return '&'.join(rv)
 
     def __encodeMultipart(self, fields, files):

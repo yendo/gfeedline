@@ -1,5 +1,7 @@
 2013-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twittytwister/twitter.py (Twitter._urlencode): Fixed a '/' quote
+	  problem.
 	* menu.py, preferences.py, preferences.glade: Removed a 'View
 	  Conversation' menu item. The API is not supported Twitter API 1.1.
 
