@@ -1,5 +1,8 @@
 2013-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twittytwister/streaming.py: Fixed address incompatibility with
+	  Twisted 12.3.0. Thanks Ralph Meijer! Applyed his patch from his
+	  git branch.
 	* twittytwister/twitter.py (Twitter._urlencode): Fixed a '/' quote
 	  problem.
 	* menu.py, preferences.py, preferences.glade: Removed a 'View
