@@ -1,3 +1,7 @@
+2013-04-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py: Fixed an entry atribute.
+
 2013-04-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* de_DE.po: Updated German translation.  Thanks t_bb_!
