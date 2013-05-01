@@ -248,7 +248,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
         created_at = self.original_entry.created_at
         body = _('retweeted your Tweet')
         target_date_time = self._get_target_date_time(
-            self.entry, self.entry.user.screen_name)
+            self.entry, self.entry.user['screen_name'])
 
         entry_dict = TweetEntryDict(
             date_time=TimeFormat(created_at).get_local_time(),

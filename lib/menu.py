@@ -8,7 +8,7 @@ from utils.settings import SETTINGS_VIEW
 
 
 def ENTRY_POPUP_MENU():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, RelatedResultsMenuItem]
+    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
 
 
 class PopupMenuItem(Gtk.MenuItem):
