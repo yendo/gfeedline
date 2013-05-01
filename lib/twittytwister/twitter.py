@@ -211,7 +211,7 @@ class Twitter(object):
             return
 
         def ratelimit_header(name):
-            hdr = 'x-ratelimit-%s' % (name)
+            hdr = 'x-rate-limit-%s' % (name)
             field = 'rate_limit_%s' % (name)
             r = headers.get(hdr)
             if r is not None and len(r) > 0 and r[0]:
