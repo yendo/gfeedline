@@ -52,7 +52,7 @@ class TumblrEntry(object):
         path = '//%s/%s' % (entry['id'], entry['reblog_key'])
         likelink = 'gfeedlinefblike:%s' % path
         unlikelink = 'gfeedlinefbunlike:%s' % path
-        is_liked = entry['liked']
+        is_liked = entry.get('liked') # FIXME
 
         reblog_icon = "<i class='icon-retweet'></i>"
         like_icon = "<i class='icon-heart'></i>"

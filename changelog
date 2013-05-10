@@ -1,5 +1,6 @@
 2013-05-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* tumblr/entry.py: Fixed a bug.
 	* tumblr/assistant.py (TumblrAuthAssistant): Fixed a Tumblr
 	  authorization error (issue #27).
 
