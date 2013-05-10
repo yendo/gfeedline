@@ -1,5 +1,7 @@
 2013-05-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* tumblr/account.py (Tumblr.posts): Added support hostname CNAME
+	  for Tumblr posts feeds.
 	* tumblr/entry.py: Fixed a bug.
 	* tumblr/assistant.py (TumblrAuthAssistant): Fixed a Tumblr
 	  authorization error (issue #27).

@@ -65,7 +65,9 @@ class Tumblr(object):
         '''Get posts'''
 
         hostname = params.pop('hostname')
-        hostname = hostname + '.tumblr.com'
+        if hostname.find('.') < 0:
+            hostname += '.tumblr.com'
+
         url = str('http://api.tumblr.com/v2/blog/%s/posts') % str(hostname)
 
         params.update({'api_key': self.consumer.key})
