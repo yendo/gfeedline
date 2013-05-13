@@ -1,7 +1,8 @@
 2013-05-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py (UpdateWindow): Added support to insert quote on
-	  reply windows (issue #28).
+	  reply windows (issue #28).  Improved status letters counting for
+	  Twitter.
 
 2013-05-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 

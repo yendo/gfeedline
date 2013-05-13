@@ -1,4 +1,5 @@
 import os
+import re
 import tempfile
 
 from gi.repository import Gtk, GLib, Gio, Gdk, GdkPixbuf
@@ -38,6 +39,11 @@ class UpdateWindow(UpdateWidgetBase):
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
         self.media = MediaFile(gui)
+        self.config = AuthorizedTwitterAccount.CONFIG
+
+        host_re = '//[A-Za-z0-9\'~+\-=_.,/%\?!;:@#\*&\(\)]+'
+        self.http_re = re.compile("(http:%s)" % host_re)
+        self.https_re = re.compile("(https:%s)" % host_re)
 
         self.account_combobox = AccountCombobox(
             gui, mainwindow.liststore, account)
@@ -143,10 +149,19 @@ class UpdateWindow(UpdateWidgetBase):
         self.child = widget
 
     def on_textbuffer_changed(self, text_buffer):
-        num = 140 - text_buffer.get_char_count() - self.media.get_link_letters()
-        self.label_num.set_text(str(num))
+        start, end = self.text_buffer.get_bounds()
 
-        status = bool(num != 140)
+        status = self.text_buffer.get_text(start, end, False).decode('utf-8')
+        status = self.http_re.sub("*"*self.config.short_url_length, status)
+        status = self.https_re.sub("*"*self.config.short_url_length_https, status)
+
+        num = 140 - len(status) - self.media.get_link_letters()
+
+        color = 'red' if num <= 10 else 'black'
+        text = '<span fgcolor="%s">%s</span>' % (color, str(num))
+        self.label_num.set_markup(text)
+
+        status = bool(0 <= num < 140)
         self.button_tweet.set_sensitive(status)
 
     def on_textview_key_press_event(self, textview, event):
