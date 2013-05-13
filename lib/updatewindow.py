@@ -158,28 +158,25 @@ class UpdateWindow(UpdateWidgetBase):
                 self.on_button_tweet_clicked(None)
         elif (self.entry and self.entry.get('protected') is False
               and 'GDK_MOD1_MASK' in masks):
-            if key == Gdk.KEY_r:
-                self.insert_quote(self.entry, textview)
+            textbuffer = textview.get_buffer()
+            if key == Gdk.KEY_q:
+                self.insert_quote(self.entry, textbuffer)
             elif key == Gdk.KEY_l:
-                self.insert_quote_link(self.entry, textview)
+                self.insert_quote_link(self.entry, textbuffer)
         else:
             return False
 
         return True
 
-    def insert_quote(self, entry, textview):
+    def insert_quote(self, entry, textbuffer):
         text = "RT @%s %s" % (entry.get('user_name'), entry.get('status_body'))
 
-        textbuffer = textview.get_buffer()
-        textbuffer.delete(textbuffer.get_start_iter(),
-                          textbuffer.get_end_iter(),)
+        textbuffer.delete(textbuffer.get_start_iter(), textbuffer.get_end_iter(),)
         textbuffer.insert_at_cursor(text)
         textbuffer.place_cursor(textbuffer.get_start_iter())
 
-    def insert_quote_link(self, entry, textview):
-        text = 'https://twitter.com/%s/status/%s' % (entry['user_name'], 
-                                                     entry['id'])
-        textbuffer = textview.get_buffer()
+    def insert_quote_link(self, entry, textbuffer):
+        text = 'https://twitter.com/%s/status/%s' % (entry['user_name'], entry['id'])
         textbuffer.place_cursor(textbuffer.get_end_iter())
         textbuffer.insert_at_cursor(text)
 
