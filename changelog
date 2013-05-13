@@ -1,5 +1,10 @@
 2013-05-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* updatewindow.py (UpdateWindow): Added support to insert quote on
+	  reply windows (issue #28).
+
+2013-05-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
 	* NEWS: 2.1.1 release.
 
 2013-05-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
@@ -10,6 +15,7 @@
 	* tumblr/assistant.py (TumblrAuthAssistant): Fixed a Tumblr
 	  authorization error (issue #27).
 
+>>>>>>> other
 2013-05-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.1 release.

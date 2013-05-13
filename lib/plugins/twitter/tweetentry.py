@@ -1,3 +1,9 @@
+#
+# gfeedline - A Social Networking Client
+#
+# Copyright (c) 2012-2013, Yoshizumi Endo.
+# Licence: GPL3
+
 import re
 from xml.sax.saxutils import escape, unescape
 
@@ -11,7 +17,6 @@ user_color = UserColor()
 
 """
 TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
-           |- SearchTweetEntry
            |- RelatedResultsEntry
            \- FeedEventEntry
 """
@@ -275,58 +280,6 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             target_date_time=target_date_time,)
 
         return entry_dict
-
-class SearchTweetEntry(TweetEntry):
-
-    def get_dict(self, api):
-        entry = self.entry
-
-        time = TimeFormat(entry.published)
-        body_string = self._get_body(entry.title) # FIXME
-        body = add_markup.convert(body_string) # add_markup is global
-        #body = decode_html_entities(entry.content)
-        #body = body.replace('"', "'")
-
-        name = self.get_sender_name()
-        entry_id = entry.id.split(':')[2]
-        styles = self._get_styles(api, name)
-
-        entry_dict = TweetEntryDict(
-            date_time=time.get_local_time(),
-            id=entry_id,
-            styles='twitter %s' % styles,
-            image_uri=entry.image,
-            retweet='',
-            in_reply_to = True, # FIXME
-
-            user_name=name,
-            full_name=self.get_full_name(entry),
-            user_color=user_color.get(name),
-            protected='',
-            source=self._decode_source_html_entities(entry.twitter_source),
-
-            status_body=body,
-            popup_body=body_string,
-            command=self._get_commands(entry_id, False),
-            target=''
-            )
-
-        return entry_dict
-
-    def get_sender_name(self, api=None):
-        return self.entry.author.name.split(' ')[0]
-
-    def get_full_name(self, entry):
-        return entry.author.name.partition(' ')[2][1:-1] # removed parentheses
-
-    def _get_sender(self, api):
-        pass
-
-    def get_source_name(self):
-        return self._parse_source_html(self.entry.twitter_source)
-
-    def _get_body(self, text):
-        return text
 
 class RelatedResultsEntry(TweetEntry):
 

@@ -23,7 +23,6 @@ from twisted.internet import error as ierror
 from twisted.python import failure, log
 from twisted.web import client, error, http_headers
 
-#from twittytwister import streaming, txml
 import streaming
 import txml
 import tjson
@@ -212,7 +211,7 @@ class Twitter(object):
             return
 
         def ratelimit_header(name):
-            hdr = 'x-ratelimit-%s' % (name)
+            hdr = 'x-rate-limit-%s' % (name)
             field = 'rate_limit_%s' % (name)
             r = headers.get(hdr)
             if r is not None and len(r) > 0 and r[0]:
@@ -239,8 +238,8 @@ class Twitter(object):
 
         return c.deferred.addBoth(handle_headers)
 
-    def __postMultipart(self, url, fields=(), files=()):
-        # url = self.base_url + path
+    def __postMultipart(self, path, fields=(), files=()):
+        url = self.base_url + path
 
         (boundary, body) = self.__encodeMultipart(fields, files)
         headers = {'Content-Type': 'multipart/form-data; boundary=%s' % boundary,
@@ -302,10 +301,6 @@ class Twitter(object):
 
     def __get(self, path, delegate, params, parser_factory=txml.Feed, extra_args=None):
         parser = parser_factory(delegate, extra_args)
-        return self.__downloadPage(path, parser, params)
-
-    def __get_json(self, path, delegate, params, parser_factory=tjson.Parser, extra_args=None):
-        parser = parser_factory(delegate)
         return self.__downloadPage(path, parser, params)
 
     def verify_credentials(self, delegate=None):
@@ -505,16 +500,6 @@ class Twitter(object):
 
         return d
 
-    def configuration(self):
-
-        url = '/help/configuration.json'
-        d = defer.Deferred()
-
-        self.__downloadPage(url, tjson.Parser(lambda u: d.callback(u))) \
-            .addErrback(lambda e: d.errback(e))
-
-        return d
-
     def search(self, query, delegate, args=None, extra_args=None):
         """Perform a search query.
 
@@ -547,8 +532,8 @@ class Twitter(object):
 
         Returns no useful data."""
 
-        url = self.base_url + '/account/update_profile_image.xml'
-        return self.__postMultipart(url, files=(('image', filename, image),))
+        return self.__postMultipart('/account/update_profile_image.xml',
+                                    files=(('image', filename, image),))
 
 
 

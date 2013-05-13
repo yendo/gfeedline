@@ -150,13 +150,38 @@ class UpdateWindow(UpdateWidgetBase):
         self.button_tweet.set_sensitive(status)
 
     def on_textview_key_press_event(self, textview, event):
-        if (event.keyval == Gdk.KEY_Return and 
-            'GDK_CONTROL_MASK' in event.state.value_names):
+        key = event.keyval
+        masks = event.state.value_names
 
+        if key == Gdk.KEY_Return and 'GDK_CONTROL_MASK' in masks:
             if self.button_tweet.get_sensitive():
                 self.on_button_tweet_clicked(None)
+        elif (self.entry and self.entry.get('protected') is False
+              and 'GDK_MOD1_MASK' in masks):
+            if key == Gdk.KEY_r:
+                self.insert_quote(self.entry, textview)
+            elif key == Gdk.KEY_l:
+                self.insert_quote_link(self.entry, textview)
+        else:
+            return False
 
-            return True
+        return True
+
+    def insert_quote(self, entry, textview):
+        text = "RT @%s %s" % (entry.get('user_name'), entry.get('status_body'))
+
+        textbuffer = textview.get_buffer()
+        textbuffer.delete(textbuffer.get_start_iter(),
+                          textbuffer.get_end_iter(),)
+        textbuffer.insert_at_cursor(text)
+        textbuffer.place_cursor(textbuffer.get_start_iter())
+
+    def insert_quote_link(self, entry, textview):
+        text = 'https://twitter.com/%s/status/%s' % (entry['user_name'], 
+                                                     entry['id'])
+        textbuffer = textview.get_buffer()
+        textbuffer.place_cursor(textbuffer.get_end_iter())
+        textbuffer.insert_at_cursor(text)
 
 class AccountCombobox(object):
 

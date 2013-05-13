@@ -1,7 +1,7 @@
 #
 # gfeedline - A Social Networking Client
 #
-# Copyright (c) 2012, Yoshizumi Endo.
+# Copyright (c) 2012-2013, Yoshizumi Endo.
 # Licence: GPL3
 
 """
@@ -24,27 +24,16 @@ from ...utils.settings import SETTINGS_VIEW
 from ...filterliststore import FilterColumn
 from ...constants import Column
 from ...theme import Theme
-from ..base.output import DelayedPool
+from ..base.output import OutputBase
 
 
-class TwitterOutputBase(object):
+class TwitterOutputBase(OutputBase):
 
     def __init__(self, api, view=None, argument='', options={}, filters=None):
-        self.api = api
-        self.view = view
-        self.argument = argument
-        self.options = options
-        self.filters = filters
-        self.theme = Theme()
-
+        super(TwitterOutputBase, self).__init__(api, view, argument, options,
+                                                filters)
         self.all_entries = []
-        self.since_id = 0
-        self.last_id = options.get('last_id') or 0
-        self.params = {}
-        self.counter = 0
-
         api.account.connect("update_credential", self._on_reconnect_credential)
-        SETTINGS_VIEW.connect_after("changed::theme", self._on_restart_theme_changed)
 
     def got_entry(self, entry, *args):
         if not entry:
@@ -132,32 +121,15 @@ class TwitterOutputBase(object):
     def _get_entry_obj(self, entry):
         return TweetEntry(entry)
 
-    def _set_since_id(self, entry_id):
-        entry_id = int(entry_id)
-
-        if self.since_id < entry_id:
-            self.since_id = entry_id
-
-    def exit(self):
-        # print "exit!"
-        self.disconnect()
-        self.view.remove()
-
-    def disconnect(self):
-        if hasattr(self, 'd'):
-            self.d.cancel()
-        if hasattr(self, 'timeout') and not self.timeout.called:
-            self.timeout.cancel()
-
 class TwitterRestOutput(TwitterOutputBase):
 
+    SINCE = 'since_id'
     api_connections = 0
 
     def __init__(self, api, view=None, argument='', options={}, filters=None):
         super(TwitterRestOutput, self).__init__(api, view, argument, options, 
                                                 filters)
         TwitterRestOutput.api_connections += 1
-        self.delayed = DelayedPool()
 
     def buffer_entry(self, entry, *args):
         self.all_entries.append(entry)
@@ -190,14 +162,13 @@ class TwitterRestOutput(TwitterOutputBase):
         return entry_class(entry)
 
     def start(self, interval=60):
-        # print "start!"
         if not self.api.account.api.use_oauth:
             print "Not authorized."
             return
 
         self.params.clear()
         if self.since_id:
-            self.params['since_id'] = str(self.since_id)
+            self.params[self.SINCE] = str(self.since_id)
 
         params = self.api.get_options(self.argument)
         self.params.update(params)
@@ -205,6 +176,7 @@ class TwitterRestOutput(TwitterOutputBase):
         self.d = self.api.api(self.got_entry, params=self.params)
         self.d.addErrback(self._on_error).addBoth(lambda x: 
                                                   self.print_all_entries(interval))
+        self.d.addErrback(self._on_error)
 
         interval = self._get_interval_seconds()
         self.timeout = reactor.callLater(interval, self.start, interval)
@@ -233,30 +205,12 @@ class TwitterRestOutput(TwitterOutputBase):
     def exit(self):
         super(TwitterRestOutput, self).exit()
         TwitterRestOutput.api_connections -= 1
-        self.delayed.clear()
-
-    def _on_restart_theme_changed(self, *args):
-        self.view.clear_buffer()
-        self.disconnect()
-        self.since_id = 0
-        self.counter = 0
-        self.start()
-
-    def _on_reconnect_credential(self, *args):
-        # print "reconnect for updating credential!"
-        self._on_restart_theme_changed()
-
-    def _on_error(self, e):
-        print "Error: ", e
 
 class TwitterSearchOutput(TwitterRestOutput):
 
     def got_entry(self, entry, *args):
-        for i in entry['statuses']:
-            entry = DictObj(i) # FIXME
-            entry.text = decode_html_entities(entry.text)
-            self._set_since_id(entry.id)
-            self.check_entry(entry, entry.text, args)
+        entry = entry['statuses']
+        super(TwitterSearchOutput, self).got_entry(entry, args)
 
 class TwitterRelatedResultsOutput(TwitterRestOutput):
 
