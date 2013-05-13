@@ -280,7 +280,7 @@ class MediaFile(object):
         pixbuf = pixbuf_creator.get()
         pixbuf.savev(temp.name, image_type, [], [])
 
-        if os.path.getsize(temp.name) > int(self.config.photo_size_limit):
+        if os.path.getsize(temp.name) > self.config.photo_size_limit:
             pixbuf_creator = RotatedPixbufCreator(self.file, 1024)
             pixbuf = pixbuf_creator.get()
             pixbuf.savev(temp.name, image_type, [], [])
@@ -288,9 +288,7 @@ class MediaFile(object):
         return temp
 
     def get_link_letters(self):
-        media_link_letters = int(self.config.characters_reserved_per_media) \
-                if self.config else 10
-        return media_link_letters if self.file else 0
+        return self.config.characters_reserved_per_media if self.file else 0
 
 class FileChooserDialog(object):
 

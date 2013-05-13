@@ -1,5 +1,7 @@
 2013-05-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/account.py (TwitterConfig): Improved Twitter
+	  configuration data object.
 	* updatewindow.py (UpdateWindow): Added support to insert quote on
 	  reply windows (issue #28).  Improved status letters counting for
 	  Twitter.

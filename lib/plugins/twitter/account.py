@@ -15,10 +15,27 @@ class TwitterIcon(WebIconImage):
         self.icon_name = 'twitter.ico'
         self.icon_url = 'http://www.twitter.com/favicon.ico'
 
+class TwitterConfig(DictObj):
+
+    def __init__(self):
+        self.d = { "characters_reserved_per_media": 23,
+                   "photo_size_limit": 3145728,
+                   "short_url_length_https": 23,
+                   "short_url_length": 22 }
+        self.is_updated = False
+
+    def update_config(self, api):
+        if not self.is_updated:
+            self.is_updated = True
+            api.configuration().addCallback(self._on_get_config)
+
+    def _on_get_config(self, data):
+        self.d.update(data)
+
 class AuthorizedTwitterAccount(AuthorizedAccount):
 
     SETTINGS = SETTINGS_TWITTER
-    CONFIG = None
+    CONFIG = TwitterConfig()
 
     def __init__(self, user_name, key, secret, idnum):
         super(AuthorizedTwitterAccount, self).__init__()
@@ -33,13 +50,8 @@ class AuthorizedTwitterAccount(AuthorizedAccount):
         self.icon = TwitterIcon()
         self.api_dict = TwitterAPIDict()
 
-        if not AuthorizedTwitterAccount.CONFIG:
-            self.api.configuration().addCallback(self._on_get_configuration)
-            pass
-
-    def _on_get_configuration(self, data):
-        AuthorizedTwitterAccount.CONFIG = DictObj(data)
-
+        AuthorizedTwitterAccount.CONFIG.update_config(self.api)
+        
     def _on_update_credential(self, account, unknown):
         token = self._get_token()
         self.api.update_token(token)
