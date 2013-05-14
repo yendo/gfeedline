@@ -1,3 +1,8 @@
+2013-05-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/api.py, twitter/output.py: Improved Twitter API access
+	  interval.
+
 2013-05-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/account.py (TwitterConfig): Improved Twitter

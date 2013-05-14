@@ -124,12 +124,6 @@ class TwitterOutputBase(OutputBase):
 class TwitterRestOutput(TwitterOutputBase):
 
     SINCE = 'since_id'
-    api_connections = 0
-
-    def __init__(self, api, view=None, argument='', options={}, filters=None):
-        super(TwitterRestOutput, self).__init__(api, view, argument, options, 
-                                                filters)
-        TwitterRestOutput.api_connections += 1
 
     def buffer_entry(self, entry, *args):
         self.all_entries.append(entry)
@@ -186,25 +180,28 @@ class TwitterRestOutput(TwitterOutputBase):
         rate_limit_limit = self.api.account.api.rate_limit_limit
         rate_limit_reset = self.api.account.api.rate_limit_reset
 
+        # print self.api.name, self.api.connections
+
         diff = 0
         if rate_limit_reset and rate_limit_remaining:
             diff = rate_limit_reset - int(time.time())
-            interval = diff*1.0 / rate_limit_remaining * TwitterRestOutput.api_connections
+            interval = diff * 1.0 / rate_limit_remaining * self.api.connections
         else:
-            interval = 60*60.0 / 150 * TwitterRestOutput.api_connections
-
-        interval = 10 if interval < 10 else int(interval)
-#        print "time: %s, limit: %s/%s, connections: %s, interval: %s" % (
-#            diff, rate_limit_remaining, rate_limit_limit, 
-#            TwitterRestOutput.api_connections, interval)
+            interval = 15 * 60 / self.api.rate_limit * self.api.connections
 
         # FIXME
-        interval = 60
+        interval = 15 * 60 / self.api.rate_limit * self.api.connections
+        interval = 10 if interval < 10 else interval
+
+#        print "time: %s, limit: %s/%s, connections: %s (%s), interval: %s" % (
+#            diff, rate_limit_remaining, rate_limit_limit, 
+#            self.api.connections, self.api.name, interval)
+
         return interval
 
     def exit(self):
         super(TwitterRestOutput, self).exit()
-        TwitterRestOutput.api_connections -= 1
+        self.api.exit()
 
 class TwitterSearchOutput(TwitterRestOutput):
 

@@ -35,10 +35,17 @@ class TwitterAPIBase(object):
     include_rt = True
     has_argument = False
     has_popup_menu = True
+    
+    connections = 0
+    rate_limit = 15
 
     def __init__(self, account):
         self.account = account
         self.api = self._get_api()
+        self.__class__.connections += 1
+
+    def exit(self):
+        self.__class__.connections -= 1
 
     def get_options(self, argument):
         return {}
@@ -65,6 +72,7 @@ class TwitterAPIUserTimeLine(TwitterAPIBase):
 
     name = _('User TimeLine')
     has_argument = True
+    rate_limit = 180
 
     def _get_api(self):
         return self.account.api.user_timeline
@@ -76,6 +84,7 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
 
     name = _('List TimeLine')
     has_argument = True
+    rate_limit = 180
 
     def _get_api(self):
         return self.account.api.list_timeline
@@ -139,6 +148,7 @@ class TwitterSearchAPI(TwitterAPIBase):
     name = _('Search')
     include_rt = False
     has_argument = True
+    rate_limit = 180
 
     def _get_api(self):
         return self.account.api.search
