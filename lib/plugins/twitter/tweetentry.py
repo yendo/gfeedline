@@ -17,7 +17,6 @@ user_color = UserColor()
 
 """
 TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
-           |- RelatedResultsEntry
            \- FeedEventEntry
 """
 
@@ -280,15 +279,6 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             target_date_time=target_date_time,)
 
         return entry_dict
-
-class RelatedResultsEntry(TweetEntry):
-
-    def __init__(self, entry):
-        super(RelatedResultsEntry, self).__init__(entry)
-
-        self.original_entry = entry
-        self.entry=DictObj(entry)
-        self.entry.user=DictObj(self.entry.user)
 
 class FeedEventEntry(TweetEntry):
 

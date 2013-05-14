@@ -105,45 +105,6 @@ class FavMenuItem(RetweetMenuItem):
         twitter_account = self.api.account
         twitter_account.api.fav(entry_id)
 
-class RelatedResultsMenuItem(RetweetMenuItem):
-
-    LABEL = _('View _Conversation')
-
-    def _is_enabled(self, dom):
-        return bool(dom.get_attribute('data-inreplyto'))
-
-    def _get_group_name(self):
-        current_group_name = self.parent.webview.group_name
-
-        if not SETTINGS_VIEW.get_boolean('conversation-other-column'):
-            return current_group_name
-
-        group_list = self.parent.liststore.get_group_list()
-        page = self.parent.liststore.get_group_page(current_group_name)
-
-        if page >= len(group_list) -1:
-            page -= 1
-        else:
-            page += 1
-
-        return group_list[page]
-
-    def on_activate(self, menuitem, entry_id):
-        group_name = self._get_group_name()
-
-        source = {'source': 'Twitter',
-                  'argument': entry_id,
-                  'target': _('Related Results'),
-                  'username': self.api.account.user_name,
-                  'group': group_name,
-                  'name': '@%s' % self.user,
-                  'options': {}
-                  }
-        self.parent.liststore.append(source)
-
-        notebook = self.parent.window.column.get_notebook_object(group_name)
-        notebook.set_current_page(-1)
-
 class SearchMenuItem(PopupMenuItem):
 
     LABEL = _('_Search')

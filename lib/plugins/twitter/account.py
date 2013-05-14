@@ -98,11 +98,6 @@ class Twitter(twitter.Twitter):
         return self.__get_json('/search/tweets.json', delegate, params,
                                extra_args=extra_args)
 
-    def related_results(self, delegate, params={}, extra_args=None):
-        statusid = params['id']
-        return self.__get_json('/related_results/show/%s.json' % statusid,
-                delegate, params, extra_args=extra_args)
-
     def fav(self, status_id):
         return self.__post('/favorites/create.json', {'id': status_id})
 
