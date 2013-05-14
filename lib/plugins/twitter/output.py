@@ -206,8 +206,9 @@ class TwitterRestOutput(TwitterOutputBase):
 class TwitterSearchOutput(TwitterRestOutput):
 
     def got_entry(self, entry, *args):
-        entry = entry['statuses']
-        super(TwitterSearchOutput, self).got_entry(entry, args)
+        if entry:
+            entry = entry['statuses']
+            super(TwitterSearchOutput, self).got_entry(entry, args)
 
 class TwitterRelatedResultsOutput(TwitterRestOutput):
 
