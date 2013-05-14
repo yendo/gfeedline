@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-26 15:34+0900\n"
-"PO-Revision-Date: 2013-04-26 15:39+0900\n"
+"POT-Creation-Date: 2013-05-14 15:11+0900\n"
+"PO-Revision-Date: 2013-05-14 15:12+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -41,18 +41,14 @@ msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
 #: ../lib/menu.py:110
-msgid "View _Conversation"
+msgid "_Conversation"
 msgstr "会話を表示(_C)"
 
-#: ../lib/menu.py:136 ../lib/plugins/twitter/api.py:152
-msgid "Related Results"
-msgstr "関連ツイート"
-
-#: ../lib/menu.py:149
+#: ../lib/menu.py:125
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../lib/menu.py:160
+#: ../lib/menu.py:136
 msgid "_Add Filter"
 msgstr "フィルターに追加(_A)"
 
@@ -60,7 +56,7 @@ msgstr "フィルターに追加(_A)"
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:108
+#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:114
 msgid "Reply"
 msgstr "返信"
 
@@ -150,35 +146,35 @@ msgstr "音声"
 msgid "{0} posts {1} entry."
 msgstr "{0} が{1}エントリーを投稿しました。"
 
-#: ../lib/plugins/twitter/api.py:59
+#: ../lib/plugins/twitter/api.py:65
 msgid "Home TimeLine"
 msgstr "ホームタイムライン"
 
-#: ../lib/plugins/twitter/api.py:66
+#: ../lib/plugins/twitter/api.py:72
 msgid "User TimeLine"
 msgstr "ユーザータイムライン"
 
-#: ../lib/plugins/twitter/api.py:77
+#: ../lib/plugins/twitter/api.py:84
 msgid "List TimeLine"
 msgstr "リストタイムライン"
 
-#: ../lib/plugins/twitter/api.py:96 ../lib/plugins/twitter/api.py:120
+#: ../lib/plugins/twitter/api.py:104 ../lib/plugins/twitter/api.py:128
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:103
+#: ../lib/plugins/twitter/api.py:111
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:111 ../lib/preferences/feedsource.py:106
+#: ../lib/plugins/twitter/api.py:119 ../lib/preferences/feedsource.py:106
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
-#: ../lib/plugins/twitter/api.py:125
+#: ../lib/plugins/twitter/api.py:133
 msgid "Track"
 msgstr "トラック"
 
-#: ../lib/plugins/twitter/api.py:139
+#: ../lib/plugins/twitter/api.py:147
 msgid "Search"
 msgstr "検索"
 
@@ -190,61 +186,61 @@ msgstr "Twitter アカウントの設定"
 msgid "Enter PIN"
 msgstr "PIN の入力"
 
-#: ../lib/plugins/twitter/output.py:56 ../share/filters.glade.h:5
+#: ../lib/plugins/twitter/output.py:50 ../share/filters.glade.h:5
 msgid "Body"
 msgstr "本文"
 
-#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:6
+#: ../lib/plugins/twitter/output.py:55 ../share/filters.glade.h:6
 msgid "Sender"
 msgstr "送信者"
 
-#: ../lib/plugins/twitter/output.py:64 ../share/filters.glade.h:7
-#: ../share/preferences.glade.h:14
+#: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:7
+#: ../share/preferences.glade.h:13
 msgid "Source"
 msgstr "ソース"
 
 #. FIXME
-#: ../lib/plugins/twitter/output.py:89
+#: ../lib/plugins/twitter/output.py:83
 #, python-format
 msgid "via %s"
 msgstr "via %s"
 
-#: ../lib/plugins/twitter/output.py:94
+#: ../lib/plugins/twitter/output.py:88
 #, python-format
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:109
+#: ../lib/plugins/twitter/tweetentry.py:115
 msgid "Retweet"
 msgstr "リツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:111
-#: ../lib/plugins/twitter/tweetentry.py:112
+#: ../lib/plugins/twitter/tweetentry.py:117
+#: ../lib/plugins/twitter/tweetentry.py:118
 msgid "Favorite"
 msgstr "お気に入り"
 
-#: ../lib/plugins/twitter/tweetentry.py:236
+#: ../lib/plugins/twitter/tweetentry.py:248
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:338
+#: ../lib/plugins/twitter/tweetentry.py:289
 msgid "favorited your Tweet"
 msgstr "さんがお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:339
+#: ../lib/plugins/twitter/tweetentry.py:290
 msgid "unfavorited your Tweet"
 msgstr "さんがお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:340
+#: ../lib/plugins/twitter/tweetentry.py:291
 msgid "followed you"
 msgstr "さんがフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:341
+#: ../lib/plugins/twitter/tweetentry.py:292
 #, python-format
 msgid "added you to list %s"
 msgstr "さんのリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:342
+#: ../lib/plugins/twitter/tweetentry.py:293
 #, python-format
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
@@ -253,25 +249,25 @@ msgstr "さんのリスト %s から削除されました"
 msgid "Options"
 msgstr "オプション"
 
-#: ../lib/preferences/feedsource.py:139
+#: ../lib/preferences/feedsource.py:141
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
-#: ../lib/updatewindow.py:75
+#: ../lib/updatewindow.py:81
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:271
+#: ../lib/updatewindow.py:306
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:344
+#: ../lib/updatewindow.py:379
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:345
+#: ../lib/updatewindow.py:380
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
@@ -373,7 +369,7 @@ msgstr "通知機能を使う(_E)"
 msgid "_Group:"
 msgstr "グループ(_G):"
 
-#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:12
 msgid "General"
 msgstr "全般"
 
@@ -515,74 +511,70 @@ msgid "Descending"
 msgstr "降順"
 
 #: ../share/preferences.glade.h:8
-msgid "Open _conversation tab in other column"
-msgstr "会話を別のカラムに表示"
-
-#: ../share/preferences.glade.h:9
 msgid "<b>View</b>"
 msgstr "<b>表示</b>"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:9
 msgid "Always on _Visible Workspace"
 msgstr "すべてのワークスペースに配置する(_V)"
 
-#: ../share/preferences.glade.h:11
+#: ../share/preferences.glade.h:10
 msgid "_Auto Start"
 msgstr "ログイン時に自動起動する(_A)"
 
-#: ../share/preferences.glade.h:12
+#: ../share/preferences.glade.h:11
 msgid "<b>Desktop</b>"
 msgstr "<b>デスクトップ</b>"
 
-#: ../share/preferences.glade.h:15
+#: ../share/preferences.glade.h:14
 msgid "User ID"
 msgstr "ユーザ ID"
 
-#: ../share/preferences.glade.h:16
+#: ../share/preferences.glade.h:15
 msgid "<b>Accounts</b>"
 msgstr "<b>アカウント</b>"
 
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:16
 msgid "Accounts"
 msgstr "アカウント"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:17
 msgid "Name"
 msgstr "名前"
 
-#: ../share/preferences.glade.h:19
+#: ../share/preferences.glade.h:18
 msgid "Target"
 msgstr "ターゲット"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:19
 msgid "Argument"
 msgstr "引数"
 
-#: ../share/preferences.glade.h:21
+#: ../share/preferences.glade.h:20
 msgid "Group"
 msgstr "グループ"
 
-#: ../share/preferences.glade.h:22
+#: ../share/preferences.glade.h:21
 msgid "<b>Feed Sources</b>"
 msgstr "<b>フィードソース</b>"
 
-#: ../share/preferences.glade.h:23
+#: ../share/preferences.glade.h:22
 msgid "Feeds"
 msgstr "フィード"
 
-#: ../share/preferences.glade.h:24
+#: ../share/preferences.glade.h:23
 msgid "Word"
 msgstr "単語"
 
-#: ../share/preferences.glade.h:25
+#: ../share/preferences.glade.h:24
 msgid "Expiry"
 msgstr "有効期間"
 
-#: ../share/preferences.glade.h:26
+#: ../share/preferences.glade.h:25
 msgid "<b>Filters</b>"
 msgstr "<b>フィルター</b>"
 
-#: ../share/preferences.glade.h:27
+#: ../share/preferences.glade.h:26
 msgid "Filters"
 msgstr "フィルター"
 
@@ -629,6 +621,12 @@ msgstr "画像を追加します"
 #: ../share/update.glade.h:7
 msgid "Ctrl+Enter"
 msgstr "Ctrl+Enter"
+
+#~ msgid "Related Results"
+#~ msgstr "関連ツイート"
+
+#~ msgid "Open _conversation tab in other column"
+#~ msgstr "会話を別のカラムに表示"
 
 #~ msgid "_Tweet"
 #~ msgstr "ツイート(_T)"

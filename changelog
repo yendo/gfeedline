@@ -1,5 +1,7 @@
 2013-05-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/account.py, menu.py: Added an API for accessing with
+	  in_reply_to_status_id.
 	* twitter/api.py, twitter/output.py: Improved Twitter API access
 	  interval.
 
@@ -23,7 +25,6 @@
 	* tumblr/assistant.py (TumblrAuthAssistant): Fixed a Tumblr
 	  authorization error (issue #27).
 
->>>>>>> other
 2013-05-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.1 release.

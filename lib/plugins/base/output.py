@@ -138,7 +138,7 @@ class OutputBase(object):
         self._on_restart_theme_changed()
 
     def _on_error(self, e):
-        print "Error: ", e
+        print "Error (%s): %s" % (self.api.name, e)
 
 class DelayedPool(list):
 

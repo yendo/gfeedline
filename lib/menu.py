@@ -8,7 +8,7 @@ from utils.settings import SETTINGS_VIEW
 
 
 def ENTRY_POPUP_MENU():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
+    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, ConversationMenuItem]
 
 
 class PopupMenuItem(Gtk.MenuItem):
@@ -104,6 +104,21 @@ class FavMenuItem(RetweetMenuItem):
     def on_activate(self, menuitem, entry_id):
         twitter_account = self.api.account
         twitter_account.api.fav(entry_id)
+
+class ConversationMenuItem(RetweetMenuItem):
+
+    LABEL = _('_Conversation')
+
+    def _is_enabled(self, dom):
+        self.original_status_id = dom.get_attribute('data-inreplyto')
+        return bool(self.original_status_id)
+
+    def on_activate(self, menuitem, entry_id):
+        twitter_account = self.api.account
+        twitter_account.api.show(self.original_status_id, self._cb)
+
+    def _cb(self, data):
+        print data['text']
 
 class SearchMenuItem(PopupMenuItem):
 
