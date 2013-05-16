@@ -146,7 +146,11 @@ class TweetEntry(object):
         return source
 
     def _get_in_reply_to_status_id(self, entry):
-        return entry.in_reply_to_status_id if entry.in_reply_to_status_id else ''
+        text = ""
+        if entry.in_reply_to_status_id:
+            text = "%s/%s" % (entry.in_reply_to_screen_name, 
+                              entry.in_reply_to_status_id)
+        return text
 
     def _get_body(self, text):
         text = decode_html_entities(text) # need to decode!

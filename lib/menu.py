@@ -8,7 +8,8 @@ from utils.settings import SETTINGS_VIEW
 
 
 def ENTRY_POPUP_MENU():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, ConversationMenuItem]
+    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
+            SearchConversationMenuItem, ConversationMenuItem]
 
 
 class PopupMenuItem(Gtk.MenuItem):
@@ -110,15 +111,59 @@ class ConversationMenuItem(RetweetMenuItem):
     LABEL = _('_Conversation')
 
     def _is_enabled(self, dom):
-        self.original_status_id = dom.get_attribute('data-inreplyto')
-        return bool(self.original_status_id)
+        in_reply_to = dom.get_attribute('data-inreplyto')
+        self.in_reply_to_screen_name, self.in_reply_to_status_id = \
+            in_reply_to.split('/') if in_reply_to else [None, None]
+
+        return bool(in_reply_to)
 
     def on_activate(self, menuitem, entry_id):
         twitter_account = self.api.account
-        twitter_account.api.show(self.original_status_id, self._cb)
+        twitter_account.api.show(self.in_reply_to_status_id, self._cb)
 
     def _cb(self, data):
         print data['text']
+
+class SearchConversationMenuItem(ConversationMenuItem):
+
+    LABEL = _('View _Conversation')
+
+    def _get_group_name(self):
+        current_group_name = self.parent.webview.group_name
+
+        if not SETTINGS_VIEW.get_boolean('conversation-other-column'):
+            return current_group_name
+
+        group_list = self.parent.liststore.get_group_list()
+        page = self.parent.liststore.get_group_page(current_group_name)
+
+        if page >= len(group_list) -1:
+            page -= 1
+        else:
+            page += 1
+
+        return group_list[page]
+
+    def on_activate(self, menuitem, entry_id):
+        group_name = self._get_group_name()
+        username = self.api.account.user_name
+        to_user = self.in_reply_to_screen_name
+
+        argument = '(from:%s to:%s) OR (from:%s to:%s)' % (
+            to_user, self.user, self.user, to_user)
+
+        source = {'source': 'Twitter',
+                  'argument': argument,
+                  'target': _('Search'),
+                  'username': username,
+                  'group': group_name,
+                  'name': '@%s' % self.user,
+                  'options': {}
+                  }
+        self.parent.liststore.append(source)
+
+        notebook = self.parent.window.column.get_notebook_object(group_name)
+        notebook.set_current_page(-1)
 
 class SearchMenuItem(PopupMenuItem):
 
