@@ -106,14 +106,14 @@ class Twitter(twitter.Twitter):
         return self.__get_json('/statuses/show.json', delegate, params,
             extra_args=extra_args)
 
-    def related_results(self, delegate, delegate_for_with_replyto, 
+    def related_results(self, delegate, delegate_for_replyto, 
                         params=None, extra_args=None):
-        self._delegate = delegate_for_with_replyto
         status_id = params.get('in_reply_to_status_id')
         from_user = params.get('from_user')
         to_user = params.get('to_user')
 
-        self.show(status_id, self._related_results_cb)
+        cb = lambda data: self._related_results_cb(data, delegate_for_replyto)
+        self.show(status_id, cb)
 
         search_text = '(from:%s to:%s) OR (from:%s to:%s)' % (
             from_user, to_user, to_user, from_user)
@@ -122,12 +122,13 @@ class Twitter(twitter.Twitter):
         self._dd.pause()
         return self._dd
 
-    def _related_results_cb(self, data):
+    def _related_results_cb(self, data, delegate):
         in_reply_to_status_id = data.get('in_reply_to_status_id')
-        self._delegate(data)
+        delegate(data)
 
         if in_reply_to_status_id:
-            self.show(in_reply_to_status_id, self._related_results_cb)
+            cb = lambda data: self._related_results_cb(data, delegate)
+            self.show(in_reply_to_status_id, cb)
         else:
             self._dd.unpause()
 
