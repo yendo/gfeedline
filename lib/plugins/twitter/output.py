@@ -236,6 +236,10 @@ class TwitterRelatedResultOutput(TwitterSearchOutput):
         params = self.api.get_options(self.argument)
         self.params.update(params)
 
+        # FIXME
+        if not params:
+            return
+
         self.d = self.api.api(self.got_entry, self.got_entry_with_inreplyto, 
                               params=self.params)
 

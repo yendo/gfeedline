@@ -120,6 +120,7 @@ class TwitterAPIRelatedResults(TwitterAPIBase):
 
     name = _('Related Results')
     output = TwitterRelatedResultOutput
+    has_argument = True
 
     def _get_api(self):
         return self.account.api.related_results
@@ -128,7 +129,7 @@ class TwitterAPIRelatedResults(TwitterAPIBase):
         args = argument.split('/')
 
         return {'from_user': args[0], 'to_user': args[1],
-                'in_reply_to_status_id': args[2]}
+                'in_reply_to_status_id': args[2]} if len(args) >= 3 else {}
             
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 
