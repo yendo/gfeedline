@@ -106,20 +106,29 @@ class Twitter(twitter.Twitter):
         return self.__get_json('/statuses/show.json', delegate, params,
             extra_args=extra_args)
 
-    def related_results(self, delegate, params=None, extra_args=None):
-        self._delegate = delegate
-        status_id = params['in_reply_to_status_id']
+    def related_results(self, delegate, delegate_for_with_replyto, 
+                        params=None, extra_args=None):
+        self._delegate = delegate_for_with_replyto
+        status_id = params.get('in_reply_to_status_id')
+        from_user = params.get('from_user')
+        to_user = params.get('to_user')
 
-        self._related_results(status_id)
-
-    def _related_results(self, status_id):
         self.show(status_id, self._related_results_cb)
-        
+
+        search_text = '(from:%s to:%s) OR (from:%s to:%s)' % (
+            from_user, to_user, to_user, from_user)
+        self._dd = self.search(delegate, {'q': search_text})
+        self._dd.pause()
+        return self._dd
+
     def _related_results_cb(self, data):
         in_reply_to_status_id = data.get('in_reply_to_status_id')
         self._delegate(data)
+
         if in_reply_to_status_id:
-            self._related_results(in_reply_to_status_id)
+            self.show(in_reply_to_status_id, self._related_results_cb)
+        else:
+            self._dd.unpause()
 
     def fav(self, status_id):
         return self.__post('/favorites/create.json', {'id': status_id})

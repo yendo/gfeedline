@@ -148,10 +148,7 @@ class SearchConversationMenuItem(ConversationMenuItem):
         group_name = self._get_group_name()
         username = self.api.account.user_name
         to_user = self.in_reply_to_screen_name
-
-        argument = '(from:%s to:%s) OR (from:%s to:%s)' % (
-            to_user, self.user, self.user, to_user)
-        argument = self.in_reply_to_status_id
+        argument = "%s/%s/%s" % (self.user, to_user, entry_id)
 
         source = {'source': 'Twitter',
                   'argument': argument,

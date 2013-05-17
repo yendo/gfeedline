@@ -203,9 +203,16 @@ class TwitterRestOutput(TwitterOutputBase):
         super(TwitterRestOutput, self).exit()
         self.api.exit()
 
-class TwitterRelatedResultOutput(TwitterRestOutput):
+class TwitterSearchOutput(TwitterRestOutput):
 
     def got_entry(self, entry, *args):
+        if entry:
+            entry = entry['statuses']
+            super(TwitterSearchOutput, self).got_entry(entry, args)
+
+class TwitterRelatedResultOutput(TwitterSearchOutput):
+
+    def got_entry_with_inreplyto(self, entry, *args):
         entry = DictObj(entry)
         entry.text = decode_html_entities(entry.text)
         self._set_since_id(entry.id)
@@ -223,21 +230,15 @@ class TwitterRelatedResultOutput(TwitterRestOutput):
         params = self.api.get_options(self.argument)
         self.params.update(params)
 
-        self.d = self.api.api(self.got_entry, params=self.params)
+        self.d = self.api.api(self.got_entry, self.got_entry_with_inreplyto, 
+                              params=self.params)
 
-#        self.d.addErrback(self._on_error).addBoth(lambda x: 
-#                                                  self.print_all_entries(interval))
-#        self.d.addErrback(self._on_error)
+        self.d.addErrback(self._on_error).addBoth(lambda x: 
+                                                  self.print_all_entries(interval))
+        self.d.addErrback(self._on_error)
 #
 #        interval = self._get_interval_seconds()
 #        self.timeout = reactor.callLater(interval, self.start, interval)
-
-class TwitterSearchOutput(TwitterRestOutput):
-
-    def got_entry(self, entry, *args):
-        if entry:
-            entry = entry['statuses']
-            super(TwitterSearchOutput, self).got_entry(entry, args)
 
 class TwitterFeedOutput(TwitterOutputBase):
 

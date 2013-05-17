@@ -125,8 +125,11 @@ class TwitterAPIRelatedResults(TwitterAPIBase):
         return self.account.api.related_results
 
     def get_options(self, argument):
-        return {'in_reply_to_status_id': argument}
+        args = argument.split('/')
 
+        return {'from_user': args[0], 'to_user': args[1],
+                'in_reply_to_status_id': args[2]}
+            
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 
     name = _('User Stream')
