@@ -112,25 +112,26 @@ class Twitter(twitter.Twitter):
         from_user = params.get('from_user')
         to_user = params.get('to_user')
 
-        cb = lambda data: self._related_results_cb(data, delegate_for_replyto)
+        query = '(from:%s to:%s) OR (from:%s to:%s)' % (
+            from_user, to_user, to_user, from_user)
+        defer = self.search(delegate, {'q': query, 'since_id': status_id})
+        defer.pause()
+
+        cb = lambda data: self._related_results_cb(
+            data, delegate_for_replyto, defer)
         self.show(status_id, cb)
 
-        search_text = '(from:%s to:%s) OR (from:%s to:%s)' % (
-            from_user, to_user, to_user, from_user)
-        self._dd = self.search(delegate, {'q': search_text,
-                                          'since_id': status_id})
-        self._dd.pause()
-        return self._dd
+        return defer
 
-    def _related_results_cb(self, data, delegate):
+    def _related_results_cb(self, data, delegate, defer):
         in_reply_to_status_id = data.get('in_reply_to_status_id')
         delegate(data)
 
         if in_reply_to_status_id:
-            cb = lambda data: self._related_results_cb(data, delegate)
+            cb = lambda data: self._related_results_cb(data, delegate, defer)
             self.show(in_reply_to_status_id, cb)
         else:
-            self._dd.unpause()
+            defer.unpause()
 
     def fav(self, status_id):
         return self.__post('/favorites/create.json', {'id': status_id})
