@@ -79,6 +79,10 @@ class TwitterOutputBase(OutputBase):
         entry_dict = self._get_entry_obj(entry).get_dict(self.api)
         has_notify = self.options.get('notification') 
 
+        # FIXME: for related results
+        entry_dict['is_reversed'] = entry.is_reversed \
+            if hasattr(entry, 'is_reversed') else False
+
         # FIXME
         entry_dict['source'] = _('via %s') % entry_dict['source'] \
             if entry_dict['source'] else ''
@@ -213,6 +217,8 @@ class TwitterSearchOutput(TwitterRestOutput):
 class TwitterRelatedResultOutput(TwitterSearchOutput):
 
     def got_entry_with_inreplyto(self, entry, *args):
+        entry['is_reversed'] = True
+
         entry = DictObj(entry)
         entry.text = decode_html_entities(entry.text)
         self._set_since_id(entry.id)

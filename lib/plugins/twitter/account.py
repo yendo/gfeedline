@@ -117,7 +117,8 @@ class Twitter(twitter.Twitter):
 
         search_text = '(from:%s to:%s) OR (from:%s to:%s)' % (
             from_user, to_user, to_user, from_user)
-        self._dd = self.search(delegate, {'q': search_text})
+        self._dd = self.search(delegate, {'q': search_text,
+                                          'since_id': status_id})
         self._dd.pause()
         return self._dd
 

@@ -79,7 +79,7 @@ class FeedView(FeedScrolledWindow):
             self.notification.notify(entry_dict)
 
         self.tab_label.set_sensitive(is_new_update)
-        self.webview.update(text)
+        self.webview.update(text, entry_dict.get('is_reversed'))
 
     def jump_to_bottom(self, is_bottom=True):
         self.webview.jump_to_bottom(is_bottom)
@@ -134,11 +134,13 @@ class FeedWebView(WebKit.WebView):
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         self.dnd.set(info, selection)
 
-    def update(self, text=None):
+    def update(self, text, is_reversed):
         text = text.replace('\n', '')
         text = text.replace('\\', '\\\\')
 
-        is_ascending_js = self._bool_js(self.theme.is_ascending())
+        is_ascending_js = self._bool_js(
+            not self.theme.is_ascending() 
+            if is_reversed else self.theme.is_ascending())
         is_paused_js = self._bool_js(self.scroll.is_paused)
 
         js = 'append("%s", %s, %s)' % (text, is_ascending_js, is_paused_js)
