@@ -101,10 +101,25 @@ class Twitter(twitter.Twitter):
     def show(self, status_id, delegate, params=None, extra_args=None):
         if params is None:
             params = {}
-        params['id'] = status_id
+        params['id'] = str(status_id)
 
         return self.__get_json('/statuses/show.json', delegate, params,
             extra_args=extra_args)
+
+    def related_results(self, delegate, params=None, extra_args=None):
+        self._delegate = delegate
+        status_id = params['in_reply_to_status_id']
+
+        self._related_results(status_id)
+
+    def _related_results(self, status_id):
+        self.show(status_id, self._related_results_cb)
+        
+    def _related_results_cb(self, data):
+        in_reply_to_status_id = data.get('in_reply_to_status_id')
+        self._delegate(data)
+        if in_reply_to_status_id:
+            self._related_results(in_reply_to_status_id)
 
     def fav(self, status_id):
         return self.__post('/favorites/create.json', {'id': status_id})

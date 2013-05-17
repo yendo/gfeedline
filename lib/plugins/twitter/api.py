@@ -4,7 +4,7 @@
 # Copyright (c) 2012, Yoshizumi Endo.
 # Licence: GPL3
 
-from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput
+from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultOutput
 
 
 class TwitterAPIDict(dict):
@@ -20,6 +20,8 @@ class TwitterAPIDict(dict):
 
              TwitterAPIUserStream,
              TwitterAPITrack,
+
+             TwitterAPIRelatedResults,
              ]
 
         for api in all_api:
@@ -113,6 +115,17 @@ class TwitterAPIDirectMessages(TwitterAPIBase):
 
     def _get_api(self):
         return self.account.api.direct_messages
+
+class TwitterAPIRelatedResults(TwitterAPIBase):
+
+    name = _('Related Results')
+    output = TwitterRelatedResultOutput
+
+    def _get_api(self):
+        return self.account.api.related_results
+
+    def get_options(self, argument):
+        return {'in_reply_to_status_id': argument}
 
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 

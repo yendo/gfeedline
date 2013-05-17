@@ -203,6 +203,35 @@ class TwitterRestOutput(TwitterOutputBase):
         super(TwitterRestOutput, self).exit()
         self.api.exit()
 
+class TwitterRelatedResultOutput(TwitterRestOutput):
+
+    def got_entry(self, entry, *args):
+        entry = DictObj(entry)
+        entry.text = decode_html_entities(entry.text)
+        self._set_since_id(entry.id)
+        self.print_entry(entry)
+
+    def start(self, interval=60):
+        if not self.api.account.api.use_oauth:
+            print "Not authorized."
+            return
+
+        self.params.clear()
+        if self.since_id:
+            self.params[self.SINCE] = str(self.since_id)
+
+        params = self.api.get_options(self.argument)
+        self.params.update(params)
+
+        self.d = self.api.api(self.got_entry, params=self.params)
+
+#        self.d.addErrback(self._on_error).addBoth(lambda x: 
+#                                                  self.print_all_entries(interval))
+#        self.d.addErrback(self._on_error)
+#
+#        interval = self._get_interval_seconds()
+#        self.timeout = reactor.callLater(interval, self.start, interval)
+
 class TwitterSearchOutput(TwitterRestOutput):
 
     def got_entry(self, entry, *args):

@@ -151,10 +151,11 @@ class SearchConversationMenuItem(ConversationMenuItem):
 
         argument = '(from:%s to:%s) OR (from:%s to:%s)' % (
             to_user, self.user, self.user, to_user)
+        argument = self.in_reply_to_status_id
 
         source = {'source': 'Twitter',
                   'argument': argument,
-                  'target': _('Search'),
+                  'target': _('Related Results'),
                   'username': username,
                   'group': group_name,
                   'name': '@%s' % self.user,
