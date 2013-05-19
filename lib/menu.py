@@ -108,7 +108,7 @@ class FavMenuItem(RetweetMenuItem):
 
 class ConversationMenuItem(RetweetMenuItem):
 
-    LABEL = _('_Conversation')
+    LABEL = _('Conversation')
 
     def _is_enabled(self, dom):
         in_reply_to = dom.get_attribute('data-inreplyto')
