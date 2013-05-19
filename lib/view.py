@@ -251,10 +251,7 @@ class FeedWebView(WebKit.WebView):
         return True
 
     def _cb(self, data, entry_id):
-#        print data['text']
-#        self.update(data['text'])
-
-
+        data['id'] = "%s-%s" % (data['id'], entry_id)
         entry = DictObj(data)
         entry_dict = TweetEntry(entry).get_dict(self.api)
         text = self.theme.template['status'].substitute(entry_dict)
@@ -262,9 +259,8 @@ class FeedWebView(WebKit.WebView):
         text = text.replace('\n', '')
         text = text.replace('\\', '\\\\')
 
-
         js = 'insertReplyed("%s", "%s")' % (text, entry_id)
-        print js
+        # print js
         self.execute_script(js)
 
 

@@ -44,7 +44,7 @@ class PopupMenuItem(Gtk.MenuItem):
 
         entry_dict = dict(
             date_time=date_time,
-            id=entry_id,
+            id=entry_id.split('-')[0], # for replyed status
             image_uri=img_url,
             user_name=user_name,
             full_name=full_name,

@@ -61,7 +61,7 @@ class TweetEntry(object):
 
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
-            id=entry.id,
+            id=str(entry.id).split('-')[0], # for replied status
             styles='twitter %s' % styles,
             image_uri=user.profile_image_url,
 

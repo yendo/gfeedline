@@ -1,6 +1,6 @@
 function toggleShow(target, tag){
     var id = '#'+$(target).closest('.status').attr('id');
-    var prefix_tag = id + ' .' + tag;
+    var prefix_tag = id + "> .text > .togglelinks > ." + tag;
 
     var first  = prefix_tag + '-first';
     var secoud = prefix_tag + '-second';

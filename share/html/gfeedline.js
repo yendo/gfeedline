@@ -21,11 +21,18 @@ function append(text, is_append, is_scroll_paused, margin) {
 }
 
 function insertReplyed(text, entry_id) {
-         var entry = document.createElement("div");
-         entry.innerHTML = text;
+    var child = '#' + entry_id  + '> .child';
+    var child_entry = child + '> div'
 
-//         $('#' + entry_id).css("background", "red");
-         $('#' + entry_id  + ' .child').append(entry);
+    if ($(child_entry)[0]) {
+        $(child_entry).slideToggle(300);
+    } else {    
+        var entry = document.createElement("div");
+        entry.innerHTML = text;
+        $(child).append(entry);
+        $(entry).hide().slideDown(300);
+    }
+
 }
 
 function scrollToBottom(is_bottom) {
