@@ -6,6 +6,14 @@ function toggleShow(target, tag){
     var secoud = prefix_tag + '-second';
 
     $(first + ',' + secoud).toggle();
+
+    var offset = 62;
+    if ($(window).width() - $(secoud).width() < offset) {
+       $(secoud + " .label").css("display", "none");
+    } else {
+       $(secoud + " .label").css("display", "inline");
+    }
+
 }
 
 function readMore(target){

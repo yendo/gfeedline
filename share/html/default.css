@@ -38,10 +38,6 @@ div.twitter .long-command, div.twitter .long-command a { color: blue; }
 div.twitter .long-command a i { text-decoration: none; }  
 div.twitter .icon-lock { color: #999999; }
 
-@media screen and (max-width: 250px) {
-  div.twitter .long-command .label { display: none; }  
-}
-
 
 /* for tumblr */
 div.tumblr .commands a { font-size: 130%; color: adb3bc; text-decoration: none; }
