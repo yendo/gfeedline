@@ -113,7 +113,8 @@ class TumblrEntry(object):
 
             status_body=add_markup.convert(body),
             popup_body=popup_body,
-            target=''
+            target='',
+            child=''
             )
 
         return entry_dict

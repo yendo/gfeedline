@@ -20,6 +20,14 @@ function append(text, is_append, is_scroll_paused, margin) {
     }
 }
 
+function insertReplyed(text, entry_id) {
+         var entry = document.createElement("div");
+         entry.innerHTML = text;
+
+//         $('#' + entry_id).css("background", "red");
+         $('#' + entry_id  + ' .child').append(entry);
+}
+
 function scrollToBottom(is_bottom) {
     var target = is_bottom ? '#end' : '#top';
     scrollsmoothly.setScroll(target);

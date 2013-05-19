@@ -99,7 +99,8 @@ class FacebookEntry(object):
 
             status_body=body,
             popup_body=body_string,
-            target=''
+            target='',
+            child=''
             )
 
         return entry_dict

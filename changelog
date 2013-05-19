@@ -1,3 +1,8 @@
+2013-05-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py, view.py, html/gfeedline.js: Added support
+	  to insert tweets with in_reply_to_status_id.
+
 2013-05-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* plugins/twitter/*: Added support for view conversation with

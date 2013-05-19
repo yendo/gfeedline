@@ -27,6 +27,7 @@ class TweetEntryDict(dict):
         self.setdefault('pre_username', '')
         self.setdefault('post_username', '')
         self.setdefault('event', '')
+        self.setdefault('child', '')
         self.setdefault('onmouseover', 'toggleShow(this, &quot;command&quot;)')
 
     def __getitem__(self, key):
@@ -95,8 +96,6 @@ class TweetEntry(object):
         if not isinstance(is_liked, bool):
             is_liked = is_liked == 'true'
 
-        conversationlink =   'gfeedlinetw://conversation/%s' % entry_id
-
         replylink =   'gfeedlinetw://reply/%s' % entry_id
         retweetlink = 'gfeedlinetw://retweet/%s'  % entry_id
         favlink =     'gfeedlinetw://fav/%s' % entry_id
@@ -124,7 +123,11 @@ class TweetEntry(object):
             )
 
         if entry.in_reply_to_status_id:
-            conv = "<a href='%s' title='%s'><i class='icon-comment icon-large'></i><span class='label'>%s</span></a> " % (conversationlink, _('Conversation'), _('Conversation'))
+            conversationlink = 'gfeedlinetw://conversation/%s-%s' % (
+                entry_id, entry.in_reply_to_status_id)
+
+            conv = "<a href='%s' title='%s'><i class='icon-comment icon-large'></i><span class='label'>%s</span></a> " % (
+                conversationlink, _('Conversation'), _('Conversation'))
             commands = conv + commands
 
 

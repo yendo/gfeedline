@@ -19,6 +19,10 @@ from constants import SHARED_DATA_FILE, CONFIG_HOME
 from updatewindow import UpdateWindow
 from theme import FontSet
 
+from plugins.twitter.output import DictObj
+from plugins.twitter.tweetentry import TweetEntry
+
+
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
     def __init__(self):
@@ -134,7 +138,7 @@ class FeedWebView(WebKit.WebView):
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         self.dnd.set(info, selection)
 
-    def update(self, text, is_reversed):
+    def update(self, text, is_reversed=False):
         text = text.replace('\n', '')
         text = text.replace('\\', '\\\\')
 
@@ -215,6 +219,14 @@ class FeedWebView(WebKit.WebView):
                 replymenuitem.on_activate(None, entry_id)
             elif button == 'retweet':
                 retweetmenuitem.on_activate(None, entry_id)
+
+            elif button == 'conversation':
+                entry_id, inreplyto_id = entry_id.split('-')
+
+                twitter_account = self.api.account
+                cb = lambda data: self._cb(data, entry_id)
+                twitter_account.api.show(inreplyto_id, cb)
+
             elif button == 'fav':
                 twitter_account = self.api.account
                 twitter_account.api.fav(entry_id)
@@ -237,6 +249,24 @@ class FeedWebView(WebKit.WebView):
             webbrowser.open(uri)
 
         return True
+
+    def _cb(self, data, entry_id):
+#        print data['text']
+#        self.update(data['text'])
+
+
+        entry = DictObj(data)
+        entry_dict = TweetEntry(entry).get_dict(self.api)
+        text = self.theme.template['status'].substitute(entry_dict)
+
+        text = text.replace('\n', '')
+        text = text.replace('\\', '\\\\')
+
+
+        js = 'insertReplyed("%s", "%s")' % (text, entry_id)
+        print js
+        self.execute_script(js)
+
 
     def on_load_finished(self, view, *args):
         self.dom = self.get_dom_document()
