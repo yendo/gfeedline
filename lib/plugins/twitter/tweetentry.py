@@ -78,7 +78,7 @@ class TweetEntry(object):
 
             status_body=body,
             popup_body=body_string,
-            command=self._get_commands(entry.id, entry.favorited),
+            command=self._get_commands(entry),
             target=''
             )
 
@@ -88,10 +88,14 @@ class TweetEntry(object):
         style_obj = EntryStyles()
         return style_obj.get(api, screen_name, entry)
 
-    def _get_commands(self, entry_id, is_liked):
+    def _get_commands(self, entry):
+        entry_id = entry.id
+        is_liked = entry.favorited
 
         if not isinstance(is_liked, bool):
             is_liked = is_liked == 'true'
+
+        conversationlink =   'gfeedlinetw://conversation/%s' % entry_id
 
         replylink =   'gfeedlinetw://reply/%s' % entry_id
         retweetlink = 'gfeedlinetw://retweet/%s'  % entry_id
@@ -102,7 +106,7 @@ class TweetEntry(object):
 #        "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
 
         commands = (
-        "<a href='%s' title='%s'><i class='icon-reply icon-large'></i><span class='label'> %s</span></a> "
+        "<a href='%s' title='%s'><i class='icon-reply icon-large'></i><span class='label'>%s</span></a> "
         "<a href='%s' title='%s'><i class='icon-retweet icon-large'></i><span class='label'>%s</span></a> "
 
         "<a href='%s' title='%s' class='like-first %s' onclick='like(this)'><i class='icon-star icon-large'></i><span class='label'>%s</span></a> "
@@ -118,6 +122,11 @@ class TweetEntry(object):
             unfavlink, _('Favorite'), '' if is_liked else 'hidden', _('Favorite'), 
             # morelink
             )
+
+        if entry.in_reply_to_status_id:
+            conv = "<a href='%s' title='%s'><i class='icon-comment icon-large'></i><span class='label'>%s</span></a> " % (conversationlink, _('Conversation'), _('Conversation'))
+            commands = conv + commands
+
 
         return commands
 
