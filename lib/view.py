@@ -206,33 +206,18 @@ class FeedWebView(WebKit.WebView):
             return True
 
         if uri.startswith('gfeedlinetw:'):
-            button, entry_id = uri.split('/')[2:4]
+            button, entry_id, user = uri.split('/')[2:5]
+            myuri = 'gfeedline://twitter.com/%s/status/%s' % (
+                user, entry_id.split('-')[0])
 
-            replymenuitem = ENTRY_POPUP_MENU()[1](
-                None, self.api, self.scrolled_window)
-            retweetmenuitem = ENTRY_POPUP_MENU()[2](
-                None, self.api, self.scrolled_window)
+            com_dict = {'reply': ENTRY_POPUP_MENU()[1],
+                        'retweet': ENTRY_POPUP_MENU()[2],
+                        'conversation': ConversationMenuItem,
+                        'moreconversation': ENTRY_POPUP_MENU()[4], }
 
-            if button == 'reply':
-                replymenuitem.on_activate(None, entry_id)
-            elif button == 'retweet':
-                retweetmenuitem.on_activate(None, entry_id)
-
-            elif button == 'conversation':
-                uri_splited = uri.split('/')
-                myuri = 'gfeedline://twitter.com/%s/status/%s' % (
-                    uri_splited[4], entry_id.split('-')[0])
-                menuitem = ConversationMenuItem(
-                    myuri, self.api, self.scrolled_window)
+            if button in com_dict:
+                menuitem = com_dict[button](myuri, self.api, self.scrolled_window)
                 menuitem.on_activate(None, entry_id)
-
-            elif button == 'moreconversation':
-                uri_splited = uri.split('/')
-                myuri = 'gfeedline://twitter.com/%s/status/%s' % (
-                    uri_splited[4], entry_id.split('-')[0])
-                moreconversationitem = ENTRY_POPUP_MENU()[4](
-                    myuri, self.api, self.scrolled_window)
-                moreconversationitem.on_activate(None, entry_id)
 
             elif button == 'fav':
                 twitter_account = self.api.account

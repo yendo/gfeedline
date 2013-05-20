@@ -103,11 +103,13 @@ class TweetEntry(object):
         if not isinstance(is_liked, bool):
             is_liked = is_liked == 'true'
 
-        replylink =   'gfeedlinetw://reply/%s' % entry_id
-        retweetlink = 'gfeedlinetw://retweet/%s'  % entry_id
-        favlink =     'gfeedlinetw://fav/%s' % entry_id
-        unfavlink =   'gfeedlinetw://unfav/%s' % entry_id
-        morelink =    'gfeedlinetw://more/%s' % entry_id
+        entry_info = '%s/%s' % (entry_id, user.screen_name)
+
+        replylink =   'gfeedlinetw://reply/%s' % entry_info
+        retweetlink = 'gfeedlinetw://retweet/%s' % entry_info
+        favlink =     'gfeedlinetw://fav/%s' % entry_info
+        unfavlink =   'gfeedlinetw://unfav/%s' % entry_info
+        morelink =    'gfeedlinetw://more/%s' % entry_info
 
 #        "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
 
