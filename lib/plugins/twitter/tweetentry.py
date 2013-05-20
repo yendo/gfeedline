@@ -28,7 +28,7 @@ class TweetEntryDict(dict):
         self.setdefault('post_username', '')
         self.setdefault('event', '')
         self.setdefault('child', '')
-        self.setdefault('onmouseover', 'toggleShow(this, &quot;command&quot;)')
+        self.setdefault('onmouseover', 'toggleCommand(this, &quot;command&quot;)')
 
     def __getitem__(self, key):
         if key == 'permalink':
