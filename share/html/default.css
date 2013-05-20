@@ -2,9 +2,8 @@ body { font-size: 10pt; }
 
 div.status { line-height: 1.4; 
              word-wrap: break-word; }
-div.target { padding-left: 1em;
-             font-size: 80%; 
-             color: gray; }
+div.target { padding-left: 1em; font-size: 80%; color: gray; }
+div.child div.target { padding-left: 0em; padding-top: 6px; font-size: 100%; }
 
 div.event { background-color: LightGoldenrodYellow; }
 div.mine { background-color: MistyRose; }

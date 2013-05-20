@@ -228,6 +228,14 @@ class FeedWebView(WebKit.WebView):
                 cb = lambda data: self._cb(data, entry_id)
                 twitter_account.api.show(inreplyto_id, cb)
 
+            elif button == 'moreconversation':
+                uri_splited = uri.split('/')
+                myuri = 'gfeedline://twitter.com/%s/status/%s' % (
+                    uri_splited[4], entry_id.split('-')[0])
+                moreconversationitem = ENTRY_POPUP_MENU()[4](
+                    myuri, self.api, self.scrolled_window)
+                moreconversationitem.on_activate(None, entry_id)
+
             elif button == 'fav':
                 twitter_account = self.api.account
                 twitter_account.api.fav(entry_id)

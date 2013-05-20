@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-18 22:18+0900\n"
-"PO-Revision-Date: 2013-05-18 22:16+0900\n"
+"POT-Creation-Date: 2013-05-20 14:49+0900\n"
+"PO-Revision-Date: 2013-05-20 14:49+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -40,7 +40,7 @@ msgstr "リツイート(_T)"
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:111 ../lib/plugins/twitter/tweetentry.py:127
+#: ../lib/menu.py:111 ../lib/plugins/twitter/tweetentry.py:137
 msgid "Conversation"
 msgstr "会話"
 
@@ -64,7 +64,7 @@ msgstr "フィルターに追加(_A)"
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:118
+#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:124
 msgid "Reply"
 msgstr "返信"
 
@@ -110,11 +110,11 @@ msgstr "いいね！を取り消す"
 msgid "Comment"
 msgstr "コメントする"
 
-#: ../lib/plugins/facebook/entry.py:163
+#: ../lib/plugins/facebook/entry.py:164
 msgid "See more"
 msgstr "続きを読む"
 
-#: ../lib/plugins/facebook/entry.py:163
+#: ../lib/plugins/facebook/entry.py:164
 msgid "See less"
 msgstr "折りたたむ"
 
@@ -218,37 +218,41 @@ msgstr "via %s"
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:119
+#: ../lib/plugins/twitter/tweetentry.py:65
+msgid "View more in conversation"
+msgstr "さらに会話を表示"
+
+#: ../lib/plugins/twitter/tweetentry.py:125
 msgid "Retweet"
 msgstr "リツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:121
-#: ../lib/plugins/twitter/tweetentry.py:122
+#: ../lib/plugins/twitter/tweetentry.py:127
+#: ../lib/plugins/twitter/tweetentry.py:128
 msgid "Favorite"
 msgstr "お気に入り"
 
-#: ../lib/plugins/twitter/tweetentry.py:261
+#: ../lib/plugins/twitter/tweetentry.py:273
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:302
+#: ../lib/plugins/twitter/tweetentry.py:314
 msgid "favorited your Tweet"
 msgstr "さんがお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:303
+#: ../lib/plugins/twitter/tweetentry.py:315
 msgid "unfavorited your Tweet"
 msgstr "さんがお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:304
+#: ../lib/plugins/twitter/tweetentry.py:316
 msgid "followed you"
 msgstr "さんがフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:305
+#: ../lib/plugins/twitter/tweetentry.py:317
 #, python-format
 msgid "added you to list %s"
 msgstr "さんのリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:306
+#: ../lib/plugins/twitter/tweetentry.py:318
 #, python-format
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"

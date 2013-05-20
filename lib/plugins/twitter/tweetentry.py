@@ -59,6 +59,13 @@ class TweetEntry(object):
 
         styles = self._get_styles(api, user.screen_name, entry)
 
+        if entry.in_reply_to_status_id and str(entry.id).find('-') >= 0:
+            target = "<a href='gfeedlinetw://moreconversation/%s/%s'>%s</a>" % (
+                entry.in_reply_to_status_id, 
+                entry.in_reply_to_screen_name, _('View more in conversation'))
+        else:
+            target = ''
+
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
             id=str(entry.id).split('-')[0], # for replied status
@@ -80,7 +87,7 @@ class TweetEntry(object):
             status_body=body,
             popup_body=body_string,
             command=self._get_commands(entry),
-            target=''
+            target=target
             )
 
         return entry_dict
@@ -122,14 +129,13 @@ class TweetEntry(object):
             # morelink
             )
 
-        if entry.in_reply_to_status_id:
+        if entry.in_reply_to_status_id and str(entry_id).find('-') < 0:
             conversationlink = 'gfeedlinetw://conversation/%s-%s' % (
                 entry_id, entry.in_reply_to_status_id)
 
             conv = "<a href='%s' title='%s'><i class='icon-comment icon-large'></i><span class='label'>%s</span></a> " % (
                 conversationlink, _('Conversation'), _('Conversation'))
             commands = conv + commands
-
 
         return commands
 
