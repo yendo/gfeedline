@@ -61,7 +61,7 @@ class TweetEntry(object):
 
         if entry.in_reply_to_status_id and str(entry.id).find('-') >= 0:
             target = "<a href='gfeedlinetw://moreconversation/%s/%s'>%s</a>" % (
-                entry.in_reply_to_status_id, 
+                str(entry.id).split('-')[1], 
                 entry.in_reply_to_screen_name, _('View more in conversation'))
         else:
             target = ''
