@@ -60,8 +60,9 @@ class TweetEntry(object):
         styles = self._get_styles(api, user.screen_name, entry)
 
         if entry.in_reply_to_status_id and str(entry.id).find('-') >= 0:
-            target = "<a href='gfeedlinetw://moreconversation/%s/%s'>%s</a>" % (
-                str(entry.id).split('-')[1], 
+            target = ("<div class='target'>"
+                      "<a href='gfeedlinetw://moreconversation/%s/%s'>%s</a>"
+                      "</div>") % ( str(entry.id).split('-')[1], 
                 entry.in_reply_to_screen_name, _('View more in conversation'))
         else:
             target = ''
