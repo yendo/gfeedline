@@ -108,6 +108,12 @@ class FavMenuItem(RetweetMenuItem):
         twitter_account = self.api.account
         twitter_account.api.fav(entry_id)
 
+class UnFavMenuItem(FavMenuItem):
+
+    def on_activate(self, menuitem, entry_id):
+        twitter_account = self.api.account
+        twitter_account.api.unfav(entry_id)
+
 class ConversationMenuItem(RetweetMenuItem):
 
     LABEL = _('Conversation')

@@ -12,7 +12,7 @@ import webbrowser
 from twisted.internet import reactor
 from gi.repository import Gtk, Gio, WebKit
 
-from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU, ConversationMenuItem
+from menu import *
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS_VIEW
 from constants import SHARED_DATA_FILE, CONFIG_HOME
@@ -213,26 +213,18 @@ class FeedWebView(WebKit.WebView):
             com_dict = {'reply': ENTRY_POPUP_MENU()[1],
                         'retweet': ENTRY_POPUP_MENU()[2],
                         'conversation': ConversationMenuItem,
+                        'fav': FavMenuItem,
+                        'unfav': UnFavMenuItem,
                         'moreconversation': ENTRY_POPUP_MENU()[4], }
 
             if button in com_dict:
                 menuitem = com_dict[button](myuri, self.api, self.scrolled_window)
                 menuitem.on_activate(None, entry_id)
 
-            elif button == 'fav':
-                twitter_account = self.api.account
-                twitter_account.api.fav(entry_id)
-            elif button == 'unfav':
-                twitter_account = self.api.account
-                twitter_account.api.unfav(entry_id)
-
             return True
 
         if uri.startswith('gfeedline:'):
             uri = uri.replace('gfeedline:', 'https:')
-#        elif uri.startswith('gfeedlinereply:'):
-#            print "reply"
-#            button = -1
         else:
             uri = decode_html_entities(urllib.unquote(uri))
             uri = uri.replace('#', '%23') # for Twitter hash tags
