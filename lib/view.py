@@ -52,6 +52,7 @@ class FeedView(FeedScrolledWindow):
         self.notification = self.window.notification
 
         self.id_history = CacheList()
+        SETTINGS_VIEW.connect("changed::theme", self.id_history.clear)
 
     def append(self, notebook, page=-1):
         self.notebook = notebook
@@ -363,3 +364,6 @@ class CacheList(list):
         super(CacheList, self).append(item)
         if len(self) >= self.num:
             self.pop(0)
+
+    def clear(self, *args):
+        del self[:]
