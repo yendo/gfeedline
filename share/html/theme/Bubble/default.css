@@ -1,29 +1,27 @@
 body { margin: 0; }
 
-div.body { padding: 3px 0px;}
+div.body { padding: 3px 0px; }
 .datetime, .datetime a, .retweet a { font-size: 90%; }
-.screenname, .screenname a { color: #606060;
-                             font-size: 90%; }
+.screenname, .screenname a { color: #606060; font-size: 90%; }
 
 div.status { padding: 8px; }
 div.icon { float: left; width: 45px; }
 div.icon img { -webkit-border-radius : 5px; }
-div.icon { float: left; width: 45px; }
 
 div.mine { background-color: transparent; } 
-div.mine .text { background-color: MistyRose; border-color: Pink;}
-div.mine .text:before { border-color: transparent Pink;}
-div.mine .text:after  { border-color: transparent MistyRose;}
+div.mine > .text { background-color: MistyRose; border-color: Pink; }
+div.mine > .text:before { border-color: transparent Pink; }
+div.mine > .text:after  { border-color: transparent MistyRose; }
 
 div.reply { background-color: transparent; } 
-div.reply .text { background-color: Lavender; border-color: LightSteelBlue;}
-div.reply .text:before { border-color: transparent LightSteelBlue;}
-div.reply .text:after  { border-color: transparent Lavender;}
+div.reply > .text { background-color: Lavender; border-color: LightSteelBlue; }
+div.reply > .text:before { border-color: transparent LightSteelBlue; }
+div.reply > .text:after  { border-color: transparent Lavender; }
 
 div.event { background-color: transparent; } 
-div.event .text { background-color: LightGoldenrodYellow; border-color: Khaki;}
-div.event .text:before { border-color: transparent Khaki;}
-div.event .text:after  { border-color: transparent LightGoldenrodYellow;}
+div.event > .text { background-color: LightGoldenrodYellow; border-color: Khaki; }
+div.event > .text:before { border-color: transparent Khaki; }
+div.event > .text:after  { border-color: transparent LightGoldenrodYellow; }
 
 .user { font-size: 100%; }
 
@@ -69,3 +67,15 @@ div.event .text:after  { border-color: transparent LightGoldenrodYellow;}
         height: 0;
         content: "";
       }
+
+div.child .status { margin-top: 8px; padding: 8px 0px; }
+div.child .icon { float: right; width: 36px; }
+div.child .text { margin-right: 50px; margin-left: 0px; }
+div.child .text:before { border-right-width: 0px;
+                         border-left-width: 12px;
+                         right: -12px;
+                         left: auto; }
+div.child .text:after { border-right-width: 0px;
+                        border-left-width: 12px;
+                        right: -7px;
+                        left: auto; }
