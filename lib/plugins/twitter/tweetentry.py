@@ -86,7 +86,7 @@ class TweetEntry(object):
 
             status_body=body,
             popup_body=body_string,
-            command=self._get_commands(entry),
+            command=self._get_commands(entry, user),
             target=target
             )
 
@@ -96,7 +96,7 @@ class TweetEntry(object):
         style_obj = EntryStyles()
         return style_obj.get(api, screen_name, entry)
 
-    def _get_commands(self, entry):
+    def _get_commands(self, entry, user):
         entry_id = entry.id
         is_liked = entry.favorited
 
@@ -130,8 +130,8 @@ class TweetEntry(object):
             )
 
         if entry.in_reply_to_status_id and str(entry_id).find('-') < 0:
-            conversationlink = 'gfeedlinetw://conversation/%s-%s' % (
-                entry_id, entry.in_reply_to_status_id)
+            conversationlink = 'gfeedlinetw://conversation/%s-%s/%s' % (
+                entry_id, entry.in_reply_to_status_id, user.screen_name)
 
             conv = "<a href='%s' title='%s'><i class='icon-comment icon-large'></i><span class='label'>%s</span></a> " % (
                 conversationlink, _('Conversation'), _('Conversation'))

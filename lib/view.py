@@ -12,15 +12,12 @@ import webbrowser
 from twisted.internet import reactor
 from gi.repository import Gtk, Gio, WebKit
 
-from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU
+from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU, ConversationMenuItem
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS_VIEW
 from constants import SHARED_DATA_FILE, CONFIG_HOME
 from updatewindow import UpdateWindow
 from theme import FontSet
-
-from plugins.twitter.output import DictObj
-from plugins.twitter.tweetentry import TweetEntry
 
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
@@ -222,11 +219,12 @@ class FeedWebView(WebKit.WebView):
                 retweetmenuitem.on_activate(None, entry_id)
 
             elif button == 'conversation':
-                entry_id, inreplyto_id = entry_id.split('-')
-
-                twitter_account = self.api.account
-                cb = lambda data: self._cb(data, entry_id)
-                twitter_account.api.show(inreplyto_id, cb)
+                uri_splited = uri.split('/')
+                myuri = 'gfeedline://twitter.com/%s/status/%s' % (
+                    uri_splited[4], entry_id.split('-')[0])
+                menuitem = ConversationMenuItem(
+                    myuri, self.api, self.scrolled_window)
+                menuitem.on_activate(None, entry_id)
 
             elif button == 'moreconversation':
                 uri_splited = uri.split('/')
@@ -258,20 +256,6 @@ class FeedWebView(WebKit.WebView):
             webbrowser.open(uri)
 
         return True
-
-    def _cb(self, data, entry_id):
-        data['id'] = "%s-%s" % (data['id'], entry_id)
-        entry = DictObj(data)
-        entry_dict = TweetEntry(entry).get_dict(self.api)
-        text = self.theme.template['status'].substitute(entry_dict)
-
-        text = text.replace('\n', '')
-        text = text.replace('\\', '\\\\')
-
-        js = 'insertReplyed("%s", "%s")' % (text, entry_id)
-        # print js
-        self.execute_script(js)
-
 
     def on_load_finished(self, view, *args):
         self.dom = self.get_dom_document()

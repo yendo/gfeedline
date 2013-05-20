@@ -6,6 +6,8 @@ from updatewindow import UpdateWindow, RetweetDialog
 from preferences.filters import FilterDialog
 from utils.settings import SETTINGS_VIEW
 
+from plugins.twitter.output import DictObj
+from plugins.twitter.tweetentry import TweetEntry
 
 def ENTRY_POPUP_MENU():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
@@ -118,11 +120,24 @@ class ConversationMenuItem(RetweetMenuItem):
         return bool(in_reply_to)
 
     def on_activate(self, menuitem, entry_id):
-        twitter_account = self.api.account
-        twitter_account.api.show(self.in_reply_to_status_id, self._cb)
+        entry_id, inreplyto_id = entry_id.split('-')
 
-    def _cb(self, data):
-        print data['text']
+        twitter_account = self.api.account
+        cb = lambda data: self._cb(data, entry_id)
+        twitter_account.api.show(self.in_reply_to_status_id, cb)
+
+    def _cb(self, data, entry_id):
+        data['id'] = "%s-%s" % (data['id'], entry_id)
+        entry = DictObj(data)
+        entry_dict = TweetEntry(entry).get_dict(self.api)
+        text = self.parent.theme.template['status'].substitute(entry_dict)
+
+        text = text.replace('\n', '')
+        text = text.replace('\\', '\\\\')
+
+        js = 'insertReplyed("%s", "%s")' % (text, entry_id)
+        # print js
+        self.parent.webview.execute_script(js)
 
 class SearchConversationMenuItem(ConversationMenuItem):
 
