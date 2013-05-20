@@ -9,6 +9,7 @@ div.target { padding-left: 1em;
 div.event { background-color: LightGoldenrodYellow; }
 div.mine { background-color: MistyRose; }
 div.reply { background-color: Lavender; }
+div.child div.normaltweet { background-color: white; }
 
 .readmore-second, .command-second, .hidden { display: none; }
 .datetime, .datetime a, .retweet a { color: #606060 }

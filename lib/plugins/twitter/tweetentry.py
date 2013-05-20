@@ -198,6 +198,9 @@ class EntryStyles(object):
             styles.append(self._get_style_favorited(entry) )
 
         styles_string = " ".join([x for x in styles if x])
+
+        if not styles_string:
+            styles_string = "normaltweet"
         return styles_string
 
     def _get_style_own_message(self, api, name):
