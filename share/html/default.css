@@ -34,7 +34,8 @@ div.link-name a { font-weight: bold; }
 div.twitter .command { display: none; }
 div.twitter .togglelinks { position: absolute; margin-top: 2px; }
 div.twitter .datetime-dummy { display: block; visibility: hidden; }
-div.twitter .long-command, div.twitter .long-command a { color: blue; }
+div.twitter .long-command, div.twitter .long-command a { color: blue; 
+                                                         white-space: nowrap; }
 div.twitter .long-command a i { text-decoration: none; }  
 div.twitter .icon-lock { color: #999999; }
 

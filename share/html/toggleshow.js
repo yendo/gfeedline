@@ -5,14 +5,14 @@ function toggleShow(target, tag){
     var first  = prefix_tag + '-first';
     var secoud = prefix_tag + '-second';
 
-    $(first + ',' + secoud).toggle();
 
-    var offset = 62;
-    if ($(window).width() - $(secoud).width() < offset) {
-       $(secoud + " .label").css("display", "none");
+    if ($(id+ "> .text").width() - $(secoud).width() < 0) {
+        $(secoud + " .label").css("display", "none");
     } else {
-       $(secoud + " .label").css("display", "inline");
+        $(secoud + " .label").css("display", "inline");
     }
+
+    $(first + ',' + secoud).toggle();
 
 }
 
