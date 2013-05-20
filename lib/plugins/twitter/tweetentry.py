@@ -20,6 +20,10 @@ TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
            \- FeedEventEntry
 """
 
+def get_entry_id(entry_id):
+    return entry_id.split('-')[0] if str(entry_id).find('-') > 0 else entry_id
+
+
 class TweetEntryDict(dict):
 
     def __init__(self, **init_dict):
@@ -33,10 +37,9 @@ class TweetEntryDict(dict):
     def __getitem__(self, key):
         if key == 'permalink':
             val = 'gfeedline://twitter.com/%s/status/%s' % (
-                self['user_name'], self['id'])
+                self['user_name'], get_entry_id(self['id']))
         elif key == 'user_name2':
             val = '@'+self['user_name']
-
         else:
             val = super(TweetEntryDict, self).__getitem__(key)
 
@@ -69,7 +72,7 @@ class TweetEntry(object):
 
         entry_dict = TweetEntryDict(
             date_time=time.get_local_time(),
-            id=str(entry.id).split('-')[0], # for replied status
+            id=entry.id,
             styles='twitter %s' % styles,
             image_uri=user.profile_image_url,
 
@@ -97,8 +100,9 @@ class TweetEntry(object):
         style_obj = EntryStyles()
         return style_obj.get(api, screen_name, entry)
 
+
     def _get_commands(self, entry, user):
-        entry_id = entry.id
+        entry_id = get_entry_id(entry.id)
         is_liked = entry.favorited
 
         if not isinstance(is_liked, bool):
