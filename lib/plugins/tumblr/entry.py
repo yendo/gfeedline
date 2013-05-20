@@ -209,7 +209,7 @@ class TumblrVideoEntry(TumblrEntry):
         body = self._get_body(entry)
 
         template = self.theme.template['image']
-        key_dict = {'url': entry['thumbnail_url']}
+        key_dict = {'url': entry.get('thumbnail_url')}
         body = template.substitute(key_dict) + body
         return self._get_entry_dict(entry, body)
 
