@@ -66,9 +66,8 @@ class UpdateWindow(UpdateWidgetBase):
         gui.connect_signals(self)
 
         if entry:
-            if not entry['protected']:
-                gui.get_object('image_secret').hide()
-
+            widget = 'buttonbox1' if entry.get('protected') else 'image_secret'
+            gui.get_object(widget).hide()
             self._download_user_icon_with_callback(gui, entry)
         else:
             gui.get_object('grid_entry').destroy()
