@@ -13,6 +13,14 @@ def ENTRY_POPUP_MENU():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
             SearchConversationMenuItem]
 
+def LINK_MENU_ITEMS():
+    return {'reply': ReplyMenuItem,
+            'retweet': RetweetMenuItem,
+            'conversation': ConversationMenuItem,
+            'fav': FavMenuItem,
+            'unfav': UnFavMenuItem,
+            'moreconversation': SearchConversationMenuItem, }
+
 
 class PopupMenuItem(Gtk.MenuItem):
 

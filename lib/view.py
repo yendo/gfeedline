@@ -12,7 +12,7 @@ import webbrowser
 from twisted.internet import reactor
 from gi.repository import Gtk, Gio, WebKit
 
-from menu import *
+from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU, LINK_MENU_ITEMS
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS_VIEW
 from constants import SHARED_DATA_FILE, CONFIG_HOME
@@ -209,13 +209,7 @@ class FeedWebView(WebKit.WebView):
             button, entry_id, user = uri.split('/')[2:5]
             myuri = 'gfeedline://twitter.com/%s/status/%s' % (
                 user, entry_id.split('-')[0])
-
-            com_dict = {'reply': ENTRY_POPUP_MENU()[1],
-                        'retweet': ENTRY_POPUP_MENU()[2],
-                        'conversation': ConversationMenuItem,
-                        'fav': FavMenuItem,
-                        'unfav': UnFavMenuItem,
-                        'moreconversation': ENTRY_POPUP_MENU()[4], }
+            com_dict = LINK_MENU_ITEMS()
 
             if button in com_dict:
                 menuitem = com_dict[button](myuri, self.api, self.scrolled_window)
