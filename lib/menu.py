@@ -160,8 +160,8 @@ class SearchConversationMenuItem(ConversationMenuItem):
     def _get_group_name(self):
         current_group_name = self.parent.webview.group_name
 
-        if not SETTINGS_VIEW.get_boolean('conversation-other-column'):
-            return current_group_name
+#        if not SETTINGS_VIEW.get_boolean('conversation-other-column'):
+#            return current_group_name
 
         group_list = self.parent.liststore.get_group_list()
         page = self.parent.liststore.get_group_page(current_group_name)
