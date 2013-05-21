@@ -125,6 +125,11 @@
       <summary>Screen name</summary>
       <description>Screen name</description>
     </key>
+    <key name="quote-format" type="s">
+      <default>'RT @{user} {status}'</default>
+      <summary>Quote format</summary>
+      <description>Quote format</description>
+    </key>
   </schema>
 
   <schema id="com.googlecode.gfeedline.plugins.facebook" path="/apps/gfeedline/plugins/facebook/">

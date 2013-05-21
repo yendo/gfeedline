@@ -1,3 +1,7 @@
+2013-05-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py: Improved UI for quotation.
+
 2013-05-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/tweetentry.py, view.py, html/gfeedline.js: Added support

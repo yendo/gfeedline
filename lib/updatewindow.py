@@ -7,7 +7,7 @@ from gi.repository import Gtk, GLib, Gio, Gdk, GdkPixbuf
 from constants import SHARED_DATA_FILE
 from accountliststore import AccountColumn
 from plugins.twitter.account import AuthorizedTwitterAccount
-from utils.settings import SETTINGS
+from utils.settings import SETTINGS, SETTINGS_TWITTER
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
 
 
@@ -171,29 +171,25 @@ class UpdateWindow(UpdateWidgetBase):
         if key == Gdk.KEY_Return and 'GDK_CONTROL_MASK' in masks:
             if self.button_tweet.get_sensitive():
                 self.on_button_tweet_clicked(None)
-        elif (self.entry and self.entry.get('protected') is False
-              and 'GDK_MOD1_MASK' in masks):
-            textbuffer = textview.get_buffer()
-            if key == Gdk.KEY_q:
-                self.insert_quote(self.entry, textbuffer)
-            elif key == Gdk.KEY_l:
-                self.insert_quote_link(self.entry, textbuffer)
         else:
             return False
 
         return True
 
-    def insert_quote(self, entry, textbuffer):
-        text = "RT @%s %s" % (entry.get('user_name'), entry.get('status_body'))
+    def on_button_link_clicked(self, textbuffer):
+        text = ' https://twitter.com/%s/status/%s' % (
+            self.entry['user_name'], self.entry['id'])
+        textbuffer.place_cursor(textbuffer.get_end_iter())
+        textbuffer.insert_at_cursor(text)
+
+    def on_button_quote_clicked(self, textbuffer):
+        quote_format = SETTINGS_TWITTER.get_string('quote-format')
+        text = quote_format.format(user=self.entry.get('user_name'), 
+                                   status=self.entry.get('status_body'))
 
         textbuffer.delete(textbuffer.get_start_iter(), textbuffer.get_end_iter(),)
         textbuffer.insert_at_cursor(text)
         textbuffer.place_cursor(textbuffer.get_start_iter())
-
-    def insert_quote_link(self, entry, textbuffer):
-        text = 'https://twitter.com/%s/status/%s' % (entry['user_name'], entry['id'])
-        textbuffer.place_cursor(textbuffer.get_end_iter())
-        textbuffer.insert_at_cursor(text)
 
 class AccountCombobox(object):
 

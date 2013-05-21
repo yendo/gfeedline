@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 14:49+0900\n"
-"PO-Revision-Date: 2013-05-20 14:49+0900\n"
+"POT-Creation-Date: 2013-05-21 15:41+0900\n"
+"PO-Revision-Date: 2013-05-21 15:44+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -24,39 +24,39 @@ msgstr "日間"
 msgid "hours"
 msgstr "時間"
 
-#: ../lib/menu.py:60
+#: ../lib/menu.py:70
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../lib/menu.py:68
+#: ../lib/menu.py:78
 msgid "_Reply"
 msgstr "返信(_R)"
 
-#: ../lib/menu.py:76
+#: ../lib/menu.py:86
 msgid "Re_tweet"
 msgstr "リツイート(_T)"
 
-#: ../lib/menu.py:100
+#: ../lib/menu.py:110
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:111 ../lib/plugins/twitter/tweetentry.py:137
+#: ../lib/menu.py:127 ../lib/plugins/twitter/tweetentry.py:144
 msgid "Conversation"
 msgstr "会話"
 
-#: ../lib/menu.py:129
+#: ../lib/menu.py:158
 msgid "View _Conversation"
 msgstr "会話を表示(_C)"
 
-#: ../lib/menu.py:155 ../lib/plugins/twitter/api.py:121
+#: ../lib/menu.py:184 ../lib/plugins/twitter/api.py:121
 msgid "Related Results"
 msgstr "関連ツイート"
 
-#: ../lib/menu.py:168
+#: ../lib/menu.py:197
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../lib/menu.py:179
+#: ../lib/menu.py:208
 msgid "_Add Filter"
 msgstr "フィルターに追加(_A)"
 
@@ -64,7 +64,7 @@ msgstr "フィルターに追加(_A)"
 msgid "Open"
 msgstr "開く"
 
-#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:124
+#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:131
 msgid "Reply"
 msgstr "返信"
 
@@ -218,41 +218,41 @@ msgstr "via %s"
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:65
+#: ../lib/plugins/twitter/tweetentry.py:69
 msgid "View more in conversation"
 msgstr "さらに会話を表示"
 
-#: ../lib/plugins/twitter/tweetentry.py:125
+#: ../lib/plugins/twitter/tweetentry.py:132
 msgid "Retweet"
 msgstr "リツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:127
-#: ../lib/plugins/twitter/tweetentry.py:128
+#: ../lib/plugins/twitter/tweetentry.py:134
+#: ../lib/plugins/twitter/tweetentry.py:135
 msgid "Favorite"
 msgstr "お気に入り"
 
-#: ../lib/plugins/twitter/tweetentry.py:273
+#: ../lib/plugins/twitter/tweetentry.py:280
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:314
+#: ../lib/plugins/twitter/tweetentry.py:321
 msgid "favorited your Tweet"
 msgstr "さんがお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:315
+#: ../lib/plugins/twitter/tweetentry.py:322
 msgid "unfavorited your Tweet"
 msgstr "さんがお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:316
+#: ../lib/plugins/twitter/tweetentry.py:323
 msgid "followed you"
 msgstr "さんがフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:317
+#: ../lib/plugins/twitter/tweetentry.py:324
 #, python-format
 msgid "added you to list %s"
 msgstr "さんのリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:318
+#: ../lib/plugins/twitter/tweetentry.py:325
 #, python-format
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
@@ -270,16 +270,16 @@ msgstr "イベントの通知を行う"
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:306
+#: ../lib/updatewindow.py:301
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:379
+#: ../lib/updatewindow.py:374
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:380
+#: ../lib/updatewindow.py:375
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
@@ -633,6 +633,14 @@ msgstr "画像を追加します"
 #: ../share/update.glade.h:7
 msgid "Ctrl+Enter"
 msgstr "Ctrl+Enter"
+
+#: ../share/update.glade.h:8
+msgid "Insert the _link"
+msgstr "リンクを挿入(_L)"
+
+#: ../share/update.glade.h:9
+msgid "_Quote"
+msgstr "引用(_Q)"
 
 #~ msgid "_Conversation"
 #~ msgstr "会話を表示(_C)"
