@@ -1,21 +1,19 @@
 function append(text, is_append, is_scroll_paused, margin) {
-    var parent = document.getElementById("messages");
-    var entry = document.createElement("div");
-    entry.innerHTML = text;
+    var entry = $(text)
 
     if (is_append) {
-        parent.appendChild(entry);
+        $('#messages').append(entry);
     } 
     else { // is_prepend
-        parent.insertBefore(entry, parent.childNodes[0]);
+        $('#messages').prepend(entry);
 
         if (is_scroll_paused) {
             if (typeof margin === 'undefined') margin = 0;
             var body = $('body');
-            body.scrollTop(body.scrollTop() + $(entry).height() + margin); 
+            body.scrollTop(body.scrollTop() + entry.outerHeight() + margin); 
         }
         else {
-            $(entry).hide().slideDown(300);
+            entry.hide().slideDown(300);
         }
     }
 }
@@ -24,13 +22,29 @@ function insertReplyed(text, entry_id) {
     var child = '#' + entry_id  + '> .child';
     var child_entry = child + '> div'
 
+    var scroll_cb = function() {
+        var scroll_position  = $(this).scrollTop() + $(window).height();
+        var entry_bottom = 
+            $('#' + entry_id).offset().top + $('#' + entry_id).outerHeight();
+
+        if (entry_bottom - scroll_position > 0) {
+            window.scrollTo(0, entry_bottom - $(window).height());
+        }
+    }
+
     if ($(child_entry)[0]) {
-        $(child_entry).slideToggle(300);
-    } else {    
+        var cb =''
+        if ($(child_entry).is(':visible')) {
+            cb = scroll_cb;
+            $(child_entry).slideToggle(300);
+        } else {
+            $(child_entry).slideToggle(300, scroll_cb);
+        }
+    } else {
         var entry = document.createElement("div");
         entry.innerHTML = text;
         $(child).append(entry);
-        $(entry).hide().slideDown(300);
+        $(entry).hide().slideDown(300, scroll_cb);
     }
 
 }

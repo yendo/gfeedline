@@ -1,3 +1,7 @@
+2013-05-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.js: Added auto scroll to insertReplyed.
+
 2013-05-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py: Improved UI for quotation.
