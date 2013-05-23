@@ -33,13 +33,8 @@ function insertReplyed(text, entry_id) {
     }
 
     if ($(child_entry)[0]) {
-        var cb =''
-        if ($(child_entry).is(':visible')) {
-            cb = scroll_cb;
-            $(child_entry).slideToggle(300);
-        } else {
-            $(child_entry).slideToggle(300, scroll_cb);
-        }
+        var cb = ($(child_entry).is(':visible')) ? null : scroll_cb;
+        $(child_entry).slideToggle(300, cb);
     } else {
         var entry = document.createElement("div");
         entry.innerHTML = text;
