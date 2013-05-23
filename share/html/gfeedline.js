@@ -19,27 +19,24 @@ function append(text, is_append, is_scroll_paused, margin) {
 }
 
 function insertReplyed(text, entry_id) {
-    var child = '#' + entry_id  + '> .child';
-    var child_entry = child + '> div'
+    var entry = $('#' + entry_id);
+    var child = $(entry.selector + ' > .child');
 
     var scroll_cb = function() {
         var scroll_position  = $(this).scrollTop() + $(window).height();
-        var entry_bottom = 
-            $('#' + entry_id).offset().top + $('#' + entry_id).outerHeight();
+        var entry_bottom = entry.offset().top + entry.outerHeight();
 
         if (entry_bottom - scroll_position > 0) {
             window.scrollTo(0, entry_bottom - $(window).height());
         }
     }
 
-    if ($(child_entry)[0]) {
-        var cb = ($(child_entry).is(':visible')) ? null : scroll_cb;
-        $(child_entry).slideToggle(300, cb);
+    if ($(child.selector + '> div')[0]) {
+        var cb = ($(child).is(':visible')) ? null : scroll_cb;
+        child.slideToggle(300, cb);
     } else {
-        var entry = document.createElement("div");
-        entry.innerHTML = text;
-        $(child).append(entry);
-        $(entry).hide().slideDown(300, scroll_cb);
+        child.append($(text));
+        child.hide().slideDown(300, scroll_cb);
     }
 
 }
