@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-21 15:41+0900\n"
-"PO-Revision-Date: 2013-05-21 15:44+0900\n"
+"POT-Creation-Date: 2013-05-23 21:45+0900\n"
+"PO-Revision-Date: 2013-05-23 21:45+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -80,19 +80,19 @@ msgstr "ウォール"
 msgid "Facebook Account Setup"
 msgstr "Facebook アカウントの設定"
 
-#: ../lib/plugins/facebook/assistant.py:42
-#: ../lib/plugins/tumblr/assistant.py:41
+#: ../lib/plugins/facebook/assistant.py:44
+#: ../lib/plugins/tumblr/assistant.py:42
 #: ../lib/plugins/twitter/assistant.py:46
 msgid "Intro"
 msgstr "説明"
 
-#: ../lib/plugins/facebook/assistant.py:55
-#: ../lib/plugins/tumblr/assistant.py:54
+#: ../lib/plugins/facebook/assistant.py:57
+#: ../lib/plugins/tumblr/assistant.py:55
 msgid "Authorization"
 msgstr "認証"
 
-#: ../lib/plugins/facebook/assistant.py:63
-#: ../lib/plugins/tumblr/assistant.py:62
+#: ../lib/plugins/facebook/assistant.py:67
+#: ../lib/plugins/tumblr/assistant.py:65
 #: ../lib/plugins/twitter/assistant.py:62
 msgid "Confirm"
 msgstr "確認"
@@ -129,6 +129,11 @@ msgstr "投稿"
 #: ../lib/plugins/tumblr/assistant.py:29
 msgid "Tumblr Account Setup"
 msgstr "Tumblr アカウントの設定"
+
+#: ../lib/plugins/tumblr/assistant.py:39 ../lib/plugins/tumblr/assistant.py:62
+#: ../share/select_assistant.glade.h:4
+msgid "Tumblr"
+msgstr "Tumblr"
 
 #: ../lib/plugins/tumblr/entry.py:30
 msgid "Read more"
@@ -265,7 +270,7 @@ msgstr "オプション"
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
-#: ../lib/updatewindow.py:81
+#: ../lib/updatewindow.py:80
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
@@ -290,32 +295,36 @@ msgstr ""
 "このタブには複数 (%s) のフィードが含まれています。このタブを閉じてよろしいで"
 "すか?"
 
-#: ../share/assistant_facebook.glade.h:1
+#. %s is a web service name. ex) Facbook or Tumblr.
+#: ../share/assistant_facebook.glade.h:3
+#, no-c-format
 msgid ""
-"Your configuration is complete.  You are now ready to access to Facebook "
-"with GFeedLine."
+"Your configuration is complete.  You are now ready to access to %s with "
+"GFeedLine."
 msgstr ""
-"認証が完了しました。[閉じる] ボタンをクリックして設定を完了してください。"
+"%s の認証が完了しました。[閉じる] ボタンをクリックして設定を完了してくださ"
+"い。"
 
-#: ../share/assistant_facebook.glade.h:2
+#: ../share/assistant_facebook.glade.h:4
 msgid "User name:"
 msgstr "ユーザー名:"
 
-#: ../share/assistant_facebook.glade.h:3 ../share/assistant_twitter.glade.h:7
+#: ../share/assistant_facebook.glade.h:5 ../share/assistant_twitter.glade.h:7
 msgid "none"
 msgstr "なし"
 
-#: ../share/assistant_facebook.glade.h:4
+#. %s is a web service name. ex) Facebook or Tumblr.
+#: ../share/assistant_facebook.glade.h:8
+#, no-c-format
 msgid ""
-"This assistant helps you to configure Facebook account for GFeedLine.\n"
+"This assistant helps you to configure %s account for GFeedLine.\n"
 "\n"
-"Click \"Forward\" to open a Facebook authorization page."
+"Click \"Forward\" to open the authorization page."
 msgstr ""
-"この設定アシスタントでは GFeedLine で利用する Facebook アカウントの設定を行い"
-"ます。\n"
+"この設定アシスタントでは GFeedLine で利用する %s アカウントの設定を行いま"
+"す。\n"
 "\n"
-"[進む] ボタンをクリックすると、Facebook の認証ページを開き、認証作業を開始し"
-"ます。"
+"[進む] ボタンをクリックすると、その認証ページを開き、認証作業を開始します。"
 
 #: ../share/assistant_twitter.glade.h:1
 msgid ""
@@ -606,10 +615,6 @@ msgstr "_Twitter"
 msgid "_Facebook"
 msgstr "_Facebook"
 
-#: ../share/select_assistant.glade.h:4
-msgid "Tumblr"
-msgstr "Tumblr"
-
 #: ../share/update.glade.h:1
 msgid "Public"
 msgstr "公開"
@@ -641,6 +646,9 @@ msgstr "リンクを挿入(_L)"
 #: ../share/update.glade.h:9
 msgid "_Quote"
 msgstr "引用(_Q)"
+
+#~ msgid "Facebook"
+#~ msgstr "Facebook"
 
 #~ msgid "_Conversation"
 #~ msgstr "会話を表示(_C)"
