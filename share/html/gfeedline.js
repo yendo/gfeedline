@@ -23,7 +23,7 @@ function insertReplyed(text, entry_id) {
     var child = $(entry.selector + ' > .child');
 
     var scroll_cb = function() {
-        var scroll_position  = $(this).scrollTop() + $(window).height();
+        var scroll_position  = $(window).scrollTop() + $(window).height();
         var entry_bottom = entry.offset().top + entry.outerHeight();
 
         if (entry_bottom - scroll_position > 0) {
@@ -32,13 +32,12 @@ function insertReplyed(text, entry_id) {
     }
 
     if ($(child.selector + '> div')[0]) {
-        var cb = ($(child).is(':visible')) ? null : scroll_cb;
-        child.slideToggle(300, cb);
+        if (child.is(':visible')) scroll_cb = null;
     } else {
-        child.append($(text));
-        child.hide().slideDown(300, scroll_cb);
+        child.append($(text)).hide();
     }
 
+    child.slideToggle(300, scroll_cb);
 }
 
 function scrollToBottom(is_bottom) {
