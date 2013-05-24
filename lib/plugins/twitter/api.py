@@ -1,9 +1,10 @@
 #
 # gfeedline - A Social Networking Client
 #
-# Copyright (c) 2012, Yoshizumi Endo.
+# Copyright (c) 2012-2013, Yoshizumi Endo.
 # Licence: GPL3
 
+from ...utils.settings import SETTINGS_TWITTER
 from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultOutput
 
 
@@ -11,7 +12,6 @@ class TwitterAPIDict(dict):
 
     def __init__(self):
         all_api = [
-             TwitterAPIHomeTimeLine,
              TwitterAPIUserTimeLine,
              TwitterAPIListTimeLine,
              TwitterAPIMentions,
@@ -23,6 +23,9 @@ class TwitterAPIDict(dict):
 
              TwitterAPIRelatedResults,
              ]
+
+        if SETTINGS_TWITTER.get_boolean('hometimeline-api'):
+            all_api.append(TwitterAPIHomeTimeLine)
 
         for api in all_api:
             self[api.name] = api
@@ -36,7 +39,6 @@ class TwitterAPIBase(object):
     include_rt = True
     has_argument = False
     has_popup_menu = True
-    tooltip_for_api = ''
     tooltip_for_argument = ''
     
     connections = 0
@@ -67,8 +69,6 @@ class TwitterFeedAPIBase(TwitterAPIBase):
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     name = _('Home TimeLine')
-    tooltip_for_api = _('Home TimeLine is not updated in real time.  '
-                        'User Stream is recommended.')
 
     def _get_api(self):
         return self.account.api.home_timeline

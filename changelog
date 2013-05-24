@@ -1,3 +1,8 @@
+2013-05-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/api.py: Removed Home Timeline API in default.  Added a new
+	  GSettings key "/apps/gfeedline/plugins/twitter/hometimeline-api".
+
 2013-05-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* gfeedline.js: Added auto scroll to insertReplyed.
