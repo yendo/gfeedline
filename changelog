@@ -1,5 +1,6 @@
 2013-05-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* NEWS: 2.2 b1 release.
 	* twitter/api.py: Removed Home Timeline API in default.  Added a new
 	  GSettings key "/apps/gfeedline/plugins/twitter/hometimeline-api".
 
