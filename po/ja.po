@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-23 21:45+0900\n"
-"PO-Revision-Date: 2013-05-23 21:45+0900\n"
+"POT-Creation-Date: 2013-05-24 13:10+0900\n"
+"PO-Revision-Date: 2013-05-24 13:11+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -48,7 +48,7 @@ msgstr "会話"
 msgid "View _Conversation"
 msgstr "会話を表示(_C)"
 
-#: ../lib/menu.py:184 ../lib/plugins/twitter/api.py:121
+#: ../lib/menu.py:184 ../lib/plugins/twitter/api.py:127
 msgid "Related Results"
 msgstr "関連ツイート"
 
@@ -80,19 +80,24 @@ msgstr "ウォール"
 msgid "Facebook Account Setup"
 msgstr "Facebook アカウントの設定"
 
-#: ../lib/plugins/facebook/assistant.py:44
+#: ../lib/plugins/facebook/assistant.py:40
+#: ../lib/plugins/facebook/assistant.py:64
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../lib/plugins/facebook/assistant.py:43
 #: ../lib/plugins/tumblr/assistant.py:42
 #: ../lib/plugins/twitter/assistant.py:46
 msgid "Intro"
 msgstr "説明"
 
-#: ../lib/plugins/facebook/assistant.py:57
+#: ../lib/plugins/facebook/assistant.py:56
 #: ../lib/plugins/tumblr/assistant.py:55
 msgid "Authorization"
 msgstr "認証"
 
 #: ../lib/plugins/facebook/assistant.py:67
-#: ../lib/plugins/tumblr/assistant.py:65
+#: ../lib/plugins/tumblr/assistant.py:66
 #: ../lib/plugins/twitter/assistant.py:62
 msgid "Confirm"
 msgstr "確認"
@@ -130,8 +135,7 @@ msgstr "投稿"
 msgid "Tumblr Account Setup"
 msgstr "Tumblr アカウントの設定"
 
-#: ../lib/plugins/tumblr/assistant.py:39 ../lib/plugins/tumblr/assistant.py:62
-#: ../share/select_assistant.glade.h:4
+#: ../lib/plugins/tumblr/assistant.py:39 ../lib/plugins/tumblr/assistant.py:63
 msgid "Tumblr"
 msgstr "Tumblr"
 
@@ -159,35 +163,39 @@ msgstr "音声"
 msgid "{0} posts {1} entry."
 msgstr "{0} が{1}エントリーを投稿しました。"
 
-#: ../lib/plugins/twitter/api.py:67
+#: ../lib/plugins/twitter/api.py:71
 msgid "Home TimeLine"
 msgstr "ホームタイムライン"
 
-#: ../lib/plugins/twitter/api.py:74
+#: ../lib/plugins/twitter/api.py:78
 msgid "User TimeLine"
 msgstr "ユーザータイムライン"
 
-#: ../lib/plugins/twitter/api.py:86
+#: ../lib/plugins/twitter/api.py:90
 msgid "List TimeLine"
 msgstr "リストタイムライン"
 
-#: ../lib/plugins/twitter/api.py:106 ../lib/plugins/twitter/api.py:145
+#: ../lib/plugins/twitter/api.py:93
+msgid "The format is \"username/listname\".  ex) yendo0206/gfeedline"
+msgstr "入力形式は \"ユーザ名/リスト名\" です。 例) yendo0206/gfeedline"
+
+#: ../lib/plugins/twitter/api.py:112 ../lib/plugins/twitter/api.py:151
 msgid "Mentions"
 msgstr "メンション"
 
-#: ../lib/plugins/twitter/api.py:113
+#: ../lib/plugins/twitter/api.py:119
 msgid "Direct Messages"
 msgstr "ダイレクトメッセージ"
 
-#: ../lib/plugins/twitter/api.py:136 ../lib/preferences/feedsource.py:106
+#: ../lib/plugins/twitter/api.py:142 ../lib/preferences/feedsource.py:108
 msgid "User Stream"
 msgstr "ユーザーストリーム"
 
-#: ../lib/plugins/twitter/api.py:150
+#: ../lib/plugins/twitter/api.py:156
 msgid "Track"
 msgstr "トラック"
 
-#: ../lib/plugins/twitter/api.py:164
+#: ../lib/plugins/twitter/api.py:170
 msgid "Search"
 msgstr "検索"
 
@@ -262,11 +270,11 @@ msgstr "さんのリスト %s に追加されました"
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
 
-#: ../lib/preferences/feedsource.py:134
+#: ../lib/preferences/feedsource.py:136
 msgid "Options"
 msgstr "オプション"
 
-#: ../lib/preferences/feedsource.py:141
+#: ../lib/preferences/feedsource.py:143
 msgid "_Notify events"
 msgstr "イベントの通知を行う"
 
@@ -615,6 +623,10 @@ msgstr "_Twitter"
 msgid "_Facebook"
 msgstr "_Facebook"
 
+#: ../share/select_assistant.glade.h:4
+msgid "Tumb_lr"
+msgstr "Tumb_lr"
+
 #: ../share/update.glade.h:1
 msgid "Public"
 msgstr "公開"
@@ -646,9 +658,6 @@ msgstr "リンクを挿入(_L)"
 #: ../share/update.glade.h:9
 msgid "_Quote"
 msgstr "引用(_Q)"
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
 
 #~ msgid "_Conversation"
 #~ msgstr "会話を表示(_C)"
