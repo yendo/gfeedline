@@ -36,6 +36,8 @@ class TwitterAPIBase(object):
     include_rt = True
     has_argument = False
     has_popup_menu = True
+    tooltip_for_api = ''
+    tooltip_for_argument = ''
     
     connections = 0
     rate_limit = 15
@@ -65,6 +67,8 @@ class TwitterFeedAPIBase(TwitterAPIBase):
 class TwitterAPIHomeTimeLine(TwitterAPIBase):
 
     name = _('Home TimeLine')
+    tooltip_for_api = _('Home TimeLine is not updated in real time.  '
+                        'User Stream is recommended.')
 
     def _get_api(self):
         return self.account.api.home_timeline
@@ -86,6 +90,8 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
     name = _('List TimeLine')
     has_argument = True
     rate_limit = 180
+    tooltip_for_argument = _('The format is "username/listname".  '
+                             'ex) yendo0206/gfeedline')
 
     def _get_api(self):
         return self.account.api.list_timeline

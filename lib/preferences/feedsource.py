@@ -76,12 +76,14 @@ class FeedSourceDialog(DialogBase):
         self.combobox_target.set_label_text(account_obj)
 
     def on_comboboxtext_target_changed(self, *args):
-        account_obj = self.combobox_source.get_active_account_obj()
-        status = self.combobox_target.has_argument_entry_enabled(account_obj.api_dict)
+        api_dict = self.combobox_source.get_active_account_obj().api_dict
+        status = self.combobox_target.has_argument_entry_enabled(api_dict)
+        tooltip = self.combobox_target.get_tooltip_for_argument(api_dict)
 
         self.label_argument.set_sensitive(status)
         self.entry_argument.set_sensitive(status)
-
+        self.entry_argument.set_tooltip_text(tooltip)
+ 
         button_status = not status
         if not button_status and self.entry_argument.get_text():
             button_status = True
@@ -205,11 +207,20 @@ class TargetCombobox(object):
         account_obj.set_recent_api(num)
 
     def has_argument_entry_enabled(self, api_dict):
+        api_class = self._get_api_class(api_dict)
+        status = api_class.has_argument
+        return status
+
+    def get_tooltip_for_argument(self, api_dict):
+        api_class = self._get_api_class(api_dict)
+        tooltip = api_class.tooltip_for_argument \
+            if hasattr(api_class, 'tooltip_for_argument') else ''
+        return tooltip
+
+    def _get_api_class(self, api_dict):
         api_name = self.get_active_text()
         api_class = api_dict.get(api_name)
-        status = api_class.has_argument
-
-        return status
+        return api_class
 
 class ArgumentEntry(object):
 
@@ -228,6 +239,9 @@ class ArgumentEntry(object):
 
     def set_sensitive(self, status):
         self.widget.set_sensitive(status)
+
+    def set_tooltip_text(self, text):
+        self.widget.set_tooltip_text(text)
 
 class ButtonFeedNew(MultiAccountSensitiveWidget):
 
