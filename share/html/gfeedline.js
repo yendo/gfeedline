@@ -27,7 +27,8 @@ function insertReplyed(text, entry_id) {
         var entry_bottom = entry.offset().top + entry.outerHeight();
 
         if (entry_bottom - scroll_position > 0) {
-            window.scrollTo(0, entry_bottom - $(window).height());
+            $('html, body').animate(
+                {scrollTop: entry_bottom - $(window).height()}, 150);
         }
     }
 
