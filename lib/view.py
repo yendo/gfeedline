@@ -207,8 +207,7 @@ class FeedWebView(WebKit.WebView):
 
         if uri.startswith('gfeedlinetw:'):
             button, entry_id, user = uri.split('/')[2:5]
-            myuri = 'gfeedline://twitter.com/%s/status/%s' % (
-                user, entry_id.split('-')[0])
+            myuri = 'gfeedline://twitter.com/%s/status/%s' % (user, entry_id)
             com_dict = LINK_MENU_ITEMS()
 
             if button in com_dict:

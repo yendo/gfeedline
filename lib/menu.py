@@ -90,9 +90,13 @@ class RetweetMenuItem(PopupMenuItem):
         self.account = api.account
 
         if uri:
-            entry_id = uri.split('/')[-1]
+            entry_id = self._get_entry_id(uri)
             dom = self.parent.webview.dom.get_element_by_id(entry_id)
             self.set_sensitive(self._is_enabled(dom))
+
+    def _get_entry_id(self, uri):
+        entry_id = uri.split('/')[-1]
+        return entry_id
 
     def _is_enabled(self, dom):
         is_mine = dom.get_attribute('class').count('mine')
@@ -125,6 +129,11 @@ class UnFavMenuItem(FavMenuItem):
 class ConversationMenuItem(RetweetMenuItem):
 
     LABEL = _('Conversation')
+
+    def _get_entry_id(self, uri):
+        entry_id = uri.split('/')[-1]
+        entry_id = entry_id.split('-')[0]
+        return entry_id
 
     def _is_enabled(self, dom):
         in_reply_to = dom.get_attribute('data-inreplyto')

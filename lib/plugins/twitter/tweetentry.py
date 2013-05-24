@@ -20,9 +20,6 @@ TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
            \- FeedEventEntry
 """
 
-def get_entry_id(entry_id):
-    return entry_id.split('-')[0] if str(entry_id).find('-') > 0 else entry_id
-
 
 class TweetEntryDict(dict):
 
@@ -37,13 +34,16 @@ class TweetEntryDict(dict):
     def __getitem__(self, key):
         if key == 'permalink':
             val = 'gfeedline://twitter.com/%s/status/%s' % (
-                self['user_name'], get_entry_id(self['id']))
+                self['user_name'], self._get_entry_id(self['id']))
         elif key == 'user_name2':
             val = '@'+self['user_name']
         else:
             val = super(TweetEntryDict, self).__getitem__(key)
 
         return val
+
+    def _get_entry_id(self, entry_id):
+        return entry_id.split('-')[0] if str(entry_id).find('-') > 0 else entry_id
 
 class TweetEntry(object):
 
@@ -102,13 +102,12 @@ class TweetEntry(object):
 
 
     def _get_commands(self, entry, user):
-        entry_id = get_entry_id(entry.id)
         is_liked = entry.favorited
 
         if not isinstance(is_liked, bool):
             is_liked = is_liked == 'true'
 
-        entry_info = '%s/%s' % (entry_id, user.screen_name)
+        entry_info = '%s/%s' % (entry.id, user.screen_name)
 
         replylink =   'gfeedlinetw://reply/%s' % entry_info
         retweetlink = 'gfeedlinetw://retweet/%s' % entry_info
@@ -136,9 +135,9 @@ class TweetEntry(object):
             # morelink
             )
 
-        if entry.in_reply_to_status_id and str(entry_id).find('-') < 0:
+        if entry.in_reply_to_status_id and str(entry.id).find('-') < 0:
             conversationlink = 'gfeedlinetw://conversation/%s-%s/%s' % (
-                entry_id, entry.in_reply_to_status_id, user.screen_name)
+                entry.id, entry.in_reply_to_status_id, user.screen_name)
 
             conv = "<a href='%s' title='%s'><i class='icon-comment icon-large'></i><span class='label'>%s</span></a> " % (
                 conversationlink, _('Conversation'), _('Conversation'))
