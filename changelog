@@ -1,5 +1,6 @@
 2013-05-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* po/nl_NL.po: Added new Dutch translation.  Thanks Heimen Stoffels!
 	* plugins/base/output.py: Fixed type ploblems of 'last_id'.
 
 2013-05-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
