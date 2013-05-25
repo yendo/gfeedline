@@ -301,7 +301,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             full_name=user['name'],
             user_color=user_color.get(user['screen_name']),
             protected=self._get_protected_icon(user['protected']),
-            source=self.original_entry.source,
+            source=self._decode_source_html_entities(self.original_entry.source),
 
             status_body='',
             popup_body="%s %s" % (user['name'], body),
@@ -376,8 +376,9 @@ class FeedEventEntry(TweetEntry):
             post_username = ' ',
 
             command='',
-            target_body=target_body,
-            target_date_time=target_date_time,
+            onmouseover='',
+#            target_body=target_body,
+#            target_date_time=target_date_time,
             )
 
         return entry_dict
