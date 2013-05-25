@@ -1,3 +1,7 @@
+2013-05-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* plugins/base/output.py: Fixed type ploblems of 'last_id'.
+
 2013-05-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.2 b1 release.

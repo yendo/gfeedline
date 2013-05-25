@@ -33,9 +33,12 @@ class OutputBase(object):
         self.delayed = DelayedPool()
 
         self.since_id = 0
-        self.last_id = options.get('last_id') or 0
         self.params = {}
         self.counter = 0
+
+        self.last_id = str(options.get('last_id') or 0)
+        if self.last_id.isdigit():
+            self.last_id = int(self.last_id)
 
         SETTINGS_VIEW.connect_after("changed::theme", self._on_restart_theme_changed)
 
