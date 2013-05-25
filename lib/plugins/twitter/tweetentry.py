@@ -33,7 +33,7 @@ class TweetEntryDict(dict):
         self.setdefault('onmouseover', 'toggleCommand(this, &quot;command&quot;)')
 
     def __getitem__(self, key):
-        if key == 'permalink':
+        if key == 'permalink' and 'permalink' not in self:
             val = 'gfeedline://twitter.com/%s/status/%s' % (
                 self['user_name'], self._get_entry_id(self['id']))
         elif key == 'user_name2':
@@ -302,6 +302,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             user_color=user_color.get(user['screen_name']),
             protected=self._get_protected_icon(user['protected']),
             source=self._decode_source_html_entities(self.original_entry.source),
+            permalink="https://twitter.com/%s" % user['screen_name'],
 
             status_body='',
             popup_body="%s %s" % (user['name'], body),
@@ -365,6 +366,7 @@ class FeedEventEntry(TweetEntry):
             user_color=user_color.get(entry.source.screen_name),
             protected=self._get_protected_icon(entry.source.protected),
             source='',
+            permalink="https://twitter.com/%s" % entry.source.screen_name,
 
             status_body='',
             popup_body="%s %s" % (entry.source.name, body),
