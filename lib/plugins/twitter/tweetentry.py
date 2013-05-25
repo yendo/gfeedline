@@ -16,7 +16,8 @@ from ...utils.htmlentities import decode_html_entities
 user_color = UserColor()
 
 """
-TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry
+TweetEntry -- RestRetweetEntry  -- FeedRetweetEntry -- MyFeedRetweetEntry
+           |- DirectMessageEntry
            \- FeedEventEntry
 """
 
@@ -272,18 +273,25 @@ class FeedRetweetEntry(RestRetweetEntry):
 class MyFeedRetweetEntry(FeedRetweetEntry):
 
     def get_dict(self, api):
-        retweeted_dict = super(FeedRetweetEntry, self).get_dict(api)
-
         user = self.original_entry.raw['user']
         created_at = self.original_entry.created_at
         body = _('retweeted your Tweet')
+
         target_date_time = self._get_target_date_time(
             self.entry, self.entry.user['screen_name'])
+        target_body = self.original_entry.raw['retweeted_status']['text']
+
+        target ="""
+    <div class='target'>
+      <span class='body'>%s</span> 
+      <span class='datetime'>%s</span>
+    </div>
+""" % (target_body, target_date_time)
 
         entry_dict = TweetEntryDict(
             date_time=TimeFormat(created_at).get_local_time(),
             id='',
-            styles='twitter',
+            styles='twitter event',
 
             image_uri=user['profile_image_url'],
             retweet='',
@@ -295,19 +303,18 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             protected=self._get_protected_icon(user['protected']),
             source=self.original_entry.source,
 
-            status_body=body,
+            status_body='',
             popup_body="%s %s" % (user['name'], body),
 
             event=body,
-            target='',
+            target=target,
 
             pre_username = '',
             post_username = ' ',
 
-            command='oops!',
-
-            target_body=retweeted_dict['status_body'],
-            target_date_time=target_date_time,)
+            onmouseover='',
+            command='',
+            )
 
         return entry_dict
 

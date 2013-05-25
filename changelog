@@ -1,5 +1,6 @@
 2013-05-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/tweetentry.py: Fixed retweet event bugs.
 	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme!
 	* po/nl_NL.po: Added new Dutch translation.  Thanks Heimen Stoffels!
 	* plugins/base/output.py: Fixed type ploblems of 'last_id'.
