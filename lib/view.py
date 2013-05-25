@@ -70,10 +70,12 @@ class FeedView(FeedScrolledWindow):
     def update(self, entry_dict, style='status', has_notify=False, 
                is_first_call=False, is_new_update=True):
 
-        is_dupulicated = entry_dict['id'] in self.id_history
-        self.id_history.append(entry_dict['id'])
-        if is_dupulicated:
-            return
+        if entry_dict.get('styles').find('event') < 0:
+            is_dupulicated = entry_dict['id'] in self.id_history
+            self.id_history.append(entry_dict['id'])
+
+            if is_dupulicated:
+                return
 
         text = self.theme.template[style].substitute(entry_dict)
 
