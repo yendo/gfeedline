@@ -91,7 +91,7 @@ class TweetEntry(object):
 
             status_body=body,
             popup_body=body_string,
-            command=self._get_commands(entry, user),
+            command=self._get_commands(entry, user, api),
             target=target
             )
 
@@ -101,8 +101,7 @@ class TweetEntry(object):
         style_obj = EntryStyles()
         return style_obj.get(api, screen_name, entry)
 
-
-    def _get_commands(self, entry, user):
+    def _get_commands(self, entry, user, api):
         is_liked = entry.favorited
 
         if not isinstance(is_liked, bool):
@@ -118,19 +117,22 @@ class TweetEntry(object):
 
 #        "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
 
-        commands = (
-        "<a href='%s' title='%s'><i class='icon-reply icon-large'></i><span class='label'>%s</span></a> "
-        "<a href='%s' title='%s'><i class='icon-retweet icon-large'></i><span class='label'>%s</span></a> "
+        # Reply
+        commands = "<a href='%s' title='%s'><i class='icon-reply icon-large'></i><span class='label'>%s</span></a> " % (replylink, _('Reply'), _('Reply'))
 
+        # Retweet FIXME
+        is_protected = entry.user.protected \
+            if hasattr(entry.user, 'protected') else entry.user.get('protected')
+        if not is_protected and api.account.user_name != user.screen_name:
+            commands += "<a href='%s' title='%s'><i class='icon-retweet icon-large'></i><span class='label'>%s</span></a> " % (retweetlink, _('Retweet'), _('Retweet'))
+
+        # Favorite
+        commands += (
         "<a href='%s' title='%s' class='like-first %s' onclick='like(this)'><i class='icon-star icon-large'></i><span class='label'>%s</span></a> "
         "<a href='%s' title='%s' class='like-second %s' style='color:red;' onclick='like(this)'><i class='icon-star icon-large'></i><span class='label'>%s</span></a> "
 
 #        "<a href='%s' title='More' class='icon-double-angle-right icon-large'>More</a>"
-
         ) % (
-            replylink, _('Reply'), _('Reply'),
-            retweetlink, _('Retweet'), _('Retweet'), 
-
             favlink, _('Favorite'), 'hidden' if is_liked else '', _('Favorite'), 
             unfavlink, _('Favorite'), '' if is_liked else 'hidden', _('Favorite'), 
             # morelink
