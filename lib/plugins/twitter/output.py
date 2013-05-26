@@ -246,9 +246,9 @@ class TwitterRelatedResultOutput(TwitterSearchOutput):
         self.d.addErrback(self._on_error).addBoth(lambda x: 
                                                   self.print_all_entries(interval))
         self.d.addErrback(self._on_error)
-#
-#        interval = self._get_interval_seconds()
-#        self.timeout = reactor.callLater(interval, self.start, interval)
+
+        interval = self._get_interval_seconds()
+        self.timeout = reactor.callLater(interval, self.start, interval)
 
 class TwitterFeedOutput(TwitterOutputBase):
 
