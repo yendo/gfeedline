@@ -139,6 +139,7 @@ class FeedWebView(WebKit.WebView):
         self.dnd.set(info, selection)
 
     def update(self, text, is_reversed=False):
+        text = text.replace('\r', '') # Unexpected EOF
         text = text.replace('\n', '')
         text = text.replace('\\', '\\\\')
 
