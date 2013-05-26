@@ -12,6 +12,7 @@ class TwitterAPIDict(dict):
 
     def __init__(self):
         all_api = [
+             TwitterAPIHomeTimeLine,
              TwitterAPIUserTimeLine,
              TwitterAPIListTimeLine,
              TwitterAPIMentions,
@@ -24,8 +25,8 @@ class TwitterAPIDict(dict):
              TwitterAPIRelatedResults,
              ]
 
-        if SETTINGS_TWITTER.get_boolean('hometimeline-api'):
-            all_api.append(TwitterAPIHomeTimeLine)
+#        if SETTINGS_TWITTER.get_boolean('hometimeline-api'):
+#            all_api.append(TwitterAPIHomeTimeLine)
 
         for api in all_api:
             self[api.name] = api
