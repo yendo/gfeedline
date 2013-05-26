@@ -1,3 +1,7 @@
+2013-05-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* facebook/entry.py: Removed invalid characters.
+
 2013-05-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/tweetentry.py: Fixed retweet event bugs.

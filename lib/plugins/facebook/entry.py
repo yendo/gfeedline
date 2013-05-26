@@ -47,7 +47,7 @@ class FacebookEntry(object):
                         'caption': entry.get('caption') or '',
                         'description': add_markup.convert(entry.get('description'))
                         }
-            body += template.substitute(key_dict)
+            body += template.substitute(key_dict).replace('\r', '') # Unexpected EOF
 
         command=''
         if entry.get('actions'):
