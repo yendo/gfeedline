@@ -1,17 +1,11 @@
 #
 # gfeedline - A Social Networking Client
 #
-# Copyright (c) 2012, Yoshizumi Endo.
+# Copyright (c) 2012-2013, Yoshizumi Endo.
 # Licence: GPL3
 
 """
-TwitterOutputBase --- TwitterRestOutput --- TwitterSearchOutput
-                   |
-                   \- TwitterFeedOutput
-
-Rest: got_entry-> check_entry-> buffer_entry : print_all_entries-> print_entry
-Feed: got_entry-> check_entry-> buffer_entry---------------------> print_entry
-              \-> (events)--------------------------------------/
+Output: got_entry-> print_all_entries-> print_entry
 """
 
 import time
@@ -34,14 +28,17 @@ class OutputBase(object):
         self.argument = argument
         self.options = options
         self.filters = filters
-
         self.theme = Theme()
+
         self.delayed = DelayedPool()
 
         self.since_id = 0
-        self.last_id = options.get('last_id') or 0
         self.params = {}
         self.counter = 0
+
+        self.last_id = str(options.get('last_id') or 0)
+        if self.last_id.isdigit():
+            self.last_id = int(self.last_id)
 
         SETTINGS_VIEW.connect_after("changed::theme", self._on_restart_theme_changed)
 
@@ -128,6 +125,8 @@ class OutputBase(object):
 
     def disconnect(self):
         self.delayed.clear()
+        if hasattr(self, 'd'):
+            self.d.cancel()
         if hasattr(self, 'timeout') and not self.timeout.called:
             self.timeout.cancel()
 
@@ -142,7 +141,7 @@ class OutputBase(object):
         self._on_restart_theme_changed()
 
     def _on_error(self, e):
-        print "Error: ", e
+        print "Error (%s): %s" % (self.api.name, e)
 
 class DelayedPool(list):
 

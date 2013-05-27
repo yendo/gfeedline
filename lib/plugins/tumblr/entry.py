@@ -71,7 +71,7 @@ class TumblrEntry(object):
 
         # popup
 
-        for key in ['text', 'body', 'question', 'link', 'caption']:
+        for key in ['text', 'body', 'question', 'url', 'caption']:
             popup_body = entry.get(key)
             if popup_body:
                 popup_body = re.sub(r'<[^>]*?>', '', popup_body).rstrip()
@@ -80,9 +80,9 @@ class TumblrEntry(object):
             post_type = {'photo': _('a photo'), 'video': _('a video'), 
                          'audio': _('an audio')}
             popup_body = _('{0} posts {1} entry.').format(
-                entry['blog_name'], _(post_type[entry['type']]))
+                entry['blog_name'], _(post_type.get(entry['type'])))
 
-        # print popup_body
+        # print entry['type'], popup_body
 
         entry_dict = dict(
             date_time=TimeFormat(entry['date']).get_local_time(),
@@ -113,7 +113,8 @@ class TumblrEntry(object):
 
             status_body=add_markup.convert(body),
             popup_body=popup_body,
-            target=''
+            target='',
+            child=''
             )
 
         return entry_dict
@@ -208,7 +209,7 @@ class TumblrVideoEntry(TumblrEntry):
         body = self._get_body(entry)
 
         template = self.theme.template['image']
-        key_dict = {'url': entry['thumbnail_url']}
+        key_dict = {'url': entry.get('thumbnail_url')}
         body = template.substitute(key_dict) + body
         return self._get_entry_dict(entry, body)
 

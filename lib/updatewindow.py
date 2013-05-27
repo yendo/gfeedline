@@ -1,4 +1,5 @@
 import os
+import re
 import tempfile
 
 from gi.repository import Gtk, GLib, Gio, Gdk, GdkPixbuf
@@ -6,7 +7,7 @@ from gi.repository import Gtk, GLib, Gio, Gdk, GdkPixbuf
 from constants import SHARED_DATA_FILE
 from accountliststore import AccountColumn
 from plugins.twitter.account import AuthorizedTwitterAccount
-from utils.settings import SETTINGS
+from utils.settings import SETTINGS, SETTINGS_TWITTER
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
 
 
@@ -38,6 +39,11 @@ class UpdateWindow(UpdateWidgetBase):
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('update.glade'))
         self.media = MediaFile(gui)
+        self.config = AuthorizedTwitterAccount.CONFIG
+
+        host_re = '//[A-Za-z0-9\'~+\-=_.,/%\?!;:@#\*&\(\)]+'
+        self.http_re = re.compile("(http:%s)" % host_re)
+        self.https_re = re.compile("(https:%s)" % host_re)
 
         self.account_combobox = AccountCombobox(
             gui, mainwindow.liststore, account)
@@ -60,9 +66,8 @@ class UpdateWindow(UpdateWidgetBase):
         gui.connect_signals(self)
 
         if entry:
-            if not entry['protected']:
-                gui.get_object('image_secret').hide()
-
+            widget = 'buttonbox1' if entry.get('protected') else 'image_secret'
+            gui.get_object(widget).hide()
             self._download_user_icon_with_callback(gui, entry)
         else:
             gui.get_object('grid_entry').destroy()
@@ -143,20 +148,47 @@ class UpdateWindow(UpdateWidgetBase):
         self.child = widget
 
     def on_textbuffer_changed(self, text_buffer):
-        num = 140 - text_buffer.get_char_count() - self.media.get_link_letters()
-        self.label_num.set_text(str(num))
+        start, end = self.text_buffer.get_bounds()
 
-        status = bool(num != 140)
+        status = self.text_buffer.get_text(start, end, False).decode('utf-8')
+        status = self.http_re.sub("*"*self.config.short_url_length, status)
+        status = self.https_re.sub("*"*self.config.short_url_length_https, status)
+
+        num = 140 - len(status) - self.media.get_link_letters()
+
+        color = 'red' if num <= 10 else 'black'
+        text = '<span fgcolor="%s">%s</span>' % (color, str(num))
+        self.label_num.set_markup(text)
+
+        status = bool(0 <= num < 140)
         self.button_tweet.set_sensitive(status)
 
     def on_textview_key_press_event(self, textview, event):
-        if (event.keyval == Gdk.KEY_Return and 
-            'GDK_CONTROL_MASK' in event.state.value_names):
+        key = event.keyval
+        masks = event.state.value_names
 
+        if key == Gdk.KEY_Return and 'GDK_CONTROL_MASK' in masks:
             if self.button_tweet.get_sensitive():
                 self.on_button_tweet_clicked(None)
+        else:
+            return False
 
-            return True
+        return True
+
+    def on_button_link_clicked(self, textbuffer):
+        text = ' https://twitter.com/%s/status/%s' % (
+            self.entry['user_name'], self.entry['id'])
+        textbuffer.place_cursor(textbuffer.get_end_iter())
+        textbuffer.insert_at_cursor(text)
+
+    def on_button_quote_clicked(self, textbuffer):
+        quote_format = SETTINGS_TWITTER.get_string('quote-format')
+        text = quote_format.format(user=self.entry.get('user_name'), 
+                                   status=self.entry.get('status_body'))
+
+        textbuffer.delete(textbuffer.get_start_iter(), textbuffer.get_end_iter(),)
+        textbuffer.insert_at_cursor(text)
+        textbuffer.place_cursor(textbuffer.get_start_iter())
 
 class AccountCombobox(object):
 
@@ -243,7 +275,7 @@ class MediaFile(object):
         pixbuf = pixbuf_creator.get()
         pixbuf.savev(temp.name, image_type, [], [])
 
-        if os.path.getsize(temp.name) > int(self.config.photo_size_limit):
+        if os.path.getsize(temp.name) > self.config.photo_size_limit:
             pixbuf_creator = RotatedPixbufCreator(self.file, 1024)
             pixbuf = pixbuf_creator.get()
             pixbuf.savev(temp.name, image_type, [], [])
@@ -251,9 +283,7 @@ class MediaFile(object):
         return temp
 
     def get_link_letters(self):
-        media_link_letters = int(self.config.characters_reserved_per_media) \
-                if self.config else 10
-        return media_link_letters if self.file else 0
+        return self.config.characters_reserved_per_media if self.file else 0
 
 class FileChooserDialog(object):
 

@@ -1,5 +1,6 @@
-from ...twittytwister import twitter, txml
+from twisted.internet import defer
 from oauth import oauth
+from ...twittytwister import twitter, tjson
 
 from api import TwitterAPIDict
 from getauthtoken import CONSUMER
@@ -14,10 +15,27 @@ class TwitterIcon(WebIconImage):
         self.icon_name = 'twitter.ico'
         self.icon_url = 'http://www.twitter.com/favicon.ico'
 
+class TwitterConfig(DictObj):
+
+    def __init__(self):
+        self.d = { "characters_reserved_per_media": 23,
+                   "photo_size_limit": 3145728,
+                   "short_url_length_https": 23,
+                   "short_url_length": 22 }
+        self.is_updated = False
+
+    def update_config(self, api):
+        if not self.is_updated:
+            self.is_updated = True
+            api.configuration().addCallback(self._on_get_config)
+
+    def _on_get_config(self, data):
+        self.d.update(data)
+
 class AuthorizedTwitterAccount(AuthorizedAccount):
 
     SETTINGS = SETTINGS_TWITTER
-    CONFIG = None
+    CONFIG = TwitterConfig()
 
     def __init__(self, user_name, key, secret, idnum):
         super(AuthorizedTwitterAccount, self).__init__()
@@ -32,13 +50,8 @@ class AuthorizedTwitterAccount(AuthorizedAccount):
         self.icon = TwitterIcon()
         self.api_dict = TwitterAPIDict()
 
-        if not AuthorizedTwitterAccount.CONFIG:
-            self.api.configuration().addCallback(self._on_get_configuration)
-            pass
-
-    def _on_get_configuration(self, data):
-        AuthorizedTwitterAccount.CONFIG = DictObj(data)
-
+        AuthorizedTwitterAccount.CONFIG.update_config(self.api)
+        
     def _on_update_credential(self, account, unknown):
         token = self._get_token()
         self.api.update_token(token)
@@ -85,10 +98,40 @@ class Twitter(twitter.Twitter):
         return self.__get_json('/search/tweets.json', delegate, params,
                                extra_args=extra_args)
 
-    def related_results(self, delegate, params={}, extra_args=None):
-        statusid = params['id']
-        return self.__get_json('/related_results/show/%s.json' % statusid,
-                delegate, params, extra_args=extra_args)
+    def show(self, status_id, delegate, params=None, extra_args=None):
+        if params is None:
+            params = {}
+        params['id'] = str(status_id)
+
+        return self.__get_json('/statuses/show.json', delegate, params,
+            extra_args=extra_args)
+
+    def related_results(self, delegate, delegate_for_replyto, 
+                        params=None, extra_args=None):
+        status_id = params.get('in_reply_to_status_id')
+        from_user = params.get('from_user')
+        to_user = params.get('to_user')
+
+        query = '(from:%s to:%s) OR (from:%s to:%s)' % (
+            from_user, to_user, to_user, from_user)
+        defer = self.search(delegate, {'q': query, 'since_id': status_id})
+        defer.pause()
+
+        cb = lambda data: self._related_results_cb(
+            data, delegate_for_replyto, defer)
+        self.show(status_id, cb)
+
+        return defer
+
+    def _related_results_cb(self, data, delegate, defer):
+        in_reply_to_status_id = data.get('in_reply_to_status_id')
+        delegate(data)
+
+        if in_reply_to_status_id:
+            cb = lambda data: self._related_results_cb(data, delegate, defer)
+            self.show(in_reply_to_status_id, cb)
+        else:
+            defer.unpause()
 
     def fav(self, status_id):
         return self.__post('/favorites/create.json', {'id': status_id})
@@ -104,9 +147,17 @@ class Twitter(twitter.Twitter):
         if params:
             fields += params.items()
 
-        return self.__postMultipart(
-            'https://api.twitter.com/1.1/statuses/update_with_media.json',
-            fields=tuple(fields))
+        return self.__postMultipart('/statuses/update_with_media.json',
+                                    fields=tuple(fields))
+
+    def configuration(self):
+        url = '/help/configuration.json'
+        d = defer.Deferred()
+
+        self.__downloadPage(url, tjson.Parser(lambda u: d.callback(u))) \
+            .addErrback(lambda e: d.errback(e))
+
+        return d
 
     def update_token(self, token):
         self.use_auth = True
@@ -114,3 +165,7 @@ class Twitter(twitter.Twitter):
         self.consumer = CONSUMER
         self.token = token
         self.signature_method = oauth.OAuthSignatureMethod_HMAC_SHA1()
+
+    def __get_json(self, path, delegate, params, parser_factory=tjson.Parser, extra_args=None):
+        parser = parser_factory(delegate)
+        return self.__downloadPage(path, parser, params)

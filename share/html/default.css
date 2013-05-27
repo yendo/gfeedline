@@ -2,13 +2,13 @@ body { font-size: 10pt; }
 
 div.status { line-height: 1.4; 
              word-wrap: break-word; }
-div.target { padding-left: 1em;
-             font-size: 80%; 
-             color: gray; }
+div.target { padding-top: 8px; padding-left: 1em; font-size: 80%; color: gray; }
+div.child div.target { padding-left: 0em; padding-top: 6px; font-size: 100%; }
 
 div.event { background-color: LightGoldenrodYellow; }
 div.mine { background-color: MistyRose; }
 div.reply { background-color: Lavender; }
+div.child div.normaltweet { background-color: white; }
 
 .readmore-second, .command-second, .hidden { display: none; }
 .datetime, .datetime a, .retweet a { color: #606060 }
@@ -34,13 +34,10 @@ div.link-name a { font-weight: bold; }
 div.twitter .command { display: none; }
 div.twitter .togglelinks { position: absolute; margin-top: 2px; }
 div.twitter .datetime-dummy { display: block; visibility: hidden; }
-div.twitter .long-command, div.twitter .long-command a { color: blue; }
+div.twitter .long-command, div.twitter .long-command a { color: blue; 
+                                                         white-space: nowrap; }
 div.twitter .long-command a i { text-decoration: none; }  
 div.twitter .icon-lock { color: #999999; }
-
-@media screen and (max-width: 250px) {
-  div.twitter .long-command .label { display: none; }  
-}
 
 
 /* for tumblr */

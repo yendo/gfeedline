@@ -1,4 +1,53 @@
+2013-05-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py (TweetEntry): Fixed Twitter commands.
+	* facebook/entry.py: Removed invalid characters.
+
+2013-05-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py: Fixed retweet event bugs.
+	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme!
+	* po/nl_NL.po: Added new Dutch translation.  Thanks Heimen Stoffels!
+	* plugins/base/output.py: Fixed type ploblems of 'last_id'.
+
+2013-05-24  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 2.2 b1 release.
+
+2013-05-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.js: Added auto scroll to insertReplyed.
+
+2013-05-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py: Improved UI for quotation.
+
+2013-05-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py, view.py, html/gfeedline.js: Added support
+	  to insert tweets with in_reply_to_status_id.
+
+2013-05-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* plugins/twitter/*: Added support for view conversation with
+	  in_reply_to_status_id.
+
+2013-05-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/account.py, menu.py: Added an API for accessing with
+	  in_reply_to_status_id.
+	* twitter/api.py, twitter/output.py: Improved Twitter API access
+	  interval.
+
 2013-05-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/account.py (TwitterConfig): Improved Twitter
+	  configuration data object.
+	* updatewindow.py (UpdateWindow): Added support to insert quote on
+	  reply windows (issue #28).  Improved status letters counting for
+	  Twitter.
+
+2013-05-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.1.1 release.
 

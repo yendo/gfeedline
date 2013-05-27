@@ -36,6 +36,7 @@ class TumblrAuthAssistant(Gtk.Assistant):
 
         # page 1
         page1 = gui.get_object('label1')
+        page1.set_text(page1.get_text().decode('utf-8') % _('Tumblr'))
         self.append_page(page1)
 
         self.set_page_title(page1, _('Intro'))
@@ -57,6 +58,9 @@ class TumblrAuthAssistant(Gtk.Assistant):
 
         # page 3
         page3 = gui.get_object('box2')
+        confirm_label = gui.get_object('label6')
+        confirm_label.set_text(confirm_label.get_text().decode('utf-8') 
+                               % _('Tumblr'))
         self.append_page(page3)
 
         self.set_page_title(page3, _('Confirm'))

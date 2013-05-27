@@ -1,10 +1,11 @@
 #
 # gfeedline - A Social Networking Client
 #
-# Copyright (c) 2012, Yoshizumi Endo.
+# Copyright (c) 2012-2013, Yoshizumi Endo.
 # Licence: GPL3
 
-from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultsOutput
+from ...utils.settings import SETTINGS_TWITTER
+from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultOutput
 
 
 class TwitterAPIDict(dict):
@@ -17,11 +18,15 @@ class TwitterAPIDict(dict):
              TwitterAPIMentions,
              TwitterAPIDirectMessages,
              TwitterSearchAPI,
-             TwitterRelatedResults,
 
              TwitterAPIUserStream,
              TwitterAPITrack,
+
+             TwitterAPIRelatedResults,
              ]
+
+#        if SETTINGS_TWITTER.get_boolean('hometimeline-api'):
+#            all_api.append(TwitterAPIHomeTimeLine)
 
         for api in all_api:
             self[api.name] = api
@@ -35,10 +40,18 @@ class TwitterAPIBase(object):
     include_rt = True
     has_argument = False
     has_popup_menu = True
+    tooltip_for_argument = ''
+    
+    connections = 0
+    rate_limit = 15
 
     def __init__(self, account):
         self.account = account
         self.api = self._get_api()
+        self.__class__.connections += 1
+
+    def exit(self):
+        self.__class__.connections -= 1
 
     def get_options(self, argument):
         return {}
@@ -65,6 +78,7 @@ class TwitterAPIUserTimeLine(TwitterAPIBase):
 
     name = _('User TimeLine')
     has_argument = True
+    rate_limit = 180
 
     def _get_api(self):
         return self.account.api.user_timeline
@@ -76,6 +90,9 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
 
     name = _('List TimeLine')
     has_argument = True
+    rate_limit = 180
+    tooltip_for_argument = _('The format is "username/listname".  '
+                             'ex) yendo0206/gfeedline')
 
     def _get_api(self):
         return self.account.api.list_timeline
@@ -106,6 +123,21 @@ class TwitterAPIDirectMessages(TwitterAPIBase):
     def _get_api(self):
         return self.account.api.direct_messages
 
+class TwitterAPIRelatedResults(TwitterAPIBase):
+
+    name = _('Related Results')
+    output = TwitterRelatedResultOutput
+    has_argument = True
+
+    def _get_api(self):
+        return self.account.api.related_results
+
+    def get_options(self, argument):
+        args = argument.split('/')
+
+        return {'from_user': args[0], 'to_user': args[1],
+                'in_reply_to_status_id': args[2]} if len(args) >= 3 else {}
+            
 class TwitterAPIUserStream(TwitterFeedAPIBase):
 
     name = _('User Stream')
@@ -139,21 +171,10 @@ class TwitterSearchAPI(TwitterAPIBase):
     name = _('Search')
     include_rt = False
     has_argument = True
+    rate_limit = 180
 
     def _get_api(self):
         return self.account.api.search
 
     def get_options(self, argument):
         return {'q': argument}
-
-class TwitterRelatedResults(TwitterAPIBase):
-
-    output= TwitterRelatedResultsOutput
-    name = _('Related Results')
-    has_argument = True
-
-    def _get_api(self):
-        return self.account.api.related_results
-
-    def get_options(self, argument):
-        return {'id': argument.encode('utf-8')}

@@ -12,12 +12,13 @@ import webbrowser
 from twisted.internet import reactor
 from gi.repository import Gtk, Gio, WebKit
 
-from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU
+from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU, LINK_MENU_ITEMS
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS_VIEW
 from constants import SHARED_DATA_FILE, CONFIG_HOME
 from updatewindow import UpdateWindow
 from theme import FontSet
+
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
@@ -48,6 +49,7 @@ class FeedView(FeedScrolledWindow):
         self.notification = self.window.notification
 
         self.id_history = CacheList()
+        SETTINGS_VIEW.connect("changed::theme", self.id_history.clear)
 
     def append(self, notebook, page=-1):
         self.notebook = notebook
@@ -68,10 +70,12 @@ class FeedView(FeedScrolledWindow):
     def update(self, entry_dict, style='status', has_notify=False, 
                is_first_call=False, is_new_update=True):
 
-        is_dupulicated = entry_dict['id'] in self.id_history
-        self.id_history.append(entry_dict['id'])
-        if is_dupulicated:
-            return
+        if entry_dict.get('styles').find('event') < 0:
+            is_dupulicated = entry_dict['id'] in self.id_history
+            self.id_history.append(entry_dict['id'])
+
+            if is_dupulicated:
+                return
 
         text = self.theme.template[style].substitute(entry_dict)
 
@@ -79,7 +83,7 @@ class FeedView(FeedScrolledWindow):
             self.notification.notify(entry_dict)
 
         self.tab_label.set_sensitive(is_new_update)
-        self.webview.update(text)
+        self.webview.update(text, entry_dict.get('is_reversed'))
 
     def jump_to_bottom(self, is_bottom=True):
         self.webview.jump_to_bottom(is_bottom)
@@ -134,11 +138,14 @@ class FeedWebView(WebKit.WebView):
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         self.dnd.set(info, selection)
 
-    def update(self, text=None):
+    def update(self, text, is_reversed=False):
+        text = text.replace('\r', '') # Unexpected EOF
         text = text.replace('\n', '')
         text = text.replace('\\', '\\\\')
 
-        is_ascending_js = self._bool_js(self.theme.is_ascending())
+        is_ascending_js = self._bool_js(
+            not self.theme.is_ascending() 
+            if is_reversed else self.theme.is_ascending())
         is_paused_js = self._bool_js(self.scroll.is_paused)
 
         js = 'append("%s", %s, %s)' % (text, is_ascending_js, is_paused_js)
@@ -202,31 +209,18 @@ class FeedWebView(WebKit.WebView):
             return True
 
         if uri.startswith('gfeedlinetw:'):
-            button, entry_id = uri.split('/')[2:4]
+            button, entry_id, user = uri.split('/')[2:5]
+            myuri = 'gfeedline://twitter.com/%s/status/%s' % (user, entry_id)
+            com_dict = LINK_MENU_ITEMS()
 
-            replymenuitem = ENTRY_POPUP_MENU()[1](
-                None, self.api, self.scrolled_window)
-            retweetmenuitem = ENTRY_POPUP_MENU()[2](
-                None, self.api, self.scrolled_window)
-
-            if button == 'reply':
-                replymenuitem.on_activate(None, entry_id)
-            elif button == 'retweet':
-                retweetmenuitem.on_activate(None, entry_id)
-            elif button == 'fav':
-                twitter_account = self.api.account
-                twitter_account.api.fav(entry_id)
-            elif button == 'unfav':
-                twitter_account = self.api.account
-                twitter_account.api.unfav(entry_id)
+            if button in com_dict:
+                menuitem = com_dict[button](myuri, self.api, self.scrolled_window)
+                menuitem.on_activate(None, entry_id)
 
             return True
 
         if uri.startswith('gfeedline:'):
             uri = uri.replace('gfeedline:', 'https:')
-#        elif uri.startswith('gfeedlinereply:'):
-#            print "reply"
-#            button = -1
         else:
             uri = decode_html_entities(urllib.unquote(uri))
             uri = uri.replace('#', '%23') # for Twitter hash tags
@@ -335,3 +329,6 @@ class CacheList(list):
         super(CacheList, self).append(item)
         if len(self) >= self.num:
             self.pop(0)
+
+    def clear(self, *args):
+        del self[:]

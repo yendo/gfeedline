@@ -6,9 +6,20 @@ from updatewindow import UpdateWindow, RetweetDialog
 from preferences.filters import FilterDialog
 from utils.settings import SETTINGS_VIEW
 
+from plugins.twitter.output import DictObj
+from plugins.twitter.tweetentry import TweetEntry
 
 def ENTRY_POPUP_MENU():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem]
+    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
+            SearchConversationMenuItem]
+
+def LINK_MENU_ITEMS():
+    return {'reply': ReplyMenuItem,
+            'retweet': RetweetMenuItem,
+            'conversation': ConversationMenuItem,
+            'fav': FavMenuItem,
+            'unfav': UnFavMenuItem,
+            'moreconversation': SearchConversationMenuItem, }
 
 
 class PopupMenuItem(Gtk.MenuItem):
@@ -43,7 +54,7 @@ class PopupMenuItem(Gtk.MenuItem):
 
         entry_dict = dict(
             date_time=date_time,
-            id=entry_id,
+            id=entry_id.split('-')[0], # for replyed status
             image_uri=img_url,
             user_name=user_name,
             full_name=full_name,
@@ -79,9 +90,13 @@ class RetweetMenuItem(PopupMenuItem):
         self.account = api.account
 
         if uri:
-            entry_id = uri.split('/')[-1]
+            entry_id = self._get_entry_id(uri)
             dom = self.parent.webview.dom.get_element_by_id(entry_id)
             self.set_sensitive(self._is_enabled(dom))
+
+    def _get_entry_id(self, uri):
+        entry_id = uri.split('/')[-1]
+        return entry_id
 
     def _is_enabled(self, dom):
         is_mine = dom.get_attribute('class').count('mine')
@@ -105,18 +120,57 @@ class FavMenuItem(RetweetMenuItem):
         twitter_account = self.api.account
         twitter_account.api.fav(entry_id)
 
-class RelatedResultsMenuItem(RetweetMenuItem):
+class UnFavMenuItem(FavMenuItem):
 
-    LABEL = _('View _Conversation')
+    def on_activate(self, menuitem, entry_id):
+        twitter_account = self.api.account
+        twitter_account.api.unfav(entry_id)
+
+class ConversationMenuItem(RetweetMenuItem):
+
+    LABEL = _('Conversation')
+
+    def _get_entry_id(self, uri):
+        entry_id = uri.split('/')[-1]
+        entry_id = entry_id.split('-')[0]
+        return entry_id
 
     def _is_enabled(self, dom):
-        return bool(dom.get_attribute('data-inreplyto'))
+        in_reply_to = dom.get_attribute('data-inreplyto')
+        self.in_reply_to_screen_name, self.in_reply_to_status_id = \
+            in_reply_to.split('/') if in_reply_to else [None, None]
+
+        return bool(in_reply_to)
+
+    def on_activate(self, menuitem, entry_id):
+        entry_id, inreplyto_id = entry_id.split('-')
+
+        twitter_account = self.api.account
+        cb = lambda data: self._cb(data, entry_id)
+        twitter_account.api.show(self.in_reply_to_status_id, cb)
+
+    def _cb(self, data, entry_id):
+        data['id'] = "%s-%s" % (data['id'], entry_id)
+        entry = DictObj(data)
+        entry_dict = TweetEntry(entry).get_dict(self.api)
+        text = self.parent.theme.template['status'].substitute(entry_dict)
+
+        text = text.replace('\n', '')
+        text = text.replace('\\', '\\\\')
+
+        js = 'insertReplyed("%s", "%s")' % (text, entry_id)
+        # print js
+        self.parent.webview.execute_script(js)
+
+class SearchConversationMenuItem(ConversationMenuItem):
+
+    LABEL = _('View _Conversation')
 
     def _get_group_name(self):
         current_group_name = self.parent.webview.group_name
 
-        if not SETTINGS_VIEW.get_boolean('conversation-other-column'):
-            return current_group_name
+#        if not SETTINGS_VIEW.get_boolean('conversation-other-column'):
+#            return current_group_name
 
         group_list = self.parent.liststore.get_group_list()
         page = self.parent.liststore.get_group_page(current_group_name)
@@ -130,11 +184,14 @@ class RelatedResultsMenuItem(RetweetMenuItem):
 
     def on_activate(self, menuitem, entry_id):
         group_name = self._get_group_name()
+        username = self.api.account.user_name
+        to_user = self.in_reply_to_screen_name
+        argument = "%s/%s/%s" % (self.user, to_user, entry_id)
 
         source = {'source': 'Twitter',
-                  'argument': entry_id,
+                  'argument': argument,
                   'target': _('Related Results'),
-                  'username': self.api.account.user_name,
+                  'username': username,
                   'group': group_name,
                   'name': '@%s' % self.user,
                   'options': {}
