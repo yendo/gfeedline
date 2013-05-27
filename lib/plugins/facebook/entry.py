@@ -7,7 +7,7 @@ from ...utils.usercolor import UserColor
 from ...utils.timeformat import TimeFormat
 from ...utils.htmlentities import decode_html_entities
 from ...theme import Theme
-from ..twitter.tweetentry import AddedHtmlMarkup
+from ..base.entry import AddedHtmlMarkup
 
 user_color = UserColor()
 
