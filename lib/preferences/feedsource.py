@@ -280,9 +280,10 @@ class FeedSourceTreeview(TreeviewBase):
             self.gui.get_object('button_feed_del').set_sensitive(False)
 
         is_multi_column = SETTINGS_VIEW.get_boolean('multi-column')
-        all_obj = [x[Column.API] for x in model if not is_multi_column 
-                   or x[Column.GROUP].decode('utf-8') == self.group]
-        page = all_obj.index(self.api_obj)
+        all_view = [x[Column.API].view for x in model if not is_multi_column 
+                    or x[Column.GROUP].decode('utf-8') == self.group]
+        all_view = sorted(set(all_view), key=all_view.index)
+        page = all_view.index(self.api_obj.view)
 
         notebook = mainwindow.column.get_notebook_object(self.group)
         notebook.reorder_child(self.api_obj.view, page) # FIXME
