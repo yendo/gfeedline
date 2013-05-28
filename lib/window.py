@@ -96,7 +96,7 @@ class MainWindow(object):
         for row in self.liststore:
             notebook = self.get_notebook(row[Column.GROUP])
             view = row[Column.API].view
-            view.remove()
+            view.force_remove()
             view.append(notebook, -1)
 
         reactor.callLater(0.1, self._jump_all_tabs_to_bottom, 

@@ -72,7 +72,11 @@ class FeedListStore(ListStoreBase):
         return new_iter
 
     def _get_view(self, source, api, iter):
-        for row in self:
+        for i, row in enumerate(self):
+
+            if iter and i == int(str(self.get_path(iter))):
+                continue
+
             if (source.get('name') == row[Column.API].view.name and 
                 source.get('group') == row[Column.GROUP] and 
                 source.get('source') == row[Column.SOURCE]):

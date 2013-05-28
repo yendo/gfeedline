@@ -1,3 +1,8 @@
+2013-05-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* liststore.py, feedsource.py, view.py: Fixed multi-column related
+	  bugs.
+
 2013-05-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/tweetentry.py (TwitterEntities): Added support for

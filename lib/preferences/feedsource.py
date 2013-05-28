@@ -3,7 +3,7 @@ from gi.repository import Gtk
 from ..constants import Column
 from ..accountliststore import AccountColumn
 from ..utils.commonui import MultiAccountSensitiveWidget
-from ..utils.settings import SETTINGS
+from ..utils.settings import SETTINGS, SETTINGS_VIEW
 from ui import *
 
 class FeedSourceDialog(DialogBase):
@@ -279,11 +279,12 @@ class FeedSourceTreeview(TreeviewBase):
             self.gui.get_object('button_feed_prefs').set_sensitive(False)
             self.gui.get_object('button_feed_del').set_sensitive(False)
 
-        all_obj = [x[Column.API] for x in model 
-                   if x[Column.GROUP].decode('utf-8') == self.group]
+        is_multi_column = SETTINGS_VIEW.get_boolean('multi-column')
+        all_obj = [x[Column.API] for x in model if not is_multi_column 
+                   or x[Column.GROUP].decode('utf-8') == self.group]
         page = all_obj.index(self.api_obj)
 
-        notebook = mainwindow.column[self.group]
+        notebook = mainwindow.column.get_notebook_object(self.group)
         notebook.reorder_child(self.api_obj.view, page) # FIXME
 
         new_page = model.get_group_page(self.group)

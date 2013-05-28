@@ -63,9 +63,12 @@ class FeedView(FeedScrolledWindow):
     def remove(self):
         self.feed_counter -= 1
         if self.feed_counter == 0:
-            page = self.notebook.page_num(self)
-            print "removed %s page!" % page
-            self.notebook.remove_page(page)
+            self.force_remove()
+
+    def force_remove(self):
+        page = self.notebook.page_num(self)
+        print "removed %s page!" % page
+        self.notebook.remove_page(page)
 
     def update(self, entry_dict, style='status', has_notify=False, 
                is_first_call=False, is_new_update=True):
