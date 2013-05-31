@@ -1,5 +1,7 @@
 2013-05-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
 	* facebook/entry.py, facebook/output.py: Fixed Facebook unread flags.
 
 2013-05-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
