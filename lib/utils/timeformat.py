@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import dateutil.parser
+import time
 
 class TimeFormat(object):
 
@@ -14,3 +15,6 @@ class TimeFormat(object):
             else '%H:%M:%S'
 
         return self.local_time.strftime(datetime_format)
+
+    def get_epoch(self):
+        return int(time.mktime(self.utc.timetuple()))

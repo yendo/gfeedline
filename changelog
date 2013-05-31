@@ -1,3 +1,7 @@
+2013-05-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* facebook/entry.py, facebook/output.py: Fixed Facebook unread flags.
+
 2013-05-28  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* liststore.py, feedsource.py, view.py: Fixed multi-column related

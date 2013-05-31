@@ -69,9 +69,9 @@ class FacebookEntry(object):
                 '' if is_liked else 'hidden', unlikelink, _('Unlike'), 
                 permalink, _('Comment'))
 
-
         entry_dict = dict(
             date_time=time.get_local_time(),
+            epoch=time.get_epoch(),
             id=entry['id'],
             styles='facebook',
             image_uri='https://graph.facebook.com/%s/picture' % entry['from']['id'],
