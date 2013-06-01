@@ -196,6 +196,7 @@ class TwitterRestOutput(TwitterOutputBase):
         # FIXME
         interval = 15 * 60 / self.api.rate_limit * self.api.connections
         interval = 10 if interval < 10 else interval
+        interval *= 1.1
 
 #        print "time: %s, limit: %s/%s, connections: %s (%s), interval: %s" % (
 #            diff, rate_limit_remaining, rate_limit_limit, 
