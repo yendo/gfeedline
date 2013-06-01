@@ -1,3 +1,8 @@
+2013-06-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* accountliststore.py, feedsource.py: Fixed account data unicode
+	  problem. Thanks @esjima!
+
 2013-05-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!

@@ -68,8 +68,8 @@ class AccountListStore(ListStoreBase):
 
     def _get_matched_account(self, source, userid):
         for i, row in enumerate(self):
-            if row[AccountColumn.SOURCE] == source and \
-                    row[AccountColumn.ID] == userid:
+            if row[AccountColumn.SOURCE].decode('utf-8') == source and \
+                    row[AccountColumn.ID].decode('utf-8') == userid:
                 return i, row[AccountColumn.ACCOUNT]
         
         return None, None

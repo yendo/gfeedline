@@ -167,9 +167,8 @@ class SourceCombobox(object):
 
     def get_active_account(self):
         account = self.widget.get_model()[self.widget.get_active()]
-        print account
-        source, user_name = account[AccountColumn.SOURCE], \
-            account[AccountColumn.ID]
+        source = account[AccountColumn.SOURCE].decode('utf-8')
+        user_name = account[AccountColumn.ID].decode('utf-8')
         return source, user_name
 
     def get_active_account_obj(self):

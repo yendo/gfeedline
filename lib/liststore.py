@@ -42,10 +42,15 @@ class FeedListStore(ListStoreBase):
         account_obj = self.account_liststore.get_account_obj(
             source.get('source'), source.get('username'))
 
-        if account_obj:
-            api_class = account_obj.api_dict.get(source.get('target'))
-            if not api_class:
-                return
+        if not account_obj:
+            print "Error: ACCOUNT (%s, %s) is not found!" % (
+                source.get('source'), source.get('username'))
+            return
+
+        api_class = account_obj.api_dict.get(source.get('target'))
+        if not api_class:
+            print "Error: API (%s) is not found!" % source.get('target')
+            return
 
         api = api_class(account_obj)
         view = self._get_view(source, api, iter)
