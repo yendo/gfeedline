@@ -1,3 +1,7 @@
+2013-06-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 2.2 release.
+
 2013-06-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* accountliststore.py, feedsource.py: Fixed account data unicode
