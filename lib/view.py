@@ -98,6 +98,9 @@ class FeedView(FeedScrolledWindow):
         self.webview.clear_buffer()
         self.tab_label.set_sensitive(False)
 
+    def execute_script(self, js):
+        self.webview.execute_script(js)
+
 class FeedWebView(WebKit.WebView):
 
     def __init__(self, scrolled_window, api, group_name):

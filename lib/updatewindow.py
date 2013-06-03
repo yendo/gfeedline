@@ -359,6 +359,7 @@ class RetweetDialog(UpdateWidgetBase):
         self.twitter_account = account
 
     def run(self, entry, parent):
+        self.window = parent
         self.parent = parent.window
         self.has_multi_account = len(parent.liststore.account_liststore) > 1
 
@@ -409,5 +410,5 @@ class DeleteDialog(RetweetDialog):
         dialog.destroy()
 
     def _cb(self, data, *args):
-        print data['id']
-        #pass
+        status_id = data['id']
+        self.window.delete_status(status_id)

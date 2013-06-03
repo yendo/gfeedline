@@ -1,3 +1,8 @@
+2013-06-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, view.py, window.py, gfeedline.js: Added
+	  support for destroying statuses on Twitter.
+
 2013-06-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/account.py, twitter/tweetentry.py, updatewindow.py:
