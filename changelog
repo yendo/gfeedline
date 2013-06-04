@@ -1,3 +1,8 @@
+2013-06-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py, window.py: Added support for favicon.
+	  Added new GSettings key '/apps/gfeedline/view/favicon'.
+
 2013-06-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.2 release.

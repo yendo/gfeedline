@@ -52,6 +52,11 @@
       <summary>Timeline Font</summary>
       <description>Timeline Font</description>
     </key>
+    <key name="favicon" type="b">
+      <default>true</default>
+      <summary>Show favicon on each tab</summary>
+      <description>Show favicon on each tab</description>
+    </key>
     <key name="conversation-other-column" type="b">
       <default>false</default>
       <summary>Conversation view mode</summary>

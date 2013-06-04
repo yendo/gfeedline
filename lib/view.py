@@ -44,12 +44,13 @@ class FeedView(FeedScrolledWindow):
         self.theme = self.window.theme
         self.feed_counter = 1 # numbers of feeds
 
-        self.append(notebook, page)
         self.webview = FeedWebView(self, api, notebook.group_name)
         self.notification = self.window.notification
 
         self.id_history = CacheList()
         SETTINGS_VIEW.connect("changed::theme", self.id_history.clear)
+
+        self.append(notebook, page)
 
     def append(self, notebook, page=-1):
         self.notebook = notebook
