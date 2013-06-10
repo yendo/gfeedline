@@ -1,3 +1,8 @@
+2013-06-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* utils/previewer.py, view.py, twitter/tweetentry.py: Added
+	  support for GNOME sushi previewer.
+
 2013-06-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* view.py, window.py: Added support for favicon.

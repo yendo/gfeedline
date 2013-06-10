@@ -15,6 +15,7 @@ from gi.repository import Gtk, Gio, WebKit
 from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU, LINK_MENU_ITEMS
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS_VIEW
+from utils.previewer import NautilusPreviewer
 from constants import SHARED_DATA_FILE, CONFIG_HOME
 from updatewindow import UpdateWindow
 from theme import FontSet
@@ -225,6 +226,12 @@ class FeedWebView(WebKit.WebView):
                 menuitem.on_activate(None, entry_id)
 
             return True
+
+        if uri.startswith('gfeedlineimg'):
+            uri = uri.replace('gfeedlineimg', 'http')
+            parent = self.scrolled_window.window.window
+            if NautilusPreviewer().show_file(uri, parent):
+                return True
 
         if uri.startswith('gfeedline:'):
             uri = uri.replace('gfeedline:', 'https:')
