@@ -17,6 +17,7 @@ class TwitterAPIDict(dict):
              TwitterAPIListTimeLine,
              TwitterAPIMentions,
              TwitterAPIDirectMessages,
+             TwitterAPIFavoritesList,
              TwitterSearchAPI,
 
              TwitterAPIUserStream,
@@ -122,6 +123,13 @@ class TwitterAPIDirectMessages(TwitterAPIBase):
 
     def _get_api(self):
         return self.account.api.direct_messages
+
+class TwitterAPIFavoritesList(TwitterAPIBase):
+
+    name = _('Favorites')
+
+    def _get_api(self):
+        return self.account.api.fav_list
 
 class TwitterAPIRelatedResults(TwitterAPIBase):
 

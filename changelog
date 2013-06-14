@@ -1,5 +1,7 @@
 2013-06-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/account.py, twitter/api.py: Added support for Twitter
+	  favorites list (issue #39).
 	* facebook/entry.py: Improved strings in link boxes.
 	* facebook/entry.py, tumblr/entry.py: Added support for GNOME
 	  sushi previewer for Facebook & Tumblr.

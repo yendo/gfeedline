@@ -133,6 +133,10 @@ class Twitter(twitter.Twitter):
         else:
             defer.unpause()
 
+    def fav_list(self, delegate, params={}, extra_args=None):
+        return self.__get_json('/favorites/list.json', delegate, params,
+            extra_args=extra_args)
+
     def fav(self, status_id):
         return self.__post('/favorites/create.json', {'id': status_id})
 
