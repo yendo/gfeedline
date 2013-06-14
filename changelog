@@ -3,12 +3,26 @@
 	* twitter/tweetentry.py (DirectMessageEntry): Fixed a bug that
 	  prevented showing direct messages (issue #42).
 
+2013-06-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* utils/previewer.py, view.py, twitter/tweetentry.py: Added
+	  support for GNOME sushi previewer.
+
+2013-06-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py, window.py: Added support for favicon.
+	  Added new GSettings key '/apps/gfeedline/view/favicon'.
+
 2013-06-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.2 release.
+	* updatewindow.py, view.py, window.py, gfeedline.js: Added
+	  support for destroying statuses on Twitter.
 
 2013-06-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/account.py, twitter/tweetentry.py, updatewindow.py:
+	  Started implementation of destroying statuses on Twitter.
 	* accountliststore.py, feedsource.py: Fixed account data unicode
 	  problem. Thanks @esjima!
 

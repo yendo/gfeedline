@@ -110,6 +110,12 @@ class MainWindow(object):
         for notebook in self.column.values():
             notebook.change_font(font, size)
 
+    def delete_status(self, status_id):
+        js = 'hideStatus(\"%s\")' % status_id
+  
+        for notebook in self.column.values():
+            notebook.exec_js_all_views(js)
+
     def _get_geometry_from_settings(self):
         x = SETTINGS_GEOMETRY.get_int('window-x')
         y = SETTINGS_GEOMETRY.get_int('window-y')
@@ -271,6 +277,10 @@ class FeedNotebook(Gtk.Notebook):
         for feedview in self.get_children():
             feedview.change_font(font, size)
 
+    def exec_js_all_views(self, js):
+        for feedview in self.get_children():
+            feedview.execute_script(js)
+
 class NotebookTabLabel(Gtk.EventBox):
 
     def __init__(self, name, notebook, child):
@@ -279,8 +289,18 @@ class NotebookTabLabel(Gtk.EventBox):
         self.label = Gtk.Label.new_with_mnemonic(name)
         self.connect('button-press-event', self._on_button_press_cb, 
                      notebook, child)
+
+        box = Gtk.Box()
+
+        if SETTINGS_VIEW.get_boolean('favicon'):
+            icon_pixbuf = child.webview.api.account.icon.get_pixbuf()
+            icon = Gtk.Image.new_from_pixbuf(icon_pixbuf)
+            box.pack_start(icon, True, True, 2)
+
+        box.pack_start(self.label, True, True, 0)
+
         self.set_visible_window(False)
-        self.add(self.label)
+        self.add(box)
         self.show_all()
 
     def set_sensitive(self, status):

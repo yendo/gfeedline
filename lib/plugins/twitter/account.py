@@ -139,6 +139,10 @@ class Twitter(twitter.Twitter):
     def unfav(self, status_id):
         return self.__post('/favorites/destroy.json', {'id': status_id})
 
+    def destroy(self, status_id, delegate):
+        parser = tjson.Parser(delegate)
+        return self.__postPage('/statuses/destroy/%s.json' % status_id, parser)
+
     def update_with_media(self, status, image_file, params=None):
         with open(image_file, 'rb') as fh:
             image_binary = fh.read()

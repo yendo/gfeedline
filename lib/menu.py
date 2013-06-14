@@ -2,7 +2,7 @@ import webbrowser
 
 from gi.repository import Gtk, Gdk
 
-from updatewindow import UpdateWindow, RetweetDialog
+from updatewindow import UpdateWindow, RetweetDialog, DeleteDialog
 from preferences.filters import FilterDialog
 from utils.settings import SETTINGS_VIEW
 
@@ -11,7 +11,7 @@ from plugins.twitter.tweetentry import TweetEntry
 
 def ENTRY_POPUP_MENU():
     return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
-            SearchConversationMenuItem]
+            DeleteMenuItem, SearchConversationMenuItem]
 
 def LINK_MENU_ITEMS():
     return {'reply': ReplyMenuItem,
@@ -19,6 +19,7 @@ def LINK_MENU_ITEMS():
             'conversation': ConversationMenuItem,
             'fav': FavMenuItem,
             'unfav': UnFavMenuItem,
+            'delete': DeleteMenuItem,
             'moreconversation': SearchConversationMenuItem, }
 
 
@@ -106,6 +107,20 @@ class RetweetMenuItem(PopupMenuItem):
     def on_activate(self, menuitem, entry_id):
         entry_dict = self._get_entry_from_dom(entry_id)
         dialog = RetweetDialog(self.account)
+
+        dialog.run(entry_dict, self.parent.window)
+
+class DeleteMenuItem(RetweetMenuItem):
+
+    LABEL = _('_Delete')
+
+    def _is_enabled(self, dom):
+        is_mine = dom.get_attribute('class').count('mine')
+        return is_mine
+
+    def on_activate(self, menuitem, entry_id):
+        entry_dict = self._get_entry_from_dom(entry_id)
+        dialog = DeleteDialog(self.account)
 
         dialog.run(entry_dict, self.parent.window)
 

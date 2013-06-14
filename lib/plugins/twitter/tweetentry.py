@@ -113,6 +113,7 @@ class TweetEntry(object):
 
         replylink =   'gfeedlinetw://reply/%s' % entry_info
         retweetlink = 'gfeedlinetw://retweet/%s' % entry_info
+        deletelink =  'gfeedlinetw://delete/%s' % entry_info
         favlink =     'gfeedlinetw://fav/%s' % entry_info
         unfavlink =   'gfeedlinetw://unfav/%s' % entry_info
         morelink =    'gfeedlinetw://more/%s' % entry_info
@@ -127,6 +128,10 @@ class TweetEntry(object):
             if hasattr(entry.user, 'protected') else entry.user.get('protected')
         if not is_protected and api.account.user_name != user.screen_name:
             commands += "<a href='%s' title='%s'><i class='icon-retweet icon-large'></i><span class='label'>%s</span></a> " % (retweetlink, _('Retweet'), _('Retweet'))
+
+        # Delete
+        if api.account.user_name == user.screen_name:
+            commands += "<a href='%s' title='%s'><i class='icon-trash icon-large'></i><span class='label'>%s</span></a> " % (deletelink, _('Delete'), _('Delete'))
 
         # Favorite
         commands += (
@@ -419,6 +424,12 @@ class TwitterEntities(object):
                 expanded_url = v['expanded_url']
                 alt = "<a href='%s' title='%s'>%s</a>" % (
                     expanded_url, expanded_url, v['display_url'])
+
+                if expanded_url.startswith("http://twitpic.com/"):
+                    twitpic_id = expanded_url.replace("http://twitpic.com/", '')
+                    url = 'http://twitpic.com/show/%s/' + twitpic_id
+                    text = self._add_image(text, url % 'full', url % 'thumb')
+
                 if expanded_url.endswith((".jpg", ".jpeg", ".png", ".gif")):
                     text = self._add_image(text, expanded_url, expanded_url)
 
@@ -434,7 +445,8 @@ class TwitterEntities(object):
 
             elif entity == 'media':
                 alt = "<a href='%s'>%s</a>" % (v['expanded_url'], v['display_url'])
-                text = self._add_image(text, v['expanded_url'], v['media_url_https'])
+                text = self._add_image(text, v['media_url_https'], 
+                                       v['media_url_https'])
 
             else:
                 alt = text[start+offset:end+offset]
@@ -453,6 +465,7 @@ class TwitterEntities(object):
         return text
 
     def _add_image(self, text, link_url, image_url):
+        link_url = link_url.replace('http', 'gfeedlineimg', 1)
         img = ("<div class='image'>"
                "<a href='%s'><img src='%s' height='90'></a></div>") % (
             link_url, image_url)

@@ -359,6 +359,7 @@ class RetweetDialog(UpdateWidgetBase):
         self.twitter_account = account
 
     def run(self, entry, parent):
+        self.window = parent
         self.parent = parent.window
         self.has_multi_account = len(parent.liststore.account_liststore) > 1
 
@@ -386,3 +387,28 @@ class RetweetDialog(UpdateWidgetBase):
     def _on_retweet_status(self, *args):
         #print args
         pass
+
+class DeleteDialog(RetweetDialog):
+
+    def _run(self, unknown, gui, entry, icon, *args):
+        self._set_ui(gui, entry, icon)
+
+        dialog = gui.get_object('messagedialog')
+        screen_name = self.twitter_account.user_name
+
+        text1 = '<big><b>%s</b></big>' % _('Delete this tweet?')
+        text2 = _('Are you sure you want to delete this Tweet?')
+
+        dialog.set_markup(text1)
+        dialog.format_secondary_text(text2)
+        dialog.set_transient_for(self.parent)
+        response_id = dialog.run()
+
+        if response_id == Gtk.ResponseType.YES:
+            self.twitter_account.api.destroy(entry['id'], self._cb)
+
+        dialog.destroy()
+
+    def _cb(self, data, *args):
+        status_id = data['id']
+        self.window.delete_status(status_id)
