@@ -447,7 +447,7 @@ class TwitterEntities(object):
                     'user-mentions', url, v['name'], v['screen_name'])
 
             elif entity == 'hashtags':
-                url = 'https://twitter.com/search?q=%23' + v['text']
+                url = 'gfeedlinetw://hashtag/#%s/' % v['text']
                 alt = "<span class='%s'>#<a href='%s'>%s</a></span>" % (
                     'hashtags', url, v['text'])
 

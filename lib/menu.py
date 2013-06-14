@@ -5,6 +5,7 @@ from gi.repository import Gtk, Gdk
 from updatewindow import UpdateWindow, RetweetDialog, DeleteDialog, DeleteDirectMessageDialog
 from preferences.filters import FilterDialog
 from utils.settings import SETTINGS_VIEW
+from utils.htmlentities import decode_url_entities
 
 from plugins.twitter.output import DictObj
 from plugins.twitter.tweetentry import TweetEntry
@@ -21,6 +22,7 @@ def LINK_MENU_ITEMS():
             'unfav': UnFavMenuItem,
             'delete': DeleteMenuItem,
             'deletedm': DeleteDirectMessageMenuItem,
+            'hashtag': TrackHashTagMenuItem,
             'moreconversation': SearchConversationMenuItem, }
 
 
@@ -218,6 +220,29 @@ class SearchConversationMenuItem(ConversationMenuItem):
                   'username': username,
                   'group': group_name,
                   'name': '@%s' % self.user,
+                  'options': {}
+                  }
+        self.parent.liststore.append(source)
+
+        notebook = self.parent.window.column.get_notebook_object(group_name)
+        notebook.set_current_page(-1)
+
+class TrackHashTagMenuItem(SearchConversationMenuItem):
+
+    def _is_enabled(self, dom):
+        return False
+
+    def on_activate(self, menuitem, entry_id):
+        group_name = self._get_group_name()
+        username = self.api.account.user_name
+        hashtag = decode_url_entities(entry_id)
+
+        source = {'source': 'Twitter',
+                  'argument': hashtag,
+                  'target': _('Search'),
+                  'username': username,
+                  'group': group_name,
+                  'name': hashtag,
                   'options': {}
                   }
         self.parent.liststore.append(source)
