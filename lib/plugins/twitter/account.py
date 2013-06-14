@@ -143,6 +143,11 @@ class Twitter(twitter.Twitter):
         parser = tjson.Parser(delegate)
         return self.__postPage('/statuses/destroy/%s.json' % status_id, parser)
 
+    def dm_destroy(self, status_id, delegate):
+        parser = tjson.Parser(delegate)
+        return self.__postPage('/direct_messages/destroy.json', 
+                               parser,  {'id': status_id})
+
     def update_with_media(self, status, image_file, params=None):
         with open(image_file, 'rb') as fh:
             image_binary = fh.read()

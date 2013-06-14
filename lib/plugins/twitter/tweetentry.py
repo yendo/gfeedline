@@ -245,7 +245,15 @@ class DirectMessageEntry(TweetEntry):
         return DictObj(self.entry.sender)
 
     def _get_commands(self, entry, user, api):
-        return ''
+        entry_info = '%s/%s' % (entry.id, user.screen_name)
+
+        # replylink =   'gfeedlinetw://replydm/%s' % entry_info
+        deletelink =  'gfeedlinetw://deletedm/%s' % entry_info
+
+        # Delete
+        commands = "<a href='%s' title='%s'><i class='icon-trash icon-large'></i><span class='label'>%s</span></a> " % (deletelink, _('Delete'), _('Delete'))
+
+        return commands
 
     def _get_styles(self, api, screen_name, entry):
         return ''

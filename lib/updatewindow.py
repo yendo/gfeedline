@@ -396,19 +396,36 @@ class DeleteDialog(RetweetDialog):
         dialog = gui.get_object('messagedialog')
         screen_name = self.twitter_account.user_name
 
-        text1 = '<big><b>%s</b></big>' % _('Delete this tweet?')
-        text2 = _('Are you sure you want to delete this Tweet?')
-
-        dialog.set_markup(text1)
+        text1, text2 = self._get_messages()
+        dialog.set_markup('<big><b>%s</b></big>' % text1)
         dialog.format_secondary_text(text2)
         dialog.set_transient_for(self.parent)
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
-            self.twitter_account.api.destroy(entry['id'], self._cb)
-
+            delete_method = self._get_delete_method()
+            delete_method(entry['id'], self._cb)
+            print "del!"
         dialog.destroy()
+
+    def _get_messages(self):
+        text1 = _('Delete this tweet?')
+        text2 = _('Are you sure you want to delete this Tweet?')
+        return text1, text2
+
+    def _get_delete_method(self):
+        return self.twitter_account.api.destroy
 
     def _cb(self, data, *args):
         status_id = data['id']
         self.window.delete_status(status_id)
+
+class DeleteDirectMessageDialog(DeleteDialog):
+
+    def _get_messages(self):
+        text1 = _('Delete this message?')
+        text2 = _('Are you sure you want to delete this message?')
+        return text1, text2
+
+    def _get_delete_method(self):
+        return self.twitter_account.api.dm_destroy

@@ -2,7 +2,7 @@ import webbrowser
 
 from gi.repository import Gtk, Gdk
 
-from updatewindow import UpdateWindow, RetweetDialog, DeleteDialog
+from updatewindow import UpdateWindow, RetweetDialog, DeleteDialog, DeleteDirectMessageDialog
 from preferences.filters import FilterDialog
 from utils.settings import SETTINGS_VIEW
 
@@ -20,6 +20,7 @@ def LINK_MENU_ITEMS():
             'fav': FavMenuItem,
             'unfav': UnFavMenuItem,
             'delete': DeleteMenuItem,
+            'deletedm': DeleteDirectMessageMenuItem,
             'moreconversation': SearchConversationMenuItem, }
 
 
@@ -121,6 +122,14 @@ class DeleteMenuItem(RetweetMenuItem):
     def on_activate(self, menuitem, entry_id):
         entry_dict = self._get_entry_from_dom(entry_id)
         dialog = DeleteDialog(self.account)
+
+        dialog.run(entry_dict, self.parent.window)
+
+class DeleteDirectMessageMenuItem(DeleteMenuItem):
+
+    def on_activate(self, menuitem, entry_id):
+        entry_dict = self._get_entry_from_dom(entry_id)
+        dialog = DeleteDirectMessageDialog(self.account)
 
         dialog.run(entry_dict, self.parent.window)
 

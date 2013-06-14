@@ -1,5 +1,7 @@
 2013-06-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* menu.py, updatewindow.py, twitter/account.py: Added support for
+	  deleting Twitter direct messages.
 	* twitter/tweetentry.py (DirectMessageEntry): Fixed a bug that
 	  prevented showing direct messages (issue #42).
 
