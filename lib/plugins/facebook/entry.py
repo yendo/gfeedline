@@ -37,7 +37,9 @@ class FacebookEntry(object):
 
         if entry['type'] == 'photo':
             template = self.theme.template['image']
-            key_dict = {'url': entry['picture']}
+            url = entry['picture']
+            link = url.replace('http', 'gfeedlineimg').replace('_s.', '_n.')
+            key_dict = {'url': url, 'link': link}
             body += template.substitute(key_dict)
 
         if entry.get('description'):

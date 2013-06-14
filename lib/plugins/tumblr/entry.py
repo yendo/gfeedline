@@ -141,10 +141,13 @@ class TumblrPhotosEntry(TumblrEntry):
         # template = self.theme.template['image']
 
         for photo in entry['photos']:
-            url =  photo['alt_sizes'][2]['url']
+            small =  photo['alt_sizes'][2]['url']
+            link =  photo['alt_sizes'][0]['url'].replace('http', 'gfeedlineimg', 1)
+
             # key_dict = {'url': url}
             # new_body += template.substitute(key_dict)
-            new_body += "<img height='90' src='%s'>" % url
+            new_body += "<a href='%s'><img height='90' src='%s'></a>" % (
+                link, small)
 
         new_body += "</div>" + body
 
@@ -196,7 +199,8 @@ class TumblrAudioEntry(TumblrEntry):
 
         if image:
             template = self.theme.template['image']
-            key_dict = {'url': image}
+            key_dict = {'url': image, 'link': entry.get('post_url')}
+
             body += template.substitute(key_dict)
 
         body += self._get_body(entry)
@@ -209,7 +213,8 @@ class TumblrVideoEntry(TumblrEntry):
         body = self._get_body(entry)
 
         template = self.theme.template['image']
-        key_dict = {'url': entry.get('thumbnail_url')}
+        key_dict = {'url': entry.get('thumbnail_url'), 
+                    'link': entry.get('post_url')}
         body = template.substitute(key_dict) + body
         return self._get_entry_dict(entry, body)
 
