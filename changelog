@@ -1,5 +1,6 @@
 2013-06-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* facebook/entry.py: Improved strings in link boxes.
 	* facebook/entry.py, tumblr/entry.py: Added support for GNOME
 	  sushi previewer for Facebook & Tumblr.
 	* menu.py, updatewindow.py, twitter/account.py: Added support for

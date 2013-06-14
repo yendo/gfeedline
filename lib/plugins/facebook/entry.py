@@ -45,8 +45,8 @@ class FacebookEntry(object):
         if entry.get('description'):
             template = self.theme.template['linkbox']
             key_dict = {'url': entry.get('link'),
-                        'name': entry.get('name') or '',
-                        'caption': entry.get('caption') or '',
+                        'name': add_markup.cut(entry.get('name')),
+                        'caption': add_markup.cut(entry.get('caption')),
                         'description': add_markup.convert(entry.get('description'))
                         }
             body += template.substitute(key_dict).replace('\r', '') # Unexpected EOF
@@ -155,6 +155,7 @@ class AddedFacebookHtmlMarkup(AddedHtmlMarkup):
 
     def convert(self, text):
         text = super(AddedFacebookHtmlMarkup, self).convert(text)
+        is_matched = self.new_lines.match(text)
 
         text = self.new_lines.sub(
             ("\\1"
@@ -165,7 +166,23 @@ class AddedFacebookHtmlMarkup(AddedHtmlMarkup):
              "<a href='#' onclick='readMore(this); return false;'>%s</a>"
              "</span>") % (_('See more'), _('See less')), 
             text)
+
+        if not is_matched:
+            text = self._cut(text, 200)
+
         text = text.replace('\n', '<br>')
+        return text
+
+    def cut(self, text):
+        if not text:
+            return ''
+
+        text = super(AddedFacebookHtmlMarkup, self).convert(text)
+        return self._cut(text)
+
+    def _cut(self, text, num=100):
+        if len(text) > num: 
+            text = text[:num] + '...'
         return text
 
 add_markup = AddedFacebookHtmlMarkup()
