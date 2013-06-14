@@ -452,9 +452,10 @@ class TwitterEntities(object):
                     'hashtags', url, v['text'])
 
             elif entity == 'media':
+                height = self._get_image_height(v['sizes']['large'])
                 alt = "<a href='%s'>%s</a>" % (v['expanded_url'], v['display_url'])
-                text = self._add_image(text, v['media_url_https'], 
-                                       v['media_url_https'])
+                url = v['media_url_https']
+                text = self._add_image(text, url+":large", url+":small", height)
 
             else:
                 alt = text[start+offset:end+offset]
@@ -472,13 +473,21 @@ class TwitterEntities(object):
 
         return text
 
-    def _add_image(self, text, link_url, image_url):
+    def _add_image(self, text, link_url, image_url, height=90):
         link_url = link_url.replace('http', 'gfeedlineimg', 1)
         img = ("<div class='image'>"
-               "<a href='%s'><img src='%s' height='90'></a></div>") % (
-            link_url, image_url)
+               "<a href='%s'><img src='%s' height='%s'></a></div>") % (
+            link_url, image_url, height)
         text = text + img
         return text
+
+    def _get_image_height(self, image):
+        w = image['w']
+        h = image['h']
+
+        tmp_h = 160 * h / w
+        new_h = tmp_h if w > h and tmp_h < 90 else 90
+        return new_h
 
 class DictObj(object):
 
