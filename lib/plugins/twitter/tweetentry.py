@@ -90,6 +90,8 @@ class TweetEntry(object):
             user_name=user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
+            user_description=user.description,
+
             protected=self._get_protected_icon(user.protected),
             source=self._get_source(entry),
 
@@ -322,6 +324,8 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             user_name=user['screen_name'],
             full_name=user['name'],
             user_color=user_color.get(user['screen_name']),
+            user_description=user.description,
+
             protected=self._get_protected_icon(user['protected']),
             source=self._decode_source_html_entities(self.original_entry.source),
             permalink="https://twitter.com/%s" % user['screen_name'],
@@ -386,6 +390,8 @@ class FeedEventEntry(TweetEntry):
             user_name=entry.source.screen_name,
             full_name=entry.source.name,
             user_color=user_color.get(entry.source.screen_name),
+            user_description=user.description,
+
             protected=self._get_protected_icon(entry.source.protected),
             source='',
             permalink="https://twitter.com/%s" % entry.source.screen_name,

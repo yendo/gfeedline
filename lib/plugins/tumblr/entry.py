@@ -110,6 +110,7 @@ class TumblrEntry(object):
             user_name2='',
             full_name=entry['blog_name'],
             user_color=user_color.get(entry['blog_name']),
+            user_description='',
             protected="<div class='tumblrbuttons'>%s</div>" % command,
             source='',
 

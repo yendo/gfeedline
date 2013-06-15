@@ -97,6 +97,7 @@ class FacebookEntry(object):
             user_name2='', # entry['type'],
             full_name=entry['from']['name'],
             user_color=user_color.get(entry['from']['name']),
+            user_description='',
             protected='',
             source='',
 
