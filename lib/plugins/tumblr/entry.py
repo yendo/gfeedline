@@ -83,6 +83,7 @@ class TumblrEntry(object):
                 entry['blog_name'], _(post_type.get(entry['type'])))
 
         # print entry['type'], popup_body
+        url = entry['post_url'].split('/')
 
         entry_dict = dict(
             date_time=TimeFormat(entry['date']).get_local_time(),
@@ -90,7 +91,7 @@ class TumblrEntry(object):
             styles='tumblr',
             image_uri=image_uri,
             permalink=entry['post_url'],
-            userlink=entry['post_url'],
+            userlink="%s://%s" % (url[0], url[2]),
 
             command='',
             onmouseover='',

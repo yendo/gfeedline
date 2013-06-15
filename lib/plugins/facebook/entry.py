@@ -78,7 +78,7 @@ class FacebookEntry(object):
             styles='facebook',
             image_uri='https://graph.facebook.com/%s/picture' % entry['from']['id'],
             permalink=permalink,
-            userlink=permalink,
+            userlink='http://www.facebook.com/%s' % userid,
 
             command=command,
             onmouseover='',
