@@ -36,6 +36,8 @@ class TweetEntryDict(dict):
         if key == 'permalink' and 'permalink' not in self:
             val = 'gfeedline://twitter.com/%s/status/%s' % (
                 self['user_name'], self._get_entry_id(self['id']))
+        elif key == 'userlink':
+            val = 'gfeedlinetw://user/%s/' % self['user_name']
         elif key == 'user_name2':
             val = '@'+self['user_name']
         else:
@@ -442,7 +444,7 @@ class TwitterEntities(object):
                     text = self._add_image(text, expanded_url, expanded_url)
 
             elif entity == 'user_mentions':
-                url = 'https://twitter.com/%s' %  v['screen_name']
+                url = 'gfeedlinetw://user/%s/' % v['screen_name']
                 alt = "<span class='%s'>@<a href='%s' title='%s'>%s</a></span>" % (
                     'user-mentions', url, v['name'], v['screen_name'])
 

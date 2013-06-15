@@ -1,3 +1,8 @@
+2013-06-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* menu.py, twitter/tweetentry.py: Added support for opening new
+	  tabs from Twittter user icons (issue #37).
+
 2013-06-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/tweetentry.py, menu.py: Added support for opening new

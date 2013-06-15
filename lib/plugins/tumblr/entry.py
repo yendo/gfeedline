@@ -90,6 +90,7 @@ class TumblrEntry(object):
             styles='tumblr',
             image_uri=image_uri,
             permalink=entry['post_url'],
+            userlink=entry['post_url'],
 
             command='',
             onmouseover='',

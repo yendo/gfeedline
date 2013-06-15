@@ -23,6 +23,7 @@ def LINK_MENU_ITEMS():
             'delete': DeleteMenuItem,
             'deletedm': DeleteDirectMessageMenuItem,
             'hashtag': TrackHashTagMenuItem,
+            'user': ShowUserMenuItem,
             'moreconversation': SearchConversationMenuItem, }
 
 
@@ -243,6 +244,25 @@ class TrackHashTagMenuItem(SearchConversationMenuItem):
                   'username': username,
                   'group': group_name,
                   'name': hashtag,
+                  'options': {}
+                  }
+        self.parent.liststore.append(source)
+
+        notebook = self.parent.window.column.get_notebook_object(group_name)
+        notebook.set_current_page(-1)
+
+class ShowUserMenuItem(TrackHashTagMenuItem):
+
+    def on_activate(self, menuitem, entry_id):
+        group_name = self._get_group_name()
+        username = self.api.account.user_name
+
+        source = {'source': 'Twitter',
+                  'argument': entry_id,
+                  'target': _('User TimeLine'),
+                  'username': username,
+                  'group': group_name,
+                  'name': "@"+entry_id,
                   'options': {}
                   }
         self.parent.liststore.append(source)
