@@ -1,5 +1,7 @@
 2013-06-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* updatewindow.py, share/update.glade: Added support for spell
+	  checker with python-gtkspellcheck (issue #11).
 	* twitter/api.py, preferences/feedsource.py: Added a new option
 	  for including retweets in List/User TimeLine.
 

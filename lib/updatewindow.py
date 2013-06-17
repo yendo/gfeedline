@@ -1,8 +1,10 @@
 import os
 import re
 import tempfile
+import locale
 
 from gi.repository import Gtk, GLib, Gio, Gdk, GdkPixbuf
+from gtkspellcheck import SpellChecker
 
 from constants import SHARED_DATA_FILE
 from accountliststore import AccountColumn
@@ -63,6 +65,11 @@ class UpdateWindow(UpdateWidgetBase):
         self.text_buffer = gui.get_object('textbuffer')
         self.on_textbuffer_changed(self.text_buffer)
 
+        textview = gui.get_object('textview')
+        self.spellchecker = SpellChecker(textview, locale.getdefaultlocale()[0])
+        if not SETTINGS.get_boolean('spell-checker'):
+            self.spellchecker.disable()
+
         gui.connect_signals(self)
 
         if entry:
@@ -85,6 +92,23 @@ class UpdateWindow(UpdateWidgetBase):
     def set_upload_media(self, file):
         self.media.set(file)
         self.on_textbuffer_changed(self.text_buffer)
+
+    def on_textview_populate_popup(self, textview, default_menu):
+        menuitem = Gtk.CheckMenuItem.new_with_mnemonic('Check _Spelling')
+        menuitem.connect("toggled", self._toggle)
+
+        is_enbled = SETTINGS.get_boolean('spell-checker')
+        menuitem.set_active(is_enbled)
+        menuitem.show()
+        default_menu.prepend(menuitem)
+
+    def _toggle(self, menuitem):
+        state = menuitem.get_active()
+        SETTINGS.set_boolean('spell-checker', state)
+        if state:
+            self.spellchecker.enable()
+        else:
+            self.spellchecker.disable()
 
     def on_button_tweet_clicked(self, button):
         start, end = self.text_buffer.get_bounds()

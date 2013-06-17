@@ -6,6 +6,11 @@
       <summary>Window sticky mode</summary>
       <description>Always on Visible Workspace</description>
     </key>
+    <key name="spell-checker" type="b">
+      <default>false</default>
+      <summary>Spell Checker</summary>
+      <description>Enable Spell Checker</description>
+    </key>
     <key name="update-window-keep-above" type="b">
       <default>true</default>
       <summary>Update window set keep above</summary>
