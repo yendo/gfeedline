@@ -293,7 +293,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">Ctrl+Enter</property>
+                    <property name="tooltip_text" translatable="yes">Update (Ctrl+Enter)</property>
                     <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_button_tweet_clicked" swapped="no"/>
