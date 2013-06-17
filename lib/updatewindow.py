@@ -372,29 +372,6 @@ class RetweetDialog(UpdateWidgetBase):
 
         dialog = gui.get_object('messagedialog')
         screen_name = self.twitter_account.user_name
-        text = _("Retweet this to your (%s's) followers?") % screen_name \
-            if self.has_multi_account else _("Retweet this to your followers?") 
-
-        dialog.format_secondary_text(text)
-        dialog.set_transient_for(self.parent)
-        response_id = dialog.run()
-
-        if response_id == Gtk.ResponseType.YES:
-            self.twitter_account.api.retweet(entry['id'], self._on_retweet_status)
-
-        dialog.destroy()
-
-    def _on_retweet_status(self, *args):
-        #print args
-        pass
-
-class DeleteDialog(RetweetDialog):
-
-    def _run(self, unknown, gui, entry, icon, *args):
-        self._set_ui(gui, entry, icon)
-
-        dialog = gui.get_object('messagedialog')
-        screen_name = self.twitter_account.user_name
 
         text1, text2 = self._get_messages()
         dialog.set_markup('<big><b>%s</b></big>' % text1)
@@ -403,18 +380,33 @@ class DeleteDialog(RetweetDialog):
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
-            delete_method = self._get_delete_method()
-            delete_method(entry['id'], self._cb)
-            print "del!"
+            self._delete_method(entry['id'])
         dialog.destroy()
+
+    def _delete_method(self, entry_id):
+        self.twitter_account.api.retweet(entry_id, self._cb)
+
+    def _get_messages(self):
+        screen_name = self.twitter_account.user_name
+        text1 = _('Retweet?')
+        text2 = _("Retweet this to your (%s's) followers?") % screen_name \
+            if self.has_multi_account else _("Retweet this to your followers?") 
+
+        return text1, text2
+
+    def _cb(self, *args):
+        #print args
+        pass
+
+class DeleteDialog(RetweetDialog):
 
     def _get_messages(self):
         text1 = _('Delete this tweet?')
         text2 = _('Are you sure you want to delete this Tweet?')
         return text1, text2
 
-    def _get_delete_method(self):
-        return self.twitter_account.api.destroy
+    def _delete_method(self, entry_id):
+        self.twitter_account.api.destroy(entry_id, self._cb)
 
     def _cb(self, data, *args):
         status_id = data['id']
@@ -427,5 +419,5 @@ class DeleteDirectMessageDialog(DeleteDialog):
         text2 = _('Are you sure you want to delete this message?')
         return text1, text2
 
-    def _get_delete_method(self):
-        return self.twitter_account.api.dm_destroy
+    def _delete_method(self, entry_id):
+        self.twitter_account.api.dm_destroy(entry_id, self._cb)
