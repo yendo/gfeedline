@@ -4,7 +4,11 @@ import tempfile
 import locale
 
 from gi.repository import Gtk, GLib, Gio, Gdk, GdkPixbuf
-from gtkspellcheck import SpellChecker
+
+try:
+    from gtkspellcheck import SpellChecker
+except ImportError:
+    SpellChecker = False
 
 from constants import SHARED_DATA_FILE
 from accountliststore import AccountColumn
@@ -66,9 +70,11 @@ class UpdateWindow(UpdateWidgetBase):
         self.on_textbuffer_changed(self.text_buffer)
 
         textview = gui.get_object('textview')
-        self.spellchecker = SpellChecker(textview, locale.getdefaultlocale()[0])
-        if not SETTINGS.get_boolean('spell-checker'):
-            self.spellchecker.disable()
+
+        if SpellChecker:
+            self.spellchecker = SpellChecker(textview, locale.getdefaultlocale()[0])
+            if not SETTINGS.get_boolean('spell-checker'):
+                self.spellchecker.disable()
 
         gui.connect_signals(self)
 
@@ -94,6 +100,9 @@ class UpdateWindow(UpdateWidgetBase):
         self.on_textbuffer_changed(self.text_buffer)
 
     def on_textview_populate_popup(self, textview, default_menu):
+        if not SpellChecker:
+            return
+
         menuitem = Gtk.CheckMenuItem.new_with_mnemonic('Check _Spelling')
         menuitem.connect("toggled", self._toggle)
 
