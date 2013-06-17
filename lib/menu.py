@@ -53,7 +53,7 @@ class PopupMenuItem(Gtk.MenuItem):
         img_url = _get_first_class('usericon').get_attribute('src')
         user_name = _get_first_class('username').get_attribute('data-user')
         full_name = _get_first_class('username').get_attribute('data-fullname')
-        body = _get_first_class('body').get_inner_text()
+        body = _get_first_class('body').get_inner_text().rstrip('\n')
         date_time = _get_first_class('datetime').get_inner_text()
         is_protected = bool(_get_first_class('icon-lock'))
 
