@@ -1,10 +1,11 @@
 #
 # gfeedline - A Social Networking Client
 #
-# Copyright (c) 2012, Yoshizumi Endo.
+# Copyright (c) 2012-2013, Yoshizumi Endo.
 # Licence: GPL3
 
 from output import FacebookRestOutput
+from ..base.api import APIBase
 
 
 class FacebookAPIDict(dict):
@@ -21,19 +22,9 @@ class FacebookAPIDict(dict):
     def get_default(self):
         return FacebookAPIHome
 
-class FacebookAPIBase(object):
+class FacebookAPIBase(APIBase):
 
     output = FacebookRestOutput
-    include_rt = True
-    has_argument = False
-    has_popup_menu = True
-
-    def __init__(self, account, options):
-        self.account = account
-        self.api = self._get_api()
-
-    def get_options(self, argument):
-        return {}
 
 class FacebookAPIHome(FacebookAPIBase):
 

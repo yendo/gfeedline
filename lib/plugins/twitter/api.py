@@ -5,6 +5,7 @@
 # Licence: GPL3
 
 from ...utils.settings import SETTINGS_TWITTER
+from ..base.api import APIBase
 from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultOutput
 
 
@@ -35,29 +36,20 @@ class TwitterAPIDict(dict):
     def get_default(self):
         return TwitterAPIUserStream
 
-class TwitterAPIBase(object):
+class TwitterAPIBase(APIBase):
 
     output = TwitterRestOutput
-    include_rt = True
-    has_argument = False
-    has_popup_menu = True
     tooltip_for_argument = ''
     
     connections = 0
     rate_limit = 15
 
     def __init__(self, account, options):
-        self.account = account
-        self.api = self._get_api()
-        self.options = options
-
+        super(TwitterAPIBase, self).__init__(account, options)
         self.__class__.connections += 1
 
     def exit(self):
         self.__class__.connections -= 1
-
-    def get_options(self, argument):
-        return {}
 
     def print_to_other_view(self, entry_dict):
         return None
