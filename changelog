@@ -1,3 +1,8 @@
+2013-06-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/api.py, preferences/feedsource.py: Added a new option
+	  for including retweets in List/User TimeLine.
+
 2013-06-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/tweetentry.py: Added tooltips for user description on

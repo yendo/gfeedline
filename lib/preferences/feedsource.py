@@ -105,8 +105,11 @@ class OptionsTab(object):
         if self._options_child:
             self._options_child.clear()
 
-        child_class = OptionsTabUserStream if target == _('User Stream') \
-            else OptionsTabChild
+        dic = {_('User Stream'): OptionsTabUserStream,
+               _('List TimeLine'): OptionsTabIncludeRTS,
+               _('User TimeLine'): OptionsTabIncludeRTS}
+
+        child_class = dic.get(target) or OptionsTabChild
         self._options_child = child_class(self.gui, self.feedliststore)
 
     def get(self, target):
@@ -128,6 +131,9 @@ class OptionsTabChild(object):
 
 class OptionsTabUserStream(OptionsTabChild):
 
+    LABEL = _('_Notify events')
+    OPTION_NAME = 'notify_events'
+
     def __init__(self, gui, feedliststore):
         super(OptionsTabUserStream, self).__init__(gui, feedliststore)
 
@@ -135,18 +141,28 @@ class OptionsTabUserStream(OptionsTabChild):
         self.checkbutton = gui.get_object('checkbutton_option')
         self.notebook.append_page(self.widget, Gtk.Label.new(_('Options')))
 
-        state = feedliststore[Column.OPTIONS].get('notify_events') \
+        self._set_checkbutton(feedliststore, self.checkbutton, 
+                              self.OPTION_NAME, self.LABEL)
+
+    def _set_checkbutton(self, feedliststore, checkbutton, option, label):
+        state = feedliststore[Column.OPTIONS].get(option) \
             if feedliststore else True
         if state is None:
             state = True
 
-        self.checkbutton.set_label(_('_Notify events'))
-        self.checkbutton.set_active(state)
+        checkbutton.set_label(label)
+        checkbutton.set_active(state)
 
     def get(self):
         state = self.checkbutton.get_active()
-        result = {'notify_events': state}
+        result = {self.OPTION_NAME: state}
+        print result
         return result
+
+class OptionsTabIncludeRTS(OptionsTabUserStream):
+
+    LABEL = _('_Include Retweets')
+    OPTION_NAME = 'include_rts'
 
 class SourceCombobox(object):
 

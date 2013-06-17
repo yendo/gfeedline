@@ -46,9 +46,11 @@ class TwitterAPIBase(object):
     connections = 0
     rate_limit = 15
 
-    def __init__(self, account):
+    def __init__(self, account, options):
         self.account = account
         self.api = self._get_api()
+        self.options = options
+
         self.__class__.connections += 1
 
     def exit(self):
@@ -106,6 +108,8 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
         else:
             print "Error: Invalid list name."
             params = {}
+
+        params['include_rts']= '1' if self.options.get('include_rts') else '0'
 
         return params
 

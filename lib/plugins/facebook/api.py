@@ -28,7 +28,7 @@ class FacebookAPIBase(object):
     has_argument = False
     has_popup_menu = True
 
-    def __init__(self, account):
+    def __init__(self, account, options):
         self.account = account
         self.api = self._get_api()
 
