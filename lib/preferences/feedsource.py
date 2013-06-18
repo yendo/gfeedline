@@ -301,7 +301,7 @@ class FeedSourceTreeview(TreeviewBase):
         page = all_view.index(self.api_obj.view)
 
         notebook = mainwindow.column.get_notebook_object(self.group)
-        notebook.reorder_child(self.api_obj.view, page) # FIXME
+        notebook.reorder_child(self.api_obj.view.box, page) # FIXME FIXBOX
 
         new_page = model.get_group_page(self.group)
 

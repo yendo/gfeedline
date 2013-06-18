@@ -1,3 +1,8 @@
+2013-06-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/profile.glade, twitter/output.py, view.py: Added profile
+	  pane on User Timeline feeds.
+
 2013-06-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py, share/update.glade: Added support for spell

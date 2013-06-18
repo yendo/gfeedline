@@ -245,7 +245,7 @@ class FeedNotebook(Gtk.Notebook):
 
     def on_update_tablabel_sensitive(self, notebook, *args):
         page = notebook.get_current_page() # get previous page
-        feedview = notebook.get_nth_page(page) # get child
+        feedview = notebook.get_nth_page(page).get_children()[1] # get child FIXBOX
         if hasattr(feedview, 'tab_label'):
             feedview.tab_label.set_sensitive(False)
 
@@ -325,7 +325,8 @@ class NotebookPopUpMenu(object):
         self.gui.connect_signals(self)
 
     def start(self, widget, event):
-        self.child = widget.get_nth_page(widget.get_current_page())
+        self.child = widget.get_nth_page(widget.get_current_page()
+                                         ).get_children()[1] # FIXBOX
         
         menu = self.gui.get_object('notebook_popup_menu')
         menu.popup(None, None, None, None, event.button, event.time)

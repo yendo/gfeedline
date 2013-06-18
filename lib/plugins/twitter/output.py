@@ -38,6 +38,9 @@ class TwitterOutputBase(OutputBase):
     def got_entry(self, entry, *args):
         if not entry:
             return
+        
+        if self.api.name == _('User TimeLine'):
+            self.view.set_profile(entry[0].get('user'))
 
         for i in entry:
             entry = DictObj(i) # FIXME
