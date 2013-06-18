@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-17 13:35+0900\n"
-"PO-Revision-Date: 2013-06-17 13:36+0900\n"
+"POT-Creation-Date: 2013-06-18 22:07+0900\n"
+"PO-Revision-Date: 2013-06-18 22:09+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -61,7 +61,7 @@ msgid "Search"
 msgstr "検索"
 
 #: ../lib/menu.py:262 ../lib/plugins/twitter/api.py:74
-#: ../lib/preferences/feedsource.py:110
+#: ../lib/plugins/twitter/output.py:42 ../lib/preferences/feedsource.py:110
 msgid "User TimeLine"
 msgstr "ユーザータイムライン"
 
@@ -218,26 +218,26 @@ msgstr "Twitter アカウントの設定"
 msgid "Enter PIN"
 msgstr "PIN の入力"
 
-#: ../lib/plugins/twitter/output.py:50 ../share/filters.glade.h:5
+#: ../lib/plugins/twitter/output.py:53 ../share/filters.glade.h:5
 msgid "Body"
 msgstr "本文"
 
-#: ../lib/plugins/twitter/output.py:55 ../share/filters.glade.h:6
+#: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:6
 msgid "Sender"
 msgstr "送信者"
 
-#: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:7
+#: ../lib/plugins/twitter/output.py:61 ../share/filters.glade.h:7
 #: ../share/preferences.glade.h:13
 msgid "Source"
 msgstr "ソース"
 
 #. FIXME
-#: ../lib/plugins/twitter/output.py:87
+#: ../lib/plugins/twitter/output.py:90
 #, python-format
 msgid "via %s"
 msgstr "via %s"
 
-#: ../lib/plugins/twitter/output.py:92
+#: ../lib/plugins/twitter/output.py:95
 #, python-format
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
@@ -299,45 +299,45 @@ msgstr "オプション"
 msgid "_Include Retweets"
 msgstr "リツイートを含める"
 
-#: ../lib/updatewindow.py:80
+#: ../lib/updatewindow.py:93
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:301
+#: ../lib/updatewindow.py:334
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:391
+#: ../lib/updatewindow.py:424
 msgid "Retweet?"
 msgstr "リツイートしますか?"
 
-#: ../lib/updatewindow.py:392
+#: ../lib/updatewindow.py:425
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:393
+#: ../lib/updatewindow.py:426
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:404
+#: ../lib/updatewindow.py:437
 msgid "Delete this tweet?"
 msgstr "このツイートを削除しますか?"
 
-#: ../lib/updatewindow.py:405
+#: ../lib/updatewindow.py:438
 msgid "Are you sure you want to delete this Tweet?"
 msgstr "このツイートを本当に削除しますか?"
 
-#: ../lib/updatewindow.py:418
+#: ../lib/updatewindow.py:451
 msgid "Delete this message?"
 msgstr "このメッセージを削除しますか?"
 
-#: ../lib/updatewindow.py:419
+#: ../lib/updatewindow.py:452
 msgid "Are you sure you want to delete this message?"
 msgstr "このダイレクトメッセージを本当に削除しますか?"
 
-#: ../lib/window.py:356
+#: ../lib/window.py:357
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
 msgstr ""
@@ -648,6 +648,18 @@ msgstr "<b>フィルター</b>"
 msgid "Filters"
 msgstr "フィルター"
 
+#: ../share/profile.glade.h:1
+msgid "<small>TWEETS</small>"
+msgstr "<small>ツイート</small>"
+
+#: ../share/profile.glade.h:2
+msgid "<small>FOLLOWERS</small>"
+msgstr "<small>フォロワー</small>"
+
+#: ../share/profile.glade.h:3
+msgid "<small>FOLLOWING</small>"
+msgstr "<small>フォロー</small>"
+
 #: ../share/select_assistant.glade.h:1
 msgid "Select a web service for adding an account"
 msgstr "アカウントを追加するウェブサービスを選択してください"
@@ -685,8 +697,8 @@ msgid "Add an image"
 msgstr "画像を追加します"
 
 #: ../share/update.glade.h:7
-msgid "Ctrl+Enter"
-msgstr "Ctrl+Enter"
+msgid "Update (Ctrl+Enter)"
+msgstr "投稿 (Ctrl+Enter)"
 
 #: ../share/update.glade.h:8
 msgid "Insert the _link"
