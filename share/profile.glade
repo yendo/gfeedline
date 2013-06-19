@@ -36,6 +36,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">center</property>
+        <property name="margin_top">6</property>
         <child>
           <object class="GtkLabel" id="count_tweets">
             <property name="visible">True</property>
@@ -68,7 +69,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
+        <property name="top_attach">4</property>
         <property name="width">1</property>
         <property name="height">1</property>
       </packing>
@@ -78,6 +79,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">center</property>
+        <property name="margin_top">6</property>
         <child>
           <object class="GtkLabel" id="count_followers">
             <property name="visible">True</property>
@@ -111,7 +113,7 @@
       </object>
       <packing>
         <property name="left_attach">2</property>
-        <property name="top_attach">3</property>
+        <property name="top_attach">4</property>
         <property name="width">1</property>
         <property name="height">1</property>
       </packing>
@@ -121,6 +123,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">center</property>
+        <property name="margin_top">6</property>
         <child>
           <object class="GtkLabel" id="count_following">
             <property name="visible">True</property>
@@ -151,7 +154,7 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">3</property>
+        <property name="top_attach">4</property>
         <property name="width">1</property>
         <property name="height">1</property>
       </packing>
@@ -170,7 +173,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
+        <property name="top_attach">3</property>
         <property name="width">3</property>
         <property name="height">1</property>
       </packing>
@@ -236,6 +239,19 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">0</property>
+        <property name="width">3</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_screen_name">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">label</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
         <property name="width">3</property>
         <property name="height">1</property>
       </packing>
