@@ -17,17 +17,26 @@ class ProfilePane(object):
         label_name =  self.gui.get_object('label_name')
         label_name.set_label('<b><big>%s</big></b>' % entry.get('name'))
 
-        link=''
+        label_screen_name =  self.gui.get_object('label_screen_name')
+        label_screen_name.set_label("@"+entry.get('screen_name'))
+
+        description = ''
+        if entry.get('description'):
+            description += entry.get('description'
+                                     ).replace('\r', '').replace('\n', ' ')
+            if entry.get('location') or entry.get('url'):
+                description += '\n'
+        if entry.get('location'):
+            description += entry.get('location')
+            if entry.get('url'):
+                description += ' &#183; '
         if entry.get('url'):
             url = entry['entities']['url']['urls'][0]
-            link = ' &#183; <a href="%s">%s</a>' % (
+            description += '<a href="%s">%s</a>' % (
                 url['expanded_url'], url['display_url'])
-        description="@%s\n<small>%s\n%s</small>" % (
-            entry.get('screen_name'), 
-            entry.get('description'),
-            entry.get('location')+" "+link)
-        label_description =  self.gui.get_object('label_description')
-        label_description.set_label(description)
+
+        label_description = self.gui.get_object('label_description')
+        label_description.set_label("<small>%s</small>" % description)
 
         dic = {'count_tweets': entry['statuses_count'], 
                'count_following': entry['friends_count'], 
