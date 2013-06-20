@@ -10,7 +10,12 @@ class ProfilePane(object):
     def __init__(self):
         self.gui = gui = Gtk.Builder()
         self.gui.add_from_file(SHARED_DATA_FILE('profile.glade'))
+        self.gui.connect_signals(self)
+
         self.widget =  self.gui.get_object('profile')
+        self.widget.hide()
+
+    def on_button_close_clicked(self, button):
         self.widget.hide()
 
     def set_profile(self, entry):
