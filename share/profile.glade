@@ -23,139 +23,12 @@
         <property name="hexpand">True</property>
         <property name="label">&lt;big&gt;Name&lt;/big&gt;</property>
         <property name="use_markup">True</property>
+        <property name="justify">center</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">1</property>
         <property name="width">3</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkGrid" id="grid_tweets">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="margin_top">6</property>
-        <child>
-          <object class="GtkLabel" id="count_tweets">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">6</property>
-            <property name="label">123</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">6</property>
-            <property name="label" translatable="yes">&lt;small&gt;TWEETS&lt;/small&gt;</property>
-            <property name="use_markup">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkGrid" id="grid_followers">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="margin_top">6</property>
-        <child>
-          <object class="GtkLabel" id="count_followers">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_right">6</property>
-            <property name="label">123</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label7">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="valign">center</property>
-            <property name="margin_right">6</property>
-            <property name="label" translatable="yes">&lt;small&gt;FOLLOWERS&lt;/small&gt;</property>
-            <property name="use_markup">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">4</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkGrid" id="grid_following">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="margin_top">6</property>
-        <child>
-          <object class="GtkLabel" id="count_following">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label">123</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label6">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;small&gt;FOLLOWING&lt;/small&gt;</property>
-            <property name="use_markup">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">4</property>
-        <property name="width">1</property>
         <property name="height">1</property>
       </packing>
     </child>
@@ -249,10 +122,156 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label">screen name</property>
+        <property name="justify">center</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">2</property>
+        <property name="width">3</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="grid_tweets">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
+        <property name="margin_top">6</property>
+        <child>
+          <object class="GtkLabel" id="count_tweets">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">6</property>
+            <property name="label">123</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">6</property>
+            <property name="label" translatable="yes">&lt;small&gt;TWEETS&lt;/small&gt;</property>
+            <property name="use_markup">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">5</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="grid_following">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
+        <property name="margin_top">6</property>
+        <child>
+          <object class="GtkLabel" id="count_following">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label">123</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label6">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">&lt;small&gt;FOLLOWING&lt;/small&gt;</property>
+            <property name="use_markup">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">5</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="grid_followers">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
+        <property name="margin_top">6</property>
+        <child>
+          <object class="GtkLabel" id="count_followers">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_right">6</property>
+            <property name="label">123</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label7">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="valign">center</property>
+            <property name="margin_right">6</property>
+            <property name="label" translatable="yes">&lt;small&gt;FOLLOWERS&lt;/small&gt;</property>
+            <property name="use_markup">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">5</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_location">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label">location</property>
+        <property name="use_markup">True</property>
+        <property name="justify">center</property>
+        <property name="wrap">True</property>
+        <property name="wrap_mode">word-char</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
         <property name="width">3</property>
         <property name="height">1</property>
       </packing>

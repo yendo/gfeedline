@@ -15,11 +15,8 @@ class ProfilePane(object):
         self.widget =  self.gui.get_object('profile')
         self.widget.hide()
 
-    def on_button_close_clicked(self, button):
-        self.widget.hide()
-
     def set_profile(self, entry):
-        label_name =  self.gui.get_object('label_name')
+        label_name = self.gui.get_object('label_name')
         label_name.set_label('<b><big>%s</big></b>' % entry.get('name'))
 
         label_screen_name =  self.gui.get_object('label_screen_name')
@@ -27,21 +24,19 @@ class ProfilePane(object):
 
         description = ''
         if entry.get('description'):
-            description += entry.get('description'
-                                     ).replace('\r', '').replace('\n', ' ')
-            if entry.get('location') or entry.get('url'):
-                description += '\n'
+            description = entry['description'].replace('\r', '').replace('\n', ' ')
+        self._set_label('label_description', description)
+
+        location = ''
         if entry.get('location'):
-            description += entry.get('location')
+            location += entry.get('location')
             if entry.get('url'):
-                description += ' &#183; '
+                location += ' &#183; '
         if entry.get('url'):
             url = entry['entities']['url']['urls'][0]
-            description += '<a href="%s">%s</a>' % (
+            location += '<a href="%s">%s</a>' % (
                 url['expanded_url'], url['display_url'])
-
-        label_description = self.gui.get_object('label_description')
-        label_description.set_label("<small>%s</small>" % description)
+        self._set_label('label_location', location)
 
         dic = {'count_tweets': entry['statuses_count'], 
                'count_following': entry['friends_count'], 
@@ -58,7 +53,16 @@ class ProfilePane(object):
         d = urlget.downloadPage(icon_uri, icon_file)
         d.addCallback(self._set_profile_icon, icon_file)  
 
+    def _set_label(self, label_name, text):
+        label = self.gui.get_object(label_name)
+        if text:
+            label.set_label("<small>%s</small>" % text)
+        else:
+            label.hide()
+
     def _set_profile_icon(self, data, icon_file):
         icon =  self.gui.get_object('icon')
         icon.set_from_file(icon_file)
 
+    def on_button_close_clicked(self, button):
+        self.widget.hide()
