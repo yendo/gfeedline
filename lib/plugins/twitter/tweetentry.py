@@ -90,7 +90,7 @@ class TweetEntry(object):
             user_name=user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
-            user_description=user.description,
+            user_description=self._clean_description(user.description),
 
             protected=self._get_protected_icon(user.protected),
             source=self._get_source(entry),
@@ -102,6 +102,17 @@ class TweetEntry(object):
             )
 
         return entry_dict
+
+    def _clean_description(self, text):
+        if not text:
+            return ''
+        
+        text = text.replace("'", '&apos;')
+        text = text.replace('"', '&quot;')
+        text = text.replace('\r', '')
+        text = text.replace('\n', ' ')
+
+        return text
 
     def _get_styles(self, api, screen_name, entry=None):
         style_obj = EntryStyles()
@@ -324,7 +335,7 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             user_name=user['screen_name'],
             full_name=user['name'],
             user_color=user_color.get(user['screen_name']),
-            user_description=user.description,
+            user_description=self._clean_description(user.description),
 
             protected=self._get_protected_icon(user['protected']),
             source=self._decode_source_html_entities(self.original_entry.source),
@@ -390,7 +401,7 @@ class FeedEventEntry(TweetEntry):
             user_name=entry.source.screen_name,
             full_name=entry.source.name,
             user_color=user_color.get(entry.source.screen_name),
-            user_description=user.description,
+            user_description=self._clean_description(user.description),
 
             protected=self._get_protected_icon(entry.source.protected),
             source='',
