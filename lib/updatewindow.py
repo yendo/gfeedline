@@ -103,13 +103,18 @@ class UpdateWindow(UpdateWidgetBase):
         if not SpellChecker:
             return
 
-        menuitem = Gtk.CheckMenuItem.new_with_mnemonic('Check _Spelling')
+        menuitem = Gtk.CheckMenuItem.new_with_mnemonic(_('Check _Spelling'))
         menuitem.connect("toggled", self._toggle)
 
         is_enbled = SETTINGS.get_boolean('spell-checker')
         menuitem.set_active(is_enbled)
-        menuitem.show()
+
+        if not menuitem.get_active():
+            separator = Gtk.SeparatorMenuItem.new()
+            default_menu.prepend(separator)
+
         default_menu.prepend(menuitem)
+        default_menu.show_all()
 
     def _toggle(self, menuitem):
         state = menuitem.get_active()
