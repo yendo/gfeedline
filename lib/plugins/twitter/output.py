@@ -212,7 +212,8 @@ class TwitterUserTimeLineOutput(TwitterRestOutput):
 
     def got_entry(self, entry, *args):
         if entry:
-            self.view.set_profile(entry[0]['user'])
+            if self.options.get('has_profile'):
+                self.view.set_profile(entry[0]['user'])
             super(TwitterUserTimeLineOutput, self).got_entry(entry, args)
 
 class TwitterSearchOutput(TwitterRestOutput):

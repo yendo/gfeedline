@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-21 11:26+0900\n"
-"PO-Revision-Date: 2013-06-21 11:26+0900\n"
+"POT-Creation-Date: 2013-06-21 11:57+0900\n"
+"PO-Revision-Date: 2013-06-21 12:00+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -293,7 +293,7 @@ msgstr "さんのリスト %s から削除されました"
 
 #: ../lib/preferences/feedsource.py:134
 msgid "_Notify events"
-msgstr "イベントの通知を行う"
+msgstr "イベントの通知を行う(_N)"
 
 #: ../lib/preferences/feedsource.py:142
 msgid "Options"
@@ -301,7 +301,11 @@ msgstr "オプション"
 
 #: ../lib/preferences/feedsource.py:164
 msgid "_Include Retweets"
-msgstr "リツイートを含める"
+msgstr "リツイートを含める(_I)"
+
+#: ../lib/preferences/feedsource.py:169
+msgid "_Show user profile"
+msgstr "ユーザープロフィールを表示する(_S)"
 
 #: ../lib/updatewindow.py:93
 #, python-format
@@ -312,36 +316,36 @@ msgstr "%s への返信"
 msgid "Check _Spelling"
 msgstr "スペルチェックを行う(_S)"
 
-#: ../lib/updatewindow.py:334
+#: ../lib/updatewindow.py:339
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:424
+#: ../lib/updatewindow.py:429
 msgid "Retweet?"
 msgstr "リツイートしますか?"
 
-#: ../lib/updatewindow.py:425
+#: ../lib/updatewindow.py:430
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:426
+#: ../lib/updatewindow.py:431
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:437
+#: ../lib/updatewindow.py:442
 msgid "Delete this tweet?"
 msgstr "このツイートを削除しますか?"
 
-#: ../lib/updatewindow.py:438
+#: ../lib/updatewindow.py:443
 msgid "Are you sure you want to delete this Tweet?"
 msgstr "このツイートを本当に削除しますか?"
 
-#: ../lib/updatewindow.py:451
+#: ../lib/updatewindow.py:456
 msgid "Delete this message?"
 msgstr "このメッセージを削除しますか?"
 
-#: ../lib/updatewindow.py:452
+#: ../lib/updatewindow.py:457
 msgid "Are you sure you want to delete this message?"
 msgstr "このダイレクトメッセージを本当に削除しますか?"
 

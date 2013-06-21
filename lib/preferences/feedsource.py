@@ -107,7 +107,7 @@ class OptionsTab(object):
 
         dic = {_('User Stream'): OptionsTabUserStream,
                _('List TimeLine'): OptionsTabIncludeRTS,
-               _('User TimeLine'): OptionsTabIncludeRTS}
+               _('User TimeLine'): OptionsTabShowProfile}
 
         child_class = dic.get(target) or OptionsTabChild
         self._options_child = child_class(self.gui, self.feedliststore)
@@ -163,6 +163,11 @@ class OptionsTabIncludeRTS(OptionsTabUserStream):
 
     LABEL = _('_Include Retweets')
     OPTION_NAME = 'include_rts'
+
+class OptionsTabShowProfile(OptionsTabUserStream):
+
+    LABEL = _('_Show user profile')
+    OPTION_NAME = 'has_profile'
 
 class SourceCombobox(object):
 
