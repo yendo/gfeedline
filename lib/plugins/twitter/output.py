@@ -6,7 +6,7 @@
 
 """
 TwitterOutputBase --- TwitterRestOutput --- TwitterSearchOutput
-                   |
+                   |                     \- TwitterUserTimeLineOutput
                    \- TwitterFeedOutput
 
 Rest: got_entry-> check_entry-> buffer_entry : print_all_entries-> print_entry
@@ -39,9 +39,6 @@ class TwitterOutputBase(OutputBase):
         if not entry:
             return
         
-        if self.api.name == _('User TimeLine'):
-            self.view.set_profile(entry[0].get('user'))
-
         for i in entry:
             entry = DictObj(i) # FIXME
             entry.text = decode_html_entities(entry.text)
@@ -210,6 +207,13 @@ class TwitterRestOutput(TwitterOutputBase):
     def exit(self):
         super(TwitterRestOutput, self).exit()
         self.api.exit()
+
+class TwitterUserTimeLineOutput(TwitterRestOutput):
+
+    def got_entry(self, entry, *args):
+        if entry:
+            self.view.set_profile(entry[0]['user'])
+            super(TwitterUserTimeLineOutput, self).got_entry(entry, args)
 
 class TwitterSearchOutput(TwitterRestOutput):
 

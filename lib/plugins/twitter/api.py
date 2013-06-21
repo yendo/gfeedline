@@ -6,7 +6,7 @@
 
 from ...utils.settings import SETTINGS_TWITTER
 from ..base.api import APIBase
-from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultOutput
+from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultOutput, TwitterUserTimeLineOutput
 
 
 class TwitterAPIDict(dict):
@@ -72,6 +72,7 @@ class TwitterAPIHomeTimeLine(TwitterAPIBase):
 class TwitterAPIUserTimeLine(TwitterAPIBase):
 
     name = _('User TimeLine')
+    output = TwitterUserTimeLineOutput
     has_argument = True
     rate_limit = 180
 

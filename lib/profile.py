@@ -24,11 +24,8 @@ class ProfilePane(object):
 
         description = ''
         if entry.get('description'):
-            # description = entry['description'].replace('\r', '').replace('\n', ' ')
-            text = entry.get('description')
             entities = entry.get('entities')['description']
-            description = self.convert(text, entities)
-
+            description = self._convert(entry['description'], entities)
         self._set_label('label_description', description)
 
         location = ''
@@ -71,7 +68,7 @@ class ProfilePane(object):
     def on_button_close_clicked(self, button):
         self.widget.hide()
 
-    def convert(self, text, entities):
+    def _convert(self, text, entities):
         ent = {}
         offset = 0
 
@@ -82,7 +79,6 @@ class ProfilePane(object):
         for key, value in sorted(ent.items()):
             entity, v = value
             start, end = key, v['indices'][1]
-            print entity
 
             if entity == 'urls':
                 expanded_url = v['expanded_url']
@@ -90,7 +86,7 @@ class ProfilePane(object):
                     expanded_url, expanded_url, v['display_url'])
 
             elif entity == 'user_mentions':
-                print "aaaaaaaaaaaa"
+                pass
 
             elif entity == 'hashtags':
                 url = 'https://twitter.com/search?q=#%s/' % v['text']
@@ -103,9 +99,6 @@ class ProfilePane(object):
             text = text[:start+offset] + alt + text[end+offset:]
             offset += start-end+len(alt)
         
-#        text = unescape(text)
-#        text = escape(text, {"'": '&apos;'}) # Important!
-#        text = text.replace('"', '&quot;')
         text = text.replace('\r', '')
         text = text.replace('\n', ' ')
 
