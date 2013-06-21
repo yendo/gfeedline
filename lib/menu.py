@@ -11,7 +11,8 @@ from plugins.twitter.output import DictObj
 from plugins.twitter.tweetentry import TweetEntry
 
 def ENTRY_POPUP_MENU():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
+    return [OpenMenuItem, OpenUserPageMenuItem, None, 
+            ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
             DeleteMenuItem, SearchConversationMenuItem]
 
 def LINK_MENU_ITEMS():
@@ -72,10 +73,18 @@ class PopupMenuItem(Gtk.MenuItem):
 
 class OpenMenuItem(PopupMenuItem):
 
-    LABEL = _('_Open')
+    LABEL = _('_Open this Tweet in browser')
 
     def on_activate(self, menuitem, entry_id):
         uri = self.uri.replace('gfeedline:', 'https:')
+        webbrowser.open(uri)
+
+class OpenUserPageMenuItem(PopupMenuItem):
+
+    LABEL = _('_Open this _user page in browser')
+
+    def on_activate(self, menuitem, entry_id):
+        uri = 'https://twitter.com/%s' % self.user
         webbrowser.open(uri)
 
 class ReplyMenuItem(PopupMenuItem):
