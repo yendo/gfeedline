@@ -272,7 +272,7 @@ class ShowUserMenuItem(TrackHashTagMenuItem):
                   'username': username,
                   'group': group_name,
                   'name': "@"+entry_id,
-                  'options': {}
+                  'options': {'has_profile': True}
                   }
         self.parent.liststore.append(source)
 
