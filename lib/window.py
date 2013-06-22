@@ -296,7 +296,8 @@ class NotebookTabLabel(Gtk.EventBox):
         box = Gtk.Box()
 
         if SETTINGS_VIEW.get_boolean('favicon'):
-            icon_pixbuf = child.webview.api.account.icon.get_pixbuf()
+            feedview = child.get_children()[1]
+            icon_pixbuf = feedview.webview.api.account.icon.get_pixbuf()
             icon = Gtk.Image.new_from_pixbuf(icon_pixbuf)
             box.pack_start(icon, True, True, 2)
 

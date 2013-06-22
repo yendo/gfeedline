@@ -1,5 +1,7 @@
 2013-06-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* window.py (NotebookTabLabel): Fixed a feedview objects lost
+	  problem (issue #50).
 	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme!
 	* de_DE.po: Updated German translation.  Thanks t_bb_!
 	* window.py: Fixed feedview objects lost problems.
