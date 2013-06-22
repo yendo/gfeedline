@@ -1,3 +1,8 @@
+2013-06-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py: Fixed feedview objects lost problems.
+	* menu.py: Fixed a Twitter User TimeLine option for the profile.
+
 2013-06-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* share/profile.glade, twitter/output.py, view.py: Added profile

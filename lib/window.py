@@ -270,17 +270,20 @@ class FeedNotebook(Gtk.Notebook):
             self.column.remove(self.group_name)
 
     def jump_all_tabs_to_bottom(self, is_bottom=True):
-        for feedview in self.get_children():
+        for feedview in self._get_all_feedviews():
             feedview.jump_to_bottom(is_bottom)
 
     def change_font(self, font, size):
-        for feedview in self.get_children():
+        for feedview in self._get_all_feedviews():
             feedview.change_font(font, size)
 
     def exec_js_all_views(self, js):
-        for feedview in self.get_children():
+        for feedview in self._get_all_feedviews():
             feedview.execute_script(js)
 
+    def _get_all_feedviews(self):
+        return [vbox.get_children()[1] for vbox in self.get_children()]
+        
 class NotebookTabLabel(Gtk.EventBox):
 
     def __init__(self, name, notebook, child):
