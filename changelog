@@ -1,5 +1,6 @@
 2013-06-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
 	* gfeedline.glade: Set the application icon for wnck taskbar
 	  (issue #51).
 

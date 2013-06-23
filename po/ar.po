@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-24 22:41+0900\n"
-"PO-Revision-Date: 2013-05-28 12:30+0000\n"
+"POT-Creation-Date: 2013-06-21 11:57+0900\n"
+"PO-Revision-Date: 2013-06-23 12:00+0000\n"
 "Last-Translator: Humaidan Mohammed <hemadan90@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/gfeedline/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -28,39 +28,56 @@ msgstr "أيام"
 msgid "hours"
 msgstr "ساعات"
 
-#: ../lib/menu.py:70
-msgid "_Open"
-msgstr "إفتح (_O)"
+#: ../lib/menu.py:76
+msgid "_Open this Tweet in browser"
+msgstr "إفتح هذه التغريدة في المتصفح"
 
-#: ../lib/menu.py:78
+#: ../lib/menu.py:84
+msgid "_Open this _user page in browser"
+msgstr "إفتح صفحة هذا المستخدم في المتصفح"
+
+#: ../lib/menu.py:92
 msgid "_Reply"
 msgstr "رد (R)"
 
-#: ../lib/menu.py:86
+#: ../lib/menu.py:100
 msgid "Re_tweet"
 msgstr "أعد التغريد (T)"
 
-#: ../lib/menu.py:114
+#: ../lib/menu.py:128
+msgid "_Delete"
+msgstr "حذف"
+
+#: ../lib/menu.py:150
 msgid "_Favorite"
 msgstr "تفضيل (F)"
 
-#: ../lib/menu.py:131 ../lib/plugins/twitter/tweetentry.py:143
+#: ../lib/menu.py:167 ../lib/plugins/twitter/tweetentry.py:168
 msgid "Conversation"
 msgstr "المحادثة"
 
-#: ../lib/menu.py:167
+#: ../lib/menu.py:203
 msgid "View _Conversation"
 msgstr "عرض_المحادثة"
 
-#: ../lib/menu.py:193 ../lib/plugins/twitter/api.py:127
+#: ../lib/menu.py:229 ../lib/plugins/twitter/api.py:133
 msgid "Related Results"
 msgstr "النتائج المتعلقة"
 
-#: ../lib/menu.py:206
+#: ../lib/menu.py:252 ../lib/plugins/twitter/api.py:178
+msgid "Search"
+msgstr "بحث"
+
+#: ../lib/menu.py:271 ../lib/plugins/twitter/api.py:74
+#: ../lib/preferences/feedsource.py:110
+msgid "User TimeLine"
+msgstr "الخط الزمني للمستخدم"
+
+#: ../lib/menu.py:284
 msgid "_Search"
 msgstr "بحث  (S)"
 
-#: ../lib/menu.py:217
+#: ../lib/menu.py:295
 msgid "_Add Filter"
 msgstr "إضافة مرشح (A)"
 
@@ -68,15 +85,17 @@ msgstr "إضافة مرشح (A)"
 msgid "Open"
 msgstr "إفتح"
 
-#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:130
+#. "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
+#. Reply
+#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:139
 msgid "Reply"
 msgstr "رد"
 
-#: ../lib/plugins/facebook/api.py:40
+#: ../lib/plugins/facebook/api.py:31
 msgid "News Feed"
 msgstr "آخر الأخبار"
 
-#: ../lib/plugins/facebook/api.py:47
+#: ../lib/plugins/facebook/api.py:38
 msgid "Wall"
 msgstr "الحائط"
 
@@ -106,32 +125,32 @@ msgstr "الترخيص"
 msgid "Confirm"
 msgstr "تأكيد"
 
-#: ../lib/plugins/facebook/entry.py:68 ../lib/plugins/tumblr/entry.py:68
+#: ../lib/plugins/facebook/entry.py:70 ../lib/plugins/tumblr/entry.py:68
 #: ../lib/plugins/tumblr/entry.py:69
 msgid "Like"
 msgstr "أعجبني"
 
-#: ../lib/plugins/facebook/entry.py:69
+#: ../lib/plugins/facebook/entry.py:71
 msgid "Unlike"
 msgstr "إلغاء الإعجاب"
 
-#: ../lib/plugins/facebook/entry.py:70
+#: ../lib/plugins/facebook/entry.py:72
 msgid "Comment"
 msgstr "تعليق"
 
-#: ../lib/plugins/facebook/entry.py:164
+#: ../lib/plugins/facebook/entry.py:169
 msgid "See more"
 msgstr "رؤية المزيد"
 
-#: ../lib/plugins/facebook/entry.py:164
+#: ../lib/plugins/facebook/entry.py:169
 msgid "See less"
 msgstr "أقل"
 
-#: ../lib/plugins/tumblr/api.py:40
+#: ../lib/plugins/tumblr/api.py:31
 msgid "Dashboard"
 msgstr "اللوحة الرئسية"
 
-#: ../lib/plugins/tumblr/api.py:47
+#: ../lib/plugins/tumblr/api.py:38
 msgid "Posts"
 msgstr "المشاركات"
 
@@ -167,41 +186,37 @@ msgstr "صوت"
 msgid "{0} posts {1} entry."
 msgstr "{0} مشاركة {1} إدخال."
 
-#: ../lib/plugins/twitter/api.py:71
+#: ../lib/plugins/twitter/api.py:67
 msgid "Home TimeLine"
 msgstr "التغريدات"
 
-#: ../lib/plugins/twitter/api.py:78
-msgid "User TimeLine"
-msgstr "الخط الزمني للمستخدم"
-
-#: ../lib/plugins/twitter/api.py:90
+#: ../lib/plugins/twitter/api.py:87 ../lib/preferences/feedsource.py:109
 msgid "List TimeLine"
 msgstr "القوائم"
 
-#: ../lib/plugins/twitter/api.py:93
+#: ../lib/plugins/twitter/api.py:90
 msgid "The format is \"username/listname\".  ex) yendo0206/gfeedline"
 msgstr "الصيغة هي \"إسم المستخدم/إسم القائمة\". مثال) yendo0206/gfeedline"
 
-#: ../lib/plugins/twitter/api.py:112 ../lib/plugins/twitter/api.py:151
+#: ../lib/plugins/twitter/api.py:111 ../lib/plugins/twitter/api.py:159
 msgid "Mentions"
 msgstr "الإشارات"
 
-#: ../lib/plugins/twitter/api.py:119
+#: ../lib/plugins/twitter/api.py:118
 msgid "Direct Messages"
 msgstr "الرسائل المباشرة"
 
-#: ../lib/plugins/twitter/api.py:142 ../lib/preferences/feedsource.py:108
+#: ../lib/plugins/twitter/api.py:126
+msgid "Favorites"
+msgstr "المفضلات"
+
+#: ../lib/plugins/twitter/api.py:148 ../lib/preferences/feedsource.py:108
 msgid "User Stream"
 msgstr "حساب المستخدم"
 
-#: ../lib/plugins/twitter/api.py:156
+#: ../lib/plugins/twitter/api.py:164
 msgid "Track"
 msgstr "تتبع"
-
-#: ../lib/plugins/twitter/api.py:170
-msgid "Search"
-msgstr "بحث"
 
 #: ../lib/plugins/twitter/assistant.py:30
 msgid "Twitter Account Setup"
@@ -235,72 +250,110 @@ msgstr "عبر %s"
 msgid "Retweeted by %s"
 msgstr "قام بإعادة تغريدها %s"
 
-#: ../lib/plugins/twitter/tweetentry.py:69
+#: ../lib/plugins/twitter/tweetentry.py:74
 msgid "View more in conversation"
 msgstr "عرض المزيد من المحادثة"
 
-#: ../lib/plugins/twitter/tweetentry.py:131
+#: ../lib/plugins/twitter/tweetentry.py:145
 msgid "Retweet"
 msgstr "إعادة تغريد"
 
-#: ../lib/plugins/twitter/tweetentry.py:133
-#: ../lib/plugins/twitter/tweetentry.py:134
+#. Delete
+#: ../lib/plugins/twitter/tweetentry.py:149
+#: ../lib/plugins/twitter/tweetentry.py:269
+msgid "Delete"
+msgstr "حذف"
+
+#: ../lib/plugins/twitter/tweetentry.py:158
+#: ../lib/plugins/twitter/tweetentry.py:159
 msgid "Favorite"
 msgstr "تفضيل"
 
-#: ../lib/plugins/twitter/tweetentry.py:279
+#: ../lib/plugins/twitter/tweetentry.py:313
 msgid "retweeted your Tweet"
 msgstr "أعاد تغريد تغريدتك"
 
-#: ../lib/plugins/twitter/tweetentry.py:320
+#: ../lib/plugins/twitter/tweetentry.py:365
 msgid "favorited your Tweet"
 msgstr "تم تفضيل تغريدتك"
 
-#: ../lib/plugins/twitter/tweetentry.py:321
+#: ../lib/plugins/twitter/tweetentry.py:366
 msgid "unfavorited your Tweet"
 msgstr "إلغي تفضيل تغريدتك"
 
-#: ../lib/plugins/twitter/tweetentry.py:322
+#: ../lib/plugins/twitter/tweetentry.py:367
 msgid "followed you"
 msgstr "يتابعك"
 
-#: ../lib/plugins/twitter/tweetentry.py:323
+#: ../lib/plugins/twitter/tweetentry.py:368
 #, python-format
 msgid "added you to list %s"
 msgstr "أضافك الي قائمة  %s"
 
-#: ../lib/plugins/twitter/tweetentry.py:324
+#: ../lib/plugins/twitter/tweetentry.py:369
 #, python-format
 msgid "removed you from list %s"
 msgstr "إزالتك من مجموعة %s"
 
-#: ../lib/preferences/feedsource.py:136
-msgid "Options"
-msgstr "الخيارات"
-
-#: ../lib/preferences/feedsource.py:143
+#: ../lib/preferences/feedsource.py:134
 msgid "_Notify events"
 msgstr "تنبيه بالأحداث"
 
-#: ../lib/updatewindow.py:80
+#: ../lib/preferences/feedsource.py:142
+msgid "Options"
+msgstr "الخيارات"
+
+#: ../lib/preferences/feedsource.py:164
+msgid "_Include Retweets"
+msgstr "إدراج التغريدات المعاد إرسالها"
+
+#: ../lib/preferences/feedsource.py:169
+msgid "_Show user profile"
+msgstr "عرض ملف المستخدم"
+
+#: ../lib/updatewindow.py:93
 #, python-format
 msgid "Reply to %s"
 msgstr "رد الي  %s"
 
-#: ../lib/updatewindow.py:301
+#: ../lib/updatewindow.py:106
+msgid "Check _Spelling"
+msgstr "تحقق من الهجاء"
+
+#: ../lib/updatewindow.py:339
 msgid "Supported image files"
 msgstr "ملفات الصور المدعومة"
 
-#: ../lib/updatewindow.py:374
+#: ../lib/updatewindow.py:429
+msgid "Retweet?"
+msgstr "إعادة تغريد؟"
+
+#: ../lib/updatewindow.py:430
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "إعادة تغريد هذه إلي (%s's) متابعيك؟"
 
-#: ../lib/updatewindow.py:375
+#: ../lib/updatewindow.py:431
 msgid "Retweet this to your followers?"
 msgstr "إعادة التغريدة لمتابعيك؟"
 
-#: ../lib/window.py:336
+#: ../lib/updatewindow.py:442
+msgid "Delete this tweet?"
+msgstr "حذف هذه التغريدة؟"
+
+#: ../lib/updatewindow.py:443
+msgid "Are you sure you want to delete this Tweet?"
+msgstr "هل أنت متأكد أنك تريد حذف هذه التغريدة؟"
+
+#: ../lib/updatewindow.py:456
+msgid "Delete this message?"
+msgstr "حذف هذه الرسالة؟"
+
+#: ../lib/updatewindow.py:457
+msgid "Are you sure you want to delete this message?"
+msgstr "هل أنت متأكد أنك تريد حذف هذه الرسالة؟"
+
+#: ../lib/window.py:357
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
 msgstr "هذا التبويب يحتوي علي %s من الخلاصات، هل أنت متأكد أنك تريد إغلاقه."
@@ -581,9 +634,17 @@ msgstr "<b>المرشحات</b>"
 msgid "Filters"
 msgstr "المرشحات"
 
-#: ../share/retweet.glade.h:1
-msgid "<big><b>Retweet?</b></big>"
-msgstr "<big><b>إعادة تغريد؟</b></big>"
+#: ../share/profile.glade.h:1
+msgid "<small>TWEETS</small>"
+msgstr "<small>التغريدات</small>"
+
+#: ../share/profile.glade.h:2
+msgid "<small>FOLLOWING</small>"
+msgstr "<small>متابع</small>"
+
+#: ../share/profile.glade.h:3
+msgid "<small>FOLLOWERS</small>"
+msgstr "<small>المتابعين</small>"
 
 #: ../share/select_assistant.glade.h:1
 msgid "Select a web service for adding an account"
@@ -622,8 +683,8 @@ msgid "Add an image"
 msgstr "إضافة صورة"
 
 #: ../share/update.glade.h:7
-msgid "Ctrl+Enter"
-msgstr "Ctrl+Enter"
+msgid "Update (Ctrl+Enter)"
+msgstr "تحديث (Ctrl+Enter)"
 
 #: ../share/update.glade.h:8
 msgid "Insert the _link"
