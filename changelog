@@ -1,3 +1,8 @@
+2013-06-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* gfeedline.glade: Set the application icon for wnck taskbar
+	  (issue #51).
+
 2013-06-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* window.py (NotebookTabLabel): Fixed a feedview objects lost
