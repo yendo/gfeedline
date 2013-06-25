@@ -1,3 +1,7 @@
+2013-06-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py (FeedView): Fixed a box object bug.
+
 2013-06-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!

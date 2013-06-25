@@ -51,18 +51,18 @@ class FeedView(FeedScrolledWindow):
         self.id_history = CacheList()
         SETTINGS_VIEW.connect("changed::theme", self.id_history.clear)
 
+        self.box = Gtk.VBox()
         self.profile = ProfilePane()
         self.append(notebook, page)
 
     def append(self, notebook, page=-1):
         self.notebook = notebook
 
-        self.box = box = Gtk.VBox()
         self.box.pack_start(self.profile.widget, False, False, 10)
         self.box.pack_start(self, True, True, 0)
         self.box.show()
 
-        self.tab_label = notebook.append_page(box, self.name, page)
+        self.tab_label = notebook.append_page(self.box, self.name, page)
         self.tab_label.set_sensitive(False)
 
     def set_profile(self, entry):
