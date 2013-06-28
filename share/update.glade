@@ -152,6 +152,7 @@
                     <property name="wrap_mode">word-char</property>
                     <property name="buffer">textbuffer</property>
                     <signal name="key-press-event" handler="on_textview_key_press_event" swapped="no"/>
+                    <signal name="populate-popup" handler="on_textview_populate_popup" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -293,7 +294,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">Ctrl+Enter</property>
+                    <property name="tooltip_text" translatable="yes">Update (Ctrl+Enter)</property>
                     <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_button_tweet_clicked" swapped="no"/>

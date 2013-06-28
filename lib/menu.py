@@ -2,16 +2,18 @@ import webbrowser
 
 from gi.repository import Gtk, Gdk
 
-from updatewindow import UpdateWindow, RetweetDialog
+from updatewindow import UpdateWindow, RetweetDialog, DeleteDialog, DeleteDirectMessageDialog
 from preferences.filters import FilterDialog
 from utils.settings import SETTINGS_VIEW
+from utils.htmlentities import decode_url_entities
 
 from plugins.twitter.output import DictObj
 from plugins.twitter.tweetentry import TweetEntry
 
 def ENTRY_POPUP_MENU():
-    return [OpenMenuItem, ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
-            SearchConversationMenuItem]
+    return [OpenMenuItem, OpenUserPageMenuItem, None, 
+            ReplyMenuItem, RetweetMenuItem, FavMenuItem, 
+            DeleteMenuItem, SearchConversationMenuItem]
 
 def LINK_MENU_ITEMS():
     return {'reply': ReplyMenuItem,
@@ -19,6 +21,10 @@ def LINK_MENU_ITEMS():
             'conversation': ConversationMenuItem,
             'fav': FavMenuItem,
             'unfav': UnFavMenuItem,
+            'delete': DeleteMenuItem,
+            'deletedm': DeleteDirectMessageMenuItem,
+            'hashtag': TrackHashTagMenuItem,
+            'user': ShowUserMenuItem,
             'moreconversation': SearchConversationMenuItem, }
 
 
@@ -48,7 +54,7 @@ class PopupMenuItem(Gtk.MenuItem):
         img_url = _get_first_class('usericon').get_attribute('src')
         user_name = _get_first_class('username').get_attribute('data-user')
         full_name = _get_first_class('username').get_attribute('data-fullname')
-        body = _get_first_class('body').get_inner_text()
+        body = _get_first_class('body').get_inner_text().rstrip('\n')
         date_time = _get_first_class('datetime').get_inner_text()
         is_protected = bool(_get_first_class('icon-lock'))
 
@@ -67,10 +73,18 @@ class PopupMenuItem(Gtk.MenuItem):
 
 class OpenMenuItem(PopupMenuItem):
 
-    LABEL = _('_Open')
+    LABEL = _('_Open this Tweet in browser')
 
     def on_activate(self, menuitem, entry_id):
         uri = self.uri.replace('gfeedline:', 'https:')
+        webbrowser.open(uri)
+
+class OpenUserPageMenuItem(PopupMenuItem):
+
+    LABEL = _('_Open this _user page in browser')
+
+    def on_activate(self, menuitem, entry_id):
+        uri = 'https://twitter.com/%s' % self.user
         webbrowser.open(uri)
 
 class ReplyMenuItem(PopupMenuItem):
@@ -106,6 +120,28 @@ class RetweetMenuItem(PopupMenuItem):
     def on_activate(self, menuitem, entry_id):
         entry_dict = self._get_entry_from_dom(entry_id)
         dialog = RetweetDialog(self.account)
+
+        dialog.run(entry_dict, self.parent.window)
+
+class DeleteMenuItem(RetweetMenuItem):
+
+    LABEL = _('_Delete')
+
+    def _is_enabled(self, dom):
+        is_mine = dom.get_attribute('class').count('mine')
+        return is_mine
+
+    def on_activate(self, menuitem, entry_id):
+        entry_dict = self._get_entry_from_dom(entry_id)
+        dialog = DeleteDialog(self.account)
+
+        dialog.run(entry_dict, self.parent.window)
+
+class DeleteDirectMessageMenuItem(DeleteMenuItem):
+
+    def on_activate(self, menuitem, entry_id):
+        entry_dict = self._get_entry_from_dom(entry_id)
+        dialog = DeleteDirectMessageDialog(self.account)
 
         dialog.run(entry_dict, self.parent.window)
 
@@ -195,6 +231,48 @@ class SearchConversationMenuItem(ConversationMenuItem):
                   'group': group_name,
                   'name': '@%s' % self.user,
                   'options': {}
+                  }
+        self.parent.liststore.append(source)
+
+        notebook = self.parent.window.column.get_notebook_object(group_name)
+        notebook.set_current_page(-1)
+
+class TrackHashTagMenuItem(SearchConversationMenuItem):
+
+    def _is_enabled(self, dom):
+        return False
+
+    def on_activate(self, menuitem, entry_id):
+        group_name = self._get_group_name()
+        username = self.api.account.user_name
+        hashtag = decode_url_entities(entry_id)
+
+        source = {'source': 'Twitter',
+                  'argument': hashtag,
+                  'target': _('Search'),
+                  'username': username,
+                  'group': group_name,
+                  'name': hashtag,
+                  'options': {}
+                  }
+        self.parent.liststore.append(source)
+
+        notebook = self.parent.window.column.get_notebook_object(group_name)
+        notebook.set_current_page(-1)
+
+class ShowUserMenuItem(TrackHashTagMenuItem):
+
+    def on_activate(self, menuitem, entry_id):
+        group_name = self._get_group_name()
+        username = self.api.account.user_name
+
+        source = {'source': 'Twitter',
+                  'argument': entry_id,
+                  'target': _('User TimeLine'),
+                  'username': username,
+                  'group': group_name,
+                  'name': "@"+entry_id,
+                  'options': {'has_profile': True}
                   }
         self.parent.liststore.append(source)
 

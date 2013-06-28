@@ -6,6 +6,11 @@
       <summary>Window sticky mode</summary>
       <description>Always on Visible Workspace</description>
     </key>
+    <key name="spell-checker" type="b">
+      <default>false</default>
+      <summary>Spell Checker</summary>
+      <description>Enable Spell Checker</description>
+    </key>
     <key name="update-window-keep-above" type="b">
       <default>true</default>
       <summary>Update window set keep above</summary>
@@ -51,6 +56,11 @@
       <default>'Sans 10'</default>
       <summary>Timeline Font</summary>
       <description>Timeline Font</description>
+    </key>
+    <key name="favicon" type="b">
+      <default>true</default>
+      <summary>Show favicon on each tab</summary>
+      <description>Show favicon on each tab</description>
     </key>
     <key name="conversation-other-column" type="b">
       <default>false</default>

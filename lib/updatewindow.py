@@ -1,8 +1,14 @@
 import os
 import re
 import tempfile
+import locale
 
 from gi.repository import Gtk, GLib, Gio, Gdk, GdkPixbuf
+
+try:
+    from gtkspellcheck import SpellChecker
+except ImportError:
+    SpellChecker = False
 
 from constants import SHARED_DATA_FILE
 from accountliststore import AccountColumn
@@ -63,6 +69,13 @@ class UpdateWindow(UpdateWidgetBase):
         self.text_buffer = gui.get_object('textbuffer')
         self.on_textbuffer_changed(self.text_buffer)
 
+        textview = gui.get_object('textview')
+
+        if SpellChecker:
+            self.spellchecker = SpellChecker(textview, locale.getdefaultlocale()[0])
+            if not SETTINGS.get_boolean('spell-checker'):
+                self.spellchecker.disable()
+
         gui.connect_signals(self)
 
         if entry:
@@ -85,6 +98,31 @@ class UpdateWindow(UpdateWidgetBase):
     def set_upload_media(self, file):
         self.media.set(file)
         self.on_textbuffer_changed(self.text_buffer)
+
+    def on_textview_populate_popup(self, textview, default_menu):
+        if not SpellChecker:
+            return
+
+        menuitem = Gtk.CheckMenuItem.new_with_mnemonic(_('Check _Spelling'))
+        menuitem.connect("toggled", self._toggle)
+
+        is_enbled = SETTINGS.get_boolean('spell-checker')
+        menuitem.set_active(is_enbled)
+
+        if not menuitem.get_active():
+            separator = Gtk.SeparatorMenuItem.new()
+            default_menu.prepend(separator)
+
+        default_menu.prepend(menuitem)
+        default_menu.show_all()
+
+    def _toggle(self, menuitem):
+        state = menuitem.get_active()
+        SETTINGS.set_boolean('spell-checker', state)
+        if state:
+            self.spellchecker.enable()
+        else:
+            self.spellchecker.disable()
 
     def on_button_tweet_clicked(self, button):
         start, end = self.text_buffer.get_bounds()
@@ -359,6 +397,7 @@ class RetweetDialog(UpdateWidgetBase):
         self.twitter_account = account
 
     def run(self, entry, parent):
+        self.window = parent
         self.parent = parent.window
         self.has_multi_account = len(parent.liststore.account_liststore) > 1
 
@@ -371,18 +410,52 @@ class RetweetDialog(UpdateWidgetBase):
 
         dialog = gui.get_object('messagedialog')
         screen_name = self.twitter_account.user_name
-        text = _("Retweet this to your (%s's) followers?") % screen_name \
-            if self.has_multi_account else _("Retweet this to your followers?") 
 
-        dialog.format_secondary_text(text)
+        text1, text2 = self._get_messages()
+        dialog.set_markup('<big><b>%s</b></big>' % text1)
+        dialog.format_secondary_text(text2)
         dialog.set_transient_for(self.parent)
         response_id = dialog.run()
 
         if response_id == Gtk.ResponseType.YES:
-            self.twitter_account.api.retweet(entry['id'], self._on_retweet_status)
-
+            self._delete_method(entry['id'])
         dialog.destroy()
 
-    def _on_retweet_status(self, *args):
+    def _delete_method(self, entry_id):
+        self.twitter_account.api.retweet(entry_id, self._cb)
+
+    def _get_messages(self):
+        screen_name = self.twitter_account.user_name
+        text1 = _('Retweet?')
+        text2 = _("Retweet this to your (%s's) followers?") % screen_name \
+            if self.has_multi_account else _("Retweet this to your followers?") 
+
+        return text1, text2
+
+    def _cb(self, *args):
         #print args
         pass
+
+class DeleteDialog(RetweetDialog):
+
+    def _get_messages(self):
+        text1 = _('Delete this tweet?')
+        text2 = _('Are you sure you want to delete this Tweet?')
+        return text1, text2
+
+    def _delete_method(self, entry_id):
+        self.twitter_account.api.destroy(entry_id, self._cb)
+
+    def _cb(self, data, *args):
+        status_id = data['id']
+        self.window.delete_status(status_id)
+
+class DeleteDirectMessageDialog(DeleteDialog):
+
+    def _get_messages(self):
+        text1 = _('Delete this message?')
+        text2 = _('Are you sure you want to delete this message?')
+        return text1, text2
+
+    def _delete_method(self, entry_id):
+        self.twitter_account.api.dm_destroy(entry_id, self._cb)

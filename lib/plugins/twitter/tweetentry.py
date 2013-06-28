@@ -36,6 +36,8 @@ class TweetEntryDict(dict):
         if key == 'permalink' and 'permalink' not in self:
             val = 'gfeedline://twitter.com/%s/status/%s' % (
                 self['user_name'], self._get_entry_id(self['id']))
+        elif key == 'userlink':
+            val = 'gfeedlinetw://user/%s/' % self['user_name']
         elif key == 'user_name2':
             val = '@'+self['user_name']
         else:
@@ -88,6 +90,8 @@ class TweetEntry(object):
             user_name=user.screen_name,
             full_name=user.name,
             user_color=user_color.get(user.screen_name),
+            user_description=self._clean_description(user.description),
+
             protected=self._get_protected_icon(user.protected),
             source=self._get_source(entry),
 
@@ -98,6 +102,17 @@ class TweetEntry(object):
             )
 
         return entry_dict
+
+    def _clean_description(self, text):
+        if not text:
+            return ''
+        
+        text = text.replace("'", '&apos;')
+        text = text.replace('"', '&quot;')
+        text = text.replace('\r', '')
+        text = text.replace('\n', ' ')
+
+        return text
 
     def _get_styles(self, api, screen_name, entry=None):
         style_obj = EntryStyles()
@@ -113,6 +128,7 @@ class TweetEntry(object):
 
         replylink =   'gfeedlinetw://reply/%s' % entry_info
         retweetlink = 'gfeedlinetw://retweet/%s' % entry_info
+        deletelink =  'gfeedlinetw://delete/%s' % entry_info
         favlink =     'gfeedlinetw://fav/%s' % entry_info
         unfavlink =   'gfeedlinetw://unfav/%s' % entry_info
         morelink =    'gfeedlinetw://more/%s' % entry_info
@@ -127,6 +143,10 @@ class TweetEntry(object):
             if hasattr(entry.user, 'protected') else entry.user.get('protected')
         if not is_protected and api.account.user_name != user.screen_name:
             commands += "<a href='%s' title='%s'><i class='icon-retweet icon-large'></i><span class='label'>%s</span></a> " % (retweetlink, _('Retweet'), _('Retweet'))
+
+        # Delete
+        if api.account.user_name == user.screen_name:
+            commands += "<a href='%s' title='%s'><i class='icon-trash icon-large'></i><span class='label'>%s</span></a> " % (deletelink, _('Delete'), _('Delete'))
 
         # Favorite
         commands += (
@@ -240,7 +260,15 @@ class DirectMessageEntry(TweetEntry):
         return DictObj(self.entry.sender)
 
     def _get_commands(self, entry, user, api):
-        return ''
+        entry_info = '%s/%s' % (entry.id, user.screen_name)
+
+        # replylink =   'gfeedlinetw://replydm/%s' % entry_info
+        deletelink =  'gfeedlinetw://deletedm/%s' % entry_info
+
+        # Delete
+        commands = "<a href='%s' title='%s'><i class='icon-trash icon-large'></i><span class='label'>%s</span></a> " % (deletelink, _('Delete'), _('Delete'))
+
+        return commands
 
     def _get_styles(self, api, screen_name, entry):
         return ''
@@ -307,6 +335,8 @@ class MyFeedRetweetEntry(FeedRetweetEntry):
             user_name=user['screen_name'],
             full_name=user['name'],
             user_color=user_color.get(user['screen_name']),
+            user_description=self._clean_description(user.description),
+
             protected=self._get_protected_icon(user['protected']),
             source=self._decode_source_html_entities(self.original_entry.source),
             permalink="https://twitter.com/%s" % user['screen_name'],
@@ -371,6 +401,8 @@ class FeedEventEntry(TweetEntry):
             user_name=entry.source.screen_name,
             full_name=entry.source.name,
             user_color=user_color.get(entry.source.screen_name),
+            user_description=self._clean_description(user.description),
+
             protected=self._get_protected_icon(entry.source.protected),
             source='',
             permalink="https://twitter.com/%s" % entry.source.screen_name,
@@ -419,22 +451,30 @@ class TwitterEntities(object):
                 expanded_url = v['expanded_url']
                 alt = "<a href='%s' title='%s'>%s</a>" % (
                     expanded_url, expanded_url, v['display_url'])
+
+                if expanded_url.startswith("http://twitpic.com/"):
+                    twitpic_id = expanded_url.replace("http://twitpic.com/", '')
+                    url = 'http://twitpic.com/show/%s/' + twitpic_id
+                    text = self._add_image(text, url % 'full', url % 'thumb')
+
                 if expanded_url.endswith((".jpg", ".jpeg", ".png", ".gif")):
                     text = self._add_image(text, expanded_url, expanded_url)
 
             elif entity == 'user_mentions':
-                url = 'https://twitter.com/%s' %  v['screen_name']
+                url = 'gfeedlinetw://user/%s/' % v['screen_name']
                 alt = "<span class='%s'>@<a href='%s' title='%s'>%s</a></span>" % (
                     'user-mentions', url, v['name'], v['screen_name'])
 
             elif entity == 'hashtags':
-                url = 'https://twitter.com/search?q=%23' + v['text']
+                url = 'gfeedlinetw://hashtag/#%s/' % v['text']
                 alt = "<span class='%s'>#<a href='%s'>%s</a></span>" % (
                     'hashtags', url, v['text'])
 
             elif entity == 'media':
+                height = self._get_image_height(v['sizes']['large'])
                 alt = "<a href='%s'>%s</a>" % (v['expanded_url'], v['display_url'])
-                text = self._add_image(text, v['expanded_url'], v['media_url_https'])
+                url = v['media_url_https']
+                text = self._add_image(text, url+":large", url+":small", height)
 
             else:
                 alt = text[start+offset:end+offset]
@@ -452,12 +492,21 @@ class TwitterEntities(object):
 
         return text
 
-    def _add_image(self, text, link_url, image_url):
+    def _add_image(self, text, link_url, image_url, height=90):
+        link_url = link_url.replace('http', 'gfeedlineimg', 1)
         img = ("<div class='image'>"
-               "<a href='%s'><img src='%s' height='90'></a></div>") % (
-            link_url, image_url)
+               "<a href='%s'><img src='%s' height='%s'></a></div>") % (
+            link_url, image_url, height)
         text = text + img
         return text
+
+    def _get_image_height(self, image):
+        w = image['w']
+        h = image['h']
+
+        tmp_h = 160 * h / w
+        new_h = tmp_h if w > h and tmp_h < 90 else 90
+        return new_h
 
 class DictObj(object):
 

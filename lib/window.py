@@ -110,6 +110,12 @@ class MainWindow(object):
         for notebook in self.column.values():
             notebook.change_font(font, size)
 
+    def delete_status(self, status_id):
+        js = 'hideStatus(\"%s\")' % status_id
+  
+        for notebook in self.column.values():
+            notebook.exec_js_all_views(js)
+
     def _get_geometry_from_settings(self):
         x = SETTINGS_GEOMETRY.get_int('window-x')
         y = SETTINGS_GEOMETRY.get_int('window-y')
@@ -239,7 +245,7 @@ class FeedNotebook(Gtk.Notebook):
 
     def on_update_tablabel_sensitive(self, notebook, *args):
         page = notebook.get_current_page() # get previous page
-        feedview = notebook.get_nth_page(page) # get child
+        feedview = notebook.get_nth_page(page).get_children()[1] # get child FIXBOX
         if hasattr(feedview, 'tab_label'):
             feedview.tab_label.set_sensitive(False)
 
@@ -264,13 +270,20 @@ class FeedNotebook(Gtk.Notebook):
             self.column.remove(self.group_name)
 
     def jump_all_tabs_to_bottom(self, is_bottom=True):
-        for feedview in self.get_children():
+        for feedview in self._get_all_feedviews():
             feedview.jump_to_bottom(is_bottom)
 
     def change_font(self, font, size):
-        for feedview in self.get_children():
+        for feedview in self._get_all_feedviews():
             feedview.change_font(font, size)
 
+    def exec_js_all_views(self, js):
+        for feedview in self._get_all_feedviews():
+            feedview.execute_script(js)
+
+    def _get_all_feedviews(self):
+        return [vbox.get_children()[1] for vbox in self.get_children()]
+        
 class NotebookTabLabel(Gtk.EventBox):
 
     def __init__(self, name, notebook, child):
@@ -279,8 +292,19 @@ class NotebookTabLabel(Gtk.EventBox):
         self.label = Gtk.Label.new_with_mnemonic(name)
         self.connect('button-press-event', self._on_button_press_cb, 
                      notebook, child)
+
+        box = Gtk.Box()
+
+        if SETTINGS_VIEW.get_boolean('favicon'):
+            feedview = child.get_children()[1]
+            icon_pixbuf = feedview.webview.api.account.icon.get_pixbuf()
+            icon = Gtk.Image.new_from_pixbuf(icon_pixbuf)
+            box.pack_start(icon, True, True, 2)
+
+        box.pack_start(self.label, True, True, 0)
+
         self.set_visible_window(False)
-        self.add(self.label)
+        self.add(box)
         self.show_all()
 
     def set_sensitive(self, status):
@@ -305,7 +329,8 @@ class NotebookPopUpMenu(object):
         self.gui.connect_signals(self)
 
     def start(self, widget, event):
-        self.child = widget.get_nth_page(widget.get_current_page())
+        self.child = widget.get_nth_page(widget.get_current_page()
+                                         ).get_children()[1] # FIXBOX
         
         menu = self.gui.get_object('notebook_popup_menu')
         menu.popup(None, None, None, None, event.button, event.time)

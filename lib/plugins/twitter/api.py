@@ -5,7 +5,8 @@
 # Licence: GPL3
 
 from ...utils.settings import SETTINGS_TWITTER
-from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultOutput
+from ..base.api import APIBase
+from output import TwitterRestOutput, TwitterSearchOutput, TwitterFeedOutput, TwitterRelatedResultOutput, TwitterUserTimeLineOutput
 
 
 class TwitterAPIDict(dict):
@@ -17,6 +18,7 @@ class TwitterAPIDict(dict):
              TwitterAPIListTimeLine,
              TwitterAPIMentions,
              TwitterAPIDirectMessages,
+             TwitterAPIFavoritesList,
              TwitterSearchAPI,
 
              TwitterAPIUserStream,
@@ -34,27 +36,20 @@ class TwitterAPIDict(dict):
     def get_default(self):
         return TwitterAPIUserStream
 
-class TwitterAPIBase(object):
+class TwitterAPIBase(APIBase):
 
     output = TwitterRestOutput
-    include_rt = True
-    has_argument = False
-    has_popup_menu = True
     tooltip_for_argument = ''
     
     connections = 0
     rate_limit = 15
 
-    def __init__(self, account):
-        self.account = account
-        self.api = self._get_api()
+    def __init__(self, account, options):
+        super(TwitterAPIBase, self).__init__(account, options)
         self.__class__.connections += 1
 
     def exit(self):
         self.__class__.connections -= 1
-
-    def get_options(self, argument):
-        return {}
 
     def print_to_other_view(self, entry_dict):
         return None
@@ -77,6 +72,7 @@ class TwitterAPIHomeTimeLine(TwitterAPIBase):
 class TwitterAPIUserTimeLine(TwitterAPIBase):
 
     name = _('User TimeLine')
+    output = TwitterUserTimeLineOutput
     has_argument = True
     rate_limit = 180
 
@@ -106,6 +102,8 @@ class TwitterAPIListTimeLine(TwitterAPIBase):
             print "Error: Invalid list name."
             params = {}
 
+        params['include_rts']= '1' if self.options.get('include_rts') else '0'
+
         return params
 
 class TwitterAPIMentions(TwitterAPIBase):
@@ -122,6 +120,13 @@ class TwitterAPIDirectMessages(TwitterAPIBase):
 
     def _get_api(self):
         return self.account.api.direct_messages
+
+class TwitterAPIFavoritesList(TwitterAPIBase):
+
+    name = _('Favorites')
+
+    def _get_api(self):
+        return self.account.api.fav_list
 
 class TwitterAPIRelatedResults(TwitterAPIBase):
 

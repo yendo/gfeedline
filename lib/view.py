@@ -15,10 +15,11 @@ from gi.repository import Gtk, Gio, WebKit
 from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU, LINK_MENU_ITEMS
 from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS_VIEW
+from utils.previewer import NautilusPreviewer
 from constants import SHARED_DATA_FILE, CONFIG_HOME
 from updatewindow import UpdateWindow
 from theme import FontSet
-
+from profile import ProfilePane
 
 class FeedScrolledWindow(Gtk.ScrolledWindow):
 
@@ -44,17 +45,28 @@ class FeedView(FeedScrolledWindow):
         self.theme = self.window.theme
         self.feed_counter = 1 # numbers of feeds
 
-        self.append(notebook, page)
         self.webview = FeedWebView(self, api, notebook.group_name)
         self.notification = self.window.notification
 
         self.id_history = CacheList()
         SETTINGS_VIEW.connect("changed::theme", self.id_history.clear)
 
+        self.box = Gtk.VBox()
+        self.profile = ProfilePane()
+        self.append(notebook, page)
+
     def append(self, notebook, page=-1):
         self.notebook = notebook
-        self.tab_label = notebook.append_page(self, self.name, page)
+
+        self.box.pack_start(self.profile.widget, False, False, 10)
+        self.box.pack_start(self, True, True, 0)
+        self.box.show()
+
+        self.tab_label = notebook.append_page(self.box, self.name, page)
         self.tab_label.set_sensitive(False)
+
+    def set_profile(self, entry):
+        self.profile.set_profile(entry)
 
     def move(self, notebook, page=-1):
         self.remove()
@@ -66,7 +78,7 @@ class FeedView(FeedScrolledWindow):
             self.force_remove()
 
     def force_remove(self):
-        page = self.notebook.page_num(self)
+        page = self.notebook.page_num(self.box)
         print "removed %s page!" % page
         self.notebook.remove_page(page)
 
@@ -97,6 +109,9 @@ class FeedView(FeedScrolledWindow):
     def clear_buffer(self):
         self.webview.clear_buffer()
         self.tab_label.set_sensitive(False)
+
+    def execute_script(self, js):
+        self.webview.execute_script(js)
 
 class FeedWebView(WebKit.WebView):
 
@@ -190,8 +205,12 @@ class FeedWebView(WebKit.WebView):
             for x in default_menu.get_children():
                 default_menu.remove(x)
             for menuitem in ENTRY_POPUP_MENU():
-                default_menu.append(menuitem(self.link_on_webview.uri, api,
-                                             self.scrolled_window))
+                if menuitem is None:
+                    default_menu.append(Gtk.SeparatorMenuItem.new())
+                else:
+                    default_menu.append(menuitem(self.link_on_webview.uri, api,
+                                                 self.scrolled_window))
+            default_menu.show_all()
         elif not self.link_on_webview.is_hovering and self.can_copy_clipboard():
             menuitem = SearchMenuItem()
             default_menu.prepend(menuitem)
@@ -221,6 +240,12 @@ class FeedWebView(WebKit.WebView):
                 menuitem.on_activate(None, entry_id)
 
             return True
+
+        if uri.startswith('gfeedlineimg'):
+            uri = uri.replace('gfeedlineimg', 'http')
+            parent = self.scrolled_window.window.window
+            if NautilusPreviewer().show_file(uri, parent):
+                return True
 
         if uri.startswith('gfeedline:'):
             uri = uri.replace('gfeedline:', 'https:')

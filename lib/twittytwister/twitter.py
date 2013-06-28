@@ -278,8 +278,9 @@ class Twitter(object):
         return self.__clientDefer(downloadPage(*args, **kwargs))
 
     def __postPage(self, path, parser, args={}):
+        headers = {'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'}
         url = self.base_url + path
-        headers = self.makeAuthHeader('POST', url, args)
+        headers = self.makeAuthHeader('POST', url, args, headers)
 
         if self.client_info != None:
             headers.update(self.client_info.get_headers())

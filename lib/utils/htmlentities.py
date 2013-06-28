@@ -1,5 +1,6 @@
 import re
 import copy
+import urllib
 
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup
 
@@ -13,3 +14,6 @@ def decode_html_entities(text):
         text, convertEntities=BeautifulStoneSoup.HTML_ENTITIES,
         markupMassage=hexentityMassage)
     return unicode(soup)
+
+def decode_url_entities(text):
+    return decode_html_entities(urllib.unquote(text))

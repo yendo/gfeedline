@@ -62,3 +62,7 @@ function clearBuffer() {
 function changeFont(font) {
      $('body').css("font", font);
 }
+
+function hideStatus(id) {
+     $("#"+id).fadeOut();
+}

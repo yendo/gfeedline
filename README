@@ -22,6 +22,8 @@ It supports Twitter, Facebook & Tumblr.
 ** Recommends
 
   - python-libproxy: for Gnome Proxy Settings
+  - gnome-sushi: as image previewer
+  - python-gtkspellcheck: for spell checking
 
 ** Installation
 

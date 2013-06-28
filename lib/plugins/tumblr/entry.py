@@ -83,6 +83,7 @@ class TumblrEntry(object):
                 entry['blog_name'], _(post_type.get(entry['type'])))
 
         # print entry['type'], popup_body
+        url = entry['post_url'].split('/')
 
         entry_dict = dict(
             date_time=TimeFormat(entry['date']).get_local_time(),
@@ -90,6 +91,7 @@ class TumblrEntry(object):
             styles='tumblr',
             image_uri=image_uri,
             permalink=entry['post_url'],
+            userlink="%s://%s" % (url[0], url[2]),
 
             command='',
             onmouseover='',
@@ -108,6 +110,7 @@ class TumblrEntry(object):
             user_name2='',
             full_name=entry['blog_name'],
             user_color=user_color.get(entry['blog_name']),
+            user_description='',
             protected="<div class='tumblrbuttons'>%s</div>" % command,
             source='',
 
@@ -141,10 +144,13 @@ class TumblrPhotosEntry(TumblrEntry):
         # template = self.theme.template['image']
 
         for photo in entry['photos']:
-            url =  photo['alt_sizes'][2]['url']
+            small =  photo['alt_sizes'][2]['url']
+            link =  photo['alt_sizes'][0]['url'].replace('http', 'gfeedlineimg', 1)
+
             # key_dict = {'url': url}
             # new_body += template.substitute(key_dict)
-            new_body += "<img height='90' src='%s'>" % url
+            new_body += "<a href='%s'><img height='90' src='%s'></a>" % (
+                link, small)
 
         new_body += "</div>" + body
 
@@ -196,7 +202,8 @@ class TumblrAudioEntry(TumblrEntry):
 
         if image:
             template = self.theme.template['image']
-            key_dict = {'url': image}
+            key_dict = {'url': image, 'link': entry.get('post_url')}
+
             body += template.substitute(key_dict)
 
         body += self._get_body(entry)
@@ -209,7 +216,8 @@ class TumblrVideoEntry(TumblrEntry):
         body = self._get_body(entry)
 
         template = self.theme.template['image']
-        key_dict = {'url': entry.get('thumbnail_url')}
+        key_dict = {'url': entry.get('thumbnail_url'), 
+                    'link': entry.get('post_url')}
         body = template.substitute(key_dict) + body
         return self._get_entry_dict(entry, body)
 

@@ -133,11 +133,24 @@ class Twitter(twitter.Twitter):
         else:
             defer.unpause()
 
+    def fav_list(self, delegate, params={}, extra_args=None):
+        return self.__get_json('/favorites/list.json', delegate, params,
+            extra_args=extra_args)
+
     def fav(self, status_id):
         return self.__post('/favorites/create.json', {'id': status_id})
 
     def unfav(self, status_id):
         return self.__post('/favorites/destroy.json', {'id': status_id})
+
+    def destroy(self, status_id, delegate):
+        parser = tjson.Parser(delegate)
+        return self.__postPage('/statuses/destroy/%s.json' % status_id, parser)
+
+    def dm_destroy(self, status_id, delegate):
+        parser = tjson.Parser(delegate)
+        return self.__postPage('/direct_messages/destroy.json', 
+                               parser,  {'id': status_id})
 
     def update_with_media(self, status, image_file, params=None):
         with open(image_file, 'rb') as fh:

@@ -1,14 +1,75 @@
+2013-06-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py (FeedView): Fixed a box object bug.
+
+2013-06-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
+	* gfeedline.glade: Set the application icon for wnck taskbar
+	  (issue #51).
+
+2013-06-22  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* window.py (NotebookTabLabel): Fixed a feedview objects lost
+	  problem (issue #50).
+	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme!
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
+	* window.py: Fixed feedview objects lost problems.
+	* menu.py: Fixed a Twitter User TimeLine option for the profile.
+
+2013-06-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/profile.glade, twitter/output.py, view.py: Added profile
+	  pane on User Timeline feeds.
+
+2013-06-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py, share/update.glade: Added support for spell
+	  checker with python-gtkspellcheck (issue #11).
+	* twitter/api.py, preferences/feedsource.py: Added a new option
+	  for including retweets in List/User TimeLine.
+
+2013-06-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/tweetentry.py: Added tooltips for user description on
+	  Twitter user icons.
+	* menu.py, twitter/tweetentry.py: Added support for opening new
+	  tabs from Twittter user icons (issue #37).
+
 2013-06-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/tweetentry.py, menu.py: Added support for opening new
+	  tabs from Twittter hashtags.
+	* twitter/account.py, twitter/api.py: Added support for Twitter
+	  favorites list (issue #39).
+	* facebook/entry.py: Improved strings in link boxes.
+	* facebook/entry.py, tumblr/entry.py: Added support for GNOME
+	  sushi previewer for Facebook & Tumblr.
+	* menu.py, updatewindow.py, twitter/account.py: Added support for
+	  deleting Twitter direct messages.
 	* twitter/tweetentry.py (DirectMessageEntry): Fixed a bug that
 	  prevented showing direct messages (issue #42).
+
+2013-06-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* utils/previewer.py, view.py, twitter/tweetentry.py: Added
+	  support for GNOME sushi previewer.
+
+2013-06-04  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py, window.py: Added support for favicon.
+	  Added new GSettings key '/apps/gfeedline/view/favicon'.
 
 2013-06-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.2 release.
+	* updatewindow.py, view.py, window.py, gfeedline.js: Added
+	  support for destroying statuses on Twitter.
 
 2013-06-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* twitter/account.py, twitter/tweetentry.py, updatewindow.py:
+	  Started implementation of destroying statuses on Twitter.
 	* accountliststore.py, feedsource.py: Fixed account data unicode
 	  problem. Thanks @esjima!
 

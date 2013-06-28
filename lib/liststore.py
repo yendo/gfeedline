@@ -52,7 +52,7 @@ class FeedListStore(ListStoreBase):
             print "Error: API (%s) is not found!" % source.get('target')
             return
 
-        api = api_class(account_obj)
+        api = api_class(account_obj, source.get('options'))
         view = self._get_view(source, api, iter)
         api_obj = api.output(api, view, 
                              source.get('argument'), source.get('options'),

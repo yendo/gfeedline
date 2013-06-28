@@ -37,14 +37,16 @@ class FacebookEntry(object):
 
         if entry['type'] == 'photo':
             template = self.theme.template['image']
-            key_dict = {'url': entry['picture']}
+            url = entry['picture']
+            link = url.replace('http', 'gfeedlineimg').replace('_s.', '_n.')
+            key_dict = {'url': url, 'link': link}
             body += template.substitute(key_dict)
 
         if entry.get('description'):
             template = self.theme.template['linkbox']
             key_dict = {'url': entry.get('link'),
-                        'name': entry.get('name') or '',
-                        'caption': entry.get('caption') or '',
+                        'name': add_markup.cut(entry.get('name')),
+                        'caption': add_markup.cut(entry.get('caption')),
                         'description': add_markup.convert(entry.get('description'))
                         }
             body += template.substitute(key_dict).replace('\r', '') # Unexpected EOF
@@ -76,6 +78,7 @@ class FacebookEntry(object):
             styles='facebook',
             image_uri='https://graph.facebook.com/%s/picture' % entry['from']['id'],
             permalink=permalink,
+            userlink='http://www.facebook.com/%s' % userid,
 
             command=command,
             onmouseover='',
@@ -94,6 +97,7 @@ class FacebookEntry(object):
             user_name2='', # entry['type'],
             full_name=entry['from']['name'],
             user_color=user_color.get(entry['from']['name']),
+            user_description='',
             protected='',
             source='',
 
@@ -153,6 +157,7 @@ class AddedFacebookHtmlMarkup(AddedHtmlMarkup):
 
     def convert(self, text):
         text = super(AddedFacebookHtmlMarkup, self).convert(text)
+        is_matched = self.new_lines.match(text)
 
         text = self.new_lines.sub(
             ("\\1"
@@ -163,7 +168,23 @@ class AddedFacebookHtmlMarkup(AddedHtmlMarkup):
              "<a href='#' onclick='readMore(this); return false;'>%s</a>"
              "</span>") % (_('See more'), _('See less')), 
             text)
+
+        if not is_matched:
+            text = self._cut(text, 200)
+
         text = text.replace('\n', '<br>')
+        return text
+
+    def cut(self, text):
+        if not text:
+            return ''
+
+        text = super(AddedFacebookHtmlMarkup, self).convert(text)
+        return self._cut(text)
+
+    def _cut(self, text, num=100):
+        if len(text) > num: 
+            text = text[:num] + '...'
         return text
 
 add_markup = AddedFacebookHtmlMarkup()
