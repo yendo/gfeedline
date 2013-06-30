@@ -401,7 +401,7 @@ class FeedEventEntry(TweetEntry):
             user_name=entry.source.screen_name,
             full_name=entry.source.name,
             user_color=user_color.get(entry.source.screen_name),
-            user_description=self._clean_description(user.description),
+            user_description=self._clean_description(entry.source.description),
 
             protected=self._get_protected_icon(entry.source.protected),
             source='',
