@@ -10,7 +10,7 @@ from string import Template
 from gi.repository import Pango
 
 from constants import SHARED_DATA_FILE, THEME_HOME
-from utils.settings import SETTINGS_VIEW
+from utils.settings import SETTINGS_VIEW, SETTINGS_DESKTOP
 
 
 class Theme(object):
@@ -110,7 +110,15 @@ class FontSet(object):
         return css
 
     def _get_default(self):
-        font_name = SETTINGS_VIEW.get_string('font')
+        if SETTINGS_VIEW.get_boolean('use-system-font'):
+            font_name = SETTINGS_DESKTOP.get_string('document-font-name')
+        else:
+            font_name = SETTINGS_VIEW.get_string('font')
+
+        font_template, size = self.get_pango_font_format(font_name)
+        return font_template, size
+
+    def get_pango_font_format(self, font_name):
         pango_font = Pango.font_description_from_string(font_name)
 
         size = int(font_name.rpartition(' ')[-1])

@@ -7,7 +7,8 @@
 from gi.repository import Gtk
 
 from ..plugins.twitter.assistant import TwitterAuthAssistant
-from ..utils.settings import SETTINGS, SETTINGS_VIEW, SETTINGS_GEOMETRY
+from ..utils.settings import (SETTINGS, SETTINGS_VIEW, SETTINGS_GEOMETRY, 
+                              SETTINGS_DESKTOP)
 from ..utils.autostart import AutoStart
 from ..constants import SHARED_DATA_FILE
 from ..theme import Theme
@@ -18,6 +19,7 @@ from filters import FilterAction
 class Preferences(object):
 
     def __init__(self, mainwindow):
+        self.window = mainwindow
         self.liststore = mainwindow.liststore
 
         gui = Gtk.Builder()
@@ -37,6 +39,13 @@ class Preferences(object):
 #        is_other_column = SETTINGS_VIEW.get_boolean('conversation-other-column')
 #        checkbutton_conversation = gui.get_object('checkbutton_conversation')
 #        checkbutton_conversation.set_active(is_other_column)
+
+        is_system_font = SETTINGS_VIEW.get_boolean('use-system-font')
+        checkbutton_systtem_font = gui.get_object('checkbutton_system_font')
+        checkbutton_systtem_font.set_active(is_system_font)
+        self.fontbutton.set_sensitive(not is_system_font)
+        SETTINGS_VIEW.connect("changed::use-system-font", 
+                         self.on_settings_system_font_change)
 
         self.autostart = AutoStartWithCheckButton(gui, 'gfeedline')
 
@@ -70,6 +79,10 @@ class Preferences(object):
         SETTINGS_GEOMETRY.set_int('prefs-width', w)
         SETTINGS_GEOMETRY.set_int('prefs-height', h)
 
+
+    def on_settings_system_font_change(self, settings, key):
+        self.window.on_menuitem_zoom_default_activate(None)
+
     def on_settings_sticky_change(self, settings, key):
         if settings.get_boolean(key):
             self.preferences.stick()
@@ -95,6 +108,11 @@ class Preferences(object):
     def on_checkbutton_conversation_toggled(self, button):
         is_other_column = button.get_active()
         SETTINGS_VIEW.set_boolean('conversation-other-column', is_other_column)
+
+    def on_checkbutton_system_font_toggled(self, button):
+        is_system_font = button.get_active()
+        SETTINGS_VIEW.set_boolean('use-system-font', is_system_font)
+        self.fontbutton.set_sensitive(not is_system_font)
 
     def on_checkbutton_sticky_toggled(self, button):
         sticky = button.get_active()
@@ -199,14 +217,20 @@ class TimeLineFontButton(object):
 
     def __init__(self, gui, window):
         self.window = window
-        self.widget = gui.get_object('fontbutton')
         font_name = SETTINGS_VIEW.get_string('font')
+
+        self.widget = gui.get_object('fontbutton')
         self.widget.set_font_name(font_name)
+        self.label = gui.get_object('label_font')
 
         SETTINGS_VIEW.connect("changed::font", self.on_settings_font_change)
         #self.on_settings_font_change(SETTINGS, 'window-sticky')
 
         self.widget.connect('font-set', self.on_button_font_set)
+
+    def set_sensitive(self, state):
+        self.label.set_sensitive(state)
+        self.widget.set_sensitive(state)
 
     def on_button_font_set(self, button, *args):
         font_name = button.get_font_name()

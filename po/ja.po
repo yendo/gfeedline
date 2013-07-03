@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-21 11:57+0900\n"
-"PO-Revision-Date: 2013-06-21 12:00+0900\n"
+"POT-Creation-Date: 2013-07-01 11:11+0900\n"
+"PO-Revision-Date: 2013-07-01 11:14+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -231,7 +231,7 @@ msgid "Sender"
 msgstr "送信者"
 
 #: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:7
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "ソース"
 
@@ -349,7 +349,7 @@ msgstr "このメッセージを削除しますか?"
 msgid "Are you sure you want to delete this message?"
 msgstr "このダイレクトメッセージを本当に削除しますか?"
 
-#: ../lib/window.py:357
+#: ../lib/window.py:361
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
 msgstr ""
@@ -451,7 +451,7 @@ msgstr "通知機能を使う(_E)"
 msgid "_Group:"
 msgstr "グループ(_G):"
 
-#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:12
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
 msgid "General"
 msgstr "全般"
 
@@ -593,70 +593,74 @@ msgid "Descending"
 msgstr "降順"
 
 #: ../share/preferences.glade.h:8
+msgid "_Use the system document font"
+msgstr "システムフォントを使用する(_U)"
+
+#: ../share/preferences.glade.h:9
 msgid "<b>View</b>"
 msgstr "<b>表示</b>"
 
-#: ../share/preferences.glade.h:9
+#: ../share/preferences.glade.h:10
 msgid "Always on _Visible Workspace"
 msgstr "すべてのワークスペースに配置する(_V)"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:11
 msgid "_Auto Start"
 msgstr "ログイン時に自動起動する(_A)"
 
-#: ../share/preferences.glade.h:11
+#: ../share/preferences.glade.h:12
 msgid "<b>Desktop</b>"
 msgstr "<b>デスクトップ</b>"
 
-#: ../share/preferences.glade.h:14
+#: ../share/preferences.glade.h:15
 msgid "User ID"
 msgstr "ユーザ ID"
 
-#: ../share/preferences.glade.h:15
+#: ../share/preferences.glade.h:16
 msgid "<b>Accounts</b>"
 msgstr "<b>アカウント</b>"
 
-#: ../share/preferences.glade.h:16
+#: ../share/preferences.glade.h:17
 msgid "Accounts"
 msgstr "アカウント"
 
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:18
 msgid "Name"
 msgstr "名前"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:19
 msgid "Target"
 msgstr "ターゲット"
 
-#: ../share/preferences.glade.h:19
+#: ../share/preferences.glade.h:20
 msgid "Argument"
 msgstr "引数"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:21
 msgid "Group"
 msgstr "グループ"
 
-#: ../share/preferences.glade.h:21
+#: ../share/preferences.glade.h:22
 msgid "<b>Feed Sources</b>"
 msgstr "<b>フィードソース</b>"
 
-#: ../share/preferences.glade.h:22
+#: ../share/preferences.glade.h:23
 msgid "Feeds"
 msgstr "フィード"
 
-#: ../share/preferences.glade.h:23
+#: ../share/preferences.glade.h:24
 msgid "Word"
 msgstr "単語"
 
-#: ../share/preferences.glade.h:24
+#: ../share/preferences.glade.h:25
 msgid "Expiry"
 msgstr "有効期間"
 
-#: ../share/preferences.glade.h:25
+#: ../share/preferences.glade.h:26
 msgid "<b>Filters</b>"
 msgstr "<b>フィルター</b>"
 
-#: ../share/preferences.glade.h:26
+#: ../share/preferences.glade.h:27
 msgid "Filters"
 msgstr "フィルター"
 
