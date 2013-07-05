@@ -118,7 +118,8 @@ class TwitterOutputBase(OutputBase):
         other_view = self.api.print_to_other_view(entry_dict)
         if other_view:
             output_views = [x[Column.API].view for x in self.view.liststore 
-                            if x[Column.TARGET].decode('utf-8') == other_view]
+                            if x[Column.TARGET].decode('utf-8') == other_view
+                            and x[Column.ACCOUNT] is self.api.account]
             for view in output_views:
                 view.update(entry_dict, style, is_new_update=is_new_update)
 
