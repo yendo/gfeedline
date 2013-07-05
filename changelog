@@ -1,6 +1,10 @@
+2013-07-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py: Added support for the system font setting (issue #36).
+
 2013-07-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* preferences.py: Added support for system font setting.
+	* preferences.py: Added support for the system font setting.
 
 2013-06-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
