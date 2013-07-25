@@ -1,3 +1,8 @@
+2013-07-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* it_IT.po: Updated Italian translation.  Thanks Gianvito Cavasoli!
+	* de_DE.po: Updated German translation.  Thanks t_bb_ & _popopopoon_!
+
 2013-07-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twitter/output.py (TwitterOutputBase): Added checking user
