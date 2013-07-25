@@ -1,3 +1,8 @@
+2013-07-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py: Added support for inserting all @users when
+	  replying (issue #56).
+
 2013-07-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* view.py: Added support for the system font setting (issue #36).
