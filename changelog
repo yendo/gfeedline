@@ -1,3 +1,8 @@
+2013-08-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* utils/urlget.py: Fixed a problem that is caused in Twisted 13.1.
+	  (issue #57).
+
 2013-07-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* it_IT.po: Updated Italian translation.  Thanks Gianvito Cavasoli!

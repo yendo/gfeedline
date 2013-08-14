@@ -27,6 +27,7 @@ HTTP Client with proxy support.
 """
 
 import os
+import urlparse
 
 from twisted.web import client
 from twisted.internet import reactor
@@ -37,7 +38,7 @@ class UrlGetWithProxy(object):
     def __init__(self, proxy=None):
         if proxy is None:
             proxy = os.environ.get('http_proxy') or ""
-        self.proxy_host, self.proxy_port = client._parse(proxy)[1:3]
+        self.proxy_host, self.proxy_port = self._parse(proxy)[1:3]
         self.use_proxy = bool(self.proxy_host and self.proxy_port)
 
     def getPage(self, url, contextFactory=None, *args, **kwargs):
@@ -51,7 +52,12 @@ class UrlGetWithProxy(object):
         return d
 
     def _urlget(self, factory, url, contextFactory=None):
-        scheme, host, port, path = client._parse(url)
+        scheme, host, port, path = self._parse(url)
+
+        if client._parse(url) != self._parse(url):
+            print self._parse(url)
+
+
         if self.use_proxy and scheme != 'https': # HTTPS proxy isn't supported.
             host, port = self.proxy_host, self.proxy_port
             factory.path = url
@@ -63,3 +69,14 @@ class UrlGetWithProxy(object):
         else:
             reactor.connectTCP(host, port, factory)
         return factory.deferred
+
+    def _parse(self, url):
+        o = urlparse.urlsplit(url)
+
+        port = o.port
+        if not port:
+            port = 443 if o.scheme == 'https' else 80
+
+        path = "%s?%s" % (o.path, o.query) if o.query else o.path
+
+        return o.scheme, o.netloc, port, path
