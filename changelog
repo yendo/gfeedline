@@ -1,6 +1,7 @@
 2013-08-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* lib/window.py: Added new menu item of 'Clear Tab' on tab labels.
+	* lib/window.py: Added a menu item of 'Clear Tab' on tab labels.
+	  Added a menu item of 'Clear All Tabs' on the menu bar.
 
 2013-07-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
