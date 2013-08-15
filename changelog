@@ -2,15 +2,25 @@
 
 	* lib/window.py: Added a menu item of 'Clear Tab' on tab labels.
 	  Added a menu item of 'Clear All Tabs' on the menu bar.
+	* po/nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
+
+2013-08-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* utils/urlget.py: Fixed a problem that is caused in Twisted 13.1.
+	  (issue #57).
 
 2013-07-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py: Added support for inserting all @users when
 	  replying (issue #56).
+	* it_IT.po: Updated Italian translation.  Thanks Gianvito Cavasoli!
+	* de_DE.po: Updated German translation.  Thanks t_bb_ & _popopopoon_!
 
 2013-07-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* view.py: Added support for the system font setting (issue #36).
+	* twitter/output.py (TwitterOutputBase): Added checking user
+	  account for sending events to reply tabs (issue #46).
 
 2013-07-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
