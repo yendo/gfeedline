@@ -1,3 +1,7 @@
+2013-08-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* po/nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
+
 2013-08-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* utils/urlget.py: Fixed a problem that is caused in Twisted 13.1.

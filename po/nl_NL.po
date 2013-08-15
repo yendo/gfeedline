@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-24 22:41+0900\n"
-"PO-Revision-Date: 2013-05-24 17:20+0000\n"
+"POT-Creation-Date: 2013-06-21 11:57+0900\n"
+"PO-Revision-Date: 2013-08-01 17:30+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/gfeedline/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -26,39 +26,56 @@ msgstr "dagen"
 msgid "hours"
 msgstr "uren"
 
-#: ../lib/menu.py:70
-msgid "_Open"
-msgstr "_Openen"
+#: ../lib/menu.py:76
+msgid "_Open this Tweet in browser"
+msgstr "_Open deze tweet in webbrowser"
 
-#: ../lib/menu.py:78
+#: ../lib/menu.py:84
+msgid "_Open this _user page in browser"
+msgstr "_Open deze _gebruikerspagina in webbrowser"
+
+#: ../lib/menu.py:92
 msgid "_Reply"
 msgstr "_Beantwoorden"
 
-#: ../lib/menu.py:86
+#: ../lib/menu.py:100
 msgid "Re_tweet"
 msgstr "_Hertweeten"
 
-#: ../lib/menu.py:114
+#: ../lib/menu.py:128
+msgid "_Delete"
+msgstr "_Verwijderen"
+
+#: ../lib/menu.py:150
 msgid "_Favorite"
 msgstr "_Favoriet"
 
-#: ../lib/menu.py:131 ../lib/plugins/twitter/tweetentry.py:143
+#: ../lib/menu.py:167 ../lib/plugins/twitter/tweetentry.py:168
 msgid "Conversation"
 msgstr "Gesprek"
 
-#: ../lib/menu.py:167
+#: ../lib/menu.py:203
 msgid "View _Conversation"
 msgstr "Toon _gesprek"
 
-#: ../lib/menu.py:193 ../lib/plugins/twitter/api.py:127
+#: ../lib/menu.py:229 ../lib/plugins/twitter/api.py:133
 msgid "Related Results"
 msgstr "Gerelateerde resultaten"
 
-#: ../lib/menu.py:206
+#: ../lib/menu.py:252 ../lib/plugins/twitter/api.py:178
+msgid "Search"
+msgstr "Zoeken"
+
+#: ../lib/menu.py:271 ../lib/plugins/twitter/api.py:74
+#: ../lib/preferences/feedsource.py:110
+msgid "User TimeLine"
+msgstr "Gebruikers-tijdlin"
+
+#: ../lib/menu.py:284
 msgid "_Search"
 msgstr "_Zoeken"
 
-#: ../lib/menu.py:217
+#: ../lib/menu.py:295
 msgid "_Add Filter"
 msgstr "_Filter toevoegen"
 
@@ -66,15 +83,17 @@ msgstr "_Filter toevoegen"
 msgid "Open"
 msgstr "Openen"
 
-#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:130
+#. "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
+#. Reply
+#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:139
 msgid "Reply"
 msgstr "Beantwoorden"
 
-#: ../lib/plugins/facebook/api.py:40
+#: ../lib/plugins/facebook/api.py:31
 msgid "News Feed"
 msgstr "Nieuwsoverzicht"
 
-#: ../lib/plugins/facebook/api.py:47
+#: ../lib/plugins/facebook/api.py:38
 msgid "Wall"
 msgstr "Prikbord"
 
@@ -104,32 +123,32 @@ msgstr "Authorisatie"
 msgid "Confirm"
 msgstr "Bevestigen"
 
-#: ../lib/plugins/facebook/entry.py:68 ../lib/plugins/tumblr/entry.py:68
+#: ../lib/plugins/facebook/entry.py:70 ../lib/plugins/tumblr/entry.py:68
 #: ../lib/plugins/tumblr/entry.py:69
 msgid "Like"
 msgstr "Vind ik leuk"
 
-#: ../lib/plugins/facebook/entry.py:69
+#: ../lib/plugins/facebook/entry.py:71
 msgid "Unlike"
 msgstr "Vind ik niet meer leuk"
 
-#: ../lib/plugins/facebook/entry.py:70
+#: ../lib/plugins/facebook/entry.py:72
 msgid "Comment"
 msgstr "Reageren"
 
-#: ../lib/plugins/facebook/entry.py:164
+#: ../lib/plugins/facebook/entry.py:169
 msgid "See more"
 msgstr "Meer weergeven"
 
-#: ../lib/plugins/facebook/entry.py:164
+#: ../lib/plugins/facebook/entry.py:169
 msgid "See less"
 msgstr "Minder weergeven"
 
-#: ../lib/plugins/tumblr/api.py:40
+#: ../lib/plugins/tumblr/api.py:31
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: ../lib/plugins/tumblr/api.py:47
+#: ../lib/plugins/tumblr/api.py:38
 msgid "Posts"
 msgstr "Berichten"
 
@@ -165,41 +184,37 @@ msgstr "een audiobestand"
 msgid "{0} posts {1} entry."
 msgstr "{0} berichten {1} invulling."
 
-#: ../lib/plugins/twitter/api.py:71
+#: ../lib/plugins/twitter/api.py:67
 msgid "Home TimeLine"
 msgstr "Thuis-tijdlijn"
 
-#: ../lib/plugins/twitter/api.py:78
-msgid "User TimeLine"
-msgstr "Gebruikers-tijdlin"
-
-#: ../lib/plugins/twitter/api.py:90
+#: ../lib/plugins/twitter/api.py:87 ../lib/preferences/feedsource.py:109
 msgid "List TimeLine"
 msgstr "Lijst-tijdlijn"
 
-#: ../lib/plugins/twitter/api.py:93
+#: ../lib/plugins/twitter/api.py:90
 msgid "The format is \"username/listname\".  ex) yendo0206/gfeedline"
 msgstr "De opmaak is \"gebruikersnaam/lijstnaam\". Bijv.) yendo0206/gfeedline"
 
-#: ../lib/plugins/twitter/api.py:112 ../lib/plugins/twitter/api.py:151
+#: ../lib/plugins/twitter/api.py:111 ../lib/plugins/twitter/api.py:159
 msgid "Mentions"
 msgstr "Vermeldingen"
 
-#: ../lib/plugins/twitter/api.py:119
+#: ../lib/plugins/twitter/api.py:118
 msgid "Direct Messages"
 msgstr "Directe berichten"
 
-#: ../lib/plugins/twitter/api.py:142 ../lib/preferences/feedsource.py:108
+#: ../lib/plugins/twitter/api.py:126
+msgid "Favorites"
+msgstr "Favorieten"
+
+#: ../lib/plugins/twitter/api.py:148 ../lib/preferences/feedsource.py:108
 msgid "User Stream"
 msgstr "Gebruikersstream"
 
-#: ../lib/plugins/twitter/api.py:156
+#: ../lib/plugins/twitter/api.py:164
 msgid "Track"
 msgstr "Bijhouden"
-
-#: ../lib/plugins/twitter/api.py:170
-msgid "Search"
-msgstr "Zoeken"
 
 #: ../lib/plugins/twitter/assistant.py:30
 msgid "Twitter Account Setup"
@@ -233,72 +248,110 @@ msgstr "via %s"
 msgid "Retweeted by %s"
 msgstr "Hetweet door %s"
 
-#: ../lib/plugins/twitter/tweetentry.py:69
+#: ../lib/plugins/twitter/tweetentry.py:74
 msgid "View more in conversation"
 msgstr "Meer weergeven in gesprek"
 
-#: ../lib/plugins/twitter/tweetentry.py:131
+#: ../lib/plugins/twitter/tweetentry.py:145
 msgid "Retweet"
 msgstr "Hetweet"
 
-#: ../lib/plugins/twitter/tweetentry.py:133
-#: ../lib/plugins/twitter/tweetentry.py:134
+#. Delete
+#: ../lib/plugins/twitter/tweetentry.py:149
+#: ../lib/plugins/twitter/tweetentry.py:269
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: ../lib/plugins/twitter/tweetentry.py:158
+#: ../lib/plugins/twitter/tweetentry.py:159
 msgid "Favorite"
 msgstr "Favoriet"
 
-#: ../lib/plugins/twitter/tweetentry.py:279
+#: ../lib/plugins/twitter/tweetentry.py:313
 msgid "retweeted your Tweet"
 msgstr "heeft uw tweet gehertweet"
 
-#: ../lib/plugins/twitter/tweetentry.py:320
+#: ../lib/plugins/twitter/tweetentry.py:365
 msgid "favorited your Tweet"
 msgstr "heeft uw tweet als favoriet gemarkeerd"
 
-#: ../lib/plugins/twitter/tweetentry.py:321
+#: ../lib/plugins/twitter/tweetentry.py:366
 msgid "unfavorited your Tweet"
 msgstr "heeft uw tweet als favoriet verwijderd"
 
-#: ../lib/plugins/twitter/tweetentry.py:322
+#: ../lib/plugins/twitter/tweetentry.py:367
 msgid "followed you"
 msgstr "volgt u"
 
-#: ../lib/plugins/twitter/tweetentry.py:323
+#: ../lib/plugins/twitter/tweetentry.py:368
 #, python-format
 msgid "added you to list %s"
 msgstr "heeft u toegevoegd aan lijst %s"
 
-#: ../lib/plugins/twitter/tweetentry.py:324
+#: ../lib/plugins/twitter/tweetentry.py:369
 #, python-format
 msgid "removed you from list %s"
 msgstr "heeft u verwijderd van lijst %s"
 
-#: ../lib/preferences/feedsource.py:136
-msgid "Options"
-msgstr "Opties"
-
-#: ../lib/preferences/feedsource.py:143
+#: ../lib/preferences/feedsource.py:134
 msgid "_Notify events"
 msgstr "_Notificatie bij gebeurtenis"
 
-#: ../lib/updatewindow.py:80
+#: ../lib/preferences/feedsource.py:142
+msgid "Options"
+msgstr "Opties"
+
+#: ../lib/preferences/feedsource.py:164
+msgid "_Include Retweets"
+msgstr "_Inclusief hertweets"
+
+#: ../lib/preferences/feedsource.py:169
+msgid "_Show user profile"
+msgstr "Gebruikersprofiel _weergeven"
+
+#: ../lib/updatewindow.py:93
 #, python-format
 msgid "Reply to %s"
 msgstr "%s beantwoorden"
 
-#: ../lib/updatewindow.py:301
+#: ../lib/updatewindow.py:106
+msgid "Check _Spelling"
+msgstr "_Spelling controleren"
+
+#: ../lib/updatewindow.py:339
 msgid "Supported image files"
 msgstr "Ondersteunde afbeeldingsbestanden"
 
-#: ../lib/updatewindow.py:374
+#: ../lib/updatewindow.py:429
+msgid "Retweet?"
+msgstr "Hertweeten?"
+
+#: ../lib/updatewindow.py:430
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "Dit hertweeten aan uw (%s's) volgers?"
 
-#: ../lib/updatewindow.py:375
+#: ../lib/updatewindow.py:431
 msgid "Retweet this to your followers?"
 msgstr "Dit hertweeten naar uw volgers?"
 
-#: ../lib/window.py:336
+#: ../lib/updatewindow.py:442
+msgid "Delete this tweet?"
+msgstr "Deze tweet verwijderen?"
+
+#: ../lib/updatewindow.py:443
+msgid "Are you sure you want to delete this Tweet?"
+msgstr "Weet u zeker dat u deze tweet wilt verwijderen?"
+
+#: ../lib/updatewindow.py:456
+msgid "Delete this message?"
+msgstr "Dit bericht verwijderen?"
+
+#: ../lib/updatewindow.py:457
+msgid "Are you sure you want to delete this message?"
+msgstr "Weet u zeker dat u dit bericht wilt verwijderen?"
+
+#: ../lib/window.py:357
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
 msgstr "Dit tabblad bevat %s feeds. Weet u zeker dat u dit tabblad wilt sluiten?"
@@ -579,9 +632,17 @@ msgstr "<b>Filters</b>"
 msgid "Filters"
 msgstr "Filters"
 
-#: ../share/retweet.glade.h:1
-msgid "<big><b>Retweet?</b></big>"
-msgstr "<big><b>Hertweet?</b></big>"
+#: ../share/profile.glade.h:1
+msgid "<small>TWEETS</small>"
+msgstr "<small>TWEETS</small>"
+
+#: ../share/profile.glade.h:2
+msgid "<small>FOLLOWING</small>"
+msgstr "<small>VOLGEND</small>"
+
+#: ../share/profile.glade.h:3
+msgid "<small>FOLLOWERS</small>"
+msgstr "<small>VOLGERS</small>"
 
 #: ../share/select_assistant.glade.h:1
 msgid "Select a web service for adding an account"
@@ -620,8 +681,8 @@ msgid "Add an image"
 msgstr "Voeg een afbeelding toe"
 
 #: ../share/update.glade.h:7
-msgid "Ctrl+Enter"
-msgstr "Ctrl+Enter"
+msgid "Update (Ctrl+Enter)"
+msgstr "Update (Ctrl+Enter)"
 
 #: ../share/update.glade.h:8
 msgid "Insert the _link"
