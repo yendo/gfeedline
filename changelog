@@ -1,3 +1,7 @@
+2013-08-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* lib/window.py: Added new menu item of 'Clear Tab' on tab labels.
+
 2013-07-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* updatewindow.py: Added support for inserting all @users when

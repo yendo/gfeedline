@@ -350,6 +350,9 @@ class NotebookPopUpMenu(object):
                 print v[Column.TARGET]
                 del self.liststore[i]
 
+    def on_menuitem_clear_tab_activate(self, menuitem):
+        self.child.clear_buffer()
+
 class CloseTabDialog(object):
 
     def __init__(self, parent, feeds_num):
