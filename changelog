@@ -1,5 +1,7 @@
 2013-08-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* tumblr/assistant.py (TumblrAuthAssistant): Added a kludge for
+	  removing redundant error messages (issue #30).
 	* lib/window.py: Added a menu item of 'Clear Tab' on tab labels.
 	  Added a menu item of 'Clear All Tabs' on the menu bar.
 	* po/nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
