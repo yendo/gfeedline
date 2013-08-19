@@ -78,4 +78,4 @@ class UrlGetWithProxy(object):
 
         path = "%s?%s" % (o.path, o.query) if o.query else o.path
 
-        return o.scheme, o.netloc, port, path
+        return o.scheme, o.hostname, port, path

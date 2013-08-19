@@ -17,7 +17,7 @@ class AutoProxy(object):
             if proxy.startswith('http'):
                 return proxy
 
-        return ""
+        return None
 
 class UrlGetWithAutoProxy(UrlGetWithProxy):
 
