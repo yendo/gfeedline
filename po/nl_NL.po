@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-21 11:57+0900\n"
-"PO-Revision-Date: 2013-08-01 17:30+0000\n"
+"POT-Creation-Date: 2013-08-15 10:14+0900\n"
+"PO-Revision-Date: 2013-08-22 21:30+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/gfeedline/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -233,7 +233,7 @@ msgid "Sender"
 msgstr "Afzender"
 
 #: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:7
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "Bron"
 
@@ -309,49 +309,49 @@ msgstr "_Inclusief hertweets"
 msgid "_Show user profile"
 msgstr "Gebruikersprofiel _weergeven"
 
-#: ../lib/updatewindow.py:93
+#: ../lib/updatewindow.py:94
 #, python-format
 msgid "Reply to %s"
 msgstr "%s beantwoorden"
 
-#: ../lib/updatewindow.py:106
+#: ../lib/updatewindow.py:119
 msgid "Check _Spelling"
 msgstr "_Spelling controleren"
 
-#: ../lib/updatewindow.py:339
+#: ../lib/updatewindow.py:352
 msgid "Supported image files"
 msgstr "Ondersteunde afbeeldingsbestanden"
 
-#: ../lib/updatewindow.py:429
+#: ../lib/updatewindow.py:442
 msgid "Retweet?"
 msgstr "Hertweeten?"
 
-#: ../lib/updatewindow.py:430
+#: ../lib/updatewindow.py:443
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "Dit hertweeten aan uw (%s's) volgers?"
 
-#: ../lib/updatewindow.py:431
+#: ../lib/updatewindow.py:444
 msgid "Retweet this to your followers?"
 msgstr "Dit hertweeten naar uw volgers?"
 
-#: ../lib/updatewindow.py:442
+#: ../lib/updatewindow.py:455
 msgid "Delete this tweet?"
 msgstr "Deze tweet verwijderen?"
 
-#: ../lib/updatewindow.py:443
+#: ../lib/updatewindow.py:456
 msgid "Are you sure you want to delete this Tweet?"
 msgstr "Weet u zeker dat u deze tweet wilt verwijderen?"
 
-#: ../lib/updatewindow.py:456
+#: ../lib/updatewindow.py:469
 msgid "Delete this message?"
 msgstr "Dit bericht verwijderen?"
 
-#: ../lib/updatewindow.py:457
+#: ../lib/updatewindow.py:470
 msgid "Are you sure you want to delete this message?"
 msgstr "Weet u zeker dat u dit bericht wilt verwijderen?"
 
-#: ../lib/window.py:357
+#: ../lib/window.py:372
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
 msgstr "Dit tabblad bevat %s feeds. Weet u zeker dat u dit tabblad wilt sluiten?"
@@ -437,7 +437,7 @@ msgstr "_Notificatie inschakelen"
 msgid "_Group:"
 msgstr "_Groep"
 
-#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:12
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
 msgid "General"
 msgstr "Algemeen"
 
@@ -498,26 +498,30 @@ msgid "All Tabs to the _Bottom"
 msgstr "Alle tabbladen naar _beneden"
 
 #: ../share/gfeedline.glade.h:10
+msgid "_Clear All Tabs"
+msgstr "_Wis alle tabbladen"
+
+#: ../share/gfeedline.glade.h:11
 msgid "_View"
 msgstr "_Beeld"
 
-#: ../share/gfeedline.glade.h:11
+#: ../share/gfeedline.glade.h:12
 msgid "_Multi-Column"
 msgstr "_Meerdere kolommen"
 
-#: ../share/gfeedline.glade.h:12
+#: ../share/gfeedline.glade.h:13
 msgid "_Fullscreen"
 msgstr "_Volledig scherm"
 
-#: ../share/gfeedline.glade.h:13
+#: ../share/gfeedline.glade.h:14
 msgid "_Help"
 msgstr "_Help"
 
-#: ../share/gfeedline.glade.h:14
+#: ../share/gfeedline.glade.h:15
 msgid "_Contents"
 msgstr "_Inhoud"
 
-#: ../share/gfeedline.glade.h:15
+#: ../share/gfeedline.glade.h:16
 msgid ""
 "<big><b>Welcome to GFeedLine!</b></big>\n"
 "\n"
@@ -533,6 +537,10 @@ msgid "Close this tab?"
 msgstr "Dit tabblad sluiten?"
 
 #: ../share/notebook_popup_menu.glade.h:2
+msgid "C_lear Tab"
+msgstr "W_is tabblad"
+
+#: ../share/notebook_popup_menu.glade.h:3
 msgid "_Close Tab"
 msgstr "Tabblad _sluiten"
 
@@ -565,70 +573,74 @@ msgid "Descending"
 msgstr "Aflopend"
 
 #: ../share/preferences.glade.h:8
+msgid "_Use the system document font"
+msgstr "Gebruik document_lettertype van systeem"
+
+#: ../share/preferences.glade.h:9
 msgid "<b>View</b>"
 msgstr "<b>Weergeven</b>"
 
-#: ../share/preferences.glade.h:9
+#: ../share/preferences.glade.h:10
 msgid "Always on _Visible Workspace"
 msgstr "Altijd op _zichtbaar werkblad"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:11
 msgid "_Auto Start"
 msgstr "_Automatisch opstarten"
 
-#: ../share/preferences.glade.h:11
+#: ../share/preferences.glade.h:12
 msgid "<b>Desktop</b>"
 msgstr "<b>Bureaublad</b>"
 
-#: ../share/preferences.glade.h:14
+#: ../share/preferences.glade.h:15
 msgid "User ID"
 msgstr "Gebruikersidentificatie"
 
-#: ../share/preferences.glade.h:15
+#: ../share/preferences.glade.h:16
 msgid "<b>Accounts</b>"
 msgstr "<b>Accounts</b>"
 
-#: ../share/preferences.glade.h:16
+#: ../share/preferences.glade.h:17
 msgid "Accounts"
 msgstr "Accounts"
 
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:18
 msgid "Name"
 msgstr "Naam"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:19
 msgid "Target"
 msgstr "Doel"
 
-#: ../share/preferences.glade.h:19
+#: ../share/preferences.glade.h:20
 msgid "Argument"
 msgstr "Argument"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:21
 msgid "Group"
 msgstr "Groep"
 
-#: ../share/preferences.glade.h:21
+#: ../share/preferences.glade.h:22
 msgid "<b>Feed Sources</b>"
 msgstr "<b>Feed-bronnen</b>"
 
-#: ../share/preferences.glade.h:22
+#: ../share/preferences.glade.h:23
 msgid "Feeds"
 msgstr "Feeds"
 
-#: ../share/preferences.glade.h:23
+#: ../share/preferences.glade.h:24
 msgid "Word"
 msgstr "Woord"
 
-#: ../share/preferences.glade.h:24
+#: ../share/preferences.glade.h:25
 msgid "Expiry"
 msgstr "Aflopend"
 
-#: ../share/preferences.glade.h:25
+#: ../share/preferences.glade.h:26
 msgid "<b>Filters</b>"
 msgstr "<b>Filters</b>"
 
-#: ../share/preferences.glade.h:26
+#: ../share/preferences.glade.h:27
 msgid "Filters"
 msgstr "Filters"
 

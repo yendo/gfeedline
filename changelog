@@ -1,3 +1,9 @@
+2013-08-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ca.po: Updated Catalan translation.  Thanks Adolfo Jayme Barrientos!
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
+	* nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
+
 2013-08-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* tumblr/assistant.py (TumblrAuthAssistant): Added a kludge for
