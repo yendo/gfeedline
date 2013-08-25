@@ -54,8 +54,8 @@ class UrlGetWithProxy(object):
     def _urlget(self, factory, url, contextFactory=None):
         scheme, host, port, path = self._parse(url)
 
-        if client._parse(url) != self._parse(url):
-            print self._parse(url)
+        # if client._parse(url) != self._parse(url):
+        #     print self._parse(url)
 
         if self.use_proxy and scheme != 'https': # HTTPS proxy isn't supported.
             host, port = self.proxy_host, self.proxy_port
