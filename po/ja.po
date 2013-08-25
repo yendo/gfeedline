@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-01 11:11+0900\n"
-"PO-Revision-Date: 2013-07-01 11:14+0900\n"
+"POT-Creation-Date: 2013-08-15 10:14+0900\n"
+"PO-Revision-Date: 2013-08-25 16:55+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -307,49 +307,49 @@ msgstr "リツイートを含める(_I)"
 msgid "_Show user profile"
 msgstr "ユーザープロフィールを表示する(_S)"
 
-#: ../lib/updatewindow.py:93
+#: ../lib/updatewindow.py:94
 #, python-format
 msgid "Reply to %s"
 msgstr "%s への返信"
 
-#: ../lib/updatewindow.py:106
+#: ../lib/updatewindow.py:119
 msgid "Check _Spelling"
 msgstr "スペルチェックを行う(_S)"
 
-#: ../lib/updatewindow.py:339
+#: ../lib/updatewindow.py:352
 msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
-#: ../lib/updatewindow.py:429
+#: ../lib/updatewindow.py:442
 msgid "Retweet?"
 msgstr "リツイートしますか?"
 
-#: ../lib/updatewindow.py:430
+#: ../lib/updatewindow.py:443
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "あなた (%s) のフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:431
+#: ../lib/updatewindow.py:444
 msgid "Retweet this to your followers?"
 msgstr "あなたのフォロワーにこれをリツイートしますか?"
 
-#: ../lib/updatewindow.py:442
+#: ../lib/updatewindow.py:455
 msgid "Delete this tweet?"
 msgstr "このツイートを削除しますか?"
 
-#: ../lib/updatewindow.py:443
+#: ../lib/updatewindow.py:456
 msgid "Are you sure you want to delete this Tweet?"
 msgstr "このツイートを本当に削除しますか?"
 
-#: ../lib/updatewindow.py:456
+#: ../lib/updatewindow.py:469
 msgid "Delete this message?"
 msgstr "このメッセージを削除しますか?"
 
-#: ../lib/updatewindow.py:457
+#: ../lib/updatewindow.py:470
 msgid "Are you sure you want to delete this message?"
 msgstr "このダイレクトメッセージを本当に削除しますか?"
 
-#: ../lib/window.py:361
+#: ../lib/window.py:372
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
 msgstr ""
@@ -512,26 +512,30 @@ msgid "All Tabs to the _Bottom"
 msgstr "すべてのタブで最終行に移動(_B)"
 
 #: ../share/gfeedline.glade.h:10
+msgid "_Clear All Tabs"
+msgstr "すべてのタブをクリアする(_C)"
+
+#: ../share/gfeedline.glade.h:11
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../share/gfeedline.glade.h:11
+#: ../share/gfeedline.glade.h:12
 msgid "_Multi-Column"
 msgstr "マルチカラム(_M)"
 
-#: ../share/gfeedline.glade.h:12
+#: ../share/gfeedline.glade.h:13
 msgid "_Fullscreen"
 msgstr "フルスクリーン(_F)"
 
-#: ../share/gfeedline.glade.h:13
+#: ../share/gfeedline.glade.h:14
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../share/gfeedline.glade.h:14
+#: ../share/gfeedline.glade.h:15
 msgid "_Contents"
 msgstr "目次(_C)"
 
-#: ../share/gfeedline.glade.h:15
+#: ../share/gfeedline.glade.h:16
 msgid ""
 "<big><b>Welcome to GFeedLine!</b></big>\n"
 "\n"
@@ -561,6 +565,10 @@ msgid "Close this tab?"
 msgstr "このタブを閉じますか?"
 
 #: ../share/notebook_popup_menu.glade.h:2
+msgid "C_lear Tab"
+msgstr "タブをクリアする(_C)"
+
+#: ../share/notebook_popup_menu.glade.h:3
 msgid "_Close Tab"
 msgstr "タブを閉じる(_C)"
 
