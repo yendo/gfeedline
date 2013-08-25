@@ -73,7 +73,13 @@ class TumblrAuthAssistant(Gtk.Assistant):
         # print "!!! ", url
         re_verifier = re.compile('.*oauth_verifier=([^#&]*)[#&]?.*')
         verifier = re_verifier.sub("\\1", url)
-        token, params = TumblrAuthorization().get_access_token(verifier, self.token)
+
+        try:
+            token, params = TumblrAuthorization().get_access_token(
+                verifier, self.token)
+        except IOError, e:
+            print "Warning: ", e
+            return
 
         self.result = {'access-token': token.key,
                        'access-secret': token.secret}

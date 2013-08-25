@@ -172,6 +172,10 @@ class MainWindow(object):
     def on_menuitem_bottom_activate(self, menuitem=None):
         self._jump_all_tabs_to_bottom()
 
+    def on_menuitem_clear_activate(self, menuitem=None):
+        for notebook in self.column.values():
+            notebook.clear_all_tabs()
+
     def on_menuitem_fullscreen_activate(self, menuitem):
         if menuitem.get_active():
             self.window.fullscreen()
@@ -273,6 +277,10 @@ class FeedNotebook(Gtk.Notebook):
         for feedview in self._get_all_feedviews():
             feedview.jump_to_bottom(is_bottom)
 
+    def clear_all_tabs(self):
+        for feedview in self._get_all_feedviews():
+            feedview.clear_buffer()
+
     def change_font(self, font, size):
         for feedview in self._get_all_feedviews():
             feedview.change_font(font, size)
@@ -349,6 +357,9 @@ class NotebookPopUpMenu(object):
             if v[Column.API].view == self.child:
                 print v[Column.TARGET]
                 del self.liststore[i]
+
+    def on_menuitem_clear_tab_activate(self, menuitem):
+        self.child.clear_buffer()
 
 class CloseTabDialog(object):
 
