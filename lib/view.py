@@ -253,7 +253,6 @@ class FeedWebView(WebKit.WebView):
             uri = uri.replace('gfeedline:', 'https:')
         else:
             uri = decode_html_entities(urllib.unquote(uri))
-            uri = uri.replace('#', '%23') # for Twitter hash tags
 
         if button >= 0:
             webbrowser.open(uri)

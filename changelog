@@ -1,3 +1,8 @@
+2013-08-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py (FeedWebView.on_click_link): Removed a redundant
+	  escaping # in URLs (issue #59).
+
 2013-08-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* ca.po: Updated Catalan translation.  Thanks Adolfo Jayme Barrientos!
