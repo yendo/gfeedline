@@ -1,3 +1,8 @@
+2013-08-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py (UpdateWindow._get_all_mentions_from): Removed a
+	  redundant space between screen names in multi @replies (issue #60).
+
 2013-08-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* view.py (FeedWebView.on_click_link): Removed a redundant

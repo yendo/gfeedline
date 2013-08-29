@@ -104,7 +104,7 @@ class UpdateWindow(UpdateWidgetBase):
         other_users = ' '.join([x.group() for x in matches 
                                 if x.group() != account_user])
         if other_users:
-            users += ' %s ' % other_users
+            users += other_users + ' '
 
         return users
 
