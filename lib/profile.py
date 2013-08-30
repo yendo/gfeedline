@@ -99,6 +99,7 @@ class ProfilePane(object):
             text = text[:start+offset] + alt + text[end+offset:]
             offset += start-end+len(alt)
         
+        text = text.replace('&', '&amp;')
         text = text.replace('\r', '')
         text = text.replace('\n', ' ')
 
