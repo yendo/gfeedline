@@ -391,9 +391,10 @@
                                   <object class="GtkButton" id="button_account_prefs">
                                     <property name="label">gtk-preferences</property>
                                     <property name="use_action_appearance">False</property>
+                                    <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="no_show_all">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="use_stock">True</property>
                                     <signal name="clicked" handler="on_button_account_prefs_clicked" object="treeview-selection1" swapped="no"/>
@@ -409,6 +410,7 @@
                                     <property name="label">gtk-delete</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
@@ -814,6 +816,7 @@
                                     <property name="label">gtk-preferences</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
@@ -831,6 +834,7 @@
                                     <property name="label">gtk-delete</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
