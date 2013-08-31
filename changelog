@@ -1,6 +1,6 @@
 2013-08-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* fr_FR.po: Added new French translation.  madx!
+	* fr_FR.po: Added new French translation.  Thanks madx!
 	* updatewindow.py (UpdateWindow._get_all_mentions_from): Removed a
 	  redundant space between screen names in multi @replies (issue #60).
 
