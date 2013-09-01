@@ -1,3 +1,7 @@
+2013-09-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 2.4 release.
+
 2013-08-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* preferences.glade: Fixed sensitives of buttons on the preference.
