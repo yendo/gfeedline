@@ -52,6 +52,11 @@
       <summary>Timeline order</summary>
       <description>Determines the Timeline order, 0: Default, 1: Ascending, 2: Descending.</description>
     </key>
+    <key name="use-system-font" type="b">
+      <default>false</default>
+      <summary>Use System Document Font</summary>
+      <description>Use System Document Font</description>
+    </key>
     <key name="font" type="s">
       <default>'Sans 10'</default>
       <summary>Timeline Font</summary>

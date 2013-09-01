@@ -1,5 +1,35 @@
+2013-09-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 2.4 release.
+
+2013-08-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences.glade: Fixed sensitives of buttons on the preference.
+
+2013-08-29  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* fr_FR.po: Added new French translation.  Thanks madx!
+	* updatewindow.py (UpdateWindow._get_all_mentions_from): Removed a
+	  redundant space between screen names in multi @replies (issue #60).
+
+2013-08-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py (FeedWebView.on_click_link): Removed a redundant
+	  escaping # in URLs (issue #59).
+
+2013-08-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ca.po: Updated Catalan translation.  Thanks Adolfo Jayme Barrientos!
+	* de_DE.po: Updated German translation.  Thanks t_bb_!
+	* nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
+	* ja.po: Updated Japanese translation.
+
 2013-08-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* tumblr/assistant.py (TumblrAuthAssistant): Added a kludge for
+	  removing redundant error messages (issue #30).
+	* lib/window.py: Added a menu item of 'Clear Tab' on tab labels.
+	  Added a menu item of 'Clear All Tabs' on the menu bar.
 	* twitter/tweetentry.py (MyFeedRetweetEntry.get_dict): Fixed a bug
 	  that prevents retweet notices.
 	* po/nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
@@ -11,13 +41,20 @@
 
 2013-07-25  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* updatewindow.py: Added support for inserting all @users when
+	  replying (issue #56).
 	* it_IT.po: Updated Italian translation.  Thanks Gianvito Cavasoli!
 	* de_DE.po: Updated German translation.  Thanks t_bb_ & _popopopoon_!
 
 2013-07-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* view.py: Added support for the system font setting (issue #36).
 	* twitter/output.py (TwitterOutputBase): Added checking user
 	  account for sending events to reply tabs (issue #46).
+
+2013-07-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* preferences.py: Added support for the system font setting.
 
 2013-06-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 

@@ -14,7 +14,7 @@ from gi.repository import Gtk, Gio, WebKit
 
 from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU, LINK_MENU_ITEMS
 from utils.htmlentities import decode_html_entities
-from utils.settings import SETTINGS_VIEW
+from utils.settings import SETTINGS_VIEW, SETTINGS_DESKTOP
 from utils.previewer import NautilusPreviewer
 from constants import SHARED_DATA_FILE, CONFIG_HOME
 from updatewindow import UpdateWindow
@@ -137,6 +137,8 @@ class FeedWebView(WebKit.WebView):
         self.connect("drag-drop", self.on_drag_drop)
 
         SETTINGS_VIEW.connect("changed::theme", self.on_load_finished)
+        SETTINGS_DESKTOP.connect("changed::document-font-name", 
+                                 self.on_changed_system_font)
 
         scrolled_window.add(self)
         self.show_all()
@@ -251,12 +253,15 @@ class FeedWebView(WebKit.WebView):
             uri = uri.replace('gfeedline:', 'https:')
         else:
             uri = decode_html_entities(urllib.unquote(uri))
-            uri = uri.replace('#', '%23') # for Twitter hash tags
 
         if button >= 0:
             webbrowser.open(uri)
 
         return True
+
+    def on_changed_system_font(self, settings, key):
+        if SETTINGS_VIEW.get_boolean('use-system-font'):
+            self.change_font()
 
     def on_load_finished(self, view, *args):
         self.dom = self.get_dom_document()

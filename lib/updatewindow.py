@@ -50,6 +50,7 @@ class UpdateWindow(UpdateWidgetBase):
         host_re = '//[A-Za-z0-9\'~+\-=_.,/%\?!;:@#\*&\(\)]+'
         self.http_re = re.compile("(http:%s)" % host_re)
         self.https_re = re.compile("(https:%s)" % host_re)
+        self.screen_name_pattern = re.compile('\B@[0-9A-Za-z_]{1,15}')
 
         self.account_combobox = AccountCombobox(
             gui, mainwindow.liststore, account)
@@ -91,9 +92,21 @@ class UpdateWindow(UpdateWidgetBase):
 
         user = entry['user_name']
         self.update_window.set_title(_('Reply to %s') % user.decode('utf-8'))
-        self.text_buffer.set_text('@%s '% user)
+        self.text_buffer.set_text(self._get_all_mentions_from(entry))
 
         self.update_window.present()
+
+    def _get_all_mentions_from(self, entry):
+        account_user = '@' + self.account_combobox.get_account_obj().user_name
+        users = '@%s ' % entry['user_name']
+
+        matches = self.screen_name_pattern.finditer(entry['status_body'])
+        other_users = ' '.join([x.group() for x in matches 
+                                if x.group() != account_user])
+        if other_users:
+            users += other_users + ' '
+
+        return users
 
     def set_upload_media(self, file):
         self.media.set(file)

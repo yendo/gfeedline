@@ -18,12 +18,33 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="messagedialog-action_area2">
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
   <object class="GtkMenu" id="notebook_popup_menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="menuitem_clear_tab">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">C_lear Tab</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="on_menuitem_clear_tab_activate" swapped="no"/>
+      </object>
+    </child>
     <child>
       <object class="GtkMenuItem" id="menuitem_close_tab">
         <property name="use_action_appearance">False</property>

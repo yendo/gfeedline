@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Adolfo Jayme <fitoschido@gmail.com>, 2013
+# Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2013
+# Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-21 11:57+0900\n"
-"PO-Revision-Date: 2013-06-25 15:30+0000\n"
-"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
+"POT-Creation-Date: 2013-08-15 10:14+0900\n"
+"PO-Revision-Date: 2013-08-15 14:30+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitoschido@ubuntu.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/gfeedline/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,7 +167,7 @@ msgstr "Vegeu més"
 
 #: ../lib/plugins/tumblr/entry.py:67
 msgid "Reblog"
-msgstr ""
+msgstr "Republica-ho"
 
 #: ../lib/plugins/tumblr/entry.py:80
 msgid "a photo"
@@ -182,7 +183,7 @@ msgstr "un àudio"
 
 #: ../lib/plugins/tumblr/entry.py:82
 msgid "{0} posts {1} entry."
-msgstr ""
+msgstr "{0} publicacions {1} entrada."
 
 #: ../lib/plugins/twitter/api.py:67
 msgid "Home TimeLine"
@@ -194,7 +195,7 @@ msgstr "Cronologia de llista"
 
 #: ../lib/plugins/twitter/api.py:90
 msgid "The format is \"username/listname\".  ex) yendo0206/gfeedline"
-msgstr ""
+msgstr "El format és «nom d’usuari/nom de la llista». Ex.: born2bgratis/gfeedline"
 
 #: ../lib/plugins/twitter/api.py:111 ../lib/plugins/twitter/api.py:159
 msgid "Mentions"
@@ -233,7 +234,7 @@ msgid "Sender"
 msgstr "Remitent"
 
 #: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:7
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "Font"
 
@@ -286,12 +287,12 @@ msgstr "us ha seguit"
 #: ../lib/plugins/twitter/tweetentry.py:368
 #, python-format
 msgid "added you to list %s"
-msgstr ""
+msgstr "us ha afegit a la llista %s"
 
 #: ../lib/plugins/twitter/tweetentry.py:369
 #, python-format
 msgid "removed you from list %s"
-msgstr ""
+msgstr "us ha suprimit de la llista %s"
 
 #: ../lib/preferences/feedsource.py:134
 msgid "_Notify events"
@@ -309,52 +310,52 @@ msgstr "_Inclou repiulades"
 msgid "_Show user profile"
 msgstr "_Mostra el perfil de l’usuari"
 
-#: ../lib/updatewindow.py:93
+#: ../lib/updatewindow.py:94
 #, python-format
 msgid "Reply to %s"
 msgstr "Respon a %s"
 
-#: ../lib/updatewindow.py:106
+#: ../lib/updatewindow.py:119
 msgid "Check _Spelling"
 msgstr "Comprova l’_ortografia"
 
-#: ../lib/updatewindow.py:339
+#: ../lib/updatewindow.py:352
 msgid "Supported image files"
 msgstr "Fitxers d’imatge compatibles"
 
-#: ../lib/updatewindow.py:429
+#: ../lib/updatewindow.py:442
 msgid "Retweet?"
 msgstr "Voleu repiular?"
 
-#: ../lib/updatewindow.py:430
+#: ../lib/updatewindow.py:443
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
-msgstr ""
+msgstr "Voleu repiular això als vostres (%s) seguidors?"
 
-#: ../lib/updatewindow.py:431
+#: ../lib/updatewindow.py:444
 msgid "Retweet this to your followers?"
 msgstr "Voleu repiular això als vostres seguidors?"
 
-#: ../lib/updatewindow.py:442
+#: ../lib/updatewindow.py:455
 msgid "Delete this tweet?"
 msgstr "Voleu suprimir aquesta piulada?"
 
-#: ../lib/updatewindow.py:443
-msgid "Are you sure you want to delete this Tweet?"
-msgstr ""
-
 #: ../lib/updatewindow.py:456
+msgid "Are you sure you want to delete this Tweet?"
+msgstr "Esteu segur que voleu suprimir aquesta piulada?"
+
+#: ../lib/updatewindow.py:469
 msgid "Delete this message?"
 msgstr "Voleu suprimir aquest missatge?"
 
-#: ../lib/updatewindow.py:457
+#: ../lib/updatewindow.py:470
 msgid "Are you sure you want to delete this message?"
-msgstr ""
+msgstr "Esteu segur que voleu suprimir aquest missatge?"
 
-#: ../lib/window.py:357
+#: ../lib/window.py:372
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
-msgstr ""
+msgstr "Aquesta pestanya inclou %s canals. Esteu segur que voleu tancar-la?"
 
 #. %s is a web service name. ex) Facbook or Tumblr.
 #: ../share/assistant_facebook.glade.h:3
@@ -362,7 +363,7 @@ msgstr ""
 msgid ""
 "Your configuration is complete.  You are now ready to access to %s with "
 "GFeedLine."
-msgstr ""
+msgstr "Heu completat la configuració. Ara podeu accedir a %s amb el GFeedLine."
 
 #: ../share/assistant_facebook.glade.h:4
 msgid "User name:"
@@ -379,7 +380,7 @@ msgid ""
 "This assistant helps you to configure %s account for GFeedLine.\n"
 "\n"
 "Click \"Forward\" to open the authorization page."
-msgstr ""
+msgstr "Aquest auxiliar us ajudarà a configurar el compte de %s en el GFeedline.\n\nFeu clic a «Continua» per obrir la pàgina d’autorització."
 
 #: ../share/assistant_twitter.glade.h:1
 msgid ""
@@ -437,7 +438,7 @@ msgstr "_Habilita les notificacions"
 msgid "_Group:"
 msgstr "_Grup:"
 
-#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:12
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
 msgid "General"
 msgstr "General"
 
@@ -498,26 +499,30 @@ msgid "All Tabs to the _Bottom"
 msgstr "Totes les pestanyes a_vall"
 
 #: ../share/gfeedline.glade.h:10
+msgid "_Clear All Tabs"
+msgstr "Neteja _totes les pestanyes"
+
+#: ../share/gfeedline.glade.h:11
 msgid "_View"
 msgstr "_Visualitza"
 
-#: ../share/gfeedline.glade.h:11
+#: ../share/gfeedline.glade.h:12
 msgid "_Multi-Column"
 msgstr "Columnes múltiples"
 
-#: ../share/gfeedline.glade.h:12
+#: ../share/gfeedline.glade.h:13
 msgid "_Fullscreen"
 msgstr "_Pantalla completa"
 
-#: ../share/gfeedline.glade.h:13
+#: ../share/gfeedline.glade.h:14
 msgid "_Help"
 msgstr "_Ajuda"
 
-#: ../share/gfeedline.glade.h:14
+#: ../share/gfeedline.glade.h:15
 msgid "_Contents"
 msgstr "_Contingut"
 
-#: ../share/gfeedline.glade.h:15
+#: ../share/gfeedline.glade.h:16
 msgid ""
 "<big><b>Welcome to GFeedLine!</b></big>\n"
 "\n"
@@ -526,13 +531,17 @@ msgid ""
 "To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
 "\n"
 "Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
-msgstr ""
+msgstr "<big><b>Us donem la benvinguda al GFeedLine.</b></big>\n\nEl GFeedLine és un client per a xarxes socials. Admet Twitter, Facebook i Tumblr.\n\nPer iniciar una connexió amb el GFeedLine, obriu el diàleg de Preferències a <b>Edita ▸ Prefèrencies</b> i configureu els vostres comptes a la pestanya Comptes.\n\nDesprés, configureu els vostres canals a la pestanya Canales. Per habilitar la vista de columnes múltiples, escriviu el nom d’un grup en cada diàleg d’origen de canal."
 
 #: ../share/notebook_popup_menu.glade.h:1
 msgid "Close this tab?"
 msgstr "Voleu tancar aquesta pestanya?"
 
 #: ../share/notebook_popup_menu.glade.h:2
+msgid "C_lear Tab"
+msgstr "_Neteja la pestanya"
+
+#: ../share/notebook_popup_menu.glade.h:3
 msgid "_Close Tab"
 msgstr "_Tanca la pestanya"
 
@@ -565,70 +574,74 @@ msgid "Descending"
 msgstr "Sentit descendent"
 
 #: ../share/preferences.glade.h:8
+msgid "_Use the system document font"
+msgstr "_Usa el tipus de lletra per a documents del sistema"
+
+#: ../share/preferences.glade.h:9
 msgid "<b>View</b>"
 msgstr "<b>Visualitza</b>"
 
-#: ../share/preferences.glade.h:9
+#: ../share/preferences.glade.h:10
 msgid "Always on _Visible Workspace"
 msgstr "Sempre en l’espai de treball _visible"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:11
 msgid "_Auto Start"
 msgstr "Inicia _automàticament"
 
-#: ../share/preferences.glade.h:11
+#: ../share/preferences.glade.h:12
 msgid "<b>Desktop</b>"
 msgstr "<b>Escriptori</b>"
 
-#: ../share/preferences.glade.h:14
+#: ../share/preferences.glade.h:15
 msgid "User ID"
 msgstr "Id. de l’usuari"
 
-#: ../share/preferences.glade.h:15
+#: ../share/preferences.glade.h:16
 msgid "<b>Accounts</b>"
 msgstr "<b>Comptes</b>"
 
-#: ../share/preferences.glade.h:16
+#: ../share/preferences.glade.h:17
 msgid "Accounts"
 msgstr "Comptes"
 
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:18
 msgid "Name"
 msgstr "Nom"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:19
 msgid "Target"
 msgstr "Objectiu"
 
-#: ../share/preferences.glade.h:19
+#: ../share/preferences.glade.h:20
 msgid "Argument"
 msgstr "Argument"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:21
 msgid "Group"
 msgstr "Grup"
 
-#: ../share/preferences.glade.h:21
+#: ../share/preferences.glade.h:22
 msgid "<b>Feed Sources</b>"
 msgstr "<b>Fonts dels canals</b>"
 
-#: ../share/preferences.glade.h:22
+#: ../share/preferences.glade.h:23
 msgid "Feeds"
 msgstr "Canals"
 
-#: ../share/preferences.glade.h:23
+#: ../share/preferences.glade.h:24
 msgid "Word"
 msgstr "Paraula"
 
-#: ../share/preferences.glade.h:24
+#: ../share/preferences.glade.h:25
 msgid "Expiry"
 msgstr "Venciment"
 
-#: ../share/preferences.glade.h:25
+#: ../share/preferences.glade.h:26
 msgid "<b>Filters</b>"
 msgstr "<b>Filtres</b>"
 
-#: ../share/preferences.glade.h:26
+#: ../share/preferences.glade.h:27
 msgid "Filters"
 msgstr "Filtres"
 
@@ -690,4 +703,4 @@ msgstr "Insereix _l’enllaç"
 
 #: ../share/update.glade.h:9
 msgid "_Quote"
-msgstr ""
+msgstr "_Cita"
