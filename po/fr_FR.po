@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-15 10:14+0900\n"
-"PO-Revision-Date: 2013-08-29 07:25+0000\n"
+"PO-Revision-Date: 2013-09-05 07:10+0000\n"
 "Last-Translator: madx <madx+transifex@yapok.org>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/gfeedline/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -235,7 +235,7 @@ msgstr "Émetteur"
 #: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:7
 #: ../share/preferences.glade.h:14
 msgid "Source"
-msgstr "Sourc"
+msgstr "Source"
 
 #. FIXME
 #: ../lib/plugins/twitter/output.py:87
@@ -250,7 +250,7 @@ msgstr "Retweeté par %s"
 
 #: ../lib/plugins/twitter/tweetentry.py:74
 msgid "View more in conversation"
-msgstr "Voir plus dans la conversatio"
+msgstr "Voir plus dans la conversation"
 
 #: ../lib/plugins/twitter/tweetentry.py:145
 msgid "Retweet"
@@ -265,7 +265,7 @@ msgstr "Supprimer"
 #: ../lib/plugins/twitter/tweetentry.py:158
 #: ../lib/plugins/twitter/tweetentry.py:159
 msgid "Favorite"
-msgstr "Favor"
+msgstr "Favori"
 
 #: ../lib/plugins/twitter/tweetentry.py:313
 msgid "retweeted your Tweet"
@@ -273,7 +273,7 @@ msgstr "a retweeté votre Tweet"
 
 #: ../lib/plugins/twitter/tweetentry.py:365
 msgid "favorited your Tweet"
-msgstr "a ajouté votre Tweet a ses favoris"
+msgstr "a ajouté votre Tweet à ses favoris"
 
 #: ../lib/plugins/twitter/tweetentry.py:366
 msgid "unfavorited your Tweet"
@@ -483,7 +483,7 @@ msgstr "_Fichier"
 
 #: ../share/gfeedline.glade.h:6 ../share/update.glade.h:6
 msgid "_Update"
-msgstr "Mettre à jo_ur"
+msgstr "_Poster"
 
 #: ../share/gfeedline.glade.h:7
 msgid "_Edit"
@@ -515,11 +515,11 @@ msgstr "_Plein écran"
 
 #: ../share/gfeedline.glade.h:14
 msgid "_Help"
-msgstr "_Aid"
+msgstr "_Aide'"
 
 #: ../share/gfeedline.glade.h:15
 msgid "_Contents"
-msgstr "_Contenu"
+msgstr "_Sommaire"
 
 #: ../share/gfeedline.glade.h:16
 msgid ""
@@ -694,7 +694,7 @@ msgstr "Ajouter une image"
 
 #: ../share/update.glade.h:7
 msgid "Update (Ctrl+Enter)"
-msgstr "Mettre à jour (Ctrl+Enter)"
+msgstr "_Poster (Ctrl+Entrée)"
 
 #: ../share/update.glade.h:8
 msgid "Insert the _link"
@@ -702,4 +702,4 @@ msgstr "Insérer le _lien"
 
 #: ../share/update.glade.h:9
 msgid "_Quote"
-msgstr "C_itatio"
+msgstr "C_iter"
