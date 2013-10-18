@@ -5,15 +5,17 @@
 # Licence: GPL3
 
 import os
+import glob
 import webbrowser
 import base64
 import cPickle as pickle
 
-from constants import CACHE_HOME
+from constants import ICON_CACHE_HOME
 from updatewindow import UpdateWindow
 from utils.notification import Notification
 from utils.urlgetautoproxy import UrlGetWithAutoProxy
 
+CACHE_PREFIX = 'GFeedLine_'
 
 class StatusNotification(Notification):
 
@@ -21,12 +23,17 @@ class StatusNotification(Notification):
         super(StatusNotification, self).__init__('GFeedLine')
         # Can't access dbus when auto-start.
         # self.has_actions = 'actions' in self.get_capabilities()
-        self.icon_file = os.path.join(CACHE_HOME, 'notification_icon.jpg')
+
+        for i in glob.glob(os.path.join(ICON_CACHE_HOME, CACHE_PREFIX+'*.jpg')):
+            os.remove(i)
 
     def notify(self, entry):
         icon_uri = str(entry['image_uri'])
 
         urlget = UrlGetWithAutoProxy(icon_uri)
+        self.icon_file = os.path.join(ICON_CACHE_HOME, 
+                                      CACHE_PREFIX+entry['user_name']+'.jpg')
+
         d = urlget.downloadPage(icon_uri, self.icon_file)
         d.addCallback(self._notify, entry).addErrback(self._error, entry)
 

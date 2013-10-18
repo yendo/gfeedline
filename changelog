@@ -1,3 +1,7 @@
+2013-10-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* notification.py: Fixed icons on notifications under Gnome 3.8.
+
 2013-10-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* pl_PL.po: Added new Polish translation.  Thanks hakunamatata!
