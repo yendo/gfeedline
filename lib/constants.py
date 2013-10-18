@@ -4,7 +4,7 @@ from stat import S_IMODE
 
 from xdg.BaseDirectory import *
 
-VERSION = '2.4'
+VERSION = '2.4.1-a0.1'
 APP_NAME = 'gfeedline'
 
 SHARED_DATA_DIR = abspath(os.path.join(dirname(__file__), '../share'))
@@ -13,10 +13,11 @@ if not os.access(os.path.join(SHARED_DATA_DIR, 'gfeedline.glade'), os.R_OK):
 
 # DATA_HOME = os.path.join(xdg_data_home, APP_NAME)
 CACHE_HOME = os.path.join(xdg_cache_home, APP_NAME)
+ICON_CACHE_HOME = os.path.join(CACHE_HOME, 'icons')
 CONFIG_HOME = os.path.join(xdg_config_home, APP_NAME)
 THEME_HOME = os.path.join(CONFIG_HOME, 'theme')
 
-for dir in [CACHE_HOME, CONFIG_HOME, THEME_HOME]:
+for dir in [CACHE_HOME, ICON_CACHE_HOME, CONFIG_HOME, THEME_HOME]:
     if not os.path.isdir(dir):
         os.makedirs(dir, 0700)
     elif S_IMODE(os.stat(dir).st_mode) != 0700:
