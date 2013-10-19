@@ -36,7 +36,8 @@ class ProfilePane(object):
         if entry.get('url'):
             url = entry['entities']['url']['urls'][0]
             location += '<a href="%s">%s</a>' % (
-                url['expanded_url'], url['display_url'])
+                url.get('expanded_url') or url.get('url'), 
+                url.get('display_url') or url.get('url'))
         self._set_label('label_location', location)
 
         dic = {'count_tweets': entry['statuses_count'], 

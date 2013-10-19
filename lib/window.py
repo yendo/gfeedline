@@ -33,7 +33,7 @@ class MainWindow(object):
         self.column = MultiColumnDict(gui) # multi-columns for Notebooks
         self.theme = Theme()
         self.font = FontSet()
-        self.notification = StatusNotification('GFeedLine')
+        self.notification = StatusNotification(liststore)
 
         dnd_list = [Gtk.TargetEntry.new("text/uri-list", 0, 1),
                     Gtk.TargetEntry.new("text/x-moz-url", 0, 4),]

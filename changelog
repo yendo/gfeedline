@@ -1,5 +1,23 @@
+2013-10-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* notification.py: Fixed replying from notifications
+	* profile.py (ProfilePane): Fixed urls on profile.
+
+2013-10-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* notification.py: Fixed icons on notifications under Gnome 3.8.
+
+2013-10-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* pl_PL.po: Added new Polish translation.  Thanks hakunamatata!
+
+2013-10-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
+
 2013-09-08  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* fr_FR.po: Updated French translation.  Thanks madx!
 	* twitter/tweetentry.py (TwitterEntities): Added support for
 	  thumbnails for photos of instagram.
 
