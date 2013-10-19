@@ -38,7 +38,7 @@ class UpdateWidgetBase(object):
 
 class UpdateWindow(UpdateWidgetBase):
 
-    def __init__(self, mainwindow, entry=None, account=None):
+    def __init__(self, liststore, entry=None, source=None, account=None):
         self.entry = entry
         self.child = None # for GtkGrid.get_child_at no available
 
@@ -53,7 +53,7 @@ class UpdateWindow(UpdateWidgetBase):
         self.screen_name_pattern = re.compile('\B@[0-9A-Za-z_]{1,15}')
 
         self.account_combobox = AccountCombobox(
-            gui, mainwindow.liststore, account)
+            gui, liststore, source, account)
 
         is_above = SETTINGS.get_boolean('update-window-keep-above')
         self.update_window = gui.get_object('window1')
@@ -243,14 +243,14 @@ class UpdateWindow(UpdateWidgetBase):
 
 class AccountCombobox(object):
 
-    def __init__(self, gui, liststore, account):
+    def __init__(self, gui, liststore, source, account):
         self.account_liststore = liststore.account_liststore
         self.combobox_account = gui.get_object('combobox_account')
         self.combobox_account.set_model(self.account_liststore)
 
         if account: # for reply or retweet
             self.active_num = self.account_liststore.get_account_row_num(
-                account.source, account.user_name) 
+                source, account) 
             self.combobox_account.set_sensitive(False)
         else:
             recent = SETTINGS.get_int('recent-account')

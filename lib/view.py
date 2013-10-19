@@ -40,6 +40,7 @@ class FeedView(FeedScrolledWindow):
         super(FeedView, self).__init__()
 
         self.name = name
+        self.api = api
         self.liststore = liststore
         self.window = liststore.window # access from RetweetMenuItem
         self.theme = self.window.theme
@@ -95,7 +96,7 @@ class FeedView(FeedScrolledWindow):
         text = self.theme.template[style].substitute(entry_dict)
 
         if has_notify and not is_first_call:
-            self.notification.notify(entry_dict)
+            self.notification.notify(entry_dict, self.api)
 
         self.tab_label.set_sensitive(is_new_update)
         self.webview.update(text, entry_dict.get('is_reversed'))

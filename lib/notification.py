@@ -19,16 +19,19 @@ CACHE_PREFIX = 'GFeedLine_'
 
 class StatusNotification(Notification):
 
-    def __init__(self, notification):
+    def __init__(self, liststore):
         super(StatusNotification, self).__init__('GFeedLine')
+        self.liststore = liststore
         # Can't access dbus when auto-start.
         # self.has_actions = 'actions' in self.get_capabilities()
 
         for i in glob.glob(os.path.join(ICON_CACHE_HOME, CACHE_PREFIX+'*.jpg')):
             os.remove(i)
 
-    def notify(self, entry):
+    def notify(self, entry, api):
         icon_uri = str(entry['image_uri'])
+        entry.update({'source': api.account.source,
+                      'user_account': api.account.user_name})
 
         urlget = UrlGetWithAutoProxy(icon_uri)
         self.icon_file = os.path.join(ICON_CACHE_HOME, 
@@ -55,7 +58,8 @@ class StatusNotification(Notification):
 
             if action == 'reply':
                 entry_dict['status_body'] = entry_dict['popup_body']
-                UpdateWindow(None, entry_dict)
+                UpdateWindow(self.liststore, entry_dict, 
+                             entry_dict['source'], entry_dict['user_account'])
             elif action == 'open':
                 uri = entry_dict['permalink'].replace('gfeedline://', 'https://')
                 webbrowser.open(uri)

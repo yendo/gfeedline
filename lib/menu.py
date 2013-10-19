@@ -93,7 +93,9 @@ class ReplyMenuItem(PopupMenuItem):
 
     def on_activate(self, menuitem, entry_id):
         entry_dict = self._get_entry_from_dom(entry_id)
-        UpdateWindow(self.parent, entry_dict, self.api.account)
+        account = self.api.account
+        UpdateWindow(self.parent.liststore, 
+                     entry_dict, account.source, account.user_name)
 
 class RetweetMenuItem(PopupMenuItem):
 
