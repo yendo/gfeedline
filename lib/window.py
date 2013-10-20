@@ -149,7 +149,7 @@ class MainWindow(object):
         self.on_stop()
 
     def on_menuitem_update_activate(self, menuitem):
-        UpdateWindow(self)
+        UpdateWindow(self.liststore)
 
     def on_menuitem_prefs_activate(self, menuitem):
         Preferences(self)
