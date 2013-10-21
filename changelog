@@ -1,7 +1,7 @@
 2013-10-19  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* notification.py: Fixed replying from notifications
-	* profile.py (ProfilePane): Fixed urls on profile.
+	* profile.py (ProfilePane): Fixed URLs on profile.
 
 2013-10-18  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
