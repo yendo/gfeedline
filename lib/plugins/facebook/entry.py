@@ -5,7 +5,6 @@ from xml.sax.saxutils import escape, unescape
 
 from ...utils.usercolor import UserColor
 from ...utils.timeformat import TimeFormat
-from ...utils.htmlentities import decode_html_entities
 from ...theme import Theme
 from ..base.entry import AddedHtmlMarkup
 
@@ -112,10 +111,6 @@ class FacebookEntry(object):
     def _get_styles(self, api, screen_name, entry=None):
         style_obj = EntryStyles()
         return style_obj.get(api, screen_name, entry)
-
-    def _get_body(self, text):
-        text = decode_html_entities(text) # need to decode!
-        return text
 
     def _get_protected_icon(self, attribute):
         return True if attribute and attribute != 'false' else ''

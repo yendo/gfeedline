@@ -19,7 +19,6 @@ import time
 from twisted.internet import reactor
 
 from tweetentry import *
-from ...utils.htmlentities import decode_html_entities
 from ...utils.settings import SETTINGS_VIEW
 from ...filterliststore import FilterColumn
 from ...constants import Column
@@ -41,7 +40,6 @@ class TwitterOutputBase(OutputBase):
         
         for i in entry:
             entry = DictObj(i) # FIXME
-            entry.text = decode_html_entities(entry.text)
             self._set_since_id(entry.id)
             self.check_entry(entry, entry.text, args)
 
@@ -230,7 +228,6 @@ class TwitterRelatedResultOutput(TwitterSearchOutput):
         entry['is_reversed'] = True
 
         entry = DictObj(entry)
-        entry.text = decode_html_entities(entry.text)
         self._set_since_id(entry.id)
         self.print_entry(entry)
 
@@ -282,7 +279,6 @@ class TwitterFeedOutput(TwitterOutputBase):
 
             self.print_entry(entry)
         else:
-            entry.text = decode_html_entities(entry.text)
             self._set_since_id(entry.id)
             self.check_entry(entry, entry.text, args)
 

@@ -13,7 +13,6 @@ from twisted.internet import reactor
 from gi.repository import Gtk, Gio, WebKit
 
 from menu import SearchMenuItem, AddFilterMenuItem, ENTRY_POPUP_MENU, LINK_MENU_ITEMS
-from utils.htmlentities import decode_html_entities
 from utils.settings import SETTINGS_VIEW, SETTINGS_DESKTOP
 from utils.previewer import NautilusPreviewer
 from constants import SHARED_DATA_FILE, CONFIG_HOME
@@ -253,7 +252,7 @@ class FeedWebView(WebKit.WebView):
         if uri.startswith('gfeedline:'):
             uri = uri.replace('gfeedline:', 'https:')
         else:
-            uri = decode_html_entities(urllib.unquote(uri))
+            uri = urllib.unquote(uri)
 
         if button >= 0:
             webbrowser.open(uri)

@@ -11,7 +11,6 @@ from BeautifulSoup import BeautifulSoup
 
 from ...utils.usercolor import UserColor
 from ...utils.timeformat import TimeFormat 
-from ...utils.htmlentities import decode_html_entities
 
 user_color = UserColor()
 
@@ -59,9 +58,8 @@ class TweetEntry(object):
         entry = self.entry
 
         time = TimeFormat(entry.created_at)
-        body_string = self._get_body(entry.text) # FIXME
         entities = entry.raw['entities'] if entry.raw else entry.entities
-        body = TwitterEntities().convert(body_string, entities)
+        body = TwitterEntities().convert(entry.text, entities)
 
         user = self._get_sender(api)
 
@@ -96,7 +94,7 @@ class TweetEntry(object):
             source=self._get_source(entry),
 
             status_body=body,
-            popup_body=body_string,
+            popup_body=entry.text,
             command=self._get_commands(entry, user, api),
             target=target
             )
@@ -187,8 +185,6 @@ class TweetEntry(object):
         return self._parse_source_html(self.entry.source)
 
     def _parse_source_html(self, source):
-        source = decode_html_entities(source)
-
         if source.startswith('<a href='):
             soup = BeautifulSoup(source)
             source = [x.contents[0] for x in soup('a')][0]
@@ -201,17 +197,13 @@ class TweetEntry(object):
                               entry.in_reply_to_status_id)
         return text
 
-    def _get_body(self, text):
-        text = decode_html_entities(text) # need to decode!
-        return text
-
     def _get_protected_icon(self, attribute):
         icon = "<i class='icon-lock'></i>"
         return icon if attribute and attribute != 'false' else ''
 
     def _decode_source_html_entities(self, source_html):
-        source_html = unescape(source_html)
-        return decode_html_entities(source_html).replace('"', "'")
+        source_html = unescape(source_html).replace('"', "'")
+        return source_html
 
     def _get_target_date_time(self, target_object, original_screen_name):
         "Get the datetime of retweeted original post not retweeting post."

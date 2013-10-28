@@ -5,7 +5,6 @@ from xml.sax.saxutils import escape, unescape
 
 from ...utils.usercolor import UserColor
 from ...utils.timeformat import TimeFormat
-from ...utils.htmlentities import decode_html_entities
 from ...utils.truncatehtml import truncate_html
 from ...theme import Theme
 from ..base.entry import AddedHtmlMarkup

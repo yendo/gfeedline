@@ -13,7 +13,6 @@ import json
 
 from twisted.internet import reactor
 
-from ...utils.htmlentities import decode_html_entities
 from ...utils.settings import SETTINGS_VIEW
 from ...filterliststore import FilterColumn
 from ...constants import Column
