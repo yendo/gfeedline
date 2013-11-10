@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-15 10:14+0900\n"
-"PO-Revision-Date: 2013-10-14 18:30+0000\n"
+"PO-Revision-Date: 2013-10-28 21:50+0000\n"
 "Last-Translator: hakunamatata <ol7286@suioe.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/gfeedline/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -396,7 +396,7 @@ msgid ""
 "Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
 "\n"
 "Click \"Apply\" to save your settings."
-msgstr "Twoj konfiguracja została ukończona. Jesteś gotowy do dostępu do Twittera używając GFeedLine.\n\nKliknij \"Zastosuj\" aby zachować swoje ustawienia."
+msgstr "Twoja konfiguracja została ukończona. Jesteś gotowy do dostępu do Twittera używając GFeedLine.\n\nKliknij \"Zastosuj\" aby zachować swoje ustawienia."
 
 #: ../share/assistant_twitter.glade.h:6
 msgid "Screen name:"
@@ -483,7 +483,7 @@ msgstr "_Plik"
 
 #: ../share/gfeedline.glade.h:6 ../share/update.glade.h:6
 msgid "_Update"
-msgstr "_Odśwież"
+msgstr "_Aktualizuj"
 
 #: ../share/gfeedline.glade.h:7
 msgid "_Edit"
@@ -491,11 +491,11 @@ msgstr "_Edycja"
 
 #: ../share/gfeedline.glade.h:8
 msgid "All Tabs to the _Top"
-msgstr "Wszystkie karty na _Górze"
+msgstr "Wszystkie karty na _górze"
 
 #: ../share/gfeedline.glade.h:9
 msgid "All Tabs to the _Bottom"
-msgstr "Wszystkie karty na _Dole"
+msgstr "Wszystkie karty na _dole"
 
 #: ../share/gfeedline.glade.h:10
 msgid "_Clear All Tabs"
@@ -507,7 +507,7 @@ msgstr "_Widok"
 
 #: ../share/gfeedline.glade.h:12
 msgid "_Multi-Column"
-msgstr "_Wielokolumnowy"
+msgstr "_Widok wielokolumnowy"
 
 #: ../share/gfeedline.glade.h:13
 msgid "_Fullscreen"
@@ -519,7 +519,7 @@ msgstr "_Pomoc"
 
 #: ../share/gfeedline.glade.h:15
 msgid "_Contents"
-msgstr "_Zawartości"
+msgstr "_Spis treści"
 
 #: ../share/gfeedline.glade.h:16
 msgid ""

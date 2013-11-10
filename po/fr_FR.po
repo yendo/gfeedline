@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-15 10:14+0900\n"
-"PO-Revision-Date: 2013-09-05 07:10+0000\n"
+"PO-Revision-Date: 2013-10-29 09:11+0000\n"
 "Last-Translator: madx <madx+transifex@yapok.org>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/gfeedline/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -515,7 +515,7 @@ msgstr "_Plein écran"
 
 #: ../share/gfeedline.glade.h:14
 msgid "_Help"
-msgstr "_Aide'"
+msgstr "_Aide"
 
 #: ../share/gfeedline.glade.h:15
 msgid "_Contents"
@@ -694,7 +694,7 @@ msgstr "Ajouter une image"
 
 #: ../share/update.glade.h:7
 msgid "Update (Ctrl+Enter)"
-msgstr "_Poster (Ctrl+Entrée)"
+msgstr "Poster (Ctrl+Entrée)"
 
 #: ../share/update.glade.h:8
 msgid "Insert the _link"
