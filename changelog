@@ -1,3 +1,8 @@
+2014-01-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* updatewindow.py (UpdateWindow.__init__): Fixed an enchant spell
+	  cheker dictionary problem.
+
 2013-11-07  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* fr_FR.po, pl_PL.po: Updated translation.

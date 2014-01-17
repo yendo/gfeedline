@@ -73,7 +73,7 @@ class UpdateWindow(UpdateWidgetBase):
         textview = gui.get_object('textview')
 
         if SpellChecker:
-            self.spellchecker = SpellChecker(textview, locale.getdefaultlocale()[0])
+            self.spellchecker = SpellChecker(textview)
             if not SETTINGS.get_boolean('spell-checker'):
                 self.spellchecker.disable()
 
