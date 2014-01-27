@@ -1,18 +1,18 @@
 # Spanish translation for GFeedLine
-# Copyright (C) 2012-2013 Yoshizumi Endo
+# Copyright (C) 2012-2014 Yoshizumi Endo
 # This file is distributed under the same license as the GFeedLine package.
 # 
 # Translators:
-# Adolfo Jayme <fitoschido@gmail.com>, 2012-2013
-# alexnmoya <alexnmoya@gmail.com>, 2012
+# Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2012-2013
+# alexnmoya <alexnmoya@gmail.com>, 2012-2013
 # Yoshizumi Endo <y-endo@ceres.dti.ne.jp>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-21 11:57+0900\n"
-"PO-Revision-Date: 2013-06-21 08:33+0000\n"
-"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
+"POT-Creation-Date: 2013-08-15 10:14+0900\n"
+"PO-Revision-Date: 2013-11-26 18:20+0000\n"
+"Last-Translator: alexnmoya <alexnmoya@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/gfeedline/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -235,7 +235,7 @@ msgid "Sender"
 msgstr "Remitente"
 
 #: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:7
-#: ../share/preferences.glade.h:13
+#: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "Fuente"
 
@@ -311,49 +311,49 @@ msgstr "_Incluir retuits"
 msgid "_Show user profile"
 msgstr "_Mostrar perfil del usuario"
 
-#: ../lib/updatewindow.py:93
+#: ../lib/updatewindow.py:94
 #, python-format
 msgid "Reply to %s"
 msgstr "Responder a %s"
 
-#: ../lib/updatewindow.py:106
+#: ../lib/updatewindow.py:119
 msgid "Check _Spelling"
 msgstr "_Comprobar ortografía"
 
-#: ../lib/updatewindow.py:339
+#: ../lib/updatewindow.py:352
 msgid "Supported image files"
 msgstr "Formatos de imagen compatibles"
 
-#: ../lib/updatewindow.py:429
+#: ../lib/updatewindow.py:442
 msgid "Retweet?"
 msgstr "¿Retuitear?"
 
-#: ../lib/updatewindow.py:430
+#: ../lib/updatewindow.py:443
 #, python-format
 msgid "Retweet this to your (%s's) followers?"
 msgstr "¿Retwitear esto a sus (%s's) seguidores?"
 
-#: ../lib/updatewindow.py:431
+#: ../lib/updatewindow.py:444
 msgid "Retweet this to your followers?"
 msgstr "¿Retwittear a tus seguidores?"
 
-#: ../lib/updatewindow.py:442
+#: ../lib/updatewindow.py:455
 msgid "Delete this tweet?"
 msgstr "¿Eliminar este tuit?"
 
-#: ../lib/updatewindow.py:443
+#: ../lib/updatewindow.py:456
 msgid "Are you sure you want to delete this Tweet?"
 msgstr "¿Está seguro de que quiere eliminar este tuit?"
 
-#: ../lib/updatewindow.py:456
+#: ../lib/updatewindow.py:469
 msgid "Delete this message?"
 msgstr "¿Eliminar este mensaje?"
 
-#: ../lib/updatewindow.py:457
+#: ../lib/updatewindow.py:470
 msgid "Are you sure you want to delete this message?"
 msgstr "¿Está seguro de que quiere eliminar este mensaje?"
 
-#: ../lib/window.py:357
+#: ../lib/window.py:372
 #, python-format
 msgid "This tab include %s feeds.  Are you sure you want to close the tab."
 msgstr "Esta pestaña contiene %s canales.  ¿Está seguro de que quiere cerrarla?"
@@ -439,7 +439,7 @@ msgstr "A_ctivar notificaciones"
 msgid "_Group:"
 msgstr "_Grupo:"
 
-#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:12
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
 msgid "General"
 msgstr "General"
 
@@ -500,26 +500,30 @@ msgid "All Tabs to the _Bottom"
 msgstr "Todas las pestañas _abajo"
 
 #: ../share/gfeedline.glade.h:10
+msgid "_Clear All Tabs"
+msgstr "_Borrar todas las pestañas"
+
+#: ../share/gfeedline.glade.h:11
 msgid "_View"
 msgstr "_Ver"
 
-#: ../share/gfeedline.glade.h:11
+#: ../share/gfeedline.glade.h:12
 msgid "_Multi-Column"
 msgstr "_Multicolumnas"
 
-#: ../share/gfeedline.glade.h:12
+#: ../share/gfeedline.glade.h:13
 msgid "_Fullscreen"
 msgstr "_Pantalla completa"
 
-#: ../share/gfeedline.glade.h:13
+#: ../share/gfeedline.glade.h:14
 msgid "_Help"
 msgstr "A_yuda"
 
-#: ../share/gfeedline.glade.h:14
+#: ../share/gfeedline.glade.h:15
 msgid "_Contents"
 msgstr "_Contenido"
 
-#: ../share/gfeedline.glade.h:15
+#: ../share/gfeedline.glade.h:16
 msgid ""
 "<big><b>Welcome to GFeedLine!</b></big>\n"
 "\n"
@@ -535,6 +539,10 @@ msgid "Close this tab?"
 msgstr "¿Cerrar esta pestaña?"
 
 #: ../share/notebook_popup_menu.glade.h:2
+msgid "C_lear Tab"
+msgstr "B_orrar la pestaña"
+
+#: ../share/notebook_popup_menu.glade.h:3
 msgid "_Close Tab"
 msgstr "_Cerrar pestaña"
 
@@ -567,70 +575,74 @@ msgid "Descending"
 msgstr "Descendiente"
 
 #: ../share/preferences.glade.h:8
+msgid "_Use the system document font"
+msgstr ""
+
+#: ../share/preferences.glade.h:9
 msgid "<b>View</b>"
 msgstr "<b>Ver</b>"
 
-#: ../share/preferences.glade.h:9
+#: ../share/preferences.glade.h:10
 msgid "Always on _Visible Workspace"
 msgstr "Siempre _visible"
 
-#: ../share/preferences.glade.h:10
+#: ../share/preferences.glade.h:11
 msgid "_Auto Start"
 msgstr "_Inciar automáticamente"
 
-#: ../share/preferences.glade.h:11
+#: ../share/preferences.glade.h:12
 msgid "<b>Desktop</b>"
 msgstr "<b>Escritorio</b>"
 
-#: ../share/preferences.glade.h:14
+#: ../share/preferences.glade.h:15
 msgid "User ID"
 msgstr "Id. de usuario"
 
-#: ../share/preferences.glade.h:15
+#: ../share/preferences.glade.h:16
 msgid "<b>Accounts</b>"
 msgstr "<b>Cuentas</b>"
 
-#: ../share/preferences.glade.h:16
+#: ../share/preferences.glade.h:17
 msgid "Accounts"
 msgstr "Cuentas"
 
-#: ../share/preferences.glade.h:17
+#: ../share/preferences.glade.h:18
 msgid "Name"
 msgstr "Nombre"
 
-#: ../share/preferences.glade.h:18
+#: ../share/preferences.glade.h:19
 msgid "Target"
 msgstr "Objetivo"
 
-#: ../share/preferences.glade.h:19
+#: ../share/preferences.glade.h:20
 msgid "Argument"
 msgstr "Argumentos"
 
-#: ../share/preferences.glade.h:20
+#: ../share/preferences.glade.h:21
 msgid "Group"
 msgstr "Grupo"
 
-#: ../share/preferences.glade.h:21
+#: ../share/preferences.glade.h:22
 msgid "<b>Feed Sources</b>"
 msgstr "<b>Fuentes de los canales<b>"
 
-#: ../share/preferences.glade.h:22
+#: ../share/preferences.glade.h:23
 msgid "Feeds"
 msgstr "Canales"
 
-#: ../share/preferences.glade.h:23
+#: ../share/preferences.glade.h:24
 msgid "Word"
 msgstr "Palabra"
 
-#: ../share/preferences.glade.h:24
+#: ../share/preferences.glade.h:25
 msgid "Expiry"
 msgstr "Caducidad"
 
-#: ../share/preferences.glade.h:25
+#: ../share/preferences.glade.h:26
 msgid "<b>Filters</b>"
 msgstr "<b>Filtros</b>"
 
-#: ../share/preferences.glade.h:26
+#: ../share/preferences.glade.h:27
 msgid "Filters"
 msgstr "Filtros"
 
