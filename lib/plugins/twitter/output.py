@@ -332,7 +332,7 @@ class TwitterFeedOutput(TwitterOutputBase):
         self.stream = stream
         if stream:
             self.reconnect_interval = 10
-            stream.deferred.addCallback(self._on_error, 'Lost connection.')
+            stream.deferred.addErrback(self._on_error, 'Lost connection.')
 
     def _on_error(self, *e):
         print "Error:", e
