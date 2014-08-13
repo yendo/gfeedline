@@ -38,7 +38,8 @@ def urlget_with_autoproxy(url, arg=None, cb=None, **kargs):
     d = client.getPage(url, **kargs)
     if cb:
         d.addCallback(cb)
-    d.addErrback(client.catch_error)
+#    d.addErrback(client.catch_error)
+#        d.addBoth(cb)
 
     return d
 
