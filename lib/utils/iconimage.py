@@ -29,6 +29,10 @@ class IconImage(object):
 
         return pixbuf
 
+    def get_icon_file(self, size=16):
+        self.size = size
+        return self._get_icon_file()
+
     def _get_icon_file(self):
         theme = Gtk.IconTheme.get_default()
         info = theme.lookup_icon(self.icon_name, self.size, 0) or \
