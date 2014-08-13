@@ -75,3 +75,11 @@ class AccountAction(ActionBase):
 
         new_iter = account_liststore.append(account)
         self.feedsource_treeview.set_cursor_to(new_iter)
+
+    def on_treeview_cursor_changed(self, treeselection):
+        model, treeiter = treeselection.get_selected()
+        if treeiter:
+            self.button_del.set_sensitive(True)
+            self.button_prefs.set_sensitive(False)
+            if model[treeiter][0] == 'Facebook':
+                self.button_prefs.set_sensitive(True)
