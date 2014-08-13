@@ -38,10 +38,15 @@ class AuthorizedFacebookAccount(AuthorizedAccount):
         self.valid = True
 
     def _error_cb(self, a):
+        error = a.getErrorMessage()
+        print "Error (Facebook): ", error
+        if error != "400 Bad Request":
+            return
+
         self.valid = False
         
         icon_file = IconImage('gfeedline').get_icon_file()
-        summary = _('Facebook connection error: ') + a.getErrorMessage()
+        summary = _('Facebook connection error: ') + error
         body = _("Authentication seems to fail.  "
                  "Facebook access token expires after 60 days.  "
                  "You have to re-do Facebook authentication on Preferences.")
