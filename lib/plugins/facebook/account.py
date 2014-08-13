@@ -42,7 +42,9 @@ class AuthorizedFacebookAccount(AuthorizedAccount):
         
         icon_file = IconImage('gfeedline').get_icon_file()
         summary = _('Facebook connection error: ') + a.getErrorMessage()
-        body = _("Authentication seems to fail.  Facebook access token expires after  60 days.  You have to re-do Facebook authentication on Preferences.")
+        body = _("Authentication seems to fail.  "
+                 "Facebook access token expires after 60 days.  "
+                 "You have to re-do Facebook authentication on Preferences.")
 
         n = Notification('GFeedLine')
         n.notify(icon_file, summary, body)
