@@ -18,9 +18,9 @@ from ...utils.urlgetautoproxy import urlget_with_autoproxy
 
 class FacebookAuthAssistant(Gtk.Assistant):
 
-    def __init__(self, parent=None, cb=None, account_obj=None):
+    def __init__(self, parent=None, cb=None, liststore_row=None):
         super(FacebookAuthAssistant, self).__init__()
-        self.account_obj = account_obj
+        self.liststore_row = liststore_row
 
         gui = Gtk.Builder()
         gui.add_from_file(SHARED_DATA_FILE('assistant_facebook.glade'))
@@ -86,7 +86,7 @@ class FacebookAuthAssistant(Gtk.Assistant):
 
     def on_close(self, assistant, cb):
         account = ['Facebook', self.user_fullname, self.token, "", self.idnum]
-        cb(account, self.account_obj)
+        cb(account, self.liststore_row)
         self.destroy()
 
     def on_cancel(self, *args):

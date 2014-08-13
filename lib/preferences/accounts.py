@@ -44,14 +44,17 @@ class AccountAction(ActionBase):
         # FIXME
         if model[treeiter][0] == 'Facebook': # 0 is group
             FacebookAuthAssistant(self.preferences, cb=self.assistant_prefs_cb, 
-                                  account_obj=model[treeiter][6]) # 6 is account_obj
+                                  liststore_row=model[treeiter])
 
-    def assistant_prefs_cb(self, account, account_obj):
+    def assistant_prefs_cb(self, account, liststore_row):
         source = account[0]
         user_name = account[1]
         token = account[2]
 
-        account_obj.update_access_token(token)
+        # FIXME
+        liststore_row[2] = token
+        liststore_row[6].update_access_token(token)
+
         print "access token update!"
 
         # FIXME
