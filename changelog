@@ -1,5 +1,6 @@
 2014-08-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* es_ES.po, ca.po: Updated translation. Thanks Adolfo Jayme  Barrientos!
 	* plugins/facebook/: Added checking for Facebook account
 	  expiration.
 
@@ -407,7 +408,7 @@
 
 	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme!
 	* de_DE.po: Updated German translation.  Thanks t_bb_!
-	* et.po: Updated Estonian translation.  Thanks Rivo Zängov!
+	* et.po: Updated Estonian translation.  Thanks Rivo Z辰ngov!
 	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
 
 2012-10-20  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
@@ -603,7 +604,7 @@
 
 2012-06-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* et.po: Updated Estonian translation.  Thanks Rivo Zängov!
+	* et.po: Updated Estonian translation.  Thanks Rivo Z辰ngov!
 
 2012-06-02  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
@@ -673,7 +674,7 @@
 
 	* NEWS: 1.1 beta 1 release.
 	* it_IT.po: Added new Italian translation.  Thanks Daniele Napolitano!
-	* et.po: Updated Estonian translation.  Thanks Rivo Zängov!
+	* et.po: Updated Estonian translation.  Thanks Rivo Z辰ngov!
 
 2012-03-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
@@ -745,7 +746,7 @@
 
 2012-02-16  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* et.po: Added new Estonian translation.  Thanks Rivo Zängov!
+	* et.po: Added new Estonian translation.  Thanks Rivo Z辰ngov!
 	* twitter/tweetentry.py (AddedHtmlMarkup): Added html escaping.
 
 2012-02-15  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
