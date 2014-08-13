@@ -102,6 +102,10 @@ class OutputBase(object):
             self.since_id = entry_id
 
     def start(self, interval=60):
+        if self.api.account.valid == False:
+            print "skip!"
+            return
+
         self.params.clear()
         if self.since_id:
             self.params[self.SINCE] = self.since_id

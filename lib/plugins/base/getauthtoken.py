@@ -18,6 +18,7 @@ class AuthorizedAccount(GObject.GObject):
 
     def __init__(self):
         super(AuthorizedAccount, self).__init__()
+        self.valid = True
 
     def get_recent_api(self, label_list, feedliststore):
         recent = self.SETTINGS.get_int('recent-target')
@@ -32,6 +33,9 @@ class AuthorizedAccount(GObject.GObject):
 
     def set_recent_api(self, num):
         self.SETTINGS.set_int('recent-target', num)
+
+    def update_access_token(self, token):
+        pass
 
     def _get_token(self, user_name, key, secret):
         token = oauth.OAuthToken(key, secret) if key and secret else None

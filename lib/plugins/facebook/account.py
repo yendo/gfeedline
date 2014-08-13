@@ -10,6 +10,9 @@ from ...constants import Column
 from api import FacebookAPIDict
 from ..base.getauthtoken import AuthorizedAccount
 
+from ...utils.notification import Notification
+from ...utils.iconimage import IconImage
+
 class FacebookIcon(WebIconImage):
 
     def __init__(self):
@@ -24,15 +27,33 @@ class AuthorizedFacebookAccount(AuthorizedAccount):
         super(AuthorizedFacebookAccount, self).__init__()
 
         self.source = 'Facebook'
-        self.api = Facebook(token=token)
+        self.api = Facebook(token, self._error_cb)
         self.api_dict = FacebookAPIDict()
         self.idnum = idnum # type unicode
         self.user_name = user_name
         self.icon = FacebookIcon()
 
+    def update_access_token(self, token):
+        self.api.update_access_token(token)
+        self.valid = True
+
+    def _error_cb(self, a):
+        self.valid = False
+        
+        icon_file = IconImage('gfeedline').get_icon_file()
+        summary = _('Facebook connection error: ') + a.getErrorMessage()
+        body = _("Authentication seems to fail.  Facebook access token expires after  60 days.  You have to re-do Facebook authentication on Preferences.")
+
+        n = Notification('GFeedLine')
+        n.notify(icon_file, summary, body)
+
 class Facebook(object):
 
-    def __init__(self, token):
+    def __init__(self, token, error_cb):
+        self.update_access_token(token)
+        self.error_cb = error_cb
+
+    def update_access_token(self, token):
         lang = locale.getdefaultlocale()[0]
         self.access_params = {'access_token': token, 'locale': lang}
 
@@ -74,4 +95,7 @@ class Facebook(object):
         params.update(self.access_params)
         url += urllib.urlencode(params)
         # print url
-        return urlget_with_autoproxy(str(url), cb=cb)
+ 
+        d = urlget_with_autoproxy(str(url), cb=cb)
+        d.addErrback(self.error_cb)
+        return d

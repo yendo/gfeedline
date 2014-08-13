@@ -1,3 +1,8 @@
+2014-08-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* plugins/facebook/: Added checking for Facebook account
+	  expiration.
+
 2014-02-27  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* pl_PL.po: Updated Polish translation.  Thanks hakunamatata!

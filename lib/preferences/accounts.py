@@ -38,7 +38,28 @@ class AccountAction(ActionBase):
             elif gui.get_object('radiobutton_tl').get_active():
                 TumblrAuthAssistant(self.preferences, cb=self.assistant_cb)
 
-    def assistant_cb(self, account):
+    def on_button_prefs_clicked(self, treeselection):
+        model, treeiter = treeselection.get_selected()
+
+        # FIXME
+        if model[treeiter][0] == 'Facebook': # 0 is group
+            FacebookAuthAssistant(self.preferences, cb=self.assistant_prefs_cb, 
+                                  account_obj=model[treeiter][6]) # 6 is account_obj
+
+    def assistant_prefs_cb(self, account, account_obj):
+        source = account[0]
+        user_name = account[1]
+        token = account[2]
+
+        account_obj.update_access_token(token)
+        print "access token update!"
+
+        # FIXME
+        for i in self.liststore:
+            if i[2] == source and i[3] == user_name:
+                i[9].start()
+
+    def assistant_cb(self, account, account_obj=None):
         account_liststore = self.liststore.account_liststore
 
         source, user_name = account[0:2]
