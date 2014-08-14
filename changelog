@@ -1,5 +1,6 @@
 2014-08-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* ar.po: Updated Arabic translation.  Thanks Humaidan Mohammed!
 	* facebook/entry.py (FacebookEntry): Fixed Facebook photo URLs.
 
 2014-08-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
