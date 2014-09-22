@@ -1,3 +1,7 @@
+2014-09-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twittytwister/twitter.py: Added support for Twisted 14.0.0.
+
 2014-08-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* es_ES.po: Updated Spanish translation.  Thanks Adolfo Jayme  Barrientos!

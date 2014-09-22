@@ -22,6 +22,7 @@ from twisted.internet import defer, reactor, endpoints
 from twisted.internet import error as ierror
 from twisted.python import failure, log
 from twisted.web import client, error, http_headers
+from twisted.internet.ssl import ClientContextFactory
 
 import streaming
 import txml
@@ -536,7 +537,10 @@ class Twitter(object):
         return self.__postMultipart('/account/update_profile_image.xml',
                                     files=(('image', filename, image),))
 
-
+class WebClientContextFactory(ClientContextFactory):
+    
+    def getContext(self, hostname, port):
+        return ClientContextFactory.getContext(self)
 
 class TwitterFeed(Twitter):
     """
@@ -577,7 +581,10 @@ class TwitterFeed(Twitter):
             self.agent = client.ProxyAgent(endpoint)
             del kwargs["proxy_host"]
         else:
-            self.agent = client.Agent(reactor)
+
+            contextFactory = WebClientContextFactory()
+            self.agent = client.Agent(reactor, contextFactory)
+
 
         Twitter.__init__(self, *args, **kwargs)
 
