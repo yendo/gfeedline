@@ -248,6 +248,7 @@ class AddedTumblrHtmlMarkup(AddedHtmlMarkup):
 
         num = 5
         self.new_lines = re.compile('^(([^\n]*\n){%d})(.*)' % num, re.DOTALL)
+        self.remove_continuous_tags = re.compile(r'(<.*?>)\1+')
 
     def convert(self, text):
         text = text.replace('target="_blank"', "")
@@ -256,6 +257,7 @@ class AddedTumblrHtmlMarkup(AddedHtmlMarkup):
         text = text.replace('"', "'")
         text = text.replace('\r', '')
         text = text.replace('\n', '')
+        text = self.remove_continuous_tags.sub('\\1\\1', text)
 
         return text
 
