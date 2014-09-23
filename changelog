@@ -1,5 +1,6 @@
 2014-09-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
 	* tumblr/entry.py (AddedTumblrHtmlMarkup): Added removing
 	  redundant HTML tags.
 	* twittytwister/twitter.py: Added support for Twisted 14.0.0.

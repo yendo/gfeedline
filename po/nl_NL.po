@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Heimen Stoffels <vistausss@gmail.com>, 2013
+# Heimen Stoffels <motionshot@vivaldi.net>, 2014
+# Heimen Stoffels <motionshot@vivaldi.net>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: GFeedLine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-15 10:14+0900\n"
-"PO-Revision-Date: 2013-08-22 21:30+0000\n"
-"Last-Translator: Heimen Stoffels <vistausss@gmail.com>\n"
+"POT-Creation-Date: 2014-08-13 16:16+0900\n"
+"PO-Revision-Date: 2014-09-15 19:11+0000\n"
+"Last-Translator: Heimen Stoffels <motionshot@vivaldi.net>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/gfeedline/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,56 +39,66 @@ msgstr "_Open deze _gebruikerspagina in webbrowser"
 msgid "_Reply"
 msgstr "_Beantwoorden"
 
-#: ../lib/menu.py:100
+#: ../lib/menu.py:102
 msgid "Re_tweet"
 msgstr "_Hertweeten"
 
-#: ../lib/menu.py:128
+#: ../lib/menu.py:130
 msgid "_Delete"
 msgstr "_Verwijderen"
 
-#: ../lib/menu.py:150
+#: ../lib/menu.py:152
 msgid "_Favorite"
 msgstr "_Favoriet"
 
-#: ../lib/menu.py:167 ../lib/plugins/twitter/tweetentry.py:168
+#: ../lib/menu.py:169 ../lib/plugins/twitter/tweetentry.py:167
 msgid "Conversation"
 msgstr "Gesprek"
 
-#: ../lib/menu.py:203
+#: ../lib/menu.py:205
 msgid "View _Conversation"
 msgstr "Toon _gesprek"
 
-#: ../lib/menu.py:229 ../lib/plugins/twitter/api.py:133
+#: ../lib/menu.py:231 ../lib/plugins/twitter/api.py:133
 msgid "Related Results"
 msgstr "Gerelateerde resultaten"
 
-#: ../lib/menu.py:252 ../lib/plugins/twitter/api.py:178
+#: ../lib/menu.py:254 ../lib/plugins/twitter/api.py:178
 msgid "Search"
 msgstr "Zoeken"
 
-#: ../lib/menu.py:271 ../lib/plugins/twitter/api.py:74
+#: ../lib/menu.py:273 ../lib/plugins/twitter/api.py:74
 #: ../lib/preferences/feedsource.py:110
 msgid "User TimeLine"
 msgstr "Gebruikers-tijdlin"
 
-#: ../lib/menu.py:284
+#: ../lib/menu.py:286
 msgid "_Search"
 msgstr "_Zoeken"
 
-#: ../lib/menu.py:295
+#: ../lib/menu.py:297
 msgid "_Add Filter"
 msgstr "_Filter toevoegen"
 
-#: ../lib/notification.py:63
+#: ../lib/notification.py:74
 msgid "Open"
 msgstr "Openen"
 
 #. "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
 #. Reply
-#: ../lib/notification.py:65 ../lib/plugins/twitter/tweetentry.py:139
+#: ../lib/notification.py:76 ../lib/plugins/twitter/tweetentry.py:138
 msgid "Reply"
 msgstr "Beantwoorden"
+
+#: ../lib/plugins/facebook/account.py:44
+msgid "Facebook connection error: "
+msgstr "Facebook-verbindingsfout:"
+
+#: ../lib/plugins/facebook/account.py:45
+msgid ""
+"Authentication seems to fail.  Facebook access token expires after 60 days."
+"  You have to re-do Facebook authentication on Preferences."
+msgstr "Authenticatie lijkt niet te lukken. Facebook's toegangsmunt vervalt na 60 dagen. U zult de authenticatie opnieuw moeten doen via Voorkeuren."
 
 #: ../lib/plugins/facebook/api.py:31
 msgid "News Feed"
@@ -97,50 +108,50 @@ msgstr "Nieuwsoverzicht"
 msgid "Wall"
 msgstr "Prikbord"
 
-#: ../lib/plugins/facebook/assistant.py:28
+#: ../lib/plugins/facebook/assistant.py:29
 msgid "Facebook Account Setup"
 msgstr "Facebook-account instellen"
 
-#: ../lib/plugins/facebook/assistant.py:40
-#: ../lib/plugins/facebook/assistant.py:64
+#: ../lib/plugins/facebook/assistant.py:41
+#: ../lib/plugins/facebook/assistant.py:65
 msgid "Facebook"
 msgstr "Facebook"
 
-#: ../lib/plugins/facebook/assistant.py:43
+#: ../lib/plugins/facebook/assistant.py:44
 #: ../lib/plugins/tumblr/assistant.py:42
 #: ../lib/plugins/twitter/assistant.py:46
 msgid "Intro"
 msgstr "Introductie"
 
-#: ../lib/plugins/facebook/assistant.py:56
+#: ../lib/plugins/facebook/assistant.py:57
 #: ../lib/plugins/tumblr/assistant.py:55
 msgid "Authorization"
 msgstr "Authorisatie"
 
-#: ../lib/plugins/facebook/assistant.py:67
+#: ../lib/plugins/facebook/assistant.py:68
 #: ../lib/plugins/tumblr/assistant.py:66
 #: ../lib/plugins/twitter/assistant.py:62
 msgid "Confirm"
 msgstr "Bevestigen"
 
-#: ../lib/plugins/facebook/entry.py:70 ../lib/plugins/tumblr/entry.py:68
-#: ../lib/plugins/tumblr/entry.py:69
+#: ../lib/plugins/facebook/entry.py:69 ../lib/plugins/tumblr/entry.py:67
+#: ../lib/plugins/tumblr/entry.py:68
 msgid "Like"
 msgstr "Vind ik leuk"
 
-#: ../lib/plugins/facebook/entry.py:71
+#: ../lib/plugins/facebook/entry.py:70
 msgid "Unlike"
 msgstr "Vind ik niet meer leuk"
 
-#: ../lib/plugins/facebook/entry.py:72
+#: ../lib/plugins/facebook/entry.py:71
 msgid "Comment"
 msgstr "Reageren"
 
-#: ../lib/plugins/facebook/entry.py:169
+#: ../lib/plugins/facebook/entry.py:137
 msgid "See more"
 msgstr "Meer weergeven"
 
-#: ../lib/plugins/facebook/entry.py:169
+#: ../lib/plugins/facebook/entry.py:137
 msgid "See less"
 msgstr "Minder weergeven"
 
@@ -160,27 +171,27 @@ msgstr "Tumblr-account instellen"
 msgid "Tumblr"
 msgstr "Tumblr"
 
-#: ../lib/plugins/tumblr/entry.py:30
+#: ../lib/plugins/tumblr/entry.py:29
 msgid "Read more"
 msgstr "Meer lezen"
 
-#: ../lib/plugins/tumblr/entry.py:67
+#: ../lib/plugins/tumblr/entry.py:66
 msgid "Reblog"
 msgstr "Herblog"
 
-#: ../lib/plugins/tumblr/entry.py:80
+#: ../lib/plugins/tumblr/entry.py:79
 msgid "a photo"
 msgstr "een foto"
 
-#: ../lib/plugins/tumblr/entry.py:80
+#: ../lib/plugins/tumblr/entry.py:79
 msgid "a video"
 msgstr "een video"
 
-#: ../lib/plugins/tumblr/entry.py:81
+#: ../lib/plugins/tumblr/entry.py:80
 msgid "an audio"
 msgstr "een audiobestand"
 
-#: ../lib/plugins/tumblr/entry.py:82
+#: ../lib/plugins/tumblr/entry.py:81
 msgid "{0} posts {1} entry."
 msgstr "{0} berichten {1} invulling."
 
@@ -224,71 +235,71 @@ msgstr "Twitter-account instellen"
 msgid "Enter PIN"
 msgstr "Vul PIN in"
 
-#: ../lib/plugins/twitter/output.py:50 ../share/filters.glade.h:5
+#: ../lib/plugins/twitter/output.py:48 ../share/filters.glade.h:5
 msgid "Body"
 msgstr "Inhoud"
 
-#: ../lib/plugins/twitter/output.py:55 ../share/filters.glade.h:6
+#: ../lib/plugins/twitter/output.py:53 ../share/filters.glade.h:6
 msgid "Sender"
 msgstr "Afzender"
 
-#: ../lib/plugins/twitter/output.py:58 ../share/filters.glade.h:7
+#: ../lib/plugins/twitter/output.py:56 ../share/filters.glade.h:7
 #: ../share/preferences.glade.h:14
 msgid "Source"
 msgstr "Bron"
 
 #. FIXME
-#: ../lib/plugins/twitter/output.py:87
+#: ../lib/plugins/twitter/output.py:85
 #, python-format
 msgid "via %s"
 msgstr "via %s"
 
-#: ../lib/plugins/twitter/output.py:92
+#: ../lib/plugins/twitter/output.py:90
 #, python-format
 msgid "Retweeted by %s"
 msgstr "Hetweet door %s"
 
-#: ../lib/plugins/twitter/tweetentry.py:74
+#: ../lib/plugins/twitter/tweetentry.py:73
 msgid "View more in conversation"
 msgstr "Meer weergeven in gesprek"
 
-#: ../lib/plugins/twitter/tweetentry.py:145
+#: ../lib/plugins/twitter/tweetentry.py:144
 msgid "Retweet"
 msgstr "Hetweet"
 
 #. Delete
-#: ../lib/plugins/twitter/tweetentry.py:149
-#: ../lib/plugins/twitter/tweetentry.py:269
+#: ../lib/plugins/twitter/tweetentry.py:148
+#: ../lib/plugins/twitter/tweetentry.py:241
 msgid "Delete"
 msgstr "Verwijderen"
 
+#: ../lib/plugins/twitter/tweetentry.py:157
 #: ../lib/plugins/twitter/tweetentry.py:158
-#: ../lib/plugins/twitter/tweetentry.py:159
 msgid "Favorite"
 msgstr "Favoriet"
 
-#: ../lib/plugins/twitter/tweetentry.py:313
+#: ../lib/plugins/twitter/tweetentry.py:285
 msgid "retweeted your Tweet"
 msgstr "heeft uw tweet gehertweet"
 
-#: ../lib/plugins/twitter/tweetentry.py:365
+#: ../lib/plugins/twitter/tweetentry.py:337
 msgid "favorited your Tweet"
 msgstr "heeft uw tweet als favoriet gemarkeerd"
 
-#: ../lib/plugins/twitter/tweetentry.py:366
+#: ../lib/plugins/twitter/tweetentry.py:338
 msgid "unfavorited your Tweet"
 msgstr "heeft uw tweet als favoriet verwijderd"
 
-#: ../lib/plugins/twitter/tweetentry.py:367
+#: ../lib/plugins/twitter/tweetentry.py:339
 msgid "followed you"
 msgstr "volgt u"
 
-#: ../lib/plugins/twitter/tweetentry.py:368
+#: ../lib/plugins/twitter/tweetentry.py:340
 #, python-format
 msgid "added you to list %s"
 msgstr "heeft u toegevoegd aan lijst %s"
 
-#: ../lib/plugins/twitter/tweetentry.py:369
+#: ../lib/plugins/twitter/tweetentry.py:341
 #, python-format
 msgid "removed you from list %s"
 msgstr "heeft u verwijderd van lijst %s"
@@ -470,8 +481,8 @@ msgid "Social Networking Client"
 msgstr "Sociale netwerk-client"
 
 #: ../share/gfeedline.glade.h:1
-msgid "Copyright © 2012, 2013 Yoshizumi Endo."
-msgstr "Copyright © 2012, 2013 Yoshizumi Endo."
+msgid "Copyright © 2012-2014 Yoshizumi Endo."
+msgstr "Copyright © 2012-2014 Yoshizumi Endo."
 
 #: ../share/gfeedline.glade.h:3
 msgid "translator-credits"
