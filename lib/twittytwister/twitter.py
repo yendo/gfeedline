@@ -582,9 +582,14 @@ class TwitterFeed(Twitter):
             del kwargs["proxy_host"]
         else:
 
-            contextFactory = WebClientContextFactory()
-            self.agent = client.Agent(reactor, contextFactory)
+            from twisted.web import version as twisted_version
 
+            if twisted_version.major < 14: 
+                # FIXME: for Ubuntu 12.04 Twisted 11? (until 2017/04)
+                self.agent = client.Agent(reactor)
+            else:
+                contextFactory = WebClientContextFactory()
+                self.agent = client.Agent(reactor, contextFactory)
 
         Twitter.__init__(self, *args, **kwargs)
 

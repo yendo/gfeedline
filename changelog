@@ -1,3 +1,7 @@
+2014-10-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twittytwister/twitter.py: Fixed a bug for Twisted 11.0.0.
+
 2014-09-23  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
