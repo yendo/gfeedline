@@ -34,7 +34,7 @@ class FilterListStore(ListStoreBase):
 
     def expire(self):
         now = int(time.mktime(datetime.now().timetuple()))
-        for i, entry in enumerate(self):
+        for i, entry in reversed(list(enumerate(self))):
             epoch = entry[FilterColumn.EXPIRE_EPOCH]
             if epoch != 0 and epoch - now < 0:
                 # print "Expire: ", entry[FilterColumn.WORD]

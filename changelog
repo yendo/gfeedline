@@ -1,3 +1,8 @@
+2014-10-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* filterliststore.py (FilterListStore.expire): Fixed a
+	  filterliststore expiration bug (issue #75).
+
 2014-10-06  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* twittytwister/twitter.py: Fixed a bug for Twisted 11.0.0.
