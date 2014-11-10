@@ -1,3 +1,8 @@
+2014-11-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* facebook/account.py: Added support for Facebook Authentication
+	  Error Subcodes.
+
 2014-10-31  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* filterliststore.py (FilterListStore.expire): Fixed a

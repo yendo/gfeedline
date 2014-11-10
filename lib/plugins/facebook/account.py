@@ -38,21 +38,28 @@ class AuthorizedFacebookAccount(AuthorizedAccount):
         self.valid = True
 
     def _error_cb(self, a):
-        error = a.getErrorMessage()
-        print "Error (Facebook): ", error
-        if error != "400 Bad Request":
-            return
+        """
+        https://developers.facebook.com/docs/graph-api/using-graph-api/#errorsubcodes
+        """
 
-        self.valid = False
+        d = json.loads(a.value.response)
+        error_subcode = d["error"]["error_subcode"]
         
-        icon_file = IconImage('gfeedline').get_icon_file()
-        summary = _('Facebook connection error: ') + error
-        body = _("Authentication seems to fail.  "
-                 "Facebook access token expires after 60 days.  "
-                 "You have to re-do Facebook authentication on Preferences.")
+        error = a.getErrorMessage()
+        print "Error (Facebook): ", d["error"]["message"]
+       
+        if error_subcode == 463 or error_subcode == 467:
 
-        n = Notification('GFeedLine')
-        n.notify(icon_file, summary, body)
+            self.valid = False
+        
+            icon_file = IconImage('gfeedline').get_icon_file()
+            summary = _('Facebook connection error: ') + error
+            body = _("Authentication seems to fail.  "
+                     "Facebook access token expires after 60 days.  "
+                     "You have to re-do Facebook authentication on Preferences.")
+
+            n = Notification('GFeedLine')
+            n.notify(icon_file, summary, body)
 
 class Facebook(object):
 
