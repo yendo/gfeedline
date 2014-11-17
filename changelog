@@ -1,5 +1,6 @@
 2014-11-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* ast.po: Added new Asturian translation.  Thanks Ḷḷumex03!
 	* twitter/assistant.py (TwitterAuthAssistant): Added a check if
 	  the Twitter authentication is completed.
 
