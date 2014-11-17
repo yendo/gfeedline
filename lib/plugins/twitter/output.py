@@ -173,7 +173,7 @@ class TwitterRestOutput(TwitterOutputBase):
         self.d = self.api.api(self.got_entry, params=self.params)
         self.d.addErrback(self._on_error).addBoth(lambda x: 
                                                   self.print_all_entries(interval))
-        self.d.addErrback(self._on_error)
+        self.d.addErrback(self._on_error) # FIXME
 
         interval = self._get_interval_seconds()
         self.timeout = reactor.callLater(interval, self.start, interval)
@@ -252,7 +252,7 @@ class TwitterRelatedResultOutput(TwitterSearchOutput):
 
         self.d.addErrback(self._on_error).addBoth(lambda x: 
                                                   self.print_all_entries(interval))
-        self.d.addErrback(self._on_error)
+        self.d.addErrback(self._on_error) # FIXME
 
         interval = self._get_interval_seconds()
         self.timeout = reactor.callLater(interval, self.start, interval)
@@ -336,6 +336,7 @@ class TwitterFeedOutput(TwitterOutputBase):
 
     def _on_error(self, *e):
         print "Error:", e
+
         if self.is_connecting:
             self.timeout = reactor.callLater(self.reconnect_interval, 
                                              self._reconnect_lost_connection)
