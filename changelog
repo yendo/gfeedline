@@ -1,3 +1,8 @@
+2014-11-17  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* twitter/assistant.py (TwitterAuthAssistant): Added a check if
+	  the Twitter authentication is completed.
+
 2014-11-10  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* facebook/account.py: Added support for Facebook Authentication

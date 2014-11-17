@@ -61,7 +61,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
 
         self.set_page_title(page3, _('Confirm'))
         self.set_page_type(page3, Gtk.AssistantPageType.CONFIRM)
-        self.set_page_complete(page3, True)
+        self.set_page_complete(page3, False)
 
         self.show_all()
 
@@ -89,6 +89,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
             # print self.result
 
             self.label_screen_name.set_text(self.result['screen-name'])
+            self.set_page_complete(self.get_nth_page(page_widget), True)
 
     def on_apply_button_clicked(self, assistant, cb):
         # print "apply"
