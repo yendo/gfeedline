@@ -37,15 +37,15 @@ class AuthorizedFacebookAccount(AuthorizedAccount):
         self.api.update_access_token(token)
         self.valid = True
 
-    def _error_cb(self, a):
+    def _error_cb(self, error):
         """
         https://developers.facebook.com/docs/graph-api/using-graph-api/#errorsubcodes
         """
 
-        d = json.loads(a.value.response)
+        d = json.loads(error.value.response)
         error_subcode = d["error"]["error_subcode"]
         
-        error = a.getErrorMessage()
+        error_msg = error.getErrorMessage()
         print "Error (Facebook): ", d["error"]["message"]
        
         if error_subcode == 463 or error_subcode == 467:
@@ -53,7 +53,7 @@ class AuthorizedFacebookAccount(AuthorizedAccount):
             self.valid = False
         
             icon_file = IconImage('gfeedline').get_icon_file()
-            summary = _('Facebook connection error: ') + error
+            summary = _('Facebook connection error: ') + error_msg
             body = _("Authentication seems to fail.  "
                      "Facebook access token expires after 60 days.  "
                      "You have to re-do Facebook authentication on Preferences.")
