@@ -89,7 +89,7 @@ class TwitterAuthAssistant(Gtk.Assistant):
             # print self.result
 
             self.label_screen_name.set_text(self.result['screen-name'])
-            self.set_page_complete(self.get_nth_page(page_widget), True)
+            self.set_page_complete(self.get_nth_page(page_num), True)
 
     def on_apply_button_clicked(self, assistant, cb):
         # print "apply"
