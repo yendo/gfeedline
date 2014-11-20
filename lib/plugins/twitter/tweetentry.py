@@ -60,10 +60,11 @@ class TweetEntry(object):
 
         time = TimeFormat(entry.created_at)
         entities = entry.raw['entities'] if entry.raw else entry.entities
-        body = TwitterEntities().convert(entry.text, entities)
+        extended_entities = entry.raw.get('extended_entities') if entry.raw \
+                            else entry.extended_entities
 
+        body = TwitterEntities().convert(entry.text, entities, extended_entities)
         user = self._get_sender(api)
-
         styles = self._get_styles(api, user.screen_name, entry)
 
         if entry.in_reply_to_status_id and str(entry.id).find('-') >= 0:
@@ -407,7 +408,7 @@ class FeedEventEntry(TweetEntry):
 
 class TwitterEntities(object):
 
-    def convert(self, text, entities):
+    def convert(self, text, entities, extended_entities):
         ent = {}
         offset = 0
 
@@ -427,14 +428,14 @@ class TwitterEntities(object):
                 if expanded_url.startswith("http://twitpic.com/"):
                     twitpic_id = expanded_url.replace("http://twitpic.com/", '')
                     url = 'http://twitpic.com/show/%s/' + twitpic_id
-                    text = self._add_image(text, url % 'full', url % 'thumb')
+                    text += self._add_image(url % 'full', url % 'thumb')
 
                 if expanded_url.startswith("http://instagram.com/p/"):
                     url = expanded_url + 'media/?size=t'
-                    text = self._add_image(text, expanded_url, url, replace=False)
+                    text += self._add_image(expanded_url, url, replace=False)
 
                 if expanded_url.endswith((".jpg", ".jpeg", ".png", ".gif")):
-                    text = self._add_image(text, expanded_url, expanded_url)
+                    text += self._add_image(expanded_url, expanded_url)
 
             elif entity == 'user_mentions':
                 url = 'gfeedlinetw://user/%s/' % v['screen_name']
@@ -447,10 +448,13 @@ class TwitterEntities(object):
                     'hashtags', url, v['text'])
 
             elif entity == 'media':
-                height = self._get_image_height(v['sizes']['large'])
                 alt = "<a href='%s'>%s</a>" % (v['expanded_url'], v['display_url'])
-                url = v['media_url_https']
-                text = self._add_image(text, url+":large", url+":small", height)
+
+                # Search API doesn't support for extended entities
+                if not extended_entities:
+                    url = v['media_url_https']
+                    height = self._get_image_height(v['sizes']['large'])
+                    text += self._add_image(url+":large", url+":small", height)
 
             else:
                 alt = text[start+offset:end+offset]
@@ -458,6 +462,15 @@ class TwitterEntities(object):
             text = text[:start+offset] + alt + text[end+offset:]
             offset += start-end+len(alt)
         
+        if extended_entities:
+            img = ""
+            for v in extended_entities['media']:
+                url = v['media_url_https']
+                height = self._get_image_height(v['sizes']['large'])
+                img += self._add_image(url+":large", url+":small", height,
+                                       add_div=False)
+            text += "<div class='image'>%s</div>" % img
+            
 #        print text
 
 #        text = unescape(text)
@@ -468,15 +481,16 @@ class TwitterEntities(object):
 
         return text
 
-    def _add_image(self, text, link_url, image_url, height=90, replace=True):
+    def _add_image(self, link_url, image_url, height=90, replace=True, add_div=True):
         if replace:
             link_url = link_url.replace('http', 'gfeedlineimg', 1)
-        img = ("<div class='image'>"
-               "<a href='%s'><img src='%s' height='%s'></a></div>") % (
+        img = ( "<a href='%s'><img src='%s' height='%s'></a>") % (
             link_url, image_url, height)
-        text = text + img
-        return text
+        if add_div:
+            img = "<div class='image'>%s</div>" % img
 
+        return img
+    
     def _get_image_height(self, image):
         w = image['w']
         h = image['h']
