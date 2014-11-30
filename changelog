@@ -1,3 +1,7 @@
+2014-11-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 2.4.3 release.
+
 2014-11-20  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* tweetentry.py (TwitterEntities.convert): Added support for
@@ -36,7 +40,7 @@
 
 2014-08-21  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
-	* NEWS: 2.4.1 release.
+	* NEWS: 2.4.2 release.
 
 2014-08-14  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
