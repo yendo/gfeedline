@@ -1,3 +1,7 @@
+2014-12-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* share/gfeedline.xml.in: Added AppData.
+
 2014-11-30  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.4.3 release.

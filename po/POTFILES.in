@@ -20,6 +20,7 @@ share/assistant_facebook.glade
 share/assistant_twitter.glade
 share/feedsource.glade
 share/filters.glade
+share/gfeedline.appdata.xml.in
 share/gfeedline.desktop.in
 share/gfeedline.glade
 share/notebook_popup_menu.glade

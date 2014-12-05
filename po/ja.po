@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-13 15:59+0900\n"
-"PO-Revision-Date: 2014-08-13 16:03+0900\n"
+"POT-Creation-Date: 2014-12-05 11:29+0900\n"
+"PO-Revision-Date: 2014-12-05 11:31+0900\n"
 "Last-Translator: Yoshizumi Endo <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -48,7 +48,7 @@ msgstr "削除(_D)"
 msgid "_Favorite"
 msgstr "お気に入り(_F)"
 
-#: ../lib/menu.py:169 ../lib/plugins/twitter/tweetentry.py:167
+#: ../lib/menu.py:169 ../lib/plugins/twitter/tweetentry.py:168
 msgid "Conversation"
 msgstr "会話"
 
@@ -83,15 +83,15 @@ msgstr "開く"
 
 #. "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
 #. Reply
-#: ../lib/notification.py:76 ../lib/plugins/twitter/tweetentry.py:138
+#: ../lib/notification.py:76 ../lib/plugins/twitter/tweetentry.py:139
 msgid "Reply"
 msgstr "返信"
 
-#: ../lib/plugins/facebook/account.py:44
+#: ../lib/plugins/facebook/account.py:56
 msgid "Facebook connection error: "
 msgstr "Facebook 接続エラー: "
 
-#: ../lib/plugins/facebook/account.py:45
+#: ../lib/plugins/facebook/account.py:57
 msgid ""
 "Authentication seems to fail.  Facebook access token expires after 60 days.  "
 "You have to re-do Facebook authentication on Preferences."
@@ -191,6 +191,7 @@ msgid "an audio"
 msgstr "音声"
 
 #: ../lib/plugins/tumblr/entry.py:81
+#, python-brace-format
 msgid "{0} posts {1} entry."
 msgstr "{0} が{1}エントリーを投稿しました。"
 
@@ -258,47 +259,47 @@ msgstr "via %s"
 msgid "Retweeted by %s"
 msgstr "%sさんがリツイート"
 
-#: ../lib/plugins/twitter/tweetentry.py:73
+#: ../lib/plugins/twitter/tweetentry.py:74
 msgid "View more in conversation"
 msgstr "さらに会話を表示"
 
-#: ../lib/plugins/twitter/tweetentry.py:144
+#: ../lib/plugins/twitter/tweetentry.py:145
 msgid "Retweet"
 msgstr "リツイート"
 
 #. Delete
-#: ../lib/plugins/twitter/tweetentry.py:148
-#: ../lib/plugins/twitter/tweetentry.py:241
+#: ../lib/plugins/twitter/tweetentry.py:149
+#: ../lib/plugins/twitter/tweetentry.py:242
 msgid "Delete"
 msgstr "削除"
 
-#: ../lib/plugins/twitter/tweetentry.py:157
 #: ../lib/plugins/twitter/tweetentry.py:158
+#: ../lib/plugins/twitter/tweetentry.py:159
 msgid "Favorite"
 msgstr "お気に入り"
 
-#: ../lib/plugins/twitter/tweetentry.py:285
+#: ../lib/plugins/twitter/tweetentry.py:286
 msgid "retweeted your Tweet"
 msgstr "さんがリツイートしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:337
+#: ../lib/plugins/twitter/tweetentry.py:338
 msgid "favorited your Tweet"
 msgstr "さんがお気に入りに登録しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:338
+#: ../lib/plugins/twitter/tweetentry.py:339
 msgid "unfavorited your Tweet"
 msgstr "さんがお気に入りから削除しました"
 
-#: ../lib/plugins/twitter/tweetentry.py:339
+#: ../lib/plugins/twitter/tweetentry.py:340
 msgid "followed you"
 msgstr "さんがフォローしました"
 
-#: ../lib/plugins/twitter/tweetentry.py:340
+#: ../lib/plugins/twitter/tweetentry.py:341
 #, python-format
 msgid "added you to list %s"
 msgstr "さんのリスト %s に追加されました"
 
-#: ../lib/plugins/twitter/tweetentry.py:341
+#: ../lib/plugins/twitter/tweetentry.py:342
 #, python-format
 msgid "removed you from list %s"
 msgstr "さんのリスト %s から削除されました"
@@ -483,6 +484,23 @@ msgstr "有効期間(_E):"
 msgid "Set 0 for permanent filter"
 msgstr "このフィルターを常用する場合は O を設定してください"
 
+#: ../share/gfeedline.appdata.xml.in.h:1 ../share/gfeedline.desktop.in.h:3
+#: ../share/gfeedline.glade.h:2
+msgid "Social Networking Client"
+msgstr "ソーシャルネットワーキングクライアント"
+
+#: ../share/gfeedline.appdata.xml.in.h:2
+msgid ""
+"GFeedLine is a social networking client. It supports Twitter, Facebook &amp; "
+"Tumblr."
+msgstr ""
+"GFeedLine はソーシャルネットワークサービスのクライアントです。Twitter と "
+"Facebook と Tumblr をサポートしています。"
+
+#: ../share/gfeedline.appdata.xml.in.h:3
+msgid "The main window showing the application in action"
+msgstr "動作中のメインウインドウ"
+
 #: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
 msgid "GFeedLine"
 msgstr "GFeedLine"
@@ -490,10 +508,6 @@ msgstr "GFeedLine"
 #: ../share/gfeedline.desktop.in.h:2
 msgid "Read & Write Social Feeds"
 msgstr "ソーシャルフィードの読み書きを行います"
-
-#: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:2
-msgid "Social Networking Client"
-msgstr "ソーシャルネットワーキングクライアント"
 
 #: ../share/gfeedline.glade.h:1
 msgid "Copyright © 2012-2014 Yoshizumi Endo."
