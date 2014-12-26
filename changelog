@@ -1,3 +1,8 @@
+2014-12-26  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* facebook/entry.py (FacebookEntry): Fixed facebook image links
+	(issue #76).
+
 2014-12-05  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* share/gfeedline.xml.in: Added AppData.
