@@ -46,7 +46,7 @@ class AuthorizedFacebookAccount(AuthorizedAccount):
         error_subcode = d["error"]["error_subcode"]
         
         error_msg = error.getErrorMessage()
-        print "Error (Facebook): ", d["error"]["message"]
+        print "Error (Facebook): ", d["error"]["message"].encode("utf-8")
        
         if error_subcode == 463 or error_subcode == 467:
 
