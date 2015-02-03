@@ -6,6 +6,7 @@
 
 import os
 import re
+import time
 import urllib
 import webbrowser
 
@@ -197,8 +198,9 @@ class FeedWebView(WebKit.WebView):
         if uri:
             # FIXME
             # self.scroll.is_paused = True
-            self.scroll.pause(delay=30)
+            self.scroll.pause()
         else:
+            # FIXME: It should be removed!
             self.scroll.pause(delay=3)
 
     def on_scroll_event(self, webview, event):
@@ -304,8 +306,13 @@ class FeedWebViewScroll(object):
 
         if self._timer and not self._timer.called:
             # print "cancel"
+            delayed_time = self._timer.getTime() - time.time()
+            if delayed_time > delay:
+                delay = delayed_time
             self._timer.cancel()
+
         self._timer = reactor.callLater(delay, self._resume)
+        # print self._timer.getTime() - time.time()
 
     def _resume(self):
         # print "play!"

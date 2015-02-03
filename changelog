@@ -1,3 +1,7 @@
+2015-02-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* view.py (FeedWebViewScroll): Improved auto scroll stop timer.
+
 2015-02-01  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* facebook/account.py (AuthorizedFacebookAccount._error_cb): Fixed
