@@ -1,3 +1,7 @@
+2015-02-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* NEWS: 2.4.4 release.
+
 2015-02-03  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* view.py (FeedWebViewScroll): Improved auto scroll stop timer.
