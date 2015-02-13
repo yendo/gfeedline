@@ -1,0 +1,715 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ḷḷumex03 <tornes@opmbx.org>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: GFeedLine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-13 16:16+0900\n"
+"PO-Revision-Date: 2014-08-13 07:39+0000\n"
+"Last-Translator: Yoshizumi Endo <y-endo@ceres.dti.ne.jp>\n"
+"Language-Team: Asturian (http://www.transifex.com/projects/p/gfeedline/language/ast/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ast\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:9
+msgid "days"
+msgstr "díes"
+
+#: ../lib/filterliststore.py:93 ../share/filters.glade.h:10
+msgid "hours"
+msgstr "hores"
+
+#: ../lib/menu.py:76
+msgid "_Open this Tweet in browser"
+msgstr ""
+
+#: ../lib/menu.py:84
+msgid "_Open this _user page in browser"
+msgstr ""
+
+#: ../lib/menu.py:92
+msgid "_Reply"
+msgstr ""
+
+#: ../lib/menu.py:102
+msgid "Re_tweet"
+msgstr "Re_tuitear"
+
+#: ../lib/menu.py:130
+msgid "_Delete"
+msgstr "_Esniciar"
+
+#: ../lib/menu.py:152
+msgid "_Favorite"
+msgstr ""
+
+#: ../lib/menu.py:169 ../lib/plugins/twitter/tweetentry.py:167
+msgid "Conversation"
+msgstr "Conversación"
+
+#: ../lib/menu.py:205
+msgid "View _Conversation"
+msgstr "Ver _conversación"
+
+#: ../lib/menu.py:231 ../lib/plugins/twitter/api.py:133
+msgid "Related Results"
+msgstr ""
+
+#: ../lib/menu.py:254 ../lib/plugins/twitter/api.py:178
+msgid "Search"
+msgstr "Guetar"
+
+#: ../lib/menu.py:273 ../lib/plugins/twitter/api.py:74
+#: ../lib/preferences/feedsource.py:110
+msgid "User TimeLine"
+msgstr ""
+
+#: ../lib/menu.py:286
+msgid "_Search"
+msgstr "_Guetar"
+
+#: ../lib/menu.py:297
+msgid "_Add Filter"
+msgstr "_Amestar filtru"
+
+#: ../lib/notification.py:74
+msgid "Open"
+msgstr "Abrir"
+
+#. "<a href='%s' title='%s'><i class='%s'></i><span class='%s'>%s</span></a>"
+#. Reply
+#: ../lib/notification.py:76 ../lib/plugins/twitter/tweetentry.py:138
+msgid "Reply"
+msgstr ""
+
+#: ../lib/plugins/facebook/account.py:44
+msgid "Facebook connection error: "
+msgstr ""
+
+#: ../lib/plugins/facebook/account.py:45
+msgid ""
+"Authentication seems to fail.  Facebook access token expires after 60 days."
+"  You have to re-do Facebook authentication on Preferences."
+msgstr ""
+
+#: ../lib/plugins/facebook/api.py:31
+msgid "News Feed"
+msgstr ""
+
+#: ../lib/plugins/facebook/api.py:38
+msgid "Wall"
+msgstr "Muria"
+
+#: ../lib/plugins/facebook/assistant.py:29
+msgid "Facebook Account Setup"
+msgstr ""
+
+#: ../lib/plugins/facebook/assistant.py:41
+#: ../lib/plugins/facebook/assistant.py:65
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../lib/plugins/facebook/assistant.py:44
+#: ../lib/plugins/tumblr/assistant.py:42
+#: ../lib/plugins/twitter/assistant.py:46
+msgid "Intro"
+msgstr ""
+
+#: ../lib/plugins/facebook/assistant.py:57
+#: ../lib/plugins/tumblr/assistant.py:55
+msgid "Authorization"
+msgstr ""
+
+#: ../lib/plugins/facebook/assistant.py:68
+#: ../lib/plugins/tumblr/assistant.py:66
+#: ../lib/plugins/twitter/assistant.py:62
+msgid "Confirm"
+msgstr ""
+
+#: ../lib/plugins/facebook/entry.py:69 ../lib/plugins/tumblr/entry.py:67
+#: ../lib/plugins/tumblr/entry.py:68
+msgid "Like"
+msgstr "Préstame"
+
+#: ../lib/plugins/facebook/entry.py:70
+msgid "Unlike"
+msgstr "Nun me presta"
+
+#: ../lib/plugins/facebook/entry.py:71
+msgid "Comment"
+msgstr "Comentariu"
+
+#: ../lib/plugins/facebook/entry.py:137
+msgid "See more"
+msgstr "Ver más"
+
+#: ../lib/plugins/facebook/entry.py:137
+msgid "See less"
+msgstr "Ver menos"
+
+#: ../lib/plugins/tumblr/api.py:31
+msgid "Dashboard"
+msgstr ""
+
+#: ../lib/plugins/tumblr/api.py:38
+msgid "Posts"
+msgstr ""
+
+#: ../lib/plugins/tumblr/assistant.py:29
+msgid "Tumblr Account Setup"
+msgstr ""
+
+#: ../lib/plugins/tumblr/assistant.py:39 ../lib/plugins/tumblr/assistant.py:63
+msgid "Tumblr"
+msgstr ""
+
+#: ../lib/plugins/tumblr/entry.py:29
+msgid "Read more"
+msgstr "Lleer más"
+
+#: ../lib/plugins/tumblr/entry.py:66
+msgid "Reblog"
+msgstr ""
+
+#: ../lib/plugins/tumblr/entry.py:79
+msgid "a photo"
+msgstr "una imax"
+
+#: ../lib/plugins/tumblr/entry.py:79
+msgid "a video"
+msgstr "un vidéu"
+
+#: ../lib/plugins/tumblr/entry.py:80
+msgid "an audio"
+msgstr "un soníu"
+
+#: ../lib/plugins/tumblr/entry.py:81
+msgid "{0} posts {1} entry."
+msgstr ""
+
+#: ../lib/plugins/twitter/api.py:67
+msgid "Home TimeLine"
+msgstr ""
+
+#: ../lib/plugins/twitter/api.py:87 ../lib/preferences/feedsource.py:109
+msgid "List TimeLine"
+msgstr ""
+
+#: ../lib/plugins/twitter/api.py:90
+msgid "The format is \"username/listname\".  ex) yendo0206/gfeedline"
+msgstr ""
+
+#: ../lib/plugins/twitter/api.py:111 ../lib/plugins/twitter/api.py:159
+msgid "Mentions"
+msgstr ""
+
+#: ../lib/plugins/twitter/api.py:118
+msgid "Direct Messages"
+msgstr "Mensaxes direutos"
+
+#: ../lib/plugins/twitter/api.py:126
+msgid "Favorites"
+msgstr ""
+
+#: ../lib/plugins/twitter/api.py:148 ../lib/preferences/feedsource.py:108
+msgid "User Stream"
+msgstr ""
+
+#: ../lib/plugins/twitter/api.py:164
+msgid "Track"
+msgstr ""
+
+#: ../lib/plugins/twitter/assistant.py:30
+msgid "Twitter Account Setup"
+msgstr ""
+
+#: ../lib/plugins/twitter/assistant.py:54
+msgid "Enter PIN"
+msgstr ""
+
+#: ../lib/plugins/twitter/output.py:48 ../share/filters.glade.h:5
+msgid "Body"
+msgstr "Cuerpu"
+
+#: ../lib/plugins/twitter/output.py:53 ../share/filters.glade.h:6
+msgid "Sender"
+msgstr ""
+
+#: ../lib/plugins/twitter/output.py:56 ../share/filters.glade.h:7
+#: ../share/preferences.glade.h:14
+msgid "Source"
+msgstr "Fonte"
+
+#. FIXME
+#: ../lib/plugins/twitter/output.py:85
+#, python-format
+msgid "via %s"
+msgstr "per %s"
+
+#: ../lib/plugins/twitter/output.py:90
+#, python-format
+msgid "Retweeted by %s"
+msgstr "Retuiteáu por %s"
+
+#: ../lib/plugins/twitter/tweetentry.py:73
+msgid "View more in conversation"
+msgstr "Ver más na conversación"
+
+#: ../lib/plugins/twitter/tweetentry.py:144
+msgid "Retweet"
+msgstr ""
+
+#. Delete
+#: ../lib/plugins/twitter/tweetentry.py:148
+#: ../lib/plugins/twitter/tweetentry.py:241
+msgid "Delete"
+msgstr "Esniciar"
+
+#: ../lib/plugins/twitter/tweetentry.py:157
+#: ../lib/plugins/twitter/tweetentry.py:158
+msgid "Favorite"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:285
+msgid "retweeted your Tweet"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:337
+msgid "favorited your Tweet"
+msgstr "Conseñó como favuritu'l tuit to"
+
+#: ../lib/plugins/twitter/tweetentry.py:338
+msgid "unfavorited your Tweet"
+msgstr ""
+
+#: ../lib/plugins/twitter/tweetentry.py:339
+msgid "followed you"
+msgstr "siguióte"
+
+#: ../lib/plugins/twitter/tweetentry.py:340
+#, python-format
+msgid "added you to list %s"
+msgstr "amestáu/ada a la llista %s to"
+
+#: ../lib/plugins/twitter/tweetentry.py:341
+#, python-format
+msgid "removed you from list %s"
+msgstr "Esniciáu/ada de la llista %s to"
+
+#: ../lib/preferences/feedsource.py:134
+msgid "_Notify events"
+msgstr "_Notificar eventos"
+
+#: ../lib/preferences/feedsource.py:142
+msgid "Options"
+msgstr "Opciones"
+
+#: ../lib/preferences/feedsource.py:164
+msgid "_Include Retweets"
+msgstr ""
+
+#: ../lib/preferences/feedsource.py:169
+msgid "_Show user profile"
+msgstr "Amo_sar perfil d'usuariu"
+
+#: ../lib/updatewindow.py:94
+#, python-format
+msgid "Reply to %s"
+msgstr ""
+
+#: ../lib/updatewindow.py:119
+msgid "Check _Spelling"
+msgstr ""
+
+#: ../lib/updatewindow.py:352
+msgid "Supported image files"
+msgstr "Ficheros d'imax sofitaos"
+
+#: ../lib/updatewindow.py:442
+msgid "Retweet?"
+msgstr "¿Retuitear?"
+
+#: ../lib/updatewindow.py:443
+#, python-format
+msgid "Retweet this to your (%s's) followers?"
+msgstr ""
+
+#: ../lib/updatewindow.py:444
+msgid "Retweet this to your followers?"
+msgstr "¿Retuitear esto a los siguidores tos?"
+
+#: ../lib/updatewindow.py:455
+msgid "Delete this tweet?"
+msgstr "¿Esnicar esti tuit?"
+
+#: ../lib/updatewindow.py:456
+msgid "Are you sure you want to delete this Tweet?"
+msgstr "¿De xuru quies esniciar esti tuit?"
+
+#: ../lib/updatewindow.py:469
+msgid "Delete this message?"
+msgstr "¿Esniciar esti mensax?"
+
+#: ../lib/updatewindow.py:470
+msgid "Are you sure you want to delete this message?"
+msgstr "¿de xuru quies esniciar esti mensax?"
+
+#: ../lib/window.py:372
+#, python-format
+msgid "This tab include %s feeds.  Are you sure you want to close the tab."
+msgstr "Esta llingüeta inclúi %s feeds. ¿De xuru quies zarrar esta llingüeta?."
+
+#. %s is a web service name. ex) Facbook or Tumblr.
+#: ../share/assistant_facebook.glade.h:3
+#, no-c-format
+msgid ""
+"Your configuration is complete.  You are now ready to access to %s with "
+"GFeedLine."
+msgstr ""
+
+#: ../share/assistant_facebook.glade.h:4
+msgid "User name:"
+msgstr ""
+
+#: ../share/assistant_facebook.glade.h:5 ../share/assistant_twitter.glade.h:7
+msgid "none"
+msgstr ""
+
+#. %s is a web service name. ex) Facebook or Tumblr.
+#: ../share/assistant_facebook.glade.h:8
+#, no-c-format
+msgid ""
+"This assistant helps you to configure %s account for GFeedLine.\n"
+"\n"
+"Click \"Forward\" to open the authorization page."
+msgstr ""
+
+#: ../share/assistant_twitter.glade.h:1
+msgid ""
+"Return to this dialog after you have finished the authorization process on "
+"Twitter.com and Enter your PIN below."
+msgstr ""
+
+#: ../share/assistant_twitter.glade.h:2
+msgid "PIN:"
+msgstr "PIN:"
+
+#: ../share/assistant_twitter.glade.h:3
+msgid ""
+"Your configuration is complete.  You are now ready to access to Twitter with GFeedLine.\n"
+"\n"
+"Click \"Apply\" to save your settings."
+msgstr ""
+
+#: ../share/assistant_twitter.glade.h:6
+msgid "Screen name:"
+msgstr ""
+
+#: ../share/assistant_twitter.glade.h:8
+msgid ""
+"This assistant helps you to configure Twitter account for GFeedLine.\n"
+"\n"
+"Click \"Forward\" to open a Twitter authorization page with the default browser."
+msgstr ""
+
+#: ../share/feedsource.glade.h:1
+msgid "Feed Source"
+msgstr ""
+
+#: ../share/feedsource.glade.h:2
+msgid "_Source:"
+msgstr "_Fonte:"
+
+#: ../share/feedsource.glade.h:3
+msgid "_Argument:"
+msgstr "_Argumentu:"
+
+#: ../share/feedsource.glade.h:4 ../share/filters.glade.h:2
+msgid "_Target:"
+msgstr ""
+
+#: ../share/feedsource.glade.h:5
+msgid "_Name:"
+msgstr ""
+
+#: ../share/feedsource.glade.h:6
+msgid "_Enable notification"
+msgstr "_Habilitar notificación"
+
+#: ../share/feedsource.glade.h:7
+msgid "_Group:"
+msgstr "_Grupu:"
+
+#: ../share/feedsource.glade.h:8 ../share/preferences.glade.h:13
+msgid "General"
+msgstr "Xeneral"
+
+#: ../share/filters.glade.h:1
+msgid "Add Filter"
+msgstr "Amestar filtru"
+
+#: ../share/filters.glade.h:3
+msgid "_Word:"
+msgstr ""
+
+#: ../share/filters.glade.h:4
+msgid "_Expiry:"
+msgstr ""
+
+#: ../share/filters.glade.h:8
+msgid "Set 0 for permanent filter"
+msgstr ""
+
+#: ../share/gfeedline.desktop.in.h:1 ../share/gfeedline.glade.h:4
+msgid "GFeedLine"
+msgstr "GFeedLine"
+
+#: ../share/gfeedline.desktop.in.h:2
+msgid "Read & Write Social Feeds"
+msgstr ""
+
+#: ../share/gfeedline.desktop.in.h:3 ../share/gfeedline.glade.h:2
+msgid "Social Networking Client"
+msgstr "Veceru de redes sociales"
+
+#: ../share/gfeedline.glade.h:1
+msgid "Copyright © 2012-2014 Yoshizumi Endo."
+msgstr ""
+
+#: ../share/gfeedline.glade.h:3
+msgid "translator-credits"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:5
+msgid "_File"
+msgstr "_Ficheru"
+
+#: ../share/gfeedline.glade.h:6 ../share/update.glade.h:6
+msgid "_Update"
+msgstr "_Anovar"
+
+#: ../share/gfeedline.glade.h:7
+msgid "_Edit"
+msgstr "_Editar"
+
+#: ../share/gfeedline.glade.h:8
+msgid "All Tabs to the _Top"
+msgstr "_Toles llingüetes enriba"
+
+#: ../share/gfeedline.glade.h:9
+msgid "All Tabs to the _Bottom"
+msgstr "Toles llingüetes em_baxo"
+
+#: ../share/gfeedline.glade.h:10
+msgid "_Clear All Tabs"
+msgstr "_Llimpiar toles llingüetes"
+
+#: ../share/gfeedline.glade.h:11
+msgid "_View"
+msgstr "_Ver"
+
+#: ../share/gfeedline.glade.h:12
+msgid "_Multi-Column"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:13
+msgid "_Fullscreen"
+msgstr "_Pantalla completa"
+
+#: ../share/gfeedline.glade.h:14
+msgid "_Help"
+msgstr "_Aida"
+
+#: ../share/gfeedline.glade.h:15
+msgid "_Contents"
+msgstr ""
+
+#: ../share/gfeedline.glade.h:16
+msgid ""
+"<big><b>Welcome to GFeedLine!</b></big>\n"
+"\n"
+"GFeedLine is a social networking client.  It supports Twitter, Facebook and Tumblr.\n"
+"\n"
+"To start connecting with GFeedLine, open the Preferences dialog from <b>Edit  ▸ Preference</b> to configure your accounts in the Accounts tab.\n"
+"\n"
+"Then you have to configure your feeds in the Feeds tab of the Preferences dialog.  To enable multi-column view, enter a group name in each feed source dialog."
+msgstr "<big><b>Bienllegáu GFeedLine!</b></big>\n\nGFeedLine ye un veceru de redes sociales. Sofita Twitter, Facebook ya Tumblr.\n\nPa entamar en coneutando GFeedLine, abri'l diálogu de preferencies dende  <b>Editar  ▸ Preferencies</b> pa remanar les cuentes tos na llingüeta Cuentes.\n\nDempués tienes de configurar los feeds tos na llingueta feed nel diálogu de Preferencies. P'habilitar vista en multi columna, introduz un nome de grupu en cada diálogu feed."
+
+#: ../share/notebook_popup_menu.glade.h:1
+msgid "Close this tab?"
+msgstr "¿Zarrar esta llingüeta?"
+
+#: ../share/notebook_popup_menu.glade.h:2
+msgid "C_lear Tab"
+msgstr ""
+
+#: ../share/notebook_popup_menu.glade.h:3
+msgid "_Close Tab"
+msgstr "_Zarrar llingüeta"
+
+#: ../share/preferences.glade.h:1
+msgid "Preferences"
+msgstr "Preferencies"
+
+#: ../share/preferences.glade.h:2
+msgid "_Theme:"
+msgstr ""
+
+#: ../share/preferences.glade.h:3
+msgid "Timeline _order:"
+msgstr ""
+
+#: ../share/preferences.glade.h:4
+msgid "_Font:"
+msgstr "_Fonte:"
+
+#: ../share/preferences.glade.h:5
+msgid "Default"
+msgstr "Per defeutu"
+
+#: ../share/preferences.glade.h:6
+msgid "Ascending"
+msgstr ""
+
+#: ../share/preferences.glade.h:7
+msgid "Descending"
+msgstr ""
+
+#: ../share/preferences.glade.h:8
+msgid "_Use the system document font"
+msgstr ""
+
+#: ../share/preferences.glade.h:9
+msgid "<b>View</b>"
+msgstr "<b>Ver</b>"
+
+#: ../share/preferences.glade.h:10
+msgid "Always on _Visible Workspace"
+msgstr ""
+
+#: ../share/preferences.glade.h:11
+msgid "_Auto Start"
+msgstr ""
+
+#: ../share/preferences.glade.h:12
+msgid "<b>Desktop</b>"
+msgstr "<b>Escritoriu</b>"
+
+#: ../share/preferences.glade.h:15
+msgid "User ID"
+msgstr "ID d'usuariu"
+
+#: ../share/preferences.glade.h:16
+msgid "<b>Accounts</b>"
+msgstr "<b>Cuentes</b>"
+
+#: ../share/preferences.glade.h:17
+msgid "Accounts"
+msgstr "Cuentes"
+
+#: ../share/preferences.glade.h:18
+msgid "Name"
+msgstr ""
+
+#: ../share/preferences.glade.h:19
+msgid "Target"
+msgstr "Oxetivu"
+
+#: ../share/preferences.glade.h:20
+msgid "Argument"
+msgstr ""
+
+#: ../share/preferences.glade.h:21
+msgid "Group"
+msgstr "Grupu"
+
+#: ../share/preferences.glade.h:22
+msgid "<b>Feed Sources</b>"
+msgstr ""
+
+#: ../share/preferences.glade.h:23
+msgid "Feeds"
+msgstr ""
+
+#: ../share/preferences.glade.h:24
+msgid "Word"
+msgstr "Pallabra"
+
+#: ../share/preferences.glade.h:25
+msgid "Expiry"
+msgstr ""
+
+#: ../share/preferences.glade.h:26
+msgid "<b>Filters</b>"
+msgstr "<b>Filtros</b>"
+
+#: ../share/preferences.glade.h:27
+msgid "Filters"
+msgstr "Filtros"
+
+#: ../share/profile.glade.h:1
+msgid "<small>TWEETS</small>"
+msgstr "<small>TUITS</small>"
+
+#: ../share/profile.glade.h:2
+msgid "<small>FOLLOWING</small>"
+msgstr ""
+
+#: ../share/profile.glade.h:3
+msgid "<small>FOLLOWERS</small>"
+msgstr ""
+
+#: ../share/select_assistant.glade.h:1
+msgid "Select a web service for adding an account"
+msgstr ""
+
+#: ../share/select_assistant.glade.h:2
+msgid "_Twitter"
+msgstr "_Twitter"
+
+#: ../share/select_assistant.glade.h:3
+msgid "_Facebook"
+msgstr "_Facebook"
+
+#: ../share/select_assistant.glade.h:4
+msgid "Tumb_lr"
+msgstr "Tumb_lr"
+
+#: ../share/update.glade.h:1
+msgid "Public"
+msgstr ""
+
+#: ../share/update.glade.h:2
+msgid "Friends"
+msgstr ""
+
+#: ../share/update.glade.h:3
+msgid "Only Me"
+msgstr "Solo yo"
+
+#: ../share/update.glade.h:4
+msgid "What are you doing?"
+msgstr "¿Qué tas en faciendo?"
+
+#: ../share/update.glade.h:5
+msgid "Add an image"
+msgstr "Amestar una imax"
+
+#: ../share/update.glade.h:7
+msgid "Update (Ctrl+Enter)"
+msgstr "Anovar (Ctrl+Enter)"
+
+#: ../share/update.glade.h:8
+msgid "Insert the _link"
+msgstr "Enxertar l'enl_laz"
+
+#: ../share/update.glade.h:9
+msgid "_Quote"
+msgstr "_Cita"
