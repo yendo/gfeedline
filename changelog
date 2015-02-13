@@ -1,5 +1,6 @@
 2015-02-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* NEWS: 2.4.4 release.
 	* window.py (NotebookPopUpMenu): Added new gsetting key of
 	  smart-tab-close.  User can delete only tabs without name or
 	  temporary tabs from tab menu item.
