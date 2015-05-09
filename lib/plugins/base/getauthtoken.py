@@ -57,7 +57,10 @@ class Authorization(object):
             http_url=self.REQUEST_TOKEN_URL)
         request.sign_request(SIGNATURE_METHOD, self.CONSUMER, token=None)
 
-        stream = urllib.urlopen(request.to_url())
+        import ssl
+        context = ssl._create_unverified_context()
+        
+        stream = urllib.urlopen(request.to_url(), context=context)
         tokendata = stream.read()
         token = oauth.OAuthToken.from_string(tokendata)
 
