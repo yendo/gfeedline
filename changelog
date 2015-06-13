@@ -1,5 +1,7 @@
 2015-06-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
+	* ca.po: Updated Catalan translation. Thanks Adolfo Jayme Barrientos!
+	* nl_NL.po: Updated Dutch translation.  Thanks Heimen Stoffels!
 	* view.py, window.py: Fixed minor bugs.
 	* view.py (FeedWebViewScroll.pause): Added new gsetting key of
 	  auto-scroll-delay.
