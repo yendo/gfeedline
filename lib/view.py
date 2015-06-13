@@ -199,9 +199,9 @@ class FeedWebView(WebKit.WebView):
             # FIXME
             # self.scroll.is_paused = True
             self.scroll.pause()
-        else:
-            # FIXME: It should be removed!
-            self.scroll.pause(delay=3)
+        #else:
+        #    # FIXME: It should be removed!
+        #    self.scroll.pause(delay=3)
 
     def on_scroll_event(self, webview, event):
         self.scroll.pause()

@@ -59,13 +59,13 @@ class MainWindow(object):
         menuitem_update = MenuItemUpdate(gui, liststore)
 
         x, y, w, h = self._get_geometry_from_settings()
-        window.show() # for wrong position when auto-start
+#        window.show() # for wrong position when auto-start
 
         if x >=0 and y >= 0:
             window.move(x, y)
 
         window.resize(w, h)
-        # window.show()
+        window.show()
 
         gui.connect_signals(self)
 
