@@ -297,13 +297,19 @@ class FeedWebViewLink(object):
 class FeedWebViewScroll(object):
 
     def __init__(self):
-        self.is_paused = False
+        self.is_paused = SETTINGS_VIEW.get_int('auto-scroll-delay') < 0
         self._timer = None
 
-    def pause(self, delay=10):
-        # print "pause!", delay
+        SETTINGS_VIEW.connect("changed::auto-scroll-delay", self._on_changed_delay)
+        
+    def pause(self):
         self.is_paused = True
 
+        delay = SETTINGS_VIEW.get_int('auto-scroll-delay')
+        if delay < 0:
+            return
+        # print "pause!", delay
+        
         if self._timer and not self._timer.called:
             # print "cancel"
             delayed_time = self._timer.getTime() - time.time()
@@ -318,6 +324,9 @@ class FeedWebViewScroll(object):
         # print "play!"
         self.is_paused = False
 
+    def _on_changed_delay(self, view, *args):
+        self.is_paused = SETTINGS_VIEW.get_int('auto-scroll-delay') < 0
+        
 class DnDFile(object):
 
     def __init__(self):
