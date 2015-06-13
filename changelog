@@ -1,3 +1,9 @@
+2015-06-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* plugins/base/getauthtoken.py (Authorization): Fixed a SSL error
+	to open the Twitter Authorization page with old python version (<
+	2.7.9) (issue 77).
+
 2015-05-09  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* NEWS: 2.4.5 release.
