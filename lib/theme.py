@@ -121,7 +121,7 @@ class FontSet(object):
     def get_pango_font_format(self, font_name):
         pango_font = Pango.font_description_from_string(font_name)
 
-        size = int(font_name.rpartition(' ')[-1])
+        size = float(font_name.rpartition(' ')[-1])
         style = pango_font.get_style().value_nick
         weight = pango_font.get_weight().real
         family = pango_font.get_family()

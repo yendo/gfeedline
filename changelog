@@ -1,3 +1,7 @@
+2015-07-12  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
+
+	* theme.py (FontSet): Fixed a font size bug.
+
 2015-06-13  Yoshizumi Endo  <y-endo@ceres.dti.ne.jp>
 
 	* ca.po: Updated Catalan translation. Thanks Adolfo Jayme Barrientos!
