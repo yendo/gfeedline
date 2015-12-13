@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Gfeedline : GFeedLine - A Social Networking Client">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Gfeedline</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/yendo/gfeedline">View on GitHub</a>
+
+          <h1 id="project_title">Gfeedline</h1>
+          <h2 id="project_tagline">GFeedLine - A Social Networking Client</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/yendo/gfeedline/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/yendo/gfeedline/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="gfeedline---a-social-networking-client" class="anchor" href="#gfeedline---a-social-networking-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>GFeedLine - A Social Networking Client</h1>
+
+<h2>
+<a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h2>
+
+<p>GFeedLine is a social networking client.
+It supports Twitter, Facebook &amp; Tumblr.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="depends" class="anchor" href="#depends" aria-hidden="true"><span class="octicon octicon-link"></span></a>Depends</h3>
+
+<ul>
+<li>Python: 2.6 or 2.7</li>
+<li>python-gobject</li>
+<li>gir1.2-gtk-3.0</li>
+<li>gir1.2-webkit-3.0 (&gt; 1.6)</li>
+<li>Twisted: twisted.internet &amp; twisted.web</li>
+<li>python-openssl</li>
+<li>python-beautifulsoup</li>
+<li>python-oauth</li>
+<li>python-dateutil</li>
+<li>python-xdg</li>
+</ul>
+
+<h3>
+<a id="recommends" class="anchor" href="#recommends" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recommends</h3>
+
+<ul>
+<li>python-libproxy: for Gnome Proxy Settings</li>
+<li>gnome-sushi: as image previewer</li>
+<li>python-gtkspellcheck: for spell checking</li>
+</ul>
+
+<h3>
+<a id="installation-1" class="anchor" href="#installation-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<p>The gschema file <em>must</em> be installed.</p>
+
+<pre><code>sudo cp ./share/com.googlecode.gfeedline.gschema.xml.in /usr/share/glib-2.0/schemas/com.googlecode.gfeedline.gschema.xml
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+</code></pre>
+
+<p>You can install with the setup script.</p>
+
+<pre><code>sudo python ./setup.py install --force
+</code></pre>
+
+<p>Or, you can launch without installation. (Some functions are restricted.)</p>
+
+<pre><code>./gfeedline
+</code></pre>
+
+<h2>
+<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h2>
+
+<p>Web: <a href="https://github.com/yendo/gfeedline">https://github.com/yendo/gfeedline</a><br>
+E-mail: <a href="mailto:yendo0206@gmail.com">yendo0206@gmail.com</a><br>
+Twitter: yendo0206</p>
+
+<p>Local variables:<br>
+mode: markdown<br>
+end:</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Gfeedline maintained by <a href="https://github.com/yendo">yendo</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
